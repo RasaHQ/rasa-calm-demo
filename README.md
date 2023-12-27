@@ -61,22 +61,22 @@ domain definitions for each:
       <td rowspan="3">Contacts</td>
       <td>Add new contact</td>
       <td>Adds a new contact to the user's list.</td>
-      <td><a href="#">Link</a></td>
-      <td><a href="#">Link</a></td>
+      <td><a href="data/flows/add_contact.yml">Link</a></td>
+      <td><a href="domain/add_contact.yml">Link</a></td>
    </tr>
    
    <tr>
       <td>Remove contact</td>
       <td>Removes selected contact from the user's list.</td>
-      <td><a href="#">Link</a></td>
-      <td><a href="#">Link</a></td>
+      <td><a href="data/flows/remove_contact.yml">Link</a></td>
+      <td><a href="domain/remove_contact.yml">Link</a></td>
    </tr>
 
    <tr>
       <td>List contacts</td>
       <td>List all of user's saved contacts.</td>
-      <td><a href="#">Link</a></td>
-      <td><a href="#">Link</a></td>
+      <td><a href="data/flows/list_contacts.yml">Link</a></td>
+      <td><a href="domain/list_contacts.yml">Link</a></td>
    </tr>
 
 
@@ -86,50 +86,50 @@ domain definitions for each:
       <td rowspan="7">Transactions</td>
       <td>Check account balance</td>
       <td>Allows users to check their current account balance.</td>
-      <td><a href="#">Link</a></td>
-      <td><a href="#">Link</a></td>
+      <td><a href="data/flows/check_balance.yml">Link</a></td>
+      <td><a href="domain/check_balance.yml">Link</a></td>
    </tr>
 
    <tr>
       <td>Transfer money</td>
       <td>Facilitates the transfer of funds to user's contacts.</td>
-      <td><a href="#">Link</a></td>
-      <td><a href="#">Link</a></td>
+      <td><a href="data/flows/transfer_money.yml">Link</a></td>
+      <td><a href="domain/transfer_money.yml">Link</a></td>
    </tr>
 
    <tr>
       <td>Setup recurrent payment</td>
       <td>Sets up recurring payments which can either be a direct debit or a standing order.</td>
-      <td><a href="#">Link</a></td>
-      <td><a href="#">Link</a></td>
+      <td><a href="data/flows/setup_recurrent_payment.yml">Link</a></td>
+      <td><a href="domain/setup_recurrent_payment.yml">Link</a></td>
    </tr>
 
    <tr>
       <td>List transactions</td>
       <td>List the last user's transactions.</td>
-      <td><a href="#">Link</a></td>
-      <td><a href="#">Link</a></td>
+      <td><a href="data/flows/transaction_search.yml">Link</a></td>
+      <td><a href="domain/transaction_search.yml">Link</a></td>
    </tr>
    
    <tr>
       <td>Replace card</td>
       <td>Replace the user's card.</td>
-      <td><a href="#">Link</a></td>
-      <td><a href="#">Link</a></td>
+      <td><a href="data/flows/replace_card.yml">Link</a></td>
+      <td><a href="domain/replace_card.yml">Link</a></td>
    </tr>
 
    <tr>
       <td>Replace eligible card</td>
-      <td>Replace the user's card that meets specific eligibility criteria.</td>
-      <td><a href="#">Link</a></td>
-      <td><a href="#">Link</a></td>
+      <td>Replace the user's card that meets specific eligibility criteria. This is a <a href="https://rasa.com/docs/rasa-pro/concepts/flows#link">flow link</a> exclusively accessed by <a href="data/flows/replace_card.yml">replace_card</a> flow</td>
+      <td><a href="data/flows/replace_eligible_card.yml">Link</a></td>
+      <td>N/A</td>
    </tr>
 
    <tr>
       <td>Verify account</td>
       <td>Verify an account for higher transfer limits.</td>
-      <td><a href="#">Link</a></td>
-      <td><a href="#">Link</a></td>
+      <td><a href="data/flows/verify_account.yml">Link</a></td>
+      <td><a href="domain/verify_account.yml">Link</a></td>
    </tr>
 
    
@@ -139,22 +139,22 @@ domain definitions for each:
       <td rowspan="5">Others / Misc</td>
       <td>Book Restaurant</td>
       <td>Make a reservation at a restaurant.</td>
-      <td><a href="#">Link</a></td>
-      <td><a href="#">Link</a></td>
+      <td><a href="data/flows/book_restaurant.yml">Link</a></td>
+      <td><a href="domain/book_restaurant.yml">Link</a></td>
    </tr>
 
    <tr>
       <td>Health Advice</td>
       <td>Detects an out-of-scope topic: health advice.</td>
-      <td><a href="#">Link</a></td>
-      <td><a href="#">Link</a></td>
+      <td><a href="data/flows/health_advice.yml">Link</a></td>
+      <td><a href="domain/health_advice.yml">Link</a></td>
    </tr>
 
    <tr>
       <td>Hotel search</td>
       <td>Search for a hotel and show hotel rating.</td>
-      <td><a href="#">Link</a></td>
-      <td><a href="#">Link</a></td>
+      <td><a href="data/flows/hotel_search.yml">Link</a></td>
+      <td><a href="domain/hotel_search.yml">Link</a></td>
    </tr>
   
 </table>
