@@ -2,42 +2,21 @@
 
 This demo showcases a chatbot built with Rasa's LLM-native approach: [CALM](https://rasa.com/docs/rasa-pro/calm). 
 
+> [!NOTE]
+> Please note that the demo bot is an evolving platform. The flows currently 
+> implemented in the demo bot are designed to showcase different features and 
+> capabilities of the CALM bot. The functionality of each flow may vary, reflecting 
+> the CALM's current stage of development.
+
 ## Terms of Use
+
 This project is released under the Rasa's [Early Release Software Access Terms](https://rasa.com/early-release-software-terms/). 
-
-## Installation
-
-**TODO: Probably add GCP login???**
-
-Prerequisites:
-- poetry version 1.4.2, e.g. using `poetry self update`
-- python (3.10.12) (e.g. using pyenv), e.g. using `pyenv install 3.10.12`
-
-After you cloned the repository, follow the installation steps:
-
-0. `cd demo-flows`
-1. `pyenv local 3.10.12` (or any other tool that gets you the right python version)
-2. `poetry install`
-3. Create an environment file `.env` in the root of the project with the following content:
-   ```bash
-   RASA_PRO_LICENSE=<your license key>
-   OPENAI_API_KEY=<your openai api key>
-   ```
-4. profit.
-
-> **Note**: If you want to use a different version of rasa or rasa-plus, you can 
-> change the versions in the [pyproject.toml](./pyproject.toml) file.
 
 ## Demo Bot
 
 The demo bot's business logic is implemented as a set of [flows](https://rasa.com/docs/rasa-pro/concepts/flows), 
 which are organized into three main skill groups: Contacts, Transactions, 
 and Others/Misc.
-
-> **Note:** Please note that the demo bot is an evolving platform. The 
-> flows currently implemented in the demo bot are designed to showcase different 
-> features and capabilities of the CALM bot. The functionality of each flow may 
-> vary, reflecting the CALM's current stage of development.
 
 Each flow consists of a `yaml` file and a [domain definition](https://rasa.com/docs/rasa-pro/concepts/domain), 
 which consists of [actions](https://rasa.com/docs/rasa-pro/concepts/domain#actions), 
@@ -168,14 +147,55 @@ pattern overriding in [`data/flows/patterns.yml`](./data/flows/patterns.yml).
 
 This section guides you through the steps to get your Rasa bot up and running. 
 We've provided simple `make` commands for a quick setup, as well as the underlying 
-Rasa commands for a deeper understanding. Follow these steps to train your bot, 
-launch the action server, start interactive sessions, and run end-to-end tests.
+Rasa commands for a deeper understanding. Follow these steps to set up the 
+environment, train your bot, launch the action server, start interactive sessions, 
+and run end-to-end tests.
+
+### Installation
+
+> [!IMPORTANT]
+> To build, run, and explore the bot's features, you need Rasa Pro license. You also 
+> need access to the `rasa-plus` Python package, which requires authentication with 
+> our artifact repository. For detailed instructions on the authentication process,
+> please refer our documentation [here](https://rasa.com/docs/rasa-pro/installation/python/installation).
+
+> [!NOTE]
+> If you want to use a different version of `rasa` or `rasa-plus`, you can 
+> change the versions in the [pyproject.toml](./pyproject.toml) file.
+
+Prerequisites:
+- rasa pro license
+- being authenticated with our artifact registry
+- python (3.10.12) (e.g. using [pyenv](https://github.com/pyenv/pyenv)), e.g. using 
+  `pyenv install 3.10.12`
+
+After you cloned the repository and are authenticated, follow the installation steps:
+
+1. Locate to the cloned repo:
+   ```
+   cd demo-flows
+   ```
+2. Set the python environment with `pyenv` or any other tool that gets you the right 
+   python version
+   ```
+   pyenv local 3.10.12
+   ```
+3. Install the dependencies with `poetry`
+   ```
+   poetry install
+   ```
+4. Create an environment file `.env` in the root of the project with the following 
+   content:
+   ```bash
+   RASA_PRO_LICENSE=<your rasa pro license key>
+   OPENAI_API_KEY=<your openai api key>
+   ```
 
 ### Training the bot
 
 To train a model use `make` command for simplicity:
 ```commandline
-    make train
+make train
 ```
 which is a shortcut for:
 ```commandline
@@ -214,7 +234,8 @@ The demo bot comes with a set of e2e tests, categorized into two primary groups:
 **failing**, and **passing**. These tests are organized not per individual flow but 
 according to CALM functionalities.
 
-> **Note**: The passing and failing statuses are relative to the performance of the GPT-4, 
+> [!NOTE]
+> The passing and failing statuses are relative to the performance of the GPT-4, 
 > which is enabled by default. The use of different models may yield varying results. 
 
 You have the flexibility to run either all tests, only the passing tests, only the 
