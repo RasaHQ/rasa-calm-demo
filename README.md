@@ -31,7 +31,7 @@ After you cloned the repository, follow the installation steps:
 ## Demo Bot
 
 The demo bot's business logic is implemented as a set of [flows](https://rasa.com/docs/rasa-pro/concepts/flows), 
-organizing its functionalities into three main skill groups: Contacts, Transactions, 
+which are organized into three main skill groups: Contacts, Transactions, 
 and Others/Misc.
 
 > **Note:** Please note that the demo bot is an evolving platform. The different 
