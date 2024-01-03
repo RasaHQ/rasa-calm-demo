@@ -39,7 +39,7 @@ and Others/Misc.
 > features and capabilities of the CALM bot. The functionality of each flow may 
 > vary, reflecting the CALM's current stage of development.
 
-Each flow is supplemented with a [domain definition](https://rasa.com/docs/rasa-pro/concepts/domain), 
+Each flow consists of a `yaml` file and a [domain definition](https://rasa.com/docs/rasa-pro/concepts/domain), 
 which consists of [actions](https://rasa.com/docs/rasa-pro/concepts/domain#actions), 
 [slots](https://rasa.com/docs/rasa-pro/concepts/domain#slots), and 
 [bot ressponses](https://rasa.com/docs/rasa-pro/concepts/domain#responses). 
