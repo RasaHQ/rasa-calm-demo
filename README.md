@@ -34,7 +34,7 @@ The demo bot's business logic is implemented as a set of [flows](https://rasa.co
 which are organized into three main skill groups: Contacts, Transactions, 
 and Others/Misc.
 
-> **Note:** Please note that the demo bot is an evolving platform. The different 
+> **Note:** Please note that the demo bot is an evolving platform. The 
 > flows currently implemented in the demo bot are designed to showcase different 
 > features and capabilities of the CALM bot. The functionality of each flow may 
 > vary, reflecting the CALM's current stage of development.
