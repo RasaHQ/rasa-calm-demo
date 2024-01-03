@@ -2,7 +2,7 @@
 
 This demo showcases a chatbot built with Rasa's LLM-native approach: [CALM](https://rasa.com/docs/rasa-pro/calm). 
 
-> [!NOTE]
+> [!CAUTION]
 > Please note that the demo bot is an evolving platform. The flows currently 
 > implemented in the demo bot are designed to showcase different features and 
 > capabilities of the CALM bot. The functionality of each flow may vary, reflecting 
