@@ -166,7 +166,9 @@ and run end-to-end tests.
 Prerequisites:
 - rasa pro license
 - being authenticated with our artifact registry
-- python (3.10.12) (e.g. using [pyenv](https://github.com/pyenv/pyenv)), e.g. using 
+- [poetry](https://python-poetry.org/docs/#installation) (1.4.2), e.g. using 
+  `poetry self update`
+- python (3.10.12), e.g. using [pyenv](https://github.com/pyenv/pyenv) 
   `pyenv install 3.10.12`
 
 After you cloned the repository and are authenticated, follow the installation steps:
