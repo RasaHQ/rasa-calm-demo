@@ -140,7 +140,7 @@ domain definitions for each:
 
 Rasa ships with a default behavior for every [conversation repair case](https://rasa.com/docs/rasa-pro/concepts/conversation-repair/#conversation-repair-cases)
 which is handled through a [default pattern flow](https://rasa.com/docs/rasa-pro/concepts/conversation-repair/#conversation-repair-cases). 
-In addition to its core functionalities, the demo bot also includes an examples of 
+In addition to its core functionality, the demo bot also includes an examples of 
 pattern overriding in [`data/flows/patterns.yml`](./data/flows/patterns.yml).
 
 ## Running the project
