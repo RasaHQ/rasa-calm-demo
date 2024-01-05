@@ -19,7 +19,7 @@ which are organized into three main skill groups: Contacts, Transactions,
 and Others/Misc.
 
 Each flow consists of a `yaml` file and a [domain definition](https://rasa.com/docs/rasa-pro/concepts/domain), 
-which consists of [actions](https://rasa.com/docs/rasa-pro/concepts/domain#actions), 
+which includes [actions](https://rasa.com/docs/rasa-pro/concepts/domain#actions), 
 [slots](https://rasa.com/docs/rasa-pro/concepts/domain#slots), and 
 [bot ressponses](https://rasa.com/docs/rasa-pro/concepts/domain#responses). 
 The table below shows all the skills implemented in the bot, along with the flow and 
