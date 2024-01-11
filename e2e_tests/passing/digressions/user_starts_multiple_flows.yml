@@ -1,0 +1,6 @@
+test_cases:
+  - test_case: user starts multiple flows
+    steps:
+      - user: Show my transactions and send money
+      - utter: utter_transactions
+      - utter: utter_ask_transfer_money_recipient

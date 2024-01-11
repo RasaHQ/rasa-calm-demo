@@ -1,0 +1,12 @@
+test_cases:
+  - test_case: user asks for a moment to think
+    steps:
+      - user: I want to send money to Yizhi
+      - utter: utter_ask_transfer_money_amount_of_money
+      - user: one moment
+      - utter: utter_take_your_time
+      - utter: utter_ask_transfer_money_amount_of_money
+      - user: "100"
+      - utter: utter_ask_transfer_money_final_confirmation
+      - user: Yes
+      - utter: utter_transfer_complete

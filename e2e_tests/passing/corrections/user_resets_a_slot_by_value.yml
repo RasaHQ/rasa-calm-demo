@@ -1,0 +1,16 @@
+test_cases:
+  - test_case: user resets a slot by value
+    steps:
+      - user: I want to send some money to John
+      - utter: utter_ask_transfer_money_amount_of_money
+      - user: Sorry, I didn't mean John
+      - utter: utter_ask_confirm_slot_correction
+      - user: yes
+      - utter: utter_corrected_previous_input
+      - utter: utter_ask_transfer_money_recipient
+      - user: to Joe
+      - utter: utter_ask_transfer_money_amount_of_money
+      - user: "50"
+      - utter: utter_ask_transfer_money_final_confirmation
+      - user: yes
+      - utter: utter_transfer_complete

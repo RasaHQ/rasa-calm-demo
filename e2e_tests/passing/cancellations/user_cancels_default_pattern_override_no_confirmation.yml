@@ -1,0 +1,10 @@
+test_cases:
+  - test_case: default cancellation pattern overridden no confirmation
+    steps:
+      - user: I would like to book a table for dinner
+      - utter: utter_ask_book_restaurant_name_of_restaurant
+      - user: Noma
+      - utter: utter_ask_book_restaurant_number_of_people
+      - user: Actually I cancel that please.
+      - utter: utter_can_do_something_else
+ 

@@ -1,0 +1,8 @@
+test_cases:
+  - test_case: user answers and also asks a question
+    steps:
+      - user: I want to send 50$ to Justin
+      - utter: utter_ask_transfer_money_final_confirmation
+      - user: yes, and btw are there any fees associated with the sending?
+      - utter: utter_free_transfers
+      - utter: utter_transfer_complete

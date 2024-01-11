@@ -1,0 +1,5 @@
+test_cases:
+  - test_case: user greets
+    steps:
+      - user: Hi, there
+      - utter: utter_greet

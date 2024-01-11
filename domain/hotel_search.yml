@@ -1,0 +1,19 @@
+version: "3.1"
+
+actions:
+  - action_search_hotel
+
+slots:
+  hotel_name:
+    type: text
+    mappings:
+      - type: custom
+  hotel_average_rating:
+    type: float
+    mappings:
+      - type: custom
+
+responses:
+  utter_hotel_inform_rating:
+    - text: The {hotel_name} has an average rating of {hotel_average_rating}
+

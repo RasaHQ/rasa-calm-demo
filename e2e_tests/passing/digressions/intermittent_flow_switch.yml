@@ -1,0 +1,22 @@
+test_cases:
+  - test_case: user makes an intermittent flow switch
+    steps:
+      - user: book table
+      - utter: utter_ask_book_restaurant_name_of_restaurant
+      - user: show my balance, did my paycheck already arrive?
+      - utter: utter_current_balance
+      - utter: utter_flow_continue_interrupted
+      - utter: utter_ask_book_restaurant_name_of_restaurant
+      - user: Ah great, I already got my paycheck, we'll be going to Brewdog then
+      - utter: utter_ask_book_restaurant_number_of_people
+      - user: For 6
+      - utter: utter_ask_book_restaurant_date
+      - user: this Friday
+      - utter: utter_ask_book_restaurant_time
+      - user: 8pm please
+      - utter: utter_restaurant_available
+      - utter: utter_ask_book_restaurant_reservation_name
+      - user: for Thomas
+      - utter: utter_ask_book_restaurant_confirmation
+      - user: yes
+      - utter: utter_confirm_restaurant_booking

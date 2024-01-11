@@ -1,0 +1,59 @@
+# This file contains the different endpoints your bot can use.
+
+# Server where the models are pulled from.
+# https://rasa.com/docs/rasa/model-storage#fetching-models-from-a-server
+
+# models:
+#   url: https://llm-demo2.rasademo.com/api/projects/default/models/tags/production
+#   enabled: true
+#   # User Rasa Enterprise token
+#   # If you use the Rasa Enterprise Helm chart you can set a token by using the `rasax.token` parameter
+#   # See: https://github.com/RasaHQ/rasa-x-helm/blob/main/charts/rasa-x/values.yaml#L22
+#   token: "rasaXToken"
+#   waitTimeBetweenPulls: 20
+
+# Server which runs your custom actions.
+# https://rasa.com/docs/rasa/custom-actions
+
+action_endpoint:
+  url: "http://localhost:5055/webhook"
+
+# comment out this whole section to speed up the bot and disable rephrasing
+# all together
+# IMPORTANT: this endpoints yaml is ignored by the deployed bot. it ships its
+#   own endpoints yaml which is configured in the helm values here:
+#   https://github.com/RasaHQ/financial-demo-flows-llms/blob/helm-values/helm/values.yml
+# nlg:
+#  type: rasa_plus.ml.ContextualResponseRephraser
+#  rephrase_all: True
+
+# Tracker store which is used to store the conversations.
+# By default the conversations are stored in memory.
+# https://rasa.com/docs/rasa/tracker-stores
+
+#tracker_store:
+#    type: redis
+#    url: <host of the redis instance, e.g. localhost>
+#    port: <port of your redis instance, usually 6379>
+#    db: <number of your database within redis, e.g. 0>
+#    password: <password used for authentication>
+#    use_ssl: <whether or not the communication is encrypted, default false>
+
+#tracker_store:
+#    type: mongod
+#    url: <url to your mongo instance, e.g. mongodb://localhost:27017>
+#    db: <name of the db within your mongo instance, e.g. rasa>
+#    username: <username used for authentication>
+#    password: <password used for authentication>
+
+# Event broker which all conversation events should be streamed to.
+# https://rasa.com/docs/rasa/event-brokers
+
+#event_broker:
+#  url: localhost
+#  username: username
+#  password: password
+#  queue: queue
+#
+nlg:
+  type: rasa_plus.ml.ContextualResponseRephraser

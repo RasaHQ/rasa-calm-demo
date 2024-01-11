@@ -1,0 +1,18 @@
+test_cases:
+  - test_case: user tries to skip a question multiple times (hard)
+    steps:
+      - user: send money to John
+      - utter: utter_ask_transfer_money_amount_of_money
+
+      - user: i don't want to answer this for now
+      - utter: utter_skip_question_answer
+      - utter: utter_ask_transfer_money_amount_of_money
+
+      - user: i don't want to answer this
+      - utter: utter_skip_question_answer
+      - utter: utter_ask_transfer_money_amount_of_money
+
+      - user: okay 50
+      - utter: utter_ask_transfer_money_final_confirmation
+      - user: yes
+      - utter: utter_transfer_complete

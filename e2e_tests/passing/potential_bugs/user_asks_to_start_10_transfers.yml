@@ -1,0 +1,12 @@
+test_cases:
+  - test_case: user asks to start 10 transfers
+    steps:
+      - user: Please start ten transfers to Jim
+      - utter: utter_ask_transfer_money_amount_of_money
+      - user: "10"
+      - utter: utter_ask_transfer_money_final_confirmation
+      - user: yes
+      - utter: utter_transfer_complete
+      - utter: utter_can_do_something_else
+      - user: show my transactions please
+      - utter: utter_transactions

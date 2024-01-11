@@ -1,0 +1,11 @@
+test_cases:
+  - test_case: cancellation respects scope
+    steps:
+      - user: send money to John
+      - utter: utter_ask_transfer_money_amount_of_money
+      - user: cancel
+      - utter: utter_flow_cancelled_rasa
+      # recipient should be empty now
+      - utter: utter_can_do_something_else
+      - user: send money
+      - utter: utter_ask_transfer_money_recipient

@@ -1,0 +1,71 @@
+test_cases:
+  - test_case: user wants to set up a new one off payment and starts a different flow
+    steps:
+      - user: I want to set up a new recurrent payment
+      - utter: utter_ask_recurrent_payment_type
+      - user: international transfer
+      - utter: utter_categorical_slot_rejection
+      - utter: utter_ask_recurrent_payment_type
+      - user: none of these, just need a one off payment
+      - utter: utter_ask_transfer_money_recipient
+
+  - test_case: user wants to set up an invalid payment type and the assistant re-asks in a loop until a valid value is given
+    steps:
+      - user: I want to set up a new recurrent payment
+      - utter: utter_ask_recurrent_payment_type
+      - user: international transfer
+      - utter: utter_categorical_slot_rejection
+      - utter: utter_ask_recurrent_payment_type
+      - user: international transfer
+      - utter: utter_categorical_slot_rejection
+      - utter: utter_ask_recurrent_payment_type
+      - user: international transfer
+      - utter: utter_categorical_slot_rejection
+      - utter: utter_ask_recurrent_payment_type
+      - user: direct debit
+      - slot_was_set:
+          - recurrent_payment_type: "direct debit"
+      - utter: utter_ask_recipient
+
+  - test_case: user wants to set up a new recurrent payment and inserts an invalid frequency value
+    steps:
+      - user: I want to set up a new standing order payment.
+      - slot_was_set:
+        - recurrent_payment_type: "standing order"
+      - utter: utter_ask_recipient
+      - user: Jane Doe
+      - slot_was_set:
+          - recurrent_payment_recipient: "Jane Doe"
+      - utter: utter_ask_recurrent_payment_amount_of_money
+      - user: 20 pounds
+      - slot_was_set:
+          - recurrent_payment_amount_of_money: 20.0
+      - utter: utter_ask_recurrent_payment_frequency
+      - user: weekly
+      - utter: utter_categorical_slot_rejection
+      - utter: utter_ask_recurrent_payment_frequency
+
+
+  - test_case: user wants to set up a new recurrent payment and gives an invalid start date (precedes current timestamp)
+    steps:
+      - user: i want to set up a new direct debit payment
+      - slot_was_set:
+          - recurrent_payment_type: "direct debit"
+      - utter: utter_ask_recipient
+      - user: Jane Doe
+      - slot_was_set:
+          - recurrent_payment_recipient: "Jane Doe"
+      - utter: utter_ask_recurrent_payment_amount_of_money
+      - user: 20 pounds
+      - slot_was_set:
+          - recurrent_payment_amount_of_money: 20.0
+      - utter: utter_ask_recurrent_payment_frequency
+      - user: monthly
+      - slot_was_set:
+          - recurrent_payment_frequency: "monthly"
+      - utter: utter_ask_recurrent_payment_start_date
+      - user: "01/10/20"
+      - utter: utter_invalid_date
+      - slot_was_set:
+          - recurrent_payment_start_date: null
+      - utter: utter_ask_recurrent_payment_start_date

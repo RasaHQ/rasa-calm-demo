@@ -1,0 +1,13 @@
+flows:
+  # the following flows are detectors for out of scope topics
+  health_advice:
+    name: health advice
+    description: user asks for health advice
+    nlu_trigger:
+    - intent:
+        name: health_advice
+        confidence_threshold: 0.8
+    steps:
+    - action: utter_cant_advice_on_health
+
+

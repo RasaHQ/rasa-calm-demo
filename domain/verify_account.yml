@@ -1,0 +1,64 @@
+version: "3.1"
+
+slots:
+  verify_account_email:
+    type: text
+    mappings:
+      - type: custom
+  based_in_california:
+    type: bool
+    mappings:
+      - type: custom
+  verify_account_sufficient_california_income:
+    type: bool
+    mappings:
+      - type: custom
+  verify_account_confirmation:
+    type: bool
+    mappings:
+      - type: custom
+
+responses:
+  utter_ask_verify_account_email:
+    - text: What's your email address?
+  utter_verify_account_success:
+    - text: Your account was successfully verified
+  utter_verify_account_cancelled:
+    - text: Cancelling account verification...
+  utter_ask_based_in_california:
+    - text: Are you based in California?
+      buttons:
+        - payload: "yes"
+          title: Yes
+        - payload: "no"
+          title: No
+  utter_ask_verify_account_sufficient_california_income:
+    - text: Does your yearly income exceed 100,000 USD?
+      buttons:
+        - payload: "yes"
+          title: Yes
+        - payload: "no"
+          title: No
+  utter_ca_income_insufficient:
+    - text: Unfortunately, we cannot increase your transfer limits under these circumstances.
+  utter_ask_verify_account_confirmation:
+    - condition:
+        - type: slot
+          name: based_in_california
+          value: true
+      text: Your email address is {verify_account_email} and you are based in California with a yearly income exceeding 100,000$, correct?
+      buttons:
+        - payload: "yes"
+          title: Yes
+        - payload: "no"
+          title: No, cancel
+    - condition:
+        - type: slot
+          name: based_in_california
+          value: false
+      text: Your email address is {verify_account_email} and you are not based in California, correct?
+      buttons:
+        - payload: "yes"
+          title: Yes
+        - payload: "no"
+          title: No, cancel

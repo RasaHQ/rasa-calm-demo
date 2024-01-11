@@ -1,0 +1,78 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "chat",
+            "type": "python",
+            "request": "launch",
+            "module": "rasa.__main__",
+            "args": ["inspect", "--debug"],
+            "cwd": "${workspaceFolder}",
+            "justMyCode": false,
+            "python": "${workspaceFolder}/.venv/bin/python"
+        },
+        {
+            "name": "train",
+            "type": "python",
+            "request": "launch",
+            "module": "rasa.__main__",
+            "args": ["train", "-c" ,"config.yml", "-d", "domain","--data", "data", "--debug",  "--force"],
+            "cwd": "${workspaceFolder}",
+            "justMyCode": false,
+            "python": "${workspaceFolder}/.venv/bin/python",
+        },
+        {
+            "name": "test",
+            "type": "python",
+            "request": "launch",
+            "module": "rasa.__main__",
+            "args": ["test", "e2e", "tests/"],
+            "cwd": "${workspaceFolder}",
+            "justMyCode": false,
+            "python": "${workspaceFolder}/.venv/bin/python",
+        },
+        {
+            "name": "train starter-pack-intentless-policy",
+            "type": "python",
+            "request": "launch",
+            "module": "rasa.__main__",
+            "args": ["train"],
+            "cwd": "${workspaceFolder}/../starter-pack-intentless-policy",
+            "justMyCode": false,
+            "python": "${workspaceFolder}/.venv/bin/python",
+        },
+        {
+            "name": "chat starter-pack-intentless-policy",
+            "type": "python",
+            "request": "launch",
+            "module": "rasa.__main__",
+            "args": ["shell", "--debug"],
+            "cwd": "${workspaceFolder}/../starter-pack-intentless-policy",
+            "justMyCode": false,
+            "python": "${workspaceFolder}/.venv/bin/python",
+        },
+        {
+            "name": "test example",
+            "type": "python",
+            "request": "launch",
+            "module": "rasa.__main__",
+            "args": ["test", "nlu", "--nlu", "tests/test_nlu.md"],
+            "cwd": "${workspaceFolder}/../example",
+            "justMyCode": false,
+            "python": "${workspaceFolder}/.venv/bin/python",
+        },
+        {
+            "name": "train example",
+            "type": "python",
+            "request": "launch",
+            "module": "rasa.__main__",
+            "args": ["train", "nlu"],
+            "cwd": "${workspaceFolder}/../example",
+            "justMyCode": false,
+            "python": "${workspaceFolder}/.venv/bin/python",
+        }
+    ]
+}

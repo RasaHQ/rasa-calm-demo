@@ -1,0 +1,12 @@
+test_cases:
+  - test_case: user asks what requested information is
+    steps:
+      - user: I want to add Kate to my contacts
+      - utter: utter_ask_add_contact_handle
+      - user: What's a contact handle?
+      - utter: utter_contact_handle_info
+      - utter: utter_ask_add_contact_handle
+      - user: Ah okay she sent it to me, it's @KatePurry
+      - utter: utter_ask_add_contact_confirmation
+      - user: yes
+      - utter: utter_contact_added

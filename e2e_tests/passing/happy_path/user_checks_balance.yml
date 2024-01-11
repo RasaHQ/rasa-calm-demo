@@ -1,0 +1,7 @@
+test_cases:
+  - test_case: user checks their balance and doesn't ask for anything else
+    steps:
+      - user: Show my balance
+      - utter: utter_current_balance
+      - utter: utter_can_do_something_else
+      - user: no

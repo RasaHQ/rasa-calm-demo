@@ -1,0 +1,25 @@
+test_cases:
+  - test_case: user books a restaurant with their own alternative
+    steps:
+      - user: I want to book a table for 3 people at Shiso Burger
+      - slot_was_set:
+          - book_restaurant_name_of_restaurant: Shiso Burger
+          - book_restaurant_number_of_people: "3"
+      - utter: utter_ask_book_restaurant_date
+      - user: I was thinking tomorrow 7pm
+      - utter: utter_restaurant_not_available
+      - utter: utter_ask_book_restaurant_alternative_dummy
+      - user: 8pm is not good, how about a bit later then, like 9pm?
+      - utter: utter_ask_confirm_slot_correction
+      - user: yes
+      - slot_was_set:
+          - book_restaurant_time: 9pm
+      - utter: utter_corrected_previous_input
+      - utter: utter_restaurant_available
+      - utter: utter_ask_book_restaurant_reservation_name
+      - user: Jakub
+      - slot_was_set:
+          - book_restaurant_reservation_name: Jakub
+      - utter: utter_ask_book_restaurant_confirmation
+      - user: yes
+      - utter: utter_confirm_restaurant_booking

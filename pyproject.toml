@@ -1,0 +1,28 @@
+[build-system]
+requires = [ "poetry-core",]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "demo-flows"
+version = "2.0.0"
+description = "A starter point for exploring CALM."
+authors = [ "Tom Bocklisch <tmbo@rasa.com>",]
+readme = "README.md"
+
+[[tool.poetry.source]]
+name = "rasa-plus"
+url = "https://europe-west3-python.pkg.dev/rasa-releases/rasa-plus-py/simple/"
+default = false
+secondary = true
+
+[tool.poetry.dependencies]
+python = ">=3.8.1,<3.11"
+rasa = [
+     {version = "3.7.2", allow-prereleases = true}
+]
+rasa-plus = [
+     {version = "3.7.2", allow-prereleases = true}
+]
+
+[tool.poetry.group.dev.dependencies]
+toml = "^0.10.2"

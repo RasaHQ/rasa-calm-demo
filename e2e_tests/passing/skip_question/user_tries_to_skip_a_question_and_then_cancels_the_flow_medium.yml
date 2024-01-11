@@ -1,0 +1,13 @@
+test_cases:
+  - test_case: user tries to skip a question and then cancels the flow (medium)
+    steps:
+      - user: send money to John
+      - utter: utter_ask_transfer_money_amount_of_money
+
+      - user: ask me something else
+      - utter: utter_skip_question_answer
+      - utter: utter_ask_transfer_money_amount_of_money
+
+      - user: one moment, stop that
+      - utter: utter_flow_cancelled_rasa
+      - utter: utter_can_do_something_else
