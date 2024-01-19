@@ -1,0 +1,8 @@
+test_cases:
+  - test_case: user checks their balance and then about transactions
+    steps:
+      - user: Show my balance
+      - utter: utter_current_balance
+      - utter: utter_can_do_something_else
+      - user: Show my transactions please
+      - utter: utter_transactions      

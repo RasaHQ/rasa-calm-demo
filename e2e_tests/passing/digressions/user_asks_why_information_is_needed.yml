@@ -1,0 +1,14 @@
+test_cases:
+  - test_case: user asks why information is needed
+    steps:
+      - user: I want to verify my account
+      - utter: utter_ask_verify_account_email
+      - user: It's a.tweep@twitter.com
+      - utter: utter_ask_based_in_california
+      - user: Why do you need to know this?
+      - utter: utter_california_compliance
+      - utter: utter_ask_based_in_california
+      - user: No
+      - utter: utter_ask_verify_account_confirmation
+      - user: Yes
+      - utter: utter_verify_account_success

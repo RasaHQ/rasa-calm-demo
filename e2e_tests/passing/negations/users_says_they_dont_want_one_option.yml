@@ -1,0 +1,7 @@
+test_cases:
+  - test_case: user says they don't want one option
+    steps:
+      - user: cash
+      - utter: utter_clarification_options_rasa
+      - user: not transfer
+      - utter: utter_current_balance

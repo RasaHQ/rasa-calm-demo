@@ -1,0 +1,33 @@
+flows:
+  verify_account:
+    name: verify account
+    description: Verify an account for higher transfer limits
+    steps:
+      - collect: verify_account_email
+        ask_before_filling: true
+      - collect: based_in_california
+        ask_before_filling: false
+        reset_after_flow_ends: false
+        next:
+          - if: slots.based_in_california
+            then:
+              - collect: verify_account_sufficient_california_income
+                ask_before_filling: true
+                next:
+                  - if: not slots.verify_account_sufficient_california_income
+                    then:
+                      - action: utter_ca_income_insufficient
+                        next: END
+                  - else: verify_account_confirmation
+          - else: verify_account_confirmation
+      - id: verify_account_confirmation
+        collect: verify_account_confirmation
+        ask_before_filling: true
+        next:
+          - if: slots.verify_account_confirmation
+            then:
+              - action: utter_verify_account_success
+                next: END
+          - else:
+              - action: utter_verify_account_cancelled
+                next: END

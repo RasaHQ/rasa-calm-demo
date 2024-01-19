@@ -1,0 +1,12 @@
+test_cases:
+  - test_case: user needs card replacement
+    steps:
+      - user: I need to replace my card
+      - utter: utter_ask_confirm_correct_card
+      - user: yes
+      - utter: utter_ask_replacement_reason
+      - user: lost
+      - utter: utter_ask_was_card_used_fraudulently
+      - user: no
+      - utter: utter_will_cancel_and_send_new
+      - utter: utter_new_card_has_been_ordered

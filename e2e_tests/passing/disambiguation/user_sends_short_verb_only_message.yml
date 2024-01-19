@@ -1,0 +1,7 @@
+test_cases:
+  - test_case: user sends short verb only message
+    steps:
+      - user: add
+      - utter: utter_clarification_options_rasa
+      - user: contact
+      - utter: utter_ask_add_contact_handle

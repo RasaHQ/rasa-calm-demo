@@ -1,0 +1,12 @@
+version: "3.1"
+
+# this is partially for testing, because we need specific utterances for e2e tests
+responses:
+  utter_free_transfers:
+    - text: With our service you can send money for free to friends and family.
+  utter_domestic_transfers_only:
+    - text: At this point in time we only support domestic transfers.
+  utter_california_compliance:
+    - text: For Californian residents, we collect information on annual earnings to comply with state laws for financial services. This is only needed if you want to verify your account for higher transaction limits. Rest assured, your data is safe with us.
+  utter_contact_handle_info:
+    - text: A contact handle is a unique identifier of the user on this platform. It starts with an @. Best ask your friend for their handle

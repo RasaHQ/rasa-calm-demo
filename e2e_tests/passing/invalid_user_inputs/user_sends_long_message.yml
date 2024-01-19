@@ -1,0 +1,10 @@
+test_cases:
+  - test_case: user sends the long message that exceeds 420 characters
+    steps:
+      - user: >- 
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed diam eget sem ultrices dignissim. 
+          Suspendisse tincidunt varius feugiat. Quisque vitae leo facilisis, sagittis metus semper, mollis felis. Nulla 
+          eu ultrices quam. Praesent mattis nunc vitae libero laoreet commodo. Pellentesque habitant morbi tristique 
+          senectus et netus et malesuada fames ac turpis egestas. Nam nunc nisl, mollis id dolor nec, scelerisque 
+          lobortis tellus. Mauris consectetur quis nisi non viverra. Maecenas dapibus nam.
+      - utter: utter_user_input_too_long_error_rasa

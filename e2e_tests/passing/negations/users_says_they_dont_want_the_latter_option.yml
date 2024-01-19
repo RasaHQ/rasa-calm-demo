@@ -1,0 +1,7 @@
+test_cases:
+  - test_case: user says they don't want the latter option
+    steps:
+      - user: add
+      - utter: utter_clarification_options_rasa
+      - user: not the latter
+      - utter: utter_ask_add_contact_handle

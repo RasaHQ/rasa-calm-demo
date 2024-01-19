@@ -1,0 +1,15 @@
+version: "3.1"
+
+
+actions:
+  - transaction_search
+
+slots:
+  transactions_list:
+    type: text
+    mappings:
+      - type: custom
+
+responses:
+  utter_transactions:
+    - text: "Your current transactions are:\n {transactions_list}"

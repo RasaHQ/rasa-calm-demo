@@ -1,0 +1,5 @@
+test_cases:
+  - test_case: user checks their transactions
+    steps:
+      - user: Show my transactions please
+      - utter: utter_transactions

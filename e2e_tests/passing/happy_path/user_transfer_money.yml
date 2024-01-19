@@ -1,0 +1,15 @@
+test_cases:
+  - test_case: user transfers money
+    steps:
+      - user: I want to transfer money
+      - utter: utter_ask_transfer_money_recipient
+      - user: to John
+      - slot_was_set:
+          - transfer_money_recipient: John
+      - utter: utter_ask_transfer_money_amount_of_money
+      - user: 150$
+      - slot_was_set:
+          - transfer_money_amount_of_money: "150"
+      - utter: utter_ask_transfer_money_final_confirmation
+      - user: yes
+      - utter: utter_transfer_complete

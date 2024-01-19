@@ -1,0 +1,7 @@
+test_cases:
+  - test_case: user starts with a very long message
+    steps:
+      - user: What's up dawg, my homie Steven got my back yesterday when we were out for drinks and my phone was out of batt, let me settle up with him.
+      - slot_was_set:
+          - transfer_money_recipient: Steven
+      - utter: utter_ask_transfer_money_amount_of_money

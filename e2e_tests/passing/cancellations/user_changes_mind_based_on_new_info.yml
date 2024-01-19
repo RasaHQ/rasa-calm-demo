@@ -1,0 +1,11 @@
+test_cases:
+  - test_case: user changes mind based on new info
+    steps:
+      - user: Send some money to Joe
+      - utter: utter_ask_transfer_money_amount_of_money
+      - user: Ah one moment, show transactions.
+      - utter: utter_transactions
+      - utter: utter_flow_continue_interrupted
+      - utter: utter_ask_transfer_money_amount_of_money
+      - user: Ah nevermind, I already sent the money earlier
+      - utter: utter_flow_cancelled_rasa

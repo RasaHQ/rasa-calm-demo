@@ -1,0 +1,7 @@
+test_cases:
+  - test_case: user follows up on a knowledge question
+    steps:
+      - user: Are transfers on free with this service?
+      - utter: utter_free_transfers
+      - user: How about international ones?
+      - utter: utter_domestic_transfers_only

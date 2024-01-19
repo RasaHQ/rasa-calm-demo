@@ -1,0 +1,9 @@
+test_cases:
+  - test_case: user says they don't want one option among three
+    steps:
+      - user: contact
+      - utter: utter_clarification_options_rasa
+      - user: not remove
+      - utter: utter_clarification_options_rasa
+      - user: the former
+      - utter: utter_list_contacts

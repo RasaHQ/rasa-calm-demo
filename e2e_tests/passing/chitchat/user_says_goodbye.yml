@@ -1,0 +1,10 @@
+test_cases:
+  - test_case: user says goodbye
+    steps:
+      - user: I want to send 10 bucks to Spencer
+      - utter: utter_ask_transfer_money_final_confirmation
+      - user: Yes
+      - utter: utter_transfer_complete
+      - utter: utter_can_do_something_else
+      - user: Bye then
+      - utter: utter_goodbye

@@ -1,0 +1,37 @@
+flows:
+  book_restaurant:
+    name: book a restaurant
+    description: This flow books a restaurant
+    steps:
+      - collect: book_restaurant_name_of_restaurant
+      - collect: book_restaurant_number_of_people
+      - collect: book_restaurant_date
+      - collect: book_restaurant_time
+      - collect: book_restaurant_is_date_flexible
+        description: (True/False) whether offering alternative dates make sense
+      - action: check_restaurant_availability
+        next:
+          - if: not slots.is_restaurant_available
+            then:
+              - action: utter_restaurant_not_available
+              - id: "ask_alternative"
+                collect: book_restaurant_alternative_dummy
+                description:
+                  do not fill this slot, instead fill the given parts of the
+                  alternative into their respective slots
+                next: "ask_alternative"
+          - else: available
+      - id: available
+        action: "utter_restaurant_available"
+      - collect: book_restaurant_reservation_name
+        ask_before_filling: true
+      - collect: book_restaurant_confirmation
+        ask_before_filling: true
+        next:
+          - if: slots.book_restaurant_confirmation
+            then:
+              - action: utter_confirm_restaurant_booking
+                next: END
+          - else:
+              - action: utter_cancel_book_restaurant
+                next: END

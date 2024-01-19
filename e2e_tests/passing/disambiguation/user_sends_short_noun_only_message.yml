@@ -1,0 +1,12 @@
+test_cases:
+  - test_case: user sends short noun only message
+    steps:
+      - user: contact
+      - utter: utter_clarification_options_rasa
+      - user: add
+      - utter: utter_ask_add_contact_handle
+
+  - test_case: user sends short noun only message (2)
+    steps:
+      - user: cash
+      - utter: utter_clarification_options_rasa

@@ -1,0 +1,7 @@
+flows:
+  transaction_search:
+    name: search transactions
+    description: lists the last transactions of the user account
+    steps:
+      - action: transaction_search
+      - action: utter_transactions

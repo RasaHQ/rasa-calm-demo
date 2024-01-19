@@ -1,0 +1,30 @@
+test_cases:
+  - test_case: user fills resetting slot (account_email) and non-resetting slot (based_in_california).
+    steps:
+      - user: I would like to confirm my account
+      - utter: utter_ask_verify_account_email
+      - user: gos@hawk.com
+      - slot_was_set:
+        - verify_account_email: gos@hawk.com
+      - utter: utter_ask_based_in_california
+      - user: no
+      - utter: utter_ask_verify_account_confirmation
+      - user: yes
+      - utter: utter_verify_account_success
+      # Check that the slot was reset at the end of the flow
+      - slot_was_set:
+        - verify_account_email
+      # Check that the slot was not reset at the end of the flow
+      - slot_was_not_set:
+        - based_in_california
+      - utter: utter_can_do_something_else
+      - user: Bye then
+      - utter: utter_goodbye
+      - user: I would like to confirm my account
+      - utter: utter_ask_verify_account_email
+      - user: gos@hawk.com
+      - slot_was_set:
+        - verify_account_email: gos@hawk.com
+      - utter: utter_ask_verify_account_confirmation
+      - user: yes
+      - utter: utter_verify_account_success
