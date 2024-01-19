@@ -77,14 +77,14 @@ jobs:
         run: |
           cd models
           files=(*)
-          curl -k -F "model=@$files" "https://llm-demo2.rasademo.com/api/projects/default/models?api_token=${{secrets.RASA_X_TOKEN}}"
+          curl -k -F "model=@$files" "${{secrets.RASA_X_DEPLOYMENT}}/api/projects/default/models?api_token=${{secrets.RASA_X_TOKEN}}"
           echo "model=${files%%.*}" >> "$GITHUB_OUTPUT"
 
       - name: Tag model as production in Rasa X
         if: github.ref == 'refs/heads/main'
         run: |
           curl --request PUT \
-          --url https://llm-demo2.rasademo.com/api/projects/default/models/${{steps.upload_model.outputs.model}}/tags/production?api_token=${{secrets.RASA_X_TOKEN}} \
+          --url "${{secrets.RASA_X_DEPLOYMENT}}/api/projects/default/models/${{steps.upload_model.outputs.model}}/tags/production?api_token=${{secrets.RASA_X_TOKEN}} \
           --header 'content-type: application/json'
 
       - name: Persist model
