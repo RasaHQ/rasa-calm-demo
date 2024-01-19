@@ -19,11 +19,11 @@ test_cases:
       - slot_was_set:
           - recurrent_payment_frequency: "monthly"
       - utter: utter_ask_recurrent_payment_start_date
-      - user: "01/10/24"
+      - user: "Jan 1st, 2050"
       - slot_was_set:
           - recurrent_payment_start_date
       - utter: utter_ask_recurrent_payment_end_date
-      - user: "01/10/25"
+      - user: "Jan 1st, 2051"
       - slot_was_set:
           - recurrent_payment_end_date
       - utter: utter_ask_recurrent_payment_confirmation
