@@ -1,4 +1,4 @@
-# Demo using Flows & LLMs
+# Rasa CALM Demo
 
 This demo showcases a chatbot built with Rasa's LLM-native approach: [CALM](https://rasa.com/docs/rasa-pro/calm). 
 
