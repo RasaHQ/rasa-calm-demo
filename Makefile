@@ -17,7 +17,7 @@ test: .EXPORT_ALL_VARIABLES
 	poetry run rasa test e2e e2e_tests
 
 run: .EXPORT_ALL_VARIABLES
-	poetry run rasa chat --debug
+	poetry run rasa inspect --debug
 
 train: .EXPORT_ALL_VARIABLES
 	poetry run rasa train -c config.yml -d domain --data data
