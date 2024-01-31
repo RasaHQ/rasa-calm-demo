@@ -2,4 +2,6 @@ test_cases:
   - test_case: user greets
     steps:
       - user: Hi, there
+      - commands:
+          - chitchat
       - utter: utter_greet
