@@ -2,13 +2,25 @@ test_cases:
   - test_case: user refuses to provide information
     steps:
       - user: I want to verify my account
+      - commands:
+          - start_flow: verify_account_email
       - utter: utter_ask_verify_account_email
       - user: It's thomas@x.com
+      - commands:
+        - set_slot:
+          - verify_account_email: "thomas@x.com"
       - utter: utter_ask_based_in_california
       - user: Yes
+      - commands:
+        - set_slot:
+          - based_in_california: "True"
       - utter: utter_ask_verify_account_sufficient_california_income
       - user: Why is that your business?
+      - commands:
+          - chitchat
       - utter: utter_california_compliance
       - utter: utter_ask_verify_account_sufficient_california_income
       - user: nevermind then!!
+      - commands:
+          - cancel_flow
       - utter: utter_can_do_something_else

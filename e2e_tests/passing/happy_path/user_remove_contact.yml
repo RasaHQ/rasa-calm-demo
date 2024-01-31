@@ -2,10 +2,16 @@ test_cases:
   - test_case: user removes a contact
     steps:
       - user: Remove contact
+      - commands:
+        - start_flow: remove_contact
       - utter: utter_ask_remove_contact_handle
       - user: "@MaryLu"
-      - slot_was_set:
+      - commands:
+        - set_slot:
           - remove_contact_handle: "@MaryLu"
       - utter: utter_ask_remove_contact_confirmation
       - user: Yes
+      - commands:
+        - set_slot:
+          - remove_contact_confirmation: "True"
       - utter: utter_remove_contact_success

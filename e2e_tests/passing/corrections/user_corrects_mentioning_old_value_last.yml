@@ -2,19 +2,32 @@ test_cases:
   - test_case: correction mentioning old value last
     steps:
       - user: I want to transfer money
+      - commands:
+          - start_flow: transfer_money
       - utter: utter_ask_transfer_money_recipient
       - user: John
-      - slot_was_set:
+      - commands:
+        - set_slot:
           - transfer_money_recipient: "John"
       - utter: utter_ask_transfer_money_amount_of_money
       - user: Sorry, I meant to say Jimmy, not John
+      - commands:
+        - set_slot:
+          - transfer_money_recipient: "Jimmy"
       - utter: utter_ask_confirm_slot_correction
       - user: yes
-      - slot_was_set:
-          - transfer_money_recipient: "Jimmy"
+      - commands:
+        - set_slot:
+          - confirm_slot_correction: "True"
       - utter: utter_corrected_previous_input
       - utter: utter_ask_transfer_money_amount_of_money
       - user: "50$"
+      - commands:
+        - set_slot:
+          - transfer_money_amount_of_money: "50"
       - utter: utter_ask_transfer_money_final_confirmation
       - user: yes
+      - commands:
+        - set_slot:
+          - transfer_money_final_confirmation: "True"
       - utter: utter_transfer_complete
