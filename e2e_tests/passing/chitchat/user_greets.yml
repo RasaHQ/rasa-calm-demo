@@ -3,5 +3,5 @@ test_cases:
     steps:
       - user: Hi, there
       - commands:
-          - chit_chat
+          - chitchat
       - utter: utter_greet

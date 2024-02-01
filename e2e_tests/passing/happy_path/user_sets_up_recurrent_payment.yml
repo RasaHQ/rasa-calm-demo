@@ -9,8 +9,6 @@ test_cases:
       - commands:
         - set_slot:
           - recurrent_payment_type: "direct debit"
-      - slot_was_set:
-          - recurrent_payment_type: "direct debit"
       - utter: utter_ask_recipient
       - user: Jane Doe
       - commands:
@@ -31,15 +29,11 @@ test_cases:
       - commands:
         - set_slot:
           - recurrent_payment_start_date: "Jan 1st, 2050"
-      - slot_was_set:
-          - recurrent_payment_start_date
       - utter: utter_ask_recurrent_payment_end_date
       - user: "Jan 1st, 2051"
       - commands:
         - set_slot:
           - recurrent_payment_end_date: "Jan 1st, 2051"
-      - slot_was_set:
-          - recurrent_payment_end_date
       - utter: utter_ask_recurrent_payment_confirmation
       - user: Yes
       - commands:
@@ -54,8 +48,6 @@ test_cases:
         - start_flow: setup_recurrent_payment
         - set_slot:
           - recurrent_payment_type: "standing order"
-      - slot_was_set:
-        - recurrent_payment_type: "standing order"
       - utter: utter_ask_recipient
 
   - test_case: user wants to set up a new recurrent payment, but specifies the type incompletely
@@ -67,8 +59,6 @@ test_cases:
       - user: direct
       - commands:
         - set_slot:
-          - recurrent_payment_type: "direct debit"
-      - slot_was_set:
           - recurrent_payment_type: "direct debit"
       - utter: utter_ask_recipient
 
@@ -82,8 +72,6 @@ test_cases:
       - commands:
         - set_slot:
           - recurrent_payment_type: "direct debit"
-      - slot_was_set:
-          - recurrent_payment_type: "direct debit"
       - utter: utter_ask_recipient
 
   - test_case: user wants to set up a new recurrent payment, but specifies the type incompletely, eg3
@@ -95,8 +83,6 @@ test_cases:
       - user: stand order
       - commands:
         - set_slot:
-          - recurrent_payment_type: "standing order"
-      - slot_was_set:
           - recurrent_payment_type: "standing order"
       - utter: utter_ask_recipient
 
@@ -110,8 +96,6 @@ test_cases:
       - commands:
         - set_slot:
           - recurrent_payment_type: "direct debit"
-      - slot_was_set:
-          - recurrent_payment_type: "direct debit"
       - utter: utter_ask_recipient
 
   - test_case: user wants to set up a new recurrent payment, but specifies the type with spelling mistakes
@@ -123,7 +107,5 @@ test_cases:
       - user: direct debt
       - commands:
         - set_slot:
-          - recurrent_payment_type: "direct debit"
-      - slot_was_set:
           - recurrent_payment_type: "direct debit"
       - utter: utter_ask_recipient

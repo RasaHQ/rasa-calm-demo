@@ -20,8 +20,6 @@ test_cases:
       - commands:
         - set_slot:
           - confirm_slot_correction: "True"
-      - slot_was_set:
-          - book_restaurant_is_date_flexible: false
       - utter: utter_corrected_previous_input
       - utter: utter_restaurant_not_available
       - utter: utter_ask_book_restaurant_alternative_dummy
@@ -35,8 +33,6 @@ test_cases:
       - commands:
         - set_slot:
           - confirm_slot_correction: "True"
-      - slot_was_set:
-          - book_restaurant_name_of_restaurant: Prometheus Pizza
       - utter: utter_corrected_previous_input
       - utter: utter_restaurant_available
       - utter: utter_ask_book_restaurant_reservation_name
