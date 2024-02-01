@@ -14,12 +14,11 @@ responses:
           title: Yes
         - payload: no
           title: No, please keep the previous information
-      metadata: 
+      metadata:
         rephrase: True
         template: jinja
-  
+
   utter_not_corrected_previous_input:
     - text: "Ok, I did not correct the previous input."
-      metadata: 
+      metadata:
         rephrase: True
-
