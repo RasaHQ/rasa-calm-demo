@@ -2,8 +2,19 @@ test_cases:
   - test_case: user says they don't want one option among three
     steps:
       - user: contact
+      - commands:
+        - clarify:
+            - list_contacts
+            - add_contact
+            - remove_contact
       - utter: utter_clarification_options_rasa
       - user: not remove
+      - commands:
+        - clarify:
+            - list_contacts
+            - add_contact
       - utter: utter_clarification_options_rasa
       - user: the former
+      - commands:
+        - start_flow: list_contacts
       - utter: utter_list_contacts

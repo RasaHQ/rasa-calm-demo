@@ -7,4 +7,7 @@ test_cases:
           eu ultrices quam. Praesent mattis nunc vitae libero laoreet commodo. Pellentesque habitant morbi tristique 
           senectus et netus et malesuada fames ac turpis egestas. Nam nunc nisl, mollis id dolor nec, scelerisque 
           lobortis tellus. Mauris consectetur quis nisi non viverra. Maecenas dapibus nam.
+      - commands:
+        - error:
+          error_type: rasa_internal_error_user_input_too_long
       - utter: utter_user_input_too_long_error_rasa

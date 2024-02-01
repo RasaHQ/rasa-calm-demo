@@ -2,6 +2,15 @@ test_cases:
   - test_case: user says they don't want the latter option
     steps:
       - user: add
+      - commands:
+        - clarify:
+            - add_contact
+            - setup_recurrent_payment
+            - transfer_money
       - utter: utter_clarification_options_rasa
       - user: not the latter
+      - commands:
+        - start_flow: add_contact
+        - clarify:
+            - setup_recurrent_payment
       - utter: utter_ask_add_contact_handle
