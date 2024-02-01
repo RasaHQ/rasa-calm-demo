@@ -9,5 +9,5 @@ test_cases:
           lobortis tellus. Mauris consectetur quis nisi non viverra. Maecenas dapibus nam.
       - commands:
         - error:
-          error_type: rasa_internal_error_user_input_too_long
+          - error_type: rasa_internal_error_user_input_too_long
       - utter: utter_user_input_too_long_error_rasa
