@@ -11,7 +11,6 @@ test_cases:
       - utter: utter_ask_transfer_money_amount_of_money
       - user: Oh, I thought I had more, then do 3000$ for now
       - commands:
-        - start_flow: transfer_money
         - set_slot:
             - transfer_money_amount_of_money: "3000"
       - utter: utter_ask_transfer_money_final_confirmation

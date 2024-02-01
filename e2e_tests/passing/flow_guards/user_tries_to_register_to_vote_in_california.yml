@@ -4,7 +4,7 @@ test_cases:
     steps:
       - user: I would like to verify my account.
       - commands:
-        - start_flow: verify_account_email
+        - start_flow: verify_account
       - utter: utter_ask_verify_account_email
       - user: sam@microsoft.com
       - commands:

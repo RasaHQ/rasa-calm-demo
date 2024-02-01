@@ -27,7 +27,7 @@ test_cases:
       - commands:
           - set_slot:
             - book_restaurant_date: "tomorrow"
-            - book_restaurant_time: "8pm"
+            - book_restaurant_time: "8 pm"
       - utter: utter_restaurant_available
       - utter: utter_ask_book_restaurant_reservation_name
       - user: for Jamie

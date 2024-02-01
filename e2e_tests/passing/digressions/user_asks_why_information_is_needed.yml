@@ -3,7 +3,7 @@ test_cases:
     steps:
       - user: I want to verify my account
       - commands:
-          - start_flow: verify_account_email
+          - start_flow: verify_account
       - utter: utter_ask_verify_account_email
       - user: It's a.tweep@twitter.com
       - commands:

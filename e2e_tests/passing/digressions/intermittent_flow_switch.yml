@@ -24,7 +24,7 @@ test_cases:
       - user: this Friday
       - commands:
           - set_slot:
-            - book_restaurant_date: "Friday"
+            - book_restaurant_date: "this Friday"
       - utter: utter_ask_book_restaurant_time
       - user: 8pm please
       - commands:

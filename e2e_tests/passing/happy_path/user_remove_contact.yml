@@ -13,5 +13,5 @@ test_cases:
       - user: Yes
       - commands:
         - set_slot:
-          - remove_contact_confirmation: "True"
+          - remove_contact_confirmation: "Yes"
       - utter: utter_remove_contact_success
