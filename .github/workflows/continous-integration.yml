@@ -69,6 +69,7 @@ jobs:
           OPENAI_API_KEY: ${{secrets.OPENAI_API_KEY}}
           RASA_PRO_LICENSE: ${{secrets.RASA_PRO_LICENSE}}
           RASA_PRO_BETA_INTENTLESS: true
+          DUCKLING_URL: ${{secrets.DUCKLING_URL}}
         run: |
           make train
 
