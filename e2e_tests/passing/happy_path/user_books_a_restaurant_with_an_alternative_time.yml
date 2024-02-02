@@ -14,7 +14,6 @@ test_cases:
       - user: sounds good!
       - commands:
           - set_slot:
-            - book_restaurant_date: Sunday
             - book_restaurant_time: 8pm
       - utter: utter_ask_confirm_slot_correction
       - user: yes

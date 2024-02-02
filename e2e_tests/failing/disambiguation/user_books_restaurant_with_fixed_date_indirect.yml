@@ -6,7 +6,7 @@ test_cases:
           - start_flow: "book_restaurant"
           - set_slot:
             - book_restaurant_name_of_restaurant: Xaigon
-            - book_restaurant_number_of_people: "2"
+            - book_restaurant_number_of_people: two
             - book_restaurant_date: tonight
             - book_restaurant_time: 7pm
       - utter: utter_restaurant_not_available

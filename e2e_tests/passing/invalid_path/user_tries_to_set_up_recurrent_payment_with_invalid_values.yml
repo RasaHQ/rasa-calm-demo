@@ -52,6 +52,8 @@ test_cases:
       - user: I want to set up a new standing order payment.
       - commands:
         - start_flow: "setup_recurrent_payment"
+        - set_slot:
+          - recurrent_payment_type: "standing order"
       - utter: utter_ask_recipient
       - user: Jane Doe
       - commands:
