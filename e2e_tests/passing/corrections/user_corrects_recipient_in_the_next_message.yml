@@ -9,7 +9,7 @@ test_cases:
       - utter: utter_ask_transfer_money_amount_of_money
       - user: Sorry, I meant to say Joe
       - utter: utter_ask_confirm_slot_correction
-      - user: yes
+      - user: "yes"
       - slot_was_set:
           - transfer_money_recipient: "Joe"
       - utter: utter_corrected_previous_input
@@ -18,5 +18,5 @@ test_cases:
       - slot_was_set:
           - transfer_money_amount_of_money: "50"
       - utter: utter_ask_transfer_money_final_confirmation
-      - user: yes
+      - user: "yes"
       - utter: utter_transfer_complete

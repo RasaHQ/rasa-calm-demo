@@ -5,11 +5,11 @@ test_cases:
       - utter: utter_ask_verify_account_email
       - user: It's mag@pie.com
       - utter: utter_ask_based_in_california
-      - user: yes
+      - user: "yes"
       - utter: utter_ask_verify_account_sufficient_california_income
-      - user: yes
+      - user: "yes"
       - utter: utter_ask_verify_account_confirmation
       - user: Actually my income is not that high
       - utter: utter_ask_verify_account_sufficient_california_income
-      - user: no
+      - user: "no"
       - utter: utter_ca_income_insufficient

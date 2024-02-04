@@ -6,11 +6,11 @@ test_cases:
     - utter: utter_ask_verify_account_email
     - user: sam@microsoft.com
     - utter: utter_ask_based_in_california
-    - user: yes
+    - user: "yes"
     - utter: utter_ask_verify_account_sufficient_california_income
-    - user: yes
+    - user: "yes"
     - utter: utter_ask_verify_account_confirmation
-    - user: yes
+    - user: "yes"
     - utter: utter_verify_account_success
     - utter: utter_can_do_something_else
     - user: I would like to register to vote in california.

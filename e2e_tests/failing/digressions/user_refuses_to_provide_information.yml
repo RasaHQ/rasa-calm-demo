@@ -5,7 +5,7 @@ test_cases:
       - utter: utter_ask_verify_account_email
       - user: It's thomas@x.com
       - utter: utter_ask_based_in_california
-      - user: Yes
+      - user: "Yes"
       - utter: utter_ask_verify_account_sufficient_california_income
       - user: Why is that your business?
       - utter: utter_california_compliance

@@ -6,5 +6,5 @@ test_cases:
       - user: Noma
       - utter: utter_ask_book_restaurant_number_of_people
       - user: Actually I cancel that please.
+      - utter: utter_flow_cancelled_rasa
       - utter: utter_can_do_something_else
- 

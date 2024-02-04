@@ -11,7 +11,7 @@ test_cases:
       - utter: utter_ask_add_contact_confirmation
       - user: "Ah, please use Spidey as the name"
       - utter: utter_ask_confirm_slot_correction
-      - user: yes
+      - user: "yes"
       - utter: utter_corrected_previous_input
       - utter: utter_ask_add_contact_confirmation
       - user: yes

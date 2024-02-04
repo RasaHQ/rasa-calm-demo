@@ -5,7 +5,7 @@ test_cases:
       - utter: utter_ask_transfer_money_amount_of_money
       - user: "10"
       - utter: utter_ask_transfer_money_final_confirmation
-      - user: yes
+      - user: "yes"
       - utter: utter_transfer_complete
       - utter: utter_can_do_something_else
       - user: show my transactions please

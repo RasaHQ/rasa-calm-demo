@@ -6,7 +6,7 @@ test_cases:
       - user: international transfer
       - utter: utter_categorical_slot_rejection
       - utter: utter_ask_recurrent_payment_type
-      - user: none of these, just need a one off payment
+      - user: none of these, actually just need a one off payment
       - utter: utter_ask_transfer_money_recipient
 
   - test_case: user wants to set up an invalid payment type and the assistant re-asks in a loop until a valid value is given

@@ -9,7 +9,7 @@ test_cases:
       - slot_was_set:
         - transfer_money_amount_of_money: "130"
       - utter: utter_ask_transfer_money_final_confirmation
-      - user: yes
+      - user: "yes"
       - utter: utter_transfer_complete
   - test_case: user transfers money mentioning money slot upfront
     steps:
@@ -21,5 +21,5 @@ test_cases:
       - slot_was_set:
         - transfer_money_recipient: John
       - utter: utter_ask_transfer_money_final_confirmation
-      - user: yes
+      - user: "yes"
       - utter: utter_transfer_complete
