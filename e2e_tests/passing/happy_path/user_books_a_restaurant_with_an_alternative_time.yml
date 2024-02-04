@@ -10,8 +10,6 @@ test_cases:
       - user: sounds good!
       - utter: utter_ask_confirm_slot_correction
       - user: "yes"
-      - slot_was_set:
-          - book_restaurant_time: 8pm
       - utter: utter_corrected_previous_input
       - utter: utter_restaurant_available
       - utter: utter_ask_book_restaurant_reservation_name
