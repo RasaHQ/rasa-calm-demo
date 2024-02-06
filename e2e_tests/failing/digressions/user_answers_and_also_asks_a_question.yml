@@ -12,6 +12,6 @@ test_cases:
       - commands:
         - set_slot:
             - transfer_money_final_confirmation: "True"
-        - knowledge_answer
+        - knowledge
       - utter: utter_free_transfers
       - utter: utter_transfer_complete

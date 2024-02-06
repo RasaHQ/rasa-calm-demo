@@ -9,7 +9,7 @@ test_cases:
       - utter: utter_ask_transfer_money_amount_of_money
       - user: btw, are these transfers free of charge?
       - commands:
-        - knowledge_answer
+        - knowledge
       - utter: utter_free_transfers
       - utter: utter_ask_transfer_money_amount_of_money
       - user: great, 50$ then

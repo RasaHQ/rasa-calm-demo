@@ -3,5 +3,5 @@ test_cases:
     steps:
       - user: Are transfers on free with this service?
       - commands:
-        - knowledge_answer
+        - knowledge
       - utter: utter_free_transfers
