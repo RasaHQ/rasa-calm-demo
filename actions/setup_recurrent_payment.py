@@ -7,12 +7,12 @@ from rasa_sdk.events import EventType, SlotSet
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.types import DomainDict
 
-from actions.check_restaurant_availability import duckling
+from actions.entity_extractor import duckling_entity_extractor
 
 
 def parse_datetime(text: str) -> Optional[datetime]:
     msg = Message.build(text)
-    duckling.process([msg])
+    duckling_entity_extractor.process([msg])
     if len(msg.data["entities"]) == 0:
         return None
 
