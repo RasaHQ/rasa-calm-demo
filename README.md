@@ -170,6 +170,7 @@ Prerequisites:
   `poetry self update`
 - python (3.10.12), e.g. using [pyenv](https://github.com/pyenv/pyenv) 
   `pyenv install 3.10.12`
+- set up and running [Duckling](https://github.com/facebook/duckling) server
 
 After you cloned the repository and are authenticated, follow the installation steps:
 
@@ -191,6 +192,7 @@ After you cloned the repository and are authenticated, follow the installation s
    ```bash
    RASA_PRO_LICENSE=<your rasa pro license key>
    OPENAI_API_KEY=<your openai api key>
+   RASA_DUCKLING_HTTP_URL=<url to the duckling server>
    ```
 
 ### Training the bot
