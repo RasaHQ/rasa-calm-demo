@@ -16,7 +16,7 @@ class ExecuteTransfer(Action):
         account = get_account(tracker.sender_id)
 
         recipient = tracker.get_slot("transfer_money_recipient")
-        amount_of_money = tracker.get_slot("transfer_money_amount_of_money")
+        amount_of_money = str(tracker.get_slot("transfer_money_amount_of_money"))
 
         if recipient is None or amount_of_money is None:
             return [SlotSet("transfer_money_transfer_successful", False)]

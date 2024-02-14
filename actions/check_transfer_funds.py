@@ -13,7 +13,7 @@ class CheckTransferFunds(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker, domain: Dict[str, Any]):
         account = get_account(tracker.sender_id)
-        amount_of_money = tracker.get_slot("transfer_money_amount_of_money")
+        amount_of_money = str(tracker.get_slot("transfer_money_amount_of_money"))
         if not amount_of_money:
             has_sufficient_funds = False
         else:

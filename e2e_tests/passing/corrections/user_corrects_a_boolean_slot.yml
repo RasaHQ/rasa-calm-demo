@@ -30,3 +30,4 @@ test_cases:
           - set_slot:
             - verify_account_sufficient_california_income: "False"
       - utter: utter_ca_income_insufficient
+      - utter: utter_can_do_something_else
