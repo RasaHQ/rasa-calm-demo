@@ -28,12 +28,12 @@ test_cases:
       - user: "Jan 1st, 2050"
       - commands:
         - set_slot:
-          - recurrent_payment_start_date
+          - recurrent_payment_start_date: "Jan 1st, 2050"
       - utter: utter_ask_recurrent_payment_end_date
       - user: "Jan 1st, 2051"
       - commands:
         - set_slot:
-          - recurrent_payment_end_date
+          - recurrent_payment_end_date: "Jan 1st, 2051"
       - utter: utter_ask_recurrent_payment_confirmation
       - user: Yes
       - commands:

@@ -105,7 +105,20 @@ class CheckRestaurantAvailability(Action):
         booking_date = parse_datetime(tracker.slots.get("book_restaurant_date"))
         previously_offered_alternatives = \
             tracker.slots.get("book_restaurant_offered_alternative_dates")
-        date = datetime.combine(booking_date.date(), booking_time.time())
+
+        if booking_date is not None and booking_time is not None:
+            date = datetime.combine(booking_date.date(), booking_time.time())
+        else:
+            alternative = get_alternative_restaurant()
+            has_alternative_restaurant = True
+            return [
+                SlotSet("is_restaurant_available", False),
+                SlotSet("book_restaurant_given_alternative", alternative),
+                SlotSet("book_restaurant_has_alternative_restaurant",
+                        has_alternative_restaurant),
+                SlotSet("book_restaurant_offered_alternative_dates",
+                        previously_offered_alternatives)
+            ]
 
         if is_restaurant_available(date) or \
                 restaurant_name == get_alternative_restaurant():
