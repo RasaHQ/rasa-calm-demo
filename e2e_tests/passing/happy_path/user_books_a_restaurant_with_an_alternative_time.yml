@@ -33,3 +33,4 @@ test_cases:
           - set_slot:
             - book_restaurant_confirmation: "True"
       - utter: utter_confirm_restaurant_booking
+      - utter: utter_can_do_something_else
