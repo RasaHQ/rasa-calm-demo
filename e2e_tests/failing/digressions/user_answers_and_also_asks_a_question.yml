@@ -13,5 +13,5 @@ test_cases:
         - set_slot:
             - transfer_money_final_confirmation: "True"
         - knowledge
-      - utter: utter_free_transfers
+      - utter: utter_knowledge_answer_placeholder
       - utter: utter_transfer_complete

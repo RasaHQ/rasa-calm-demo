@@ -10,7 +10,7 @@ test_cases:
       - user: What's a contact handle?
       - commands:
         - knowledge
-      - utter: utter_contact_handle_info
+      - utter: utter_knowledge_answer_placeholder
       - utter: utter_ask_add_contact_handle
       - user: Ah okay she sent it to me, it's @KatePurry
       - commands:

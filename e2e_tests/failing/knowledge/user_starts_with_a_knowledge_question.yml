@@ -4,4 +4,4 @@ test_cases:
       - user: Are transfers on free with this service?
       - commands:
         - knowledge
-      - utter: utter_free_transfers
+      - utter: utter_knowledge_answer_placeholder

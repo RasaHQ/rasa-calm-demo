@@ -10,7 +10,7 @@ test_cases:
       - user: btw, are these transfers free of charge?
       - commands:
         - knowledge
-      - utter: utter_free_transfers
+      - utter: utter_knowledge_answer_placeholder
       - utter: utter_ask_transfer_money_amount_of_money
       - user: great, 50$ then
       - commands:
