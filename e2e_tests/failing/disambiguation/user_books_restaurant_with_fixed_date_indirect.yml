@@ -25,7 +25,7 @@ test_cases:
       - utter: utter_ask_book_restaurant_alternative_dummy
       - user: that works too!
       - commands:
-          - no_command
+          - no_commands
       - user: we won't have a babysitter then
       - commands:
           - set_slot:
