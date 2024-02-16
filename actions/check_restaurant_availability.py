@@ -1,17 +1,13 @@
 from datetime import datetime, timedelta
-
-from rasa.shared.nlu.training_data.message import Message
-from rasa_sdk.interfaces import Action, Tracker
-from rasa_sdk.events import EventType, SlotSet
-from rasa_sdk.executor import CollectingDispatcher
-from rasa_sdk.types import DomainDict
-from rasa.nlu.extractors.duckling_entity_extractor import DucklingEntityExtractor
 from typing import List, Optional
 
-duckling_config = {**DucklingEntityExtractor.get_default_config(),
-                   "url": "https://rasa:xCTBjGqjTqDqE6X72FXLiBWVXYaQDZ@duckling.rasa-dev.io",
-                   "dimensions": ["time"]}
-duckling = DucklingEntityExtractor(duckling_config)
+from rasa.shared.nlu.training_data.message import Message
+from rasa_sdk.events import EventType, SlotSet
+from rasa_sdk.executor import CollectingDispatcher
+from rasa_sdk.interfaces import Action, Tracker
+from rasa_sdk.types import DomainDict
+
+from actions.entity_extractor import duckling_entity_extractor
 
 
 class CheckRestaurantAvailability(Action):
@@ -44,7 +40,7 @@ class CheckRestaurantAvailability(Action):
 
         def parse_datetime(text: str) -> Optional[datetime]:
             msg = Message.build(text)
-            duckling.process([msg])
+            duckling_entity_extractor.process([msg])
             if len(msg.data["entities"]) == 0:
                 return None
             parsed_value = msg.data["entities"][0]["value"]
