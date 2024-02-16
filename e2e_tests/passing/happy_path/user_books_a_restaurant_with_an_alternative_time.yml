@@ -5,11 +5,15 @@ test_cases:
       - slot_was_set:
           - book_restaurant_name_of_restaurant: Xaigon
           - book_restaurant_number_of_people: "4"
+          - book_restaurant_date
+          - book_restaurant_time
       - utter: utter_restaurant_not_available
       - utter: utter_ask_book_restaurant_alternative_dummy
       - user: sounds good!
       - utter: utter_ask_confirm_slot_correction
       - user: "yes"
+      - slot_was_set:
+          - book_restaurant_time
       - utter: utter_corrected_previous_input
       - utter: utter_restaurant_available
       - utter: utter_ask_book_restaurant_reservation_name
