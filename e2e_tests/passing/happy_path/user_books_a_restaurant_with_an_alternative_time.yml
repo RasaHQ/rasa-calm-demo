@@ -13,7 +13,7 @@ test_cases:
       - utter: utter_ask_book_restaurant_alternative_dummy
       - user: sounds good!
       - commands:
-          - set_slot:
+          - correct_slot:
             - book_restaurant_time: 8pm
       - utter: utter_ask_confirm_slot_correction
       - user: yes

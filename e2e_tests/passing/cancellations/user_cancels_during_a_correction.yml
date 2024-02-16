@@ -9,7 +9,7 @@ test_cases:
       - utter: utter_ask_transfer_money_amount_of_money
       - user: oh sorry I meant John
       - commands:
-          - set_slot:
+          - correct_slot:
             - transfer_money_recipient: 'John'
       - utter: utter_ask_confirm_slot_correction
       - user: nevermind, cancel the transfer

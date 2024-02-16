@@ -17,13 +17,14 @@ test_cases:
       - utter: utter_ask_verify_account_sufficient_california_income
       - user: Oh, actually I am not based in California
       - commands:
-          - set_slot:
+          - correct_slot:
             - based_in_california: "False"
       - utter: utter_ask_confirm_slot_correction
       - user: yes
       - commands:
           - set_slot:
             - confirm_slot_correction: "True"
+      - utter: utter_corrected_previous_input
       - utter: utter_ask_verify_account_confirmation
       - user: yes
       - commands:

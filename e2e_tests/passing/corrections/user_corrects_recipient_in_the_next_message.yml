@@ -12,14 +12,13 @@ test_cases:
       - utter: utter_ask_transfer_money_amount_of_money
       - user: Sorry, I meant to say Joe
       - commands:
-        - set_slot:
+        - correct_slot:
           - transfer_money_recipient: "Joe"
       - utter: utter_ask_confirm_slot_correction
       - user: yes
       - commands:
         - set_slot:
           - confirm_slot_correction: "True"
-          - transfer_money_recipient: "Joe"
       - utter: utter_corrected_previous_input
       - utter: utter_ask_transfer_money_amount_of_money
       - user: "50"

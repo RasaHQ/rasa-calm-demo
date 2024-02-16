@@ -17,7 +17,7 @@ test_cases:
       - utter: utter_ask_transfer_money_final_confirmation
       - user: "Ah, scratch that, I meant 110$"
       - commands:
-        - set_slot:
+        - correct_slot:
           - transfer_money_amount_of_money: "110"
       - utter: utter_ask_confirm_slot_correction
       - user: yes

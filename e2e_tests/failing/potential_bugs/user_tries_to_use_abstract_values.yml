@@ -7,8 +7,7 @@ test_cases:
       - utter: utter_ask_transfer_money_recipient
       - user: to a good friend
       - commands:
-        - set_slot:
-          - transfer_money_recipient: None
+          - no_command
       - utter: utter_ask_transfer_money_recipient
       - user: okay, to Mary
       - commands:

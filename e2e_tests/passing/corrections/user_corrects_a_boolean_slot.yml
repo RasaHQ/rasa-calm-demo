@@ -22,7 +22,7 @@ test_cases:
       - utter: utter_ask_verify_account_confirmation
       - user: Actually my income is not that high
       - commands:
-          - set_slot:
+          - correct_slot:
             - verify_account_sufficient_california_income: "False"
       - utter: utter_ask_verify_account_sufficient_california_income
       - user: no

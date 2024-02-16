@@ -14,7 +14,7 @@ test_cases:
       - utter: utter_ask_book_restaurant_date
       - user: Ah wait, make that 5 people, Barbara is also coming
       - commands:
-          - set_slot:
+          - correct_slot:
             - book_restaurant_number_of_people: "5"
       - utter: utter_ask_confirm_slot_correction
       - user: yes

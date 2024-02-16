@@ -17,7 +17,7 @@ test_cases:
       - utter: utter_ask_book_restaurant_alternative_dummy
       - user: 8pm is not good, how about a bit later then, like 9pm?
       - commands:
-          - set_slot:
+          - correct_slot:
             - book_restaurant_time: "9pm"
       - utter: utter_ask_confirm_slot_correction
       - user: yes
