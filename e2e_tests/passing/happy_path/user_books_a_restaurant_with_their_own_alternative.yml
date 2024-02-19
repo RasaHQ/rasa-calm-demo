@@ -5,10 +5,11 @@ test_cases:
       - slot_was_set:
           - book_restaurant_name_of_restaurant: Shiso Burger
           - book_restaurant_number_of_people: "3"
-          - book_restaurant_date
-          - book_restaurant_time
       - utter: utter_ask_book_restaurant_date
       - user: I was thinking tomorrow 7pm
+      - slot_was_set:
+          - book_restaurant_date
+          - book_restaurant_time
       - utter: utter_restaurant_not_available
       - utter: utter_ask_book_restaurant_alternative_dummy
       - user: 8pm is not good, how about a bit later then, like 9pm?
