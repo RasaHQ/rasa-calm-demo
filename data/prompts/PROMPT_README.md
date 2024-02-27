@@ -11,7 +11,7 @@ prompt: path_to_prompt_file.jinja2
 
 ## E2E Test Results
 
-The following are the results of the e2e tests conducted for different models using the prompts:
+The following are the results of the e2e tests conducted for different models using designated prompts:
 
 | Model   | Accuracy | Prompt file |
 |---------|----------|-------------|
