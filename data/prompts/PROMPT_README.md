@@ -8,10 +8,15 @@ This README provides information on how to use the prompts and includes the resu
 name: LLMCommandGenerator
 prompt: path_to_prompt_file.jinja2
 ```
+This component generates commands using a LLM based on the given prompt file and should be included in the `pipeline` section of the `config.yml` file.
 
 ## E2E Test Results
 
-The following are the results of the e2e tests conducted for different models using designated prompts:
+The `e2e_tests` folder contains the test cases across different conversation categories that are used to evaluate the models.
+
+The conversations are modelled using `flows` and the `domain` file contains the definition of bot utterances, slots, and actions that are used in the test cases.
+
+The following are the results of the e2e tests conducted for different models using designated prompts. 
 
 | Model   | Accuracy | Prompt file |
 |---------|----------|-------------|
