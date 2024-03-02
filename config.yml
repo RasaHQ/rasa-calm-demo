@@ -5,8 +5,23 @@ pipeline:
 - name: NLUCommandAdapter
 - name: LLMCommandGenerator
   llm:
-    model_name: gpt-4
-    request_timeout: 7
+    # model_name: gpt-4
+    _type: together
+    # model: d.varshneya@rasa.com/CodeLlama-7b-Instruct-2024-02-27-14-01-08
+    # model: singhpranay274@gmail.com/Mixtral-8x7B-Instruct-v0.1-2024-02-27-16-52-29
+    model: Qwen/Qwen1.5-72B-Chat
+    # model: Qwen/Qwen1.5-14B-Chat
+    # model: meta-llama/Llama-2-7b-chat-hf
+    # request_timeout: 7
+    # max_tokens: 100
+    # stop: ["<|im_end|>","<|im_start|>"]
+    # temperature: 0.7
+    temperature: 0.0
+    max_tokens: 512
+    top_p: 0.7
+    top_k: 50
+    repetition_penalty: 1
+  prompt: prompts/qwen.jinja2
 
 policies:
 - name: rasa.core.policies.flow_policy.FlowPolicy
@@ -14,3 +29,4 @@ policies:
 - name: rasa_plus.ml.IntentlessPolicy
 
 #  - name: RulePolicy
+assistant_id: 20240227-211734-gourmet-azimuth
