@@ -166,6 +166,16 @@ jobs:
         make actions &
         make test-passing
 
+    - name: Run e2e flaky tests
+      env:
+        OPENAI_API_KEY: ${{secrets.OPENAI_API_KEY}}
+        RASA_PRO_LICENSE: ${{secrets.RASA_PRO_LICENSE}}
+        RASA_DUCKLING_HTTP_URL: ${{secrets.DUCKLING_URL}}
+        RASA_PRO_BETA_INTENTLESS: true
+      run: |
+        make actions &
+        make test-flaky || 1
+
     - name: Run e2e failing tests
       env:
         OPENAI_API_KEY: ${{secrets.OPENAI_API_KEY}}

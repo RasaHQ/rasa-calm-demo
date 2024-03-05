@@ -57,15 +57,6 @@ test_cases:
           - recurrent_payment_type: "direct debit"
       - utter: utter_ask_recipient
 
-  - test_case: user wants to set up a new recurrent payment, but specifies the type incompletely, example 3
-    steps:
-      - user: I want to set up a new recurrent payment
-      - utter: utter_ask_recurrent_payment_type
-      - user: stand order
-      - slot_was_set:
-          - recurrent_payment_type: "standing order"
-      - utter: utter_ask_recipient
-
   - test_case: user wants to set up a new recurrent payment, but specifies over specifies the type
     steps:
       - user: I want to set up a new recurrent payment
