@@ -174,7 +174,7 @@ jobs:
         RASA_PRO_BETA_INTENTLESS: true
       run: |
         make actions &
-        make test-flaky || 1
+        make test-flaky || true
 
     - name: Run e2e failing tests
       env:
