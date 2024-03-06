@@ -4,10 +4,10 @@ test_cases:
     steps:
       - user: send 50 USD to John
       - utter: utter_ask_transfer_money_final_confirmation
-      - user: yes
+      - user: "yes"
       - utter: utter_transfer_complete
       - utter: utter_can_do_something_else
       - user: now do it again
       - utter: utter_ask_transfer_money_final_confirmation
-      - user: yes
+      - user: "yes"
       - utter: utter_transfer_complete

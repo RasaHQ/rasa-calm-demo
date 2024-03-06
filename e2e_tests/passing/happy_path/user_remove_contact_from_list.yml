@@ -8,5 +8,5 @@ test_cases:
       - slot_was_set:
           - remove_contact_handle: "@MaryLu"
       - utter: utter_ask_remove_contact_confirmation
-      - user: yes
+      - user: "yes"
       - utter: utter_remove_contact_success

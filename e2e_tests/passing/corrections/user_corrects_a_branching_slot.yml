@@ -5,11 +5,14 @@ test_cases:
       - utter: utter_ask_verify_account_email
       - user: It's birdie@example.com
       - utter: utter_ask_based_in_california
-      - user: yes
+      - user: "yes"
       - utter: utter_ask_verify_account_sufficient_california_income
       - user: Oh, actually I am not based in California
       - utter: utter_ask_confirm_slot_correction
-      - user: yes
+      - user: "yes"
+      - slot_was_set:
+          - based_in_california
+      - utter: utter_corrected_previous_input
       - utter: utter_ask_verify_account_confirmation
-      - user: yes
+      - user: "yes"
       - utter: utter_verify_account_success

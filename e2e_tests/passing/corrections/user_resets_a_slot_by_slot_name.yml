@@ -7,10 +7,10 @@ test_cases:
       - utter: utter_ask_transfer_money_final_confirmation
       - user: I want to change the recipient
       - utter: utter_ask_confirm_slot_correction
-      - user: yes
+      - user: "yes"
       - utter: utter_corrected_previous_input
       - utter: utter_ask_transfer_money_recipient
       - user: Eliza
       - utter: utter_ask_transfer_money_final_confirmation
-      - user: yes
+      - user: "yes"
       - utter: utter_transfer_complete

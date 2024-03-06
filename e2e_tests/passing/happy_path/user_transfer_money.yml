@@ -11,5 +11,5 @@ test_cases:
       - slot_was_set:
           - transfer_money_amount_of_money: "150"
       - utter: utter_ask_transfer_money_final_confirmation
-      - user: yes
+      - user: "yes"
       - utter: utter_transfer_complete

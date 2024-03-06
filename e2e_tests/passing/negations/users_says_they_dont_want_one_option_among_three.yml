@@ -5,5 +5,5 @@ test_cases:
       - utter: utter_clarification_options_rasa
       - user: not remove
       - utter: utter_clarification_options_rasa
-      - user: the former
+      - user: the latter
       - utter: utter_list_contacts
