@@ -55,7 +55,7 @@ services:
      - ./collector-config.yaml:/etc/otelcol/config.yaml
    ports:
      - "4317:4317" # otlp grpc receiver
-     - "8888:8888" # Prometheus metrics exposed by the collector
+     - "8888:8888" # Prometheus' metrics exposed by the collector
      - "8889:8889" # Prometheus exporter configured metrics
    depends_on:
      jaeger:

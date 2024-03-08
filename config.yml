@@ -4,6 +4,7 @@ pipeline:
 - name: KeywordIntentClassifier
 - name: NLUCommandAdapter
 - name: LLMCommandGenerator
+  trace_prompt_tokens: true
   llm:
     model_name: gpt-4
     request_timeout: 7
