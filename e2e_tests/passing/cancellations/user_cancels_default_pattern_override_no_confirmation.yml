@@ -14,4 +14,3 @@ test_cases:
       - commands:
           - cancel_flow
       - utter: utter_can_do_something_else
- 

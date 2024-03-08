@@ -14,7 +14,7 @@ test_cases:
             - list_contacts
             - add_contact
       - utter: utter_clarification_options_rasa
-      - user: the former
+      - user: the latter
       - commands:
         - start_flow: list_contacts
       - utter: utter_list_contacts

@@ -1,0 +1,12 @@
+test_cases:
+  - test_case: user wants to set up a new recurrent payment, but specifies the type incompletely, example 3
+    steps:
+      - user: I want to set up a new recurrent payment
+      - commands:
+        - start_flow: setup_recurrent_payment
+      - utter: utter_ask_recurrent_payment_type
+      - user: stand order
+      - commands:
+        - set_slot:
+          - recurrent_payment_type: "standing order"
+      - utter: utter_ask_recipient

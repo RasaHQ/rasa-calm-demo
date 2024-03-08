@@ -12,7 +12,7 @@ test_cases:
         - set_slot:
           - remove_contact_handle: "@MaryLu"
       - utter: utter_ask_remove_contact_confirmation
-      - user: yes
+      - user: "yes"
       - commands:
         - set_slot:
           - remove_contact_confirmation: "yes"

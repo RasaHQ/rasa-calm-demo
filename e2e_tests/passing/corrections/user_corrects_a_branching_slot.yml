@@ -10,7 +10,7 @@ test_cases:
           - set_slot:
             - verify_account_email: "birdie@example.com"
       - utter: utter_ask_based_in_california
-      - user: yes
+      - user: "yes"
       - commands:
           - set_slot:
             - based_in_california: "True"
@@ -20,13 +20,13 @@ test_cases:
           - correct_slot:
             - based_in_california: "False"
       - utter: utter_ask_confirm_slot_correction
-      - user: yes
+      - user: "yes"
       - commands:
           - set_slot:
             - confirm_slot_correction: "True"
       - utter: utter_corrected_previous_input
       - utter: utter_ask_verify_account_confirmation
-      - user: yes
+      - user: "yes"
       - commands:
           - set_slot:
             - verify_account_confirmation: "True"

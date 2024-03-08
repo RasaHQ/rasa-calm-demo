@@ -1,5 +1,5 @@
 test_cases:
-  - test_case: user makes an intermitten flow switch
+  - test_case: validation too little money
     steps:
       - user: I want to send 5000$ to Martin
       - commands:
@@ -14,7 +14,7 @@ test_cases:
         - set_slot:
             - transfer_money_amount_of_money: "3000"
       - utter: utter_ask_transfer_money_final_confirmation
-      - user: yes
+      - user: "yes"
       - commands:
         - set_slot:
             - transfer_money_final_confirmation: "True"

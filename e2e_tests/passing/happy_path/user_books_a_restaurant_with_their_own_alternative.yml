@@ -20,7 +20,7 @@ test_cases:
           - correct_slot:
             - book_restaurant_time: "9pm"
       - utter: utter_ask_confirm_slot_correction
-      - user: yes
+      - user: "yes"
       - commands:
           - set_slot:
             - confirm_slot_correction: "True"
@@ -32,7 +32,7 @@ test_cases:
           - set_slot:
             - book_restaurant_reservation_name: Jakub
       - utter: utter_ask_book_restaurant_confirmation
-      - user: yes
+      - user: "yes"
       - commands:
           - set_slot:
             - book_restaurant_confirmation: "True"

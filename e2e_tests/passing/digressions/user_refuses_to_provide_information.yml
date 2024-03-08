@@ -10,7 +10,7 @@ test_cases:
         - set_slot:
           - verify_account_email: "thomas@x.com"
       - utter: utter_ask_based_in_california
-      - user: Yes
+      - user: "Yes"
       - commands:
         - set_slot:
           - based_in_california: "True"

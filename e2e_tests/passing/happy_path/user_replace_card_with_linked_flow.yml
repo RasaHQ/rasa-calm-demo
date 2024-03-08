@@ -5,7 +5,7 @@ test_cases:
       - commands:
         - start_flow: replace_card
       - utter: utter_ask_confirm_correct_card
-      - user: yes
+      - user: "yes"
       - commands:
         - set_slot:
           - confirm_correct_card: "True"
@@ -15,7 +15,7 @@ test_cases:
         - set_slot:
           - replacement_reason: "lost"
       - utter: utter_ask_was_card_used_fraudulently
-      - user: no
+      - user: "no"
       - commands:
         - set_slot:
           - was_card_used_fraudulently: "False"

@@ -28,6 +28,9 @@ actions:
 test-passing: .EXPORT_ALL_VARIABLES
 	poetry run rasa test e2e e2e_tests/passing
 
+test-flaky: .EXPORT_ALL_VARIABLES
+	poetry run rasa test e2e e2e_tests/flaky
+
 test-failing: .EXPORT_ALL_VARIABLES
 	poetry run rasa test e2e e2e_tests/failing
 

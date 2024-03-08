@@ -1,5 +1,5 @@
 test_cases:
-  - test_case: user says they don't want the latter option
+  - test_case: user says they don't want the former option
     steps:
       - user: add
       - commands:
@@ -7,7 +7,7 @@ test_cases:
             - add_contact
             - book_restaurant
       - utter: utter_clarification_options_rasa
-      - user: not the latter
+      - user: not the former
       - commands:
         - start_flow: add_contact
       - utter: utter_ask_add_contact_handle

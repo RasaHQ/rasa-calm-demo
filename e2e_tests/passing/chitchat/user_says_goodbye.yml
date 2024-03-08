@@ -8,7 +8,7 @@ test_cases:
             - transfer_money_recipient: Spencer
             - transfer_money_amount_of_money: 10
       - utter: utter_ask_transfer_money_final_confirmation
-      - user: Yes
+      - user: "Yes"
       - commands:
           - set_slot:
             - transfer_money_final_confirmation: "True"

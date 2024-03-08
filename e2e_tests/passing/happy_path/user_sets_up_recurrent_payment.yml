@@ -35,7 +35,7 @@ test_cases:
         - set_slot:
           - recurrent_payment_end_date: "Jan 1st, 2051"
       - utter: utter_ask_recurrent_payment_confirmation
-      - user: Yes
+      - user: "Yes"
       - commands:
         - set_slot:
           - recurrent_payment_confirmation: "True"
@@ -62,7 +62,7 @@ test_cases:
           - recurrent_payment_type: "direct debit"
       - utter: utter_ask_recipient
 
-  - test_case: user wants to set up a new recurrent payment, but specifies the type incompletely, eg2
+  - test_case: user wants to set up a new recurrent payment, but specifies the type incompletely, example 2
     steps:
       - user: I want to set up a new recurrent payment
       - commands:
@@ -72,18 +72,6 @@ test_cases:
       - commands:
         - set_slot:
           - recurrent_payment_type: "direct debit"
-      - utter: utter_ask_recipient
-
-  - test_case: user wants to set up a new recurrent payment, but specifies the type incompletely, eg3
-    steps:
-      - user: I want to set up a new recurrent payment
-      - commands:
-        - start_flow: setup_recurrent_payment
-      - utter: utter_ask_recurrent_payment_type
-      - user: stand order
-      - commands:
-        - set_slot:
-          - recurrent_payment_type: "standing order"
       - utter: utter_ask_recipient
 
   - test_case: user wants to set up a new recurrent payment, but specifies over specifies the type

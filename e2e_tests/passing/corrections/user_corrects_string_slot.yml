@@ -17,13 +17,13 @@ test_cases:
           - correct_slot:
             - add_contact_name: "Spidey"
       - utter: utter_ask_confirm_slot_correction
-      - user: yes
+      - user: "yes"
       - commands:
         - set_slot:
           - confirm_slot_correction: "True"
       - utter: utter_corrected_previous_input
       - utter: utter_ask_add_contact_confirmation
-      - user: yes
+      - user: "yes"
       - commands:
         - set_slot:
           - add_contact_confirmation: "True"

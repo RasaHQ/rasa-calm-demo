@@ -16,7 +16,7 @@ test_cases:
           - set_slot:
             - book_restaurant_reservation_name: Emil
       - utter: utter_ask_book_restaurant_confirmation
-      - user: yes
+      - user: "yes"
       - commands:
           - set_slot:
             - book_restaurant_confirmation: "True"

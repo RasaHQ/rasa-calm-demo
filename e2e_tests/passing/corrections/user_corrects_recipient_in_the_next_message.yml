@@ -15,7 +15,7 @@ test_cases:
         - correct_slot:
           - transfer_money_recipient: "Joe"
       - utter: utter_ask_confirm_slot_correction
-      - user: yes
+      - user: "yes"
       - commands:
         - set_slot:
           - confirm_slot_correction: "True"
@@ -26,7 +26,7 @@ test_cases:
         - set_slot:
           - transfer_money_amount_of_money: "50"
       - utter: utter_ask_transfer_money_final_confirmation
-      - user: yes
+      - user: "yes"
       - commands:
         - set_slot:
           - transfer_money_final_confirmation: "True"

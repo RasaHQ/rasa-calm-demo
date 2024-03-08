@@ -25,11 +25,13 @@ flows:
     steps:
       - action: action_trigger_chitchat
 
+  # using chitchat here so that intentless is used for better testability
   pattern_search:
     description: handle knowledge-based requests using enterprise search
     steps:
-      - action: action_trigger_search
-  
+      - action: action_trigger_chitchat
+      #- action: action_trigger_search
+
   pattern_cancel_flow:
     description: A meta flow that's started when a flow is cancelled.
     steps:

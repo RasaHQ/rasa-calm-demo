@@ -11,17 +11,17 @@ test_cases:
         - set_slot:
           - verify_account_email: sam@microsoft.com
       - utter: utter_ask_based_in_california
-      - user: yes
+      - user: "yes"
       - commands:
         - set_slot:
           - based_in_california: "True"
       - utter: utter_ask_verify_account_sufficient_california_income
-      - user: yes
+      - user: "yes"
       - commands:
         - set_slot:
           - verify_account_sufficient_california_income: "True"
       - utter: utter_ask_verify_account_confirmation
-      - user: yes
+      - user: "yes"
       - commands:
         - set_slot:
           - verify_account_confirmation: "True"
