@@ -4,15 +4,15 @@ test_cases:
       - user: contact
       - commands:
         - clarify:
-            - list_contacts
             - add_contact
+            - list_contacts
             - remove_contact
       - utter: utter_clarification_options_rasa
       - user: not remove
       - commands:
         - clarify:
-            - list_contacts
             - add_contact
+            - list_contacts
       - utter: utter_clarification_options_rasa
       - user: the latter
       - commands:

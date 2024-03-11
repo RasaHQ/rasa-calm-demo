@@ -10,7 +10,7 @@ test_cases:
       - user: Sorry, I didn't mean John
       - commands:
           - correct_slot:
-            - transfer_money_recipient: None
+            - transfer_money_recipient: null
       - utter: utter_ask_confirm_slot_correction
       - user: "yes"
       - commands:

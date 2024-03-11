@@ -4,8 +4,8 @@ test_cases:
       - user: add
       - commands:
         - clarify:
+            - add_card
             - add_contact
-            - book_restaurant
       - utter: utter_clarification_options_rasa
       - user: not the former
       - commands:

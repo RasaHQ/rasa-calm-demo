@@ -4,8 +4,8 @@ test_cases:
       - user: cash
       - commands:
         - clarify:
-            - transfer_money
             - check_balance
+            - transfer_money
       - utter: utter_clarification_options_rasa
       - user: not transfer
       - commands:

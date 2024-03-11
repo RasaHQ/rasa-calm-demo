@@ -15,7 +15,7 @@ test_cases:
       - user: I want to change the recipient
       - commands:
           - correct_slot:
-            - transfer_money_recipient: None
+            - transfer_money_recipient: null
       - utter: utter_ask_confirm_slot_correction
       - user: "yes"
       - commands:

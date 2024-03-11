@@ -21,9 +21,6 @@ test_cases:
       - commands:
         - set_slot:
           - recurrent_payment_frequency: "weekly"
-        - clarify:
-          - monthly
-          - yearly
       - utter: utter_categorical_slot_rejection
       - utter: utter_ask_recurrent_payment_frequency
 
