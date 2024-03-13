@@ -14,8 +14,6 @@ test_cases:
       - utter: utter_ask_confirm_slot_correction
       - user: damn, should be Alex
       - commands:
-          - set_slot:
-            - confirm_slot_correction: "True"
           - correct_slot:
             - transfer_money_recipient: "Alex"
       - utter: utter_ask_confirm_slot_correction
