@@ -1,0 +1,26 @@
+recipe: default.v1
+language: en
+pipeline:
+- name: KeywordIntentClassifier
+- name: NLUCommandAdapter
+- name: LLMCommandGenerator
+  llm:
+    model_name: gpt-4
+    engine: csegpt4
+    api_version: 2024-02-15-preview
+    request_timeout: 14
+  flow_retrieval:
+    embeddings:
+      model: text-embedding-ada-002
+      deployment: text-embedding-ada-002
+      chunk_size: 16
+
+policies:
+- name: rasa.core.policies.flow_policy.FlowPolicy
+- name: rasa.core.policies.enterprise_search_policy.EnterpriseSearchPolicy
+- name: rasa.core.policies.intentless_policy.IntentlessPolicy
+  llm:
+    model_name: gpt-4
+    engine: csegpt4
+    api_version: 2024-02-15-preview
+    request_timeout: 14
