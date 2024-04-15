@@ -6,13 +6,17 @@ pipeline:
 - name: LLMCommandGenerator
   llm:
     model_name: gpt-4
+    # model_name: gpt-3.5-turbo-0125
     request_timeout: 7
     temperature: 0.0
     top_p: 0.0
+  flow_retrieval:
+    active: false
 
 policies:
 - name: rasa.core.policies.flow_policy.FlowPolicy
-- name: rasa_plus.ml.EnterpriseSearchPolicy
-- name: rasa_plus.ml.IntentlessPolicy
+- name: EnterpriseSearchPolicy
+- name: IntentlessPolicy
 
 #  - name: RulePolicy
+assistant_id: 20240414-165136-solid-panel

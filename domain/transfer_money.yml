@@ -3,8 +3,36 @@ version: "3.1"
 actions:
   - check_transfer_funds
   - execute_transfer
+  - add_new_recipient
+  - send_money
+  - validate_recipient_name
 
 slots:
+  transfer_confirmation:
+    type: bool
+    mappings:
+      - type: custom
+  is_existing_recipient:
+    type: bool
+    mappings:
+      - type: custom
+  recipient_name:
+    type: text
+    mappings:
+      - type: custom
+  recipient_iban:
+    type: text
+    mappings:
+      - type: custom
+  recipient_phone_number:
+    type: text
+    mappings:
+      - type: custom
+  amount_of_money:
+    type: text
+    mappings:
+      - type: custom
+
   transfer_money_transfer_successful:
     type: bool
     mappings:
@@ -27,6 +55,20 @@ slots:
       - type: custom
 
 responses:
+  utter_ask_recipient_name:
+  - text: What's the name of the beneficiary?
+  utter_ask_recipient_iban:
+    - text: What's the iban of the beneficiary?
+  utter_ask_recipient_phone_number:
+    - text: What's the phone number of the beneficiary?
+  utter_ask_confirm_new_recipient:
+    - text: Alright, do you confirm that you want to add the new beneficiary?
+  utter_ask_transfer_confirmation:
+    - text: Please confirm if you would like to transfer {amount_of_money} USD to {recipient_name} with IBAN {recipient_iban}?
+  # utter_need_new_recipient:
+  #   - text: Looks like {recipient_details} is not part of your list of added beneficiaries. Let's add them.
+  utter_ask_amount_of_money:
+    - text: How much do you want to transfer?
   utter_transfer_money_insufficient_funds:
     - text: You don't have so much money on your account!
   utter_transfer_failed:
