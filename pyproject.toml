@@ -8,6 +8,7 @@ version = "2.0.0"
 description = "A starter point for exploring CALM."
 authors = [ "Tom Bocklisch <tmbo@rasa.com>",]
 readme = "README.md"
+package-mode = false
 
 [[tool.poetry.source]]
 name = "rasa-pro"
