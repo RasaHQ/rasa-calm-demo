@@ -26,8 +26,6 @@ actions:
 	poetry run rasa run actions
 
 test-passing: .EXPORT_ALL_VARIABLES
-	poetry run rasa run actions &
-	sleep 5 &
 	poetry run rasa test e2e e2e_tests/passing
 
 test-flaky: .EXPORT_ALL_VARIABLES
