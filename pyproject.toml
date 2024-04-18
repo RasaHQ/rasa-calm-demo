@@ -12,8 +12,7 @@ readme = "README.md"
 [[tool.poetry.source]]
 name = "rasa-pro"
 url = "https://europe-west3-python.pkg.dev/rasa-releases/rasa-pro-python/simple"
-default = false
-secondary = true
+priority = "supplemental"
 
 [tool.poetry.dependencies]
 python = ">=3.8.1,<3.11"
