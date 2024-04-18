@@ -164,7 +164,6 @@ jobs:
         RASA_PRO_BETA_INTENTLESS: true
       run: |
         make actions &
-        sleep 5 &
         make test-passing
 
     - name: Run e2e flaky tests
@@ -175,7 +174,6 @@ jobs:
         RASA_PRO_BETA_INTENTLESS: true
       run: |
         make actions &
-        sleep 5 &
         make test-flaky || true
 
     - name: Run e2e failing tests
@@ -186,5 +184,4 @@ jobs:
         RASA_PRO_BETA_INTENTLESS: true
       run: |
         make actions &
-        sleep 5 &
         make test-failing | grep '0 passed'

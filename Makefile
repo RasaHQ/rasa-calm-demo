@@ -23,7 +23,7 @@ train: .EXPORT_ALL_VARIABLES
 	poetry run rasa train -c config.yml -d domain --data data
 
 actions:
-	poetry run rasa run actions
+	poetry run rasa run actions & sleep 5
 
 test-passing: .EXPORT_ALL_VARIABLES
 	poetry run rasa test e2e e2e_tests/passing
