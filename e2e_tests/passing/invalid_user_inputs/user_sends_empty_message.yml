@@ -1,0 +1,9 @@
+#There is currently a bug in the e2e test runner
+# File "/home/runner/work/rasa-calm-demo/rasa-calm-demo/.venv/lib/python3.9/site-packages/rasa/e2e_test/e2e_test_runner.py", line 485, in find_test_failures
+#    turn_value = test_turns[position]
+#KeyError: 0
+#test_cases:
+#  - test_case: user sends the long message that exceeds 420 characters
+#    steps:
+#      - user: "     "
+#      - utter: utter_user_input_empty_error_rasa
