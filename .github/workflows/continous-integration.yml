@@ -163,7 +163,6 @@ jobs:
         RASA_DUCKLING_HTTP_URL: ${{secrets.DUCKLING_URL}}
         RASA_PRO_BETA_INTENTLESS: true
       run: |
-        make actions &
         make test-passing
 
     - name: Run e2e flaky tests
