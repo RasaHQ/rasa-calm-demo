@@ -12,7 +12,7 @@ concurrency:
 
 env:
   DEFAULT_PYTHON_VERSION: '3.9'
-  POETRY_VERSION: 1.4.2
+  POETRY_VERSION: 1.8.2
 
 jobs:
   train-model:
@@ -156,7 +156,7 @@ jobs:
         path: .rasa
         key: rasa-llm-cache
 
-    - name: Run e2e passing tests
+    - name: Run action server
       env:
         OPENAI_API_KEY: ${{secrets.OPENAI_API_KEY}}
         RASA_PRO_LICENSE: ${{secrets.RASA_PRO_LICENSE}}
@@ -164,6 +164,14 @@ jobs:
         RASA_PRO_BETA_INTENTLESS: true
       run: |
         make actions &
+
+    - name: Run e2e passing tests
+      env:
+        OPENAI_API_KEY: ${{secrets.OPENAI_API_KEY}}
+        RASA_PRO_LICENSE: ${{secrets.RASA_PRO_LICENSE}}
+        RASA_DUCKLING_HTTP_URL: ${{secrets.DUCKLING_URL}}
+        RASA_PRO_BETA_INTENTLESS: true
+      run: |
         make test-passing
 
     - name: Run e2e flaky tests
@@ -173,7 +181,6 @@ jobs:
         RASA_DUCKLING_HTTP_URL: ${{secrets.DUCKLING_URL}}
         RASA_PRO_BETA_INTENTLESS: true
       run: |
-        make actions &
         make test-flaky || true
 
     - name: Run e2e failing tests
@@ -183,5 +190,4 @@ jobs:
         RASA_DUCKLING_HTTP_URL: ${{secrets.DUCKLING_URL}}
         RASA_PRO_BETA_INTENTLESS: true
       run: |
-        make actions &
         make test-failing | grep '0 passed'

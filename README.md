@@ -166,7 +166,7 @@ and run end-to-end tests.
 Prerequisites:
 - rasa pro license
 - being authenticated with our artifact registry
-- [poetry](https://python-poetry.org/docs/#installation) (1.4.2), e.g. using 
+- [poetry](https://python-poetry.org/docs/#installation) (1.8.2), e.g. using 
   `poetry self update`
 - python (3.10.12), e.g. using [pyenv](https://github.com/pyenv/pyenv) 
   `pyenv install 3.10.12`
@@ -258,12 +258,15 @@ run rasa test e2e e2e_tests
 
 ------
 
-To run **passing/failing** tests you can use the `make` command:
+To run **passing/failing/flaky** tests you can use the `make` command:
 ```commandline
 make test-passing
 ```
 ```commandline
 make test-failing
+```
+```commandline
+make test-flaky
 ```
 or
 ```commandline
@@ -271,6 +274,9 @@ run rasa test e2e e2e_tests/passing
 ```
 ```commandline
 run rasa test e2e e2e_tests/failing
+```
+```commandline
+run rasa test e2e e2e_tests/flaky
 ```
 
 ------
