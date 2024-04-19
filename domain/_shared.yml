@@ -52,6 +52,8 @@ responses:
     - text: I can't wait to see how this unfolds.
   utter_conversation_highlight:
     - text: Our conversation was a highlight of my virtual day!
+  utter_greet_user:
+    - text: 👋 Hello there! I'm Finley, your personal intelligent assistant for seamless financial interactions. How can I assist you today?
 
 session_config:
   session_expiration_time: 60

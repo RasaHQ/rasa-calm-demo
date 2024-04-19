@@ -12,7 +12,8 @@ pipeline:
 
 policies:
 - name: rasa.core.policies.flow_policy.FlowPolicy
-- name: rasa_plus.ml.EnterpriseSearchPolicy
-- name: rasa_plus.ml.IntentlessPolicy
+- name: EnterpriseSearchPolicy
+- name: IntentlessPolicy
 
 #  - name: RulePolicy
+assistant_id: 20240415-224149-ebony-charge
