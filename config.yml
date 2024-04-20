@@ -10,8 +10,8 @@ pipeline:
     request_timeout: 7
     temperature: 0.0
     top_p: 0.0
-  flow_retrieval:
-    active: false
+  # flow_retrieval:
+  #   active: false
 
 policies:
 - name: rasa.core.policies.flow_policy.FlowPolicy
