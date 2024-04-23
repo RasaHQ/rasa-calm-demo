@@ -1,0 +1,8 @@
+The value of the slot "{{ slot }}" is about to be set to "{{ potential_value }}".
+Refine this value given additional information:
+{% if slot_description %}Slot description: "{{ slot_description }}"{% endif %}
+{% if allowed_values %}Common values for this slot: {{ allowed_values }}
+If it is very similar, map the value to one of the common values.
+{% endif %}
+If the value does not need changing, just copy it. Do not make up information. DO NOT output anything other than the refined value!
+Refined value:

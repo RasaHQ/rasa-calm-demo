@@ -1,0 +1,19 @@
+You get to observe a conversation between a user and a task-oriented AI. The AI can help the user achieve a number of tasks through a chat interface. Your task is to classify the users intention to determine the next processing steps.
+
+Here is the conversation transcript:
+{{ current_conversation }}
+
+===
+We need to know all intentions that the last user messages contains:
+A: seeks to start a new dedicated task.
+B: provides information or corrects information for a task
+C: poses a question, or requests information
+D: engages in chitchat, makes a remark or a comment
+E: wants to cancel the current task
+F: explicitly asks to talk to a human operator or is visibly frustrated
+
+
+
+Write out all letters of intentions that apply for the user message.
+===
+The user saying "{{ last_user_message }}" means that they might

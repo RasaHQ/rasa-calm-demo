@@ -3,12 +3,15 @@ language: en
 pipeline:
 - name: KeywordIntentClassifier
 - name: NLUCommandAdapter
-- name: LLMCommandGenerator
-  llm:
-    model_name: gpt-4
-    request_timeout: 7
-    temperature: 0.0
-    top_p: 0.0
+- name: custom.multi_step_together.MultiStepLLMCommandGenerator
+  flow_retrieval:
+    active: false
+#- name: LLMCommandGenerator
+#  llm:
+#    model_name: gpt-4
+#    request_timeout: 7
+#    temperature: 0.0
+#    top_p: 0.0
 
 policies:
 - name: FlowPolicy
