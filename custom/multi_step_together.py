@@ -324,7 +324,7 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
         ]
         new_flows = [c.flow for c in commands if isinstance(c, StartFlowCommand)]
         refined_slot_commands = self.refine_slot_commands(
-            slot_commands, new_flows, tracker, flows
+            slot_commands, new_flows, tracker, flows, message
         )
 
         commands = commands_without_slots + refined_slot_commands
@@ -342,6 +342,7 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
         new_flows: List[str],
         tracker: DialogueStateTracker,
         flows: FlowsList,
+        message: Message
     ) -> [Command]:
         top_frame = top_flow_frame(tracker.stack)
 
@@ -364,6 +365,7 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
             slots=slots_of_active_flows,
         )
         refined_commands = []
+        latest_user_message = sanitize_message_for_prompt(message.get(TEXT))
         for c in slot_commands:
 
             info = slots_of_active_flows.get(c.name)
@@ -383,6 +385,7 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
                 "potential_value": c.value,
                 "slot_description": info["description"],
                 "allowed_values": info["allowed_values"],
+                "last_user_message": latest_user_message
             }
             print(inputs)
             prompt = Template(self.refine_slot_prompt).render(**inputs)

@@ -1,8 +1,12 @@
-The value of the slot "{{ slot }}" is about to be set to "{{ potential_value }}".
+The value of the slot "{{ slot }}" is about to be set to "{{ potential_value }}" based on user's last message.
+
 Refine this value given additional information:
+
+The user's last message was - "{{ last_user_message }}".
 {% if slot_description %}Slot description: "{{ slot_description }}"{% endif %}
-{% if allowed_values %}Common values for this slot: {{ allowed_values }}
-If it is very similar, map the value to one of the common values.
+{% if allowed_values %}Allowed values for this slot: {{ allowed_values }}
+If the value "{{ potential_value }}" does not belong to one of the allowed values, then just output it verbatim as the refined value.
+If the value "{{ potential_value }}" is very similar to one of the allowed values, output the allowed value as the refined value.
 {% endif %}
-If the value does not need changing, just copy it. Do not make up information. DO NOT output anything other than the refined value!
+DO NOT output anything other than the refined value!
 Refined value:
