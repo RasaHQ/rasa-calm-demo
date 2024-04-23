@@ -579,8 +579,7 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
         return commands
 
     def invoke_llm(self, prompt):
-        # co = cohere.Client('lmextycdreQJ8TvoRPG78zynJhccwm1O3nJQlOXP')
-        co = cohere.Client('JC8efw6S2KrRj6cd9PwD5VdWxETh5zELrCTAJpab')
+        co = cohere.Client('*')
         try:
             # print("sending check")
             # print(llm)
