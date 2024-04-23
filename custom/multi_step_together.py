@@ -584,6 +584,7 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
         import requests
         endpoint = 'https://api.together.xyz/v1/chat/completions'
         res = requests.post(endpoint, json={
+            # "model": "mistralai/Mixtral-8x22B-Instruct-v0.1",
             "model": "meta-llama/Llama-3-70b-chat-hf",
             # "model": "lmsys/vicuna-13b-v1.5",
             "max_tokens": 512,
@@ -593,7 +594,8 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
             "repetition_penalty": 1,
             "stop": [
                 "<|eot_id|>"
-                # "</s>"
+                # "</s>",
+                # "[/INST]"
             ],
             "messages": [
                 {
@@ -602,7 +604,7 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
                 }
             ]
         }, headers={
-            "Authorization": "Bearer ***",
+            "Authorization": "Bearer f8581cb36067c153eec72caf8a34774a1cb54c53a5156d26b74883d357ba6a51",
         })
 
         output = res.json()["choices"][0]["message"]["content"]
@@ -759,6 +761,9 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
             "undefined",
             "null",
             "",
+            "?",
+            "Unknown",
+            "unknown",
         }
 
     @staticmethod
