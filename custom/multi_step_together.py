@@ -599,7 +599,7 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
                 }
             ]
         }, headers={
-            "Authorization": "Bearer f8581cb36067c153eec72caf8a34774a1cb54c53a5156d26b74883d357ba6a51",
+            "Authorization": "Bearer ***",
         })
 
         output = res.json()["choices"][0]["message"]["content"]
