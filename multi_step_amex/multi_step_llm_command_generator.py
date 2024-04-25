@@ -17,7 +17,7 @@ from rasa.dialogue_understanding.commands import (
     KnowledgeAnswerCommand,
     ClarifyCommand,
 )
-from custom.change_flow_command import ChangeFlowCommand
+from multi_step_amex.change_flow_command import ChangeFlowCommand
 
 from rasa.dialogue_understanding.generator import CommandGenerator
 from rasa.dialogue_understanding.stack.frames import UserFlowStackFrame
@@ -74,16 +74,16 @@ FILL_SLOTS_OF_CURRENT_FLOW_PROMPT_FILE_NAME = "fill_slots_of_current_flow_prompt
 
 # multistep templates
 DEFAULT_REFINE_SLOT_TEMPLATE = importlib.resources.read_text(
-    "rasa.dialogue_understanding.generator", "refine_slot.jinja2"
+    "multi_step_amex", "refine_slot.jinja2"
 ).strip()
 DEFAULT_START_OR_END_FLOWS_TEMPLATE = importlib.resources.read_text(
-    "rasa.dialogue_understanding.generator", "start_or_end_flows.jinja2"
+    "multi_step_amex", "start_or_end_flows.jinja2"
 ).strip()
 DEFAULT_FILL_SLOTS_FOR_NEWLY_STARTED_FLOW_TEMPLATE = importlib.resources.read_text(
-    "rasa.dialogue_understanding.generator", "fill_slots_for_newly_started_flow.jinja2"
+    "multi_step_amex", "fill_slots_for_newly_started_flow.jinja2"
 ).strip()
 DEFAULT_FILL_SLOTS_OF_CURRENT_FLOW_TEMPLATE = importlib.resources.read_text(
-    "rasa.dialogue_understanding.generator", "fill_slots_of_current_flow.jinja2"
+    "multi_step_amex", "fill_slots_of_current_flow.jinja2"
 ).strip()
 
 # dictionary of template names and associated file names and default values
@@ -203,7 +203,6 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
         Returns:
             Prompt template.
         """
-
         if (
             prompt_templates is not None
             and key in prompt_templates
@@ -703,14 +702,43 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
         Returns:
             The generated text.
         """
-        llm = llm_factory(self.config.get(LLM_CONFIG_KEY), DEFAULT_LLM_CONFIG)
-        try:
-            return await llm.apredict(prompt, callbacks=[openai_callback_handler])
-        except Exception as e:
-            # unfortunately, langchain does not wrap LLM exceptions which means
-            # we have to catch all exceptions here
-            structlogger.error("multi_step_llm_command_generator.llm.error", error=e)
-            return None
+        import requests
+        endpoint = 'https://api.together.xyz/v1/chat/completions'
+        res = requests.post(endpoint, json={
+            # "model": "mistralai/Mixtral-8x22B-Instruct-v0.1",
+            "model": "meta-llama/Llama-3-70b-chat-hf",
+            # "model": "lmsys/vicuna-13b-v1.5",
+            "max_tokens": 512,
+            "temperature": 0.0,
+            "top_p": 0.7,
+            "top_k": 50,
+            "repetition_penalty": 1,
+            "stop": [
+                "<|eot_id|>"
+                # "</s>",
+                # "[/INST]"
+            ],
+            "messages": [
+                {
+                    "content": prompt,
+                    "role": "system"
+                }
+            ]
+        }, headers={
+            "Authorization": "Bearer ***",
+        })
+
+        output = res.json()["choices"][0]["message"]["content"]
+        output = output.replace("\_", "_")
+        return output
+        # llm = llm_factory(self.config.get(LLM_CONFIG_KEY), DEFAULT_LLM_CONFIG)
+        # try:
+        #     return await llm.apredict(prompt, callbacks=[openai_callback_handler])
+        # except Exception as e:
+        #     # unfortunately, langchain does not wrap LLM exceptions which means
+        #     # we have to catch all exceptions here
+        #     structlogger.error("multi_step_llm_command_generator.llm.error", error=e)
+        #     return None
 
     @classmethod
     def parse_commands(
@@ -821,7 +849,8 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
             "none",
             "null",
             "undefined",
-            "unknown" "",
+            "unknown",
+            "",
             "?",
         }
 
