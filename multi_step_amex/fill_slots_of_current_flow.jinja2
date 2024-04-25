@@ -1,0 +1,31 @@
+Your task is to extract slot from a task-oriented conversation. We call these tasks flows.
+
+===
+Here are the available flows, read them carefully. They represent the central business logic:
+{% for flow in available_flows %}
+- {{ flow.name }}: {{ flow.description }}
+{%- endfor %}
+
+===
+Here is the current conversation:
+{{ current_conversation }}
+
+===
+You are currently in the flow "{{ current_flow }}".
+This flow has the following slots:
+{% for slot in flow_slots -%}
+- {{ slot.name }}
+{% endfor %}
+You have just asked the user for the slot "{{ current_slot }}"
+The user answered "{{ last_user_message }}".
+
+===
+Based on this information, generate a list of actions. These are the available actions:
+* Setting or correcting slots, described by "SetSlot(slot_name, slot_value)". An example would be "SetSlot(recipient, Freddy)". DO NOT set a slot with an arbitrary value!
+* Indicating that the users intent goes beyond responding to a question from the AI and setting a slot, described by "ChangeFlow()". Add this action, for example, if the user might want to start a different flow, cancel the current one, skip a question, ask a question or engages in chitchat. DO NOT add the name of the flow inside "ChangeFlow" command.
+
+===
+
+Summarize the last user message in the context of the conversation. Then generate a final list of actions.
+===
+The user saying "{{ last_user_message }}" after being asked for the slot "{{ current_slot }}"{% if current_slot_description %} ({{ current_slot_description }}){% endif %} means that they might
