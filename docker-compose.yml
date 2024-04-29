@@ -26,17 +26,17 @@ services:
       - "6831:6831/udp"
       - "14269:14269"
       - "4317"
-    healthcheck:
-      test: ["CMD", "wget", "http://0.0.0.0:14269"]
-      interval: 10s
-      timeout: 10s
-      retries: 5
-      start_period: 15s
+#    healthcheck:
+#      test: ["CMD", "curl", "http://localhost:14269"]
+#      interval: 15s
+#      timeout: 10s
+#      retries: 5
+#      start_period: 15s
     environment:
       - COLLECTOR_OTLP_ENABLED=true
 
  assistant:
-    image: rasa/rasa:localdev
+    image: rasa-private:rasa-private-dev
     volumes:
       - .:/app
     command:
@@ -59,7 +59,7 @@ services:
      - "8889:8889" # Prometheus exporter configured metrics
    depends_on:
      jaeger:
-       condition: service_healthy
+       condition: service_started
 
 volumes:
  grafana_data:
