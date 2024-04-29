@@ -3,14 +3,14 @@ language: en
 pipeline:
 - name: KeywordIntentClassifier
 - name: NLUCommandAdapter
-- name: LLMCommandGenerator
+- name: custom_components.multi_step_llm_command_generator.MultiStepLLMCommandGenerator
   llm:
-    model_name: gpt-4
-    request_timeout: 7
-    temperature: 0.0
-    top_p: 0.0
+    model: gpt-3.5-turbo
+  flow_retrieval:
+    active: false
 
 policies:
 - name: FlowPolicy
 - name: EnterpriseSearchPolicy
 - name: IntentlessPolicy
+assistant_id: 20240429-160832-red-eagle
