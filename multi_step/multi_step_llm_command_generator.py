@@ -728,10 +728,6 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
             structlogger.error("multi_step_llm_command_generator.llm.error", error=e)
             return None
 
-        # This is the code that utilizes together ai
-        # from multi_step.util import invoke_together_ai
-        # return invoke_together_ai(prompt)
-
 
 
     @classmethod
