@@ -21,7 +21,6 @@ test_cases:
         - set_slot:
             - transfer_money_recipient: John
             - transfer_money_amount_of_money: 50
-            - transfer_money_final_confirmation: "True"
       - utter: utter_ask_transfer_money_final_confirmation
       - user: "yes"
       - commands:

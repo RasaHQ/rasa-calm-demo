@@ -3,25 +3,24 @@ Extract slots for a business process.
 The current user message started the process "{{ current_flow }}".
 Here are its slots:
 {% for slot in flow_slots -%}
-{{loop.index}}. {{ slot.name }} {% if slot.description %}: {{ slot.description}} {% endif %}
+{{loop.index}}. {{ slot.name }}{% if slot.description %}: {{ slot.description}} {% endif %}
 {% endfor %}
-
 ===
 Here is the current conversation:
 {{ current_conversation }}
 
 ===
 Based on this information, generate a list of actions. These are your available actions:
-* Slot setting, described by "SetSlot(slot_name, slot_value)". An example would be "SetSlot(recipient, Freddy)". DO NOT
-  set a slot with an arbitrary value!
-* Finishing your action list, described by "Done()" once everything is taken care of.
+1. Slot setting, described by "SetSlot(slot_name, slot_value)". An example would be "SetSlot(recipient, Freddy)". DO NOT
+   set a slot with an arbitrary value!
+2. Finishing your action list, described by "Done()" once everything is taken care of.
 
 ===
 Analyze the latest user message and see if there is any additional information the user already provided to fill the
 slots.
-If they did not provide information for the slots already, do not fill them. Also, if they had provided some information
-but had cancelled the process and are now trying to restart the process do not fill slots with information given
-previously when they cancelled the process.
+If they did not provide information for the slots already, do not fill them.
+Also, if they had provided some information but had cancelled the process and are now trying to restart the process do
+not fill slots with information given previously when they cancelled the process.
 
 Summarize the last user message in the context of the conversation. Then generate a final list of actions:
 ===
