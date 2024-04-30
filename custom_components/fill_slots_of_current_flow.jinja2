@@ -21,9 +21,9 @@ The user answered "{{ last_user_message }}".
 
 ===
 Based on this information, generate a list of actions. These are the available actions:
-* Setting or correcting slots, described by "SetSlot(slot_name, slot_value)". An example would be
+1. Setting or correcting slots, described by "SetSlot(slot_name, slot_value)". An example would be
 "SetSlot(recipient, Freddy)". DO NOT set a slot with an arbitrary value!
-* Indicating that the users intent goes beyond responding to a question from the AI and setting a slot, described by
+2. Indicating that the users intent goes beyond responding to a question from the AI and setting a slot, described by
 "ChangeFlow()". Add this action, for example, if the user might want to start a different flow, cancel the current one,
 skip a question, ask a question or engages in chitchat. DO NOT add the name of the flow inside "ChangeFlow" command.
 

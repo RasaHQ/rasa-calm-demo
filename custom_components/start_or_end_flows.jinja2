@@ -4,7 +4,7 @@ to advance active flows and respond to digressions.
 ===
 Here are the available flows, read them carefully. They represent the central business logic:
 {% for flow in available_flows %}
-{{loop.index}}. {{ flow.name }}: {{ flow.description }}
+- {{ flow.name }}: {{ flow.description }}
 {%- endfor %}
 
 ===
@@ -21,13 +21,14 @@ by the flow engine. These are your available actions:
 2. If unsure which flow should be started, clarify candidate flows, described by "Clarify(flow_name_1, flow_name_2, ...)".
    An example would be Clarify(list_contacts, add_contact, remove_contact). This is particularly useful for short messages.{% if current_flow != None %}
 3. Stopping the current flow on request of the user, described by "CancelFlow()".
-4. Handling user messages with the intent to skip a question, described by "SkipQuestion()". Use this action conservatively, trigger it only if the user explicitly mention it.{% endif %}
+4. Handling user messages with the intent to skip a question, described by "SkipQuestion()". Use this action conservatively, trigger it only if the user explicitly mention it, for example "ask me something else" should result in "SkipQuestion()".{% endif %}
 5. Responding to knowledge-oriented user messages, that need further information from a knowledge base, described by "SearchAndReply()". Also useful if the user questions the relevance or validity of a question. Do not predict this action if the request can be handled by one of the flows listed above.
 6. Responding to a casual, non-task-oriented user message, described by "ChitChat()".
 7. Handing off to a human, in case the user seems frustrated or explicitly asks to speak to one, described by "HumanHandoff()".
 
 ===
 Write out the actions you want to take for the last user message, one per line.
+Do not take unnecessary actions.
 Strictly adhere to the provided actions and their format listed above.
 Use the previous conversation steps only to aid understanding.
 
