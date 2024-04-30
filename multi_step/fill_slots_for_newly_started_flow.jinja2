@@ -3,7 +3,7 @@ Extract slots for a business process.
 The current user message started the process "{{ current_flow }}".
 Here are its slots:
 {% for slot in flow_slots -%}
-- {{ slot.name }} {% if slot.description %} ({{ slot.description}}) {% endif %}
+{{loop.index}}. {{ slot.name }} {% if slot.description %}: {{ slot.description}} {% endif %}
 {% endfor %}
 
 ===

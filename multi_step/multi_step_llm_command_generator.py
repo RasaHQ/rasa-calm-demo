@@ -17,7 +17,7 @@ from rasa.dialogue_understanding.commands import (
     KnowledgeAnswerCommand,
     ClarifyCommand,
 )
-from multi_step_amex.change_flow_command import ChangeFlowCommand
+from multi_step.change_flow_command import ChangeFlowCommand
 
 from rasa.dialogue_understanding.generator import CommandGenerator
 from rasa.dialogue_understanding.stack.frames import UserFlowStackFrame
@@ -54,6 +54,8 @@ from rasa.shared.utils.llm import (
 )
 from langchain.callbacks import OpenAICallbackHandler
 
+from multi_step.util import check_if_tracker_has_active_flow
+
 openai_callback_handler = OpenAICallbackHandler()
 
 # multistep template keys
@@ -74,16 +76,16 @@ FILL_SLOTS_OF_CURRENT_FLOW_PROMPT_FILE_NAME = "fill_slots_of_current_flow_prompt
 
 # multistep templates
 DEFAULT_REFINE_SLOT_TEMPLATE = importlib.resources.read_text(
-    "multi_step_amex", "refine_slot.jinja2"
+    "multi_step", "refine_slot.jinja2"
 ).strip()
 DEFAULT_START_OR_END_FLOWS_TEMPLATE = importlib.resources.read_text(
-    "multi_step_amex", "start_or_end_flows.jinja2"
+    "multi_step", "start_or_end_flows.jinja2"
 ).strip()
 DEFAULT_FILL_SLOTS_FOR_NEWLY_STARTED_FLOW_TEMPLATE = importlib.resources.read_text(
-    "multi_step_amex", "fill_slots_for_newly_started_flow.jinja2"
+    "multi_step", "fill_slots_for_newly_started_flow.jinja2"
 ).strip()
 DEFAULT_FILL_SLOTS_OF_CURRENT_FLOW_TEMPLATE = importlib.resources.read_text(
-    "multi_step_amex", "fill_slots_of_current_flow.jinja2"
+    "multi_step", "fill_slots_of_current_flow.jinja2"
 ).strip()
 
 # dictionary of template names and associated file names and default values
@@ -203,6 +205,7 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
         Returns:
             Prompt template.
         """
+
         if (
             prompt_templates is not None
             and key in prompt_templates
@@ -295,7 +298,7 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
             # cannot do anything if there are no flows or no tracker
             return []
 
-        if tracker.has_active_flow:
+        if check_if_tracker_has_active_flow(tracker):
             commands_from_active_flow = await self.predict_commands_for_active_flow(
                 message, tracker, flows
             )
@@ -318,6 +321,11 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
             )
         else:
             commands_for_starting_or_ending_flows = []
+
+        if contains_change_flow_command:
+            commands_from_active_flow.pop(
+                commands_from_active_flow.index(ChangeFlowCommand())
+            )
 
         started_flows = FlowsList(
             [
@@ -573,21 +581,21 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
         refined_commands: List[Command] = []
         latest_user_message = sanitize_message_for_prompt(message.get(TEXT))
 
-        for c in slot_commands:
-            info = slots_of_active_flows.get(c.name)
+        for slot_command in slot_commands:
+            info = slots_of_active_flows.get(slot_command.name)
             if info is None:
                 continue
-            if c.value is None:
-                refined_commands.append(c)
+            if slot_command.value is None:
+                refined_commands.append(slot_command)
                 continue
-            if info["allowed_values"] and c.value in info["allowed_values"].strip(
-                "[] "
-            ).split(", "):
-                refined_commands.append(c)
+            if info["allowed_values"] and slot_command.value in info[
+                "allowed_values"
+            ].strip("[] ").split(", "):
+                refined_commands.append(slot_command)
                 continue
             inputs = {
-                "slot": c.name,
-                "potential_value": c.value,
+                "slot": slot_command.name,
+                "potential_value": slot_command.value,
                 "slot_description": info["description"],
                 "allowed_values": info["allowed_values"],
                 "latest_user_message": latest_user_message,
@@ -598,24 +606,32 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
                 prompt=prompt,
             )
 
-            new_value = await self._invoke_llm(prompt)
-            if new_value is None:
-                refined_commands.append(c)
+            action_list = await self._invoke_llm(prompt)
+            if action_list is None:
+                refined_commands.append(slot_command)
             else:
-                new_value = self.clean_extracted_value(new_value)
-                if c.name in new_value:
+                refined_slot_commands = self.parse_commands(action_list, tracker, flows)
+                if len(refined_slot_commands) > 1:
                     structlogger.debug(
-                        "multi_step_llm_command_generator"
-                        ".refine_slots"
-                        ".drop_new_value",
+                        "multi_step_llm_command_generator.refine_slots.drop_new_value",
+                        set_slot_commands=refined_slot_commands,
+                        message="too many commands generated",
+                    )
+                elif not isinstance(refined_slot_commands[0], SetSlotCommand):
+                    structlogger.debug(
+                        "multi_step_llm_command_generator.refine_slots.drop_new_value",
+                        set_slot_commands=refined_slot_commands,
+                        message="not a set slot command",
+                    )
+                else:
+                    new_value = refined_slot_commands[0].value
+                    structlogger.debug(
+                        "multi_step_llm_command_generator.refine_slots.new_value",
                         new_value=new_value,
                     )
-                    new_value = c.value
-                structlogger.debug(
-                    "multi_step_llm_command_generator" ".refine_slots" ".new_value",
-                    new_value=new_value,
-                )
-                refined_commands.append(SetSlotCommand(c.name, new_value))
+                    refined_commands.append(
+                        SetSlotCommand(slot_command.name, new_value)
+                    )
 
         return refined_commands
 
@@ -702,43 +718,21 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
         Returns:
             The generated text.
         """
-        import requests
-        endpoint = 'https://api.together.xyz/v1/chat/completions'
-        res = requests.post(endpoint, json={
-            # "model": "mistralai/Mixtral-8x22B-Instruct-v0.1",
-            "model": "meta-llama/Llama-3-70b-chat-hf",
-            # "model": "lmsys/vicuna-13b-v1.5",
-            "max_tokens": 512,
-            "temperature": 0.0,
-            "top_p": 0.7,
-            "top_k": 50,
-            "repetition_penalty": 1,
-            "stop": [
-                "<|eot_id|>"
-                # "</s>",
-                # "[/INST]"
-            ],
-            "messages": [
-                {
-                    "content": prompt,
-                    "role": "system"
-                }
-            ]
-        }, headers={
-            "Authorization": "Bearer ***",
-        })
+        # This is the default code:
+        llm = llm_factory(self.config.get(LLM_CONFIG_KEY), DEFAULT_LLM_CONFIG)
+        try:
+            return await llm.apredict(prompt, callbacks=[openai_callback_handler])
+        except Exception as e:
+            # unfortunately, langchain does not wrap LLM exceptions which means
+            # we have to catch all exceptions here
+            structlogger.error("multi_step_llm_command_generator.llm.error", error=e)
+            return None
 
-        output = res.json()["choices"][0]["message"]["content"]
-        output = output.replace("\_", "_")
-        return output
-        # llm = llm_factory(self.config.get(LLM_CONFIG_KEY), DEFAULT_LLM_CONFIG)
-        # try:
-        #     return await llm.apredict(prompt, callbacks=[openai_callback_handler])
-        # except Exception as e:
-        #     # unfortunately, langchain does not wrap LLM exceptions which means
-        #     # we have to catch all exceptions here
-        #     structlogger.error("multi_step_llm_command_generator.llm.error", error=e)
-        #     return None
+        # This is the code that utilizes together ai
+        # from multi_step.util import invoke_together_ai
+        # return invoke_together_ai(prompt)
+
+
 
     @classmethod
     def parse_commands(

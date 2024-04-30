@@ -3,9 +3,15 @@ language: en
 pipeline:
 - name: KeywordIntentClassifier
 - name: NLUCommandAdapter
-- name: custom.multi_step_together.MultiStepLLMCommandGenerator
+# - name: custom.multi_step_together.MultiStepLLMCommandGenerator
+- name: multi_step.multi_step_llm_command_generator.MultiStepLLMCommandGenerator
   flow_retrieval:
     active: false
+  llm:
+    model_name: gpt-3.5-turbo
+    request_timeout: 20
+    temperature: 0.0
+    top_p: 0.0
 #- name: LLMCommandGenerator
 #  llm:
 #    model_name: gpt-4
