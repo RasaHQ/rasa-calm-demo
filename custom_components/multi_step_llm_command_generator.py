@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib.resources
+import os
 import re
 from typing import Optional, Tuple, Union, Text, Any, Dict, List
 from dataclasses import dataclass
@@ -116,7 +117,8 @@ DEFAULT_LLM_CONFIG = {
     "max_tokens": DEFAULT_OPENAI_MAX_GENERATED_TOKENS,
 }
 
-LLM_CONFIG_KEY = "llm"
+STRONG_LLM_CONFIG_KEY = "strong_llm"
+WEAKER_LLM_CONFIG_KEY = "weaker_llm"
 USER_INPUT_CONFIG_KEY = "user_input"
 
 CONTEXT_SLOTS = "context_slots"
@@ -169,7 +171,8 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
         return {
             "prompts": {},
             USER_INPUT_CONFIG_KEY: None,
-            LLM_CONFIG_KEY: None,
+            STRONG_LLM_CONFIG_KEY: None,
+            WEAKER_LLM_CONFIG_KEY: None,
             CONTEXT_SLOTS: [],
         }
 
@@ -452,7 +455,7 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
             prompt=prompt,
         )
 
-        actions = await self._invoke_llm(prompt)
+        actions = await self._invoke_llm(prompt, strong_llm=True)
         structlogger.debug(
             "multi_step_llm_command_generator"
             ".predict_commands_for_starting_and_ending_flows"
@@ -753,14 +756,55 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
         }
         return inputs
 
-    async def _invoke_llm(self, prompt: Text) -> Optional[Text]:
+    def _invoke_llm_together(self, prompt: Text) -> Optional[Text]:
+        import requests
+        endpoint = 'https://api.together.xyz/v1/chat/completions'
+        res = requests.post(endpoint, json={
+            # "model": "mistralai/Mixtral-8x22B-Instruct-v0.1",
+            "model": "meta-llama/Llama-3-70b-chat-hf",
+            # "model": "lmsys/vicuna-13b-v1.5",
+            "max_tokens": 512,
+            "temperature": 0.0,
+            "top_p": 0.7,
+            "top_k": 50,
+            "repetition_penalty": 1,
+            "stop": [
+                "<|eot_id|>"
+                # "</s>",
+                # "[/INST]"
+            ],
+            "messages": [
+                {
+                    "content": prompt,
+                    "role": "system"
+                }
+            ]
+        }, headers={
+            "Authorization": os.environ["TOGETHER_API_KEY"],
+        })
+
+        output = res.json()["choices"][0]["message"]["content"]
+        output = output.replace("\_", "_")
+        return output
+
+    async def _invoke_llm(self, prompt: Text, strong_llm: bool = False) -> Optional[Text]:
         """Use LLM to generate a response.
         Args:
             prompt: The prompt to send to the LLM.
         Returns:
             The generated text.
         """
-        llm = llm_factory(self.config.get(LLM_CONFIG_KEY), DEFAULT_LLM_CONFIG)
+        if strong_llm:
+            if self.config.get(STRONG_LLM_CONFIG_KEY)["model"] == "Llama-3-70b-chat-hf":
+                return self._invoke_llm_together(prompt)
+            llm = llm_factory(self.config.get(STRONG_LLM_CONFIG_KEY),
+                              DEFAULT_LLM_CONFIG)
+
+        else:
+            if self.config.get(WEAKER_LLM_CONFIG_KEY)["model"] == "Llama-3-70b-chat-hf":
+                return self._invoke_llm_together(prompt)
+            llm = llm_factory(self.config.get(WEAKER_LLM_CONFIG_KEY),
+                              DEFAULT_LLM_CONFIG)
         try:
             return await llm.apredict(prompt, callbacks=[openai_callback_handler])
         except Exception as e:
