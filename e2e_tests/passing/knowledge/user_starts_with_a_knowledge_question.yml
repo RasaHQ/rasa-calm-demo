@@ -5,3 +5,4 @@ test_cases:
       - commands:
         - knowledge
       - utter: utter_knowledge_answer_placeholder
+      - utter: utter_can_do_something_else
