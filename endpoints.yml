@@ -60,3 +60,5 @@ nlg:
   llm:
     type: openai # using openai sdk to connect
     api_base: https://cse-llama3-us-east-serverless.eastus2.inference.ai.azure.com/v1
+    request_timeout: 120
+    # stop: ["<|eot_id|>"]

@@ -7,7 +7,8 @@ pipeline:
   llm:
     type: openai
     api_base: https://cse-llama3-us-east-serverless.eastus2.inference.ai.azure.com/v1
-    request_timeout: 10
+    request_timeout: 120
+    # stop: ["<|eot_id|>"]
   flow_retrieval:
     active: false
 
