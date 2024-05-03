@@ -22,6 +22,8 @@ responses:
     - text: I've found the card with number ****3452 on file. Is this the card you want to replace?
   utter_relevant_card_not_linked:
     - text: "Seems like I don't have the card you're asking about on file."
+      metadata:
+        rephrase: True
   utter_ask_replacement_reason:
     - text: "Why do you need to replace your card?"
       buttons:
@@ -31,8 +33,12 @@ responses:
         payload: "damaged"
   utter_ask_was_card_used_fraudulently:
     - text: "Is it possible that someone else has managed to use your card?"
+      metadata:
+        rephrase: True   
   utter_will_cancel_and_send_new:
     - text: "Alright, I'll cancel your card and send you a new one."
+      metadata:
+        rephrase: True
   utter_new_card_has_been_ordered:
     - text: "Your new card should arrive in 3 to 5 business days in a white envelope."
   utter_report_fraud:

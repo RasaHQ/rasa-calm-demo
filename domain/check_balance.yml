@@ -13,3 +13,5 @@ actions:
 responses:
   utter_current_balance:
     - text: You still have {current_balance} in your account.
+      metadata:
+        rephrase: True
