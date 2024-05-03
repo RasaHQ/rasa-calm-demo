@@ -31,12 +31,16 @@ responses:
     - text: You don't have so much money on your account!
   utter_transfer_failed:
     - text: something went wrong transferring the money.
+      metadata:
+        rephrase: False
   utter_out_of_scope:
     - text: Sorry, I'm not sure how to respond to that. Type "help" for assistance.
   utter_ask_transfer_money_amount_of_money:
     - text: How much money do you want to transfer?
   utter_ask_transfer_money_recipient:
     - text: Who do you want to transfer money to?
+      metadata:
+        rephrase: False
   utter_transfer_complete:
     - text: Successfully transferred {transfer_money_amount_of_money} to {transfer_money_recipient}.
   utter_transfer_cancelled:
