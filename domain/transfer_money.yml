@@ -28,11 +28,13 @@ slots:
 
 responses:
   utter_transfer_money_insufficient_funds:
-    - text: You don't have so much money on your account!
+    - text: You don't have enough money in your account to transfer that amount.
+      metadata:
+        rephrase: True
   utter_transfer_failed:
     - text: something went wrong transferring the money.
       metadata:
-        rephrase: False
+        rephrase: True
   utter_out_of_scope:
     - text: Sorry, I'm not sure how to respond to that. Type "help" for assistance.
   utter_ask_transfer_money_amount_of_money:
@@ -40,11 +42,15 @@ responses:
   utter_ask_transfer_money_recipient:
     - text: Who do you want to transfer money to?
       metadata:
-        rephrase: False
+        rephrase: True
   utter_transfer_complete:
     - text: Successfully transferred {transfer_money_amount_of_money} to {transfer_money_recipient}.
+      metadata:
+        rephrase: True
   utter_transfer_cancelled:
     - text: Transfer cancelled.
+      metadata:
+        rephrase: True
   utter_ask_transfer_money_final_confirmation:
     - buttons:
         - payload: yes
