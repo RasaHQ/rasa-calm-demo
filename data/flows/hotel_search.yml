@@ -1,5 +1,6 @@
 flows:
   hotel_search:
+    if: False
     name: search for hotels
     description: search for hotels
     steps:

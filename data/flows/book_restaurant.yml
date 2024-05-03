@@ -1,5 +1,6 @@
 flows:
   book_restaurant:
+    if: False
     name: book a restaurant
     description: This flow books a restaurant
     steps:
