@@ -1,0 +1,16 @@
+recipe: default.v1
+language: en
+pipeline:
+- name: KeywordIntentClassifier
+- name: NLUCommandAdapter
+- name: LLMCommandGenerator
+  llm:
+    type: openai
+    api_base: https://cse-llama3-us-east-serverless.eastus2.inference.ai.azure.com/v1
+    request_timeout: 10
+  flow_retrieval:
+    active: false
+
+policies:
+- name: FlowPolicy
+assistant_id: 20240418-073244-narrow-archive
