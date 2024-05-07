@@ -1,0 +1,15 @@
+version: "3.1"
+
+actions:
+- action_check_access
+
+slots:
+  user_has_access:
+    type: bool
+    initial_value: true
+    mappings:
+      - type: custom
+
+responses:
+  utter_not_authorized:
+    - text: "You are not authorized to access this resource."

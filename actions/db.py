@@ -16,6 +16,7 @@ MY_ACCOUNT = "my_account.json"
 class MyAccount(BaseModel):
     account: str
     funds: int
+    authorized_functions: List[str]
 
 
 class Transaction(BaseModel):

@@ -1,4 +1,9 @@
 {
   "account": "@FlowMike",
-  "funds": 4200
+  "funds": 4200,
+  "authorized_functions": [
+    "check_balance",
+    "replace_card",
+    "transfer_money"
+  ]
 }

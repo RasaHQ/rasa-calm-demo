@@ -1,0 +1,6 @@
+flows:
+  check_access:
+    description: check if the user has the necessary access, sets the slot user_has_access to True or False
+    if: False
+    steps:
+      - action: action_check_access
