@@ -12,13 +12,6 @@ services:
     ports:
       - "9090:9090"
 
- grafana:
-    image: grafana/grafana:latest
-    ports:
-      - "3000:3000"
-    volumes:
-      - grafana_data:/var/lib/grafana
-
  jaeger:
     image: jaegertracing/all-in-one:latest
     ports:
