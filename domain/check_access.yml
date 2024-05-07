@@ -6,7 +6,6 @@ actions:
 slots:
   user_has_access:
     type: bool
-    initial_value: true
     mappings:
       - type: custom
 
