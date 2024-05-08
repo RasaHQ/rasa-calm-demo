@@ -117,10 +117,10 @@ DEFAULT_LLM_CONFIG = {
     "max_tokens": DEFAULT_OPENAI_MAX_GENERATED_TOKENS,
 }
 
-STRONG_LLM_CONFIG_KEY = "strong_llm"
 WEAKER_LLM_CONFIG_KEY = "weaker_llm"
+STRONGER_LLM_CONFIG_KEY = "stronger_llm"
 USER_INPUT_CONFIG_KEY = "user_input"
-
+PROMPT_TEMPLATES_KEY = "prompt_templates"
 CONTEXT_SLOTS = "context_slots"
 
 structlogger = structlog.get_logger()
@@ -169,11 +169,12 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
     def get_default_config() -> Dict[str, Any]:
         """The component's default config (see parent class for full docstring)."""
         return {
-            "prompts": {},
+            PROMPT_TEMPLATES_KEY: {},
             USER_INPUT_CONFIG_KEY: None,
-            STRONG_LLM_CONFIG_KEY: None,
             WEAKER_LLM_CONFIG_KEY: None,
+            STRONGER_LLM_CONFIG_KEY: None,
             CONTEXT_SLOTS: [],
+            "refine_slots": True,
         }
 
     def prepare_context_slots(self, tracker: DialogueStateTracker) -> List[Dict[str, Any]]:
@@ -255,7 +256,7 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
         ):
             return prompt_templates[key]  # type: ignore[return-value]
         return get_prompt_template(
-            config.get("prompts", {}).get(key),
+            config.get(PROMPT_TEMPLATES_KEY, {}).get(key),
             default_value,
         )
 
@@ -287,6 +288,7 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
     ) -> "MultiStepLLMCommandGenerator":
         """Loads trained component (see parent class for full docstring)."""
         prompts = cls._load_prompt_templates(model_storage, resource)
+        config[PROMPT_TEMPLATES_KEY] = prompts
         return cls(config, model_storage, resource, prompts)
 
     @staticmethod
@@ -389,14 +391,23 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
             )
         )
 
-        commands = (
+        structlogger.info(
+            "multi_step_llm_command_generator.predict_commands",
+            commands_for_starting_or_ending_flows=commands_for_starting_or_ending_flows,
+            commands_from_active_flow=commands_from_active_flow,
+            commands_for_newly_started_flows=commands_for_newly_started_flows,
+        )
+
+        commands = list(set(
             commands_from_active_flow
             + commands_for_starting_or_ending_flows
             + commands_for_newly_started_flows
-        )
-        commands = await self.refine_commands(commands, tracker, flows, message)
-        structlogger.debug(
-            "multi_step_llm_command_generator" ".predict_commands" ".finished",
+        ))
+        if self.config["refine_slots"]:
+            commands = await self.refine_commands(commands, tracker, flows, message)
+
+        structlogger.info(
+            "multi_step_llm_command_generator.predict_commands.finished",
             commands=commands,
         )
 
@@ -425,7 +436,7 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
             prompt=prompt,
         )
 
-        actions = await self._invoke_llm(prompt)
+        actions = await self._invoke_llm(prompt, "fill_slots_of_current_flow")
         structlogger.debug(
             "multi_step_llm_command_generator"
             ".predict_commands_for_active_flow"
@@ -455,7 +466,7 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
             prompt=prompt,
         )
 
-        actions = await self._invoke_llm(prompt, strong_llm=True)
+        actions = await self._invoke_llm(prompt, "start_or_end_flows")
         structlogger.debug(
             "multi_step_llm_command_generator"
             ".predict_commands_for_starting_and_ending_flows"
@@ -508,7 +519,6 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
             )
         return commands_for_newly_started_flows
 
-
     async def predict_commands_for_newly_started_flow(
         self,
         flow: Flow,
@@ -521,7 +531,7 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
             message, tracker, flow, max_turns=20
         )
 
-        if inputs["flow_slots"] == 0:
+        if len(inputs["flow_slots"]) == 0:
             # return empty if the newly started flow does not have any slots
             return []
 
@@ -536,7 +546,7 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
             prompt=prompt,
         )
 
-        actions = await self._invoke_llm(prompt)
+        actions = await self._invoke_llm(prompt, "fill_slots_for_newly_started_flow")
         structlogger.debug(
             "multi_step_llm_command_generator"
             ".predict_commands_for_newly_started_flow"
@@ -634,6 +644,10 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
             if slot_command.value is None:
                 refined_commands.append(slot_command)
                 continue
+            if tracker.slots[slot_command.name].type_name == "bool":
+                # do not refine boolean slots
+                refined_commands.append(slot_command)
+                continue
             if info["allowed_values"] and slot_command.value in info["allowed_values"].strip(
                 "[] "
             ).split(", "):
@@ -653,7 +667,7 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
                 prompt=prompt,
             )
 
-            action_list = await self._invoke_llm(prompt)
+            action_list = await self._invoke_llm(prompt, "refine_slot")
             if action_list is None:
                 refined_commands.append(slot_command)
             else:
@@ -713,6 +727,14 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
         current_slot, current_slot_description = self.prepare_current_slot_for_template(
             current_step
         )
+        current_slot_type = None
+        current_slot_allowed_values = None
+        if current_slot:
+            current_slot_type = tracker.slots.get(current_slot).type_name
+            current_slot_allowed_values = self.allowed_values_for_slot(
+                        tracker.slots.get(current_slot)
+                    )
+
         (
             current_conversation,
             latest_user_message,
@@ -725,6 +747,8 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
             "current_flow": top_flow.id if top_flow is not None else None,
             "current_slot": current_slot,
             "current_slot_description": current_slot_description,
+            "current_slot_type": current_slot_type,
+            "current_slot_allowed_values": current_slot_allowed_values,
             "last_user_message": latest_user_message,
             "flow_slots": flow_slots,
             "top_flow_is_pattern": top_flow_is_pattern,
@@ -782,29 +806,33 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
         }, headers={
             "Authorization": os.environ["TOGETHER_API_KEY"],
         })
-
         output = res.json()["choices"][0]["message"]["content"]
         output = output.replace("\_", "_")
         return output
 
-    async def _invoke_llm(self, prompt: Text, strong_llm: bool = False) -> Optional[Text]:
+    async def _invoke_llm(self, prompt: Text, prompt_name: Text) -> Optional[
+        Text]:
         """Use LLM to generate a response.
         Args:
             prompt: The prompt to send to the LLM.
         Returns:
             The generated text.
         """
-        if strong_llm:
-            if self.config.get(STRONG_LLM_CONFIG_KEY)["model"] == "Llama-3-70b-chat-hf":
+        if ("prompts" in self.config.get(STRONGER_LLM_CONFIG_KEY) and prompt_name in
+                self.config.get(STRONGER_LLM_CONFIG_KEY)["prompts"]):
+            if self.config.get(STRONGER_LLM_CONFIG_KEY)["model"] == "Llama-3-70b-chat-hf":
                 return self._invoke_llm_together(prompt)
-            llm = llm_factory(self.config.get(STRONG_LLM_CONFIG_KEY),
-                              DEFAULT_LLM_CONFIG)
-
+            llm_config = self.config.get(STRONGER_LLM_CONFIG_KEY)
         else:
             if self.config.get(WEAKER_LLM_CONFIG_KEY)["model"] == "Llama-3-70b-chat-hf":
                 return self._invoke_llm_together(prompt)
-            llm = llm_factory(self.config.get(WEAKER_LLM_CONFIG_KEY),
-                              DEFAULT_LLM_CONFIG)
+            llm_config = self.config.get(WEAKER_LLM_CONFIG_KEY)
+
+        if "prompts" in llm_config:
+            llm_config.pop("prompts")
+
+        llm = llm_factory(llm_config, DEFAULT_LLM_CONFIG)
+
         try:
             return await llm.apredict(prompt, callbacks=[openai_callback_handler])
         except Exception as e:
@@ -845,7 +873,7 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
         skip_question_re = re.compile(r"SkipQuestion\(\)")
         knowledge_re = re.compile(r"SearchAndReply\(\)")
         humand_handoff_re = re.compile(r"HumanHandoff\(\)")
-        clarify_re = re.compile(r"Clarify\(([a-zA-Z0-9_, ]+)\)")
+        clarify_re = re.compile(r"Clarify\(([\"\'a-zA-Z0-9_, ]+)\)")
 
         for action in actions.strip().splitlines():
             if is_start_or_end_prompt:
@@ -922,6 +950,7 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
             "unknown",
             "",
             "?",
+            "not provided",
         }
 
     @staticmethod
@@ -1091,19 +1120,19 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
     def fingerprint_addon(cls, config: Dict[str, Any]) -> Optional[str]:
         """Add a fingerprint for the graph."""
         refine_slot_template = get_prompt_template(
-            config["prompts"].get(REFINE_SLOT_TEMPLATE_KEY),
+            config[PROMPT_TEMPLATES_KEY].get(REFINE_SLOT_TEMPLATE_KEY),
             DEFAULT_REFINE_SLOT_TEMPLATE,
         )
         start_or_end_flows_template = get_prompt_template(
-            config["prompts"].get(START_OR_END_FLOWS_TEMPLATE_KEY),
+            config[PROMPT_TEMPLATES_KEY].get(START_OR_END_FLOWS_TEMPLATE_KEY),
             DEFAULT_START_OR_END_FLOWS_TEMPLATE,
         )
         fill_slots_for_newly_started_flow_template = get_prompt_template(
-            config["prompts"].get(FILL_SLOTS_FOR_NEWLY_STARTED_FLOW_TEMPLATE_KEY),
+            config[PROMPT_TEMPLATES_KEY].get(FILL_SLOTS_FOR_NEWLY_STARTED_FLOW_TEMPLATE_KEY),
             DEFAULT_FILL_SLOTS_FOR_NEWLY_STARTED_FLOW_TEMPLATE,
         )
         fill_slots_of_current_flow_template = get_prompt_template(
-            config["prompts"].get(FILL_SLOTS_OF_CURRENT_FLOW_TEMPLATE_KEY),
+            config[PROMPT_TEMPLATES_KEY].get(FILL_SLOTS_OF_CURRENT_FLOW_TEMPLATE_KEY),
             DEFAULT_FILL_SLOTS_OF_CURRENT_FLOW_TEMPLATE,
         )
         return deep_container_fingerprint(

@@ -1,0 +1,34 @@
+Your task is to analyze the current situation, including the last user message in the context of the overall conversation. Check if the user digresses from the business logic, e.g., responding to knowledge questions or engaging in chitchat. Based on this, decide which actions should be taken.
+
+===
+Here is the current conversation:
+{{ current_conversation }}
+
+===
+{% if current_flow != None %}You are in the business process "{{ current_flow }}".{% else %}You are currently not in any business process.{% endif %}
+
+===
+These are your available actions:
+1. SearchAndReply() - For responding to knowledge-oriented messages that need further information from a knowledge base.
+2. ChitChat() - For responding to a casual, non-task-oriented user message.
+3. HumanHandoff() - For handing off to a human if the user seems frustrated or explicitly asks to speak to a human.
+4. Done() - For finishing your action list once everything is taken care of.
+
+Your task is to
+
+1. Summarize the meaning of the last user message given the overall context of the conversation.
+2. Analyze the summarized message to decide which, if any, of the available actions you should perform. List the suitable actions according to their descriptions, one per line.
+
+===
+For instance, if the message indicates that the user would like more information from a knowledge database, your response should be written as follows:
+
+"The user saying "{{ last_user_message }}" suggests that they are seeking more information about a certain topic.
+Actions to take:
+SearchAndReply()`
+
+===
+Remember not to take unnecessary actions, strictly adhere to the provided actions and their format, and use the previous conversation steps only to aid understanding. Do not consider any other factors.
+
+Now, here is the last user message:
+"{{ last_user_message }}"
+Please proceed with the described tasks.

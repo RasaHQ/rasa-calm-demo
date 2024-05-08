@@ -4,14 +4,18 @@ pipeline:
 - name: KeywordIntentClassifier
 - name: NLUCommandAdapter
 - name: custom_components.multi_step_llm_command_generator.MultiStepLLMCommandGenerator
-  strong_llm:
-    model: Llama-3-70b-chat-hf
-#    model: gpt-3.5-turbo
-#    model: gpt-4
+  refine_slots: False
+  stronger_llm:
+    model: gpt-3.5-turbo
+#    model: Llama-3-70b-chat-hf
+    prompts:
+      - refine_slot
   weaker_llm:
-    model: Llama-3-70b-chat-hf
-#    model: gpt-3.5-turbo
-#    model: gpt-4
+    model: gpt-3.5-turbo
+    prompts:
+      - fill_slots_for_newly_started_flow
+      - fill_slots_of_current_flow
+      - start_or_end_flows
   flow_retrieval:
     active: false
 #- name: LLMCommandGenerator

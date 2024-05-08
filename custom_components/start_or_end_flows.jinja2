@@ -1,5 +1,4 @@
-Your task is to analyze the current situation and to start and/or end business processes that we call flows, extract slots
-to advance active flows and respond to digressions.
+Your task is to analyze the current situation and to start and/or end business processes that we call flows.
 
 ===
 Here are the available flows, read them carefully. They represent the central business logic:
@@ -15,17 +14,19 @@ Here is the current conversation:
 {% if current_flow != None %}You are currently in the flow "{{ current_flow }}".{% else %}You are currently not in any flow.{% endif %}
 
 ===
-Based on this information generate a list of actions you want to take. Any logic of what happens afterwards is handled
+Based on this information generate a list of actions, you want to take. Any logic of what happens afterwards is handled
 by the flow engine. These are your available actions:
-1. Starting a flow, described by "StartFlow(flow_name)". An example would be "StartFlow(transfer_money)".
-2. If unsure which flow should be started, clarify candidate flows, described by "Clarify(flow_name_1, flow_name_2, ...)".
-   An example would be Clarify(list_contacts, add_contact, remove_contact). This is particularly useful for short messages.{% if current_flow != None %}
-3. Stopping the current flow on request of the user, described by "CancelFlow()".
-4. Handling user messages with the intent to skip a question, described by "SkipQuestion()". Use this action conservatively, trigger it only if the user explicitly mention it, for example "ask me something else" should result in "SkipQuestion()".{% endif %}
-5. Responding to knowledge-oriented user messages, that need further information from a knowledge base, described by "SearchAndReply()". Also useful if the user questions the relevance or validity of a question. Do not predict this action if the request can be handled by one of the flows listed above.
-6. Responding to a casual, non-task-oriented user message, described by "ChitChat()".
-7. Handing off to a human, in case the user seems frustrated or explicitly asks to speak to one, described by "HumanHandoff()".
+1. Starting a flow, described by "StartFlow(flow_name)".
+2. If unsure which flow should be started, clarify candidate flows, described by "Clarify(flow_name_1, flow_name_2, ...)". This is particularly useful for short messages.{% if current_flow != None %}
+3. Stopping the current flow on request of the user, described by "CancelFlow()".{% endif %}
+4. Indicating that the users intent goes beyond starting, clarifying or canceling a flow, described by "Other()".
 
+===
+Here are some examples of user messages -> action list:
+1. "book" -> Clarify(book_hotel, book_restaurant, book_flight)
+2. "I want to book a hotel in Paris." -> StartFlow(book_hotel)
+3. "Can you help me with my booking?" -> Clarify(book_hotel, book_restaurant, book_flight)
+4. "Nevermind, stop it." -> CancelFlow()
 ===
 Write out the actions you want to take for the last user message, one per line.
 Do not take unnecessary actions.

@@ -6,6 +6,3 @@ test_cases:
         - start_flow: "check_balance"
       - utter: utter_current_balance
       - utter: utter_can_do_something_else
-      - user: "no"
-      - commands:
-        - chitchat

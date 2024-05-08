@@ -20,7 +20,6 @@ flows:
           - else: transfer_money_final_confirmation
       - id: transfer_money_final_confirmation
         collect: transfer_money_final_confirmation
-        description: accepts True or False
         ask_before_filling: true
         next:
           - if: not slots.transfer_money_final_confirmation

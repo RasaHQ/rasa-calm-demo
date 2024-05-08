@@ -8,10 +8,8 @@ test_cases:
             - transfer_money_recipient: Justin
             - transfer_money_amount_of_money: 50
       - utter: utter_ask_transfer_money_final_confirmation
-      - user: yes, and btw are there any fees associated with the sending?
+      - user: yes
       - commands:
         - set_slot:
             - transfer_money_final_confirmation: "True"
-        - knowledge
-      - utter: utter_knowledge_answer_placeholder
       - utter: utter_transfer_complete

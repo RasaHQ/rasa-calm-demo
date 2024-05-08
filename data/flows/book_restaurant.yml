@@ -4,6 +4,7 @@ flows:
     description: This flow books a restaurant
     steps:
       - collect: book_restaurant_name_of_restaurant
+        description: name of the restaurant
       - collect: book_restaurant_number_of_people
       - collect: book_restaurant_date
       - collect: book_restaurant_time

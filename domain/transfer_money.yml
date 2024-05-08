@@ -18,11 +18,11 @@ slots:
     mappings:
       - type: custom
   transfer_money_amount_of_money:
-    type: text
+    type: float
     mappings:
       - type: custom
   transfer_money_final_confirmation:
-    type: text
+    type: bool
     mappings:
       - type: custom
 
