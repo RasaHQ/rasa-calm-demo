@@ -1,17 +1,32 @@
 recipe: default.v1
 language: en
 pipeline:
-- name: KeywordIntentClassifier
-- name: NLUCommandAdapter
 - name: LLMCommandGenerator
+  flow_retrieval:
+    active: false
   llm:
-    model_name: gpt-4
+    model_name: gpt-35-turbo-16k
+    engine: test-gpt-35-turbo-16k
     request_timeout: 7
-    temperature: 0.0
-    top_p: 0.0
-
+    api_type: azure
+    api_version: 2024-02-15-preview
+    openai_api_base: https://devtribe-testing-canada-east.openai.azure.com/
 policies:
 - name: FlowPolicy
-- name: EnterpriseSearchPolicy
 - name: IntentlessPolicy
-assistant_id: 20240418-073244-narrow-archive
+  embeddings:
+    model: text-embedding-3-small
+    deployment: test-text-embedding-3-small
+    openai_api_base: https://devtribe-testing-canada-east.openai.azure.com/
+    openai_api_type: azure
+    openai_api_version: 2024-02-15-preview
+  llm:
+    model_name: gpt-35-turbo-16k
+    engine: test-gpt-35-turbo-16k
+    api_type: azure
+    api_version: 2024-02-15-preview
+    openai_api_base: https://devtribe-testing-canada-east.openai.azure.com/
+    request_timeout: 14
+
+#assistant_id: 20240418-105009-emerald-piles
+assistant_id: 20240426-123444-icy-waffle
