@@ -5,8 +5,8 @@ pipeline:
   flow_retrieval:
     active: false
   llm:
-    model_name: gpt-35-turbo-16k
-    engine: test-gpt-35-turbo-16k
+    model_name: gpt-4
+    engine: test-gpt-4-1106-preview
     request_timeout: 7
     api_type: azure
     api_version: 2024-02-15-preview
@@ -21,8 +21,8 @@ policies:
     openai_api_type: azure
     openai_api_version: 2024-02-15-preview
   llm:
-    model_name: gpt-35-turbo-16k
-    engine: test-gpt-35-turbo-16k
+    model_name: gpt-4
+    engine: test-gpt-4-1106-preview
     api_type: azure
     api_version: 2024-02-15-preview
     openai_api_base: https://devtribe-testing-canada-east.openai.azure.com/

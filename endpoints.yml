@@ -58,8 +58,8 @@ action_endpoint:
 nlg:
   type: rephrase
   llm:
-    model_name: gpt-35-turbo-16k
-    engine: test-gpt-35-turbo-16k
+    model_name: gpt-4
+    engine: test-gpt-4-1106-preview
     request_timeout: 7
     api_type: azure
     api_version: 2024-02-15-preview
