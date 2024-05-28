@@ -5,11 +5,11 @@ test_cases:
       - utter: utter_ask_recurrent_payment_type
       - user: direct debit
       - slot_was_set:
-          - recurrent_payment_type: "direct debit"
+          - recurrent_payment_type: direct debit
       - utter: utter_ask_recipient
       - user: Jane Doe
       - slot_was_set:
-          - recurrent_payment_recipient: "Jane Doe"
+          - recurrent_payment_recipient: Jane Doe
       - utter: utter_ask_recurrent_payment_amount_of_money
       - user: 100 euros
       - slot_was_set:
@@ -17,13 +17,13 @@ test_cases:
       - utter: utter_ask_recurrent_payment_frequency
       - user: monthly
       - slot_was_set:
-          - recurrent_payment_frequency: "monthly"
+          - recurrent_payment_frequency: monthly
       - utter: utter_ask_recurrent_payment_start_date
-      - user: "Jan 1st, 2050"
+      - user: Jan 1st, 2050
       - slot_was_set:
           - recurrent_payment_start_date
       - utter: utter_ask_recurrent_payment_end_date
-      - user: "Jan 1st, 2051"
+      - user: Jan 1st, 2051
       - slot_was_set:
           - recurrent_payment_end_date
       - utter: utter_ask_recurrent_payment_confirmation
@@ -36,7 +36,7 @@ test_cases:
     steps:
       - user: I want to set up a new standing order payment.
       - slot_was_set:
-        - recurrent_payment_type: "standing order"
+        - recurrent_payment_type: standing order
       - utter: utter_ask_recipient
 
   - test_case: user wants to set up a new recurrent payment, but specifies the type incompletely
@@ -45,7 +45,7 @@ test_cases:
       - utter: utter_ask_recurrent_payment_type
       - user: direct
       - slot_was_set:
-          - recurrent_payment_type: "direct debit"
+          - recurrent_payment_type: direct debit
       - utter: utter_ask_recipient
 
   - test_case: user wants to set up a new recurrent payment, but specifies the type incompletely, example 2
@@ -54,7 +54,7 @@ test_cases:
       - utter: utter_ask_recurrent_payment_type
       - user: d debit
       - slot_was_set:
-          - recurrent_payment_type: "direct debit"
+          - recurrent_payment_type: direct debit
       - utter: utter_ask_recipient
 
   - test_case: user wants to set up a new recurrent payment, but specifies over specifies the type
@@ -63,7 +63,7 @@ test_cases:
       - utter: utter_ask_recurrent_payment_type
       - user: direct debit transfer payment
       - slot_was_set:
-          - recurrent_payment_type: "direct debit"
+          - recurrent_payment_type: direct debit
       - utter: utter_ask_recipient
 
   - test_case: user wants to set up a new recurrent payment, but specifies the type with spelling mistakes
@@ -72,5 +72,5 @@ test_cases:
       - utter: utter_ask_recurrent_payment_type
       - user: direct debt
       - slot_was_set:
-          - recurrent_payment_type: "direct debit"
+          - recurrent_payment_type: direct debit
       - utter: utter_ask_recipient

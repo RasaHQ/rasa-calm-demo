@@ -3,11 +3,11 @@ flows:
     description: add a contact to your contact list
     name: add a contact
     steps:
-      - collect: "add_contact_handle"
-        description: "a user handle starting with @"
-      - collect: "add_contact_name"
-        description: "a name of a person"
-      - collect: "add_contact_confirmation"
+      - collect: add_contact_handle
+        description: a user handle starting with @
+      - collect: add_contact_name
+        description: a name of a person
+      - collect: add_contact_confirmation
         ask_before_filling: true
         next:
           - if: not slots.add_contact_confirmation

@@ -8,7 +8,7 @@ test_cases:
       - user: Why do you need to know this?
       - utter: utter_california_compliance
       - utter: utter_ask_based_in_california
-      - user: No
+      - user: "No"
       - utter: utter_ask_verify_account_confirmation
-      - user: Yes
+      - user: "Yes"
       - utter: utter_verify_account_success

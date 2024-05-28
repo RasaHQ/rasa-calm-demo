@@ -4,9 +4,9 @@ test_cases:
       - user: send John 50
       - slot_was_set:
         - transfer_money_amount_of_money: "50"
-        - transfer_money_recipient: "John"
+        - transfer_money_recipient: John
       - utter: utter_ask_transfer_money_final_confirmation
-      - user: "Ah wait I think I actually owe him 60"
+      - user: Ah wait I think I actually owe him 60
       - utter: utter_ask_confirm_slot_correction
       - user: "No"
       - utter: utter_not_corrected_previous_input

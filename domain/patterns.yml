@@ -11,14 +11,13 @@ responses:
     - text: "Do you want to update the {{ context.corrected_slots.keys()|join(', ') }}?"
       buttons:
         - payload: yes
-          title: Yes
+          title: "Yes"
         - payload: no
-          title: No, please keep the previous information
+          title: "No, please keep the previous information"
       metadata:
         rephrase: True
         template: jinja
-
   utter_not_corrected_previous_input:
-    - text: "Ok, I did not correct the previous input."
+    - text: Ok, I did not correct the previous input.
       metadata:
         rephrase: True

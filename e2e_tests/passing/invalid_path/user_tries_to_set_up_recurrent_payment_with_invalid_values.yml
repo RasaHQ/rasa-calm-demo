@@ -3,11 +3,11 @@ test_cases:
     steps:
       - user: I want to set up a new standing order payment.
       - slot_was_set:
-        - recurrent_payment_type: "standing order"
+        - recurrent_payment_type: standing order
       - utter: utter_ask_recipient
       - user: Jane Doe
       - slot_was_set:
-          - recurrent_payment_recipient: "Jane Doe"
+          - recurrent_payment_recipient: Jane Doe
       - utter: utter_ask_recurrent_payment_amount_of_money
       - user: 20 pounds
       - slot_was_set:
@@ -22,11 +22,11 @@ test_cases:
     steps:
       - user: i want to set up a new direct debit payment
       - slot_was_set:
-          - recurrent_payment_type: "direct debit"
+          - recurrent_payment_type: direct debit
       - utter: utter_ask_recipient
       - user: Jane Doe
       - slot_was_set:
-          - recurrent_payment_recipient: "Jane Doe"
+          - recurrent_payment_recipient: Jane Doe
       - utter: utter_ask_recurrent_payment_amount_of_money
       - user: 20 pounds
       - slot_was_set:
@@ -34,9 +34,9 @@ test_cases:
       - utter: utter_ask_recurrent_payment_frequency
       - user: monthly
       - slot_was_set:
-          - recurrent_payment_frequency: "monthly"
+          - recurrent_payment_frequency: monthly
       - utter: utter_ask_recurrent_payment_start_date
-      - user: "01/10/20"
+      - user: 01/10/20
       - utter: utter_invalid_date
       - slot_was_set:
           - recurrent_payment_start_date: null

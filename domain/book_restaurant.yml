@@ -1,6 +1,5 @@
 version: "3.1"
 
-
 actions:
   - check_restaurant_availability
 
@@ -74,9 +73,9 @@ responses:
     - text: A table for {book_restaurant_number_of_people} at {book_restaurant_name_of_restaurant} for {book_restaurant_date}, {book_restaurant_time}. Do you confirm the booking?
       buttons:
         - payload: yes
-          title: Yes
+          title: "Yes"
         - payload: no
-          title: No, Cancel
+          title: "No, Cancel"
   utter_restaurant_available:
     - text: They have a table available for you at that time.
   utter_ask_book_restaurant_reservation_name:

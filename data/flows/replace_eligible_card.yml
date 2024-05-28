@@ -5,7 +5,7 @@ flows:
     steps:
       - collect: replacement_reason
         next:
-          - if: slots.replacement_reason == "lost"
+          - if: slots.replacement_reason = "lost"
             then:
               - collect: was_card_used_fraudulently
                 ask_before_filling: true
@@ -15,7 +15,7 @@ flows:
                       - action: utter_report_fraud
                         next: END
                   - else: start_replacement
-          - if: "slots.replacement_reason == 'damaged'"
+          - if: slots.replacement_reason = "damaged"
             then: start_replacement
           - else:
             - action: utter_unknown_replacement_reason_handover

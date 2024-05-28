@@ -5,5 +5,5 @@ intents:
 
 responses:
   utter_cant_advice_on_health:
-    - text: "I'm sorry, I can't give you advice on your health."
+    - text: I'm sorry, I can't give you advice on your health.
     

@@ -49,9 +49,9 @@ responses:
       text: Your email address is {verify_account_email} and you are based in California with a yearly income exceeding 100,000$, correct?
       buttons:
         - payload: "yes"
-          title: Yes
+          title: "Yes"
         - payload: "no"
-          title: No, cancel
+          title: "No, cancel"
     - condition:
         - type: slot
           name: based_in_california
@@ -59,6 +59,6 @@ responses:
       text: Your email address is {verify_account_email} and you are not based in California, correct?
       buttons:
         - payload: "yes"
-          title: Yes
+          title: "Yes"
         - payload: "no"
-          title: No, cancel
+          title: "No, cancel"

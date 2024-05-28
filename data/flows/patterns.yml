@@ -35,14 +35,14 @@ flows:
   pattern_cancel_flow:
     description: A meta flow that's started when a flow is cancelled.
     steps:
-      - id: "decide_cancel_step"
+      - id: decide_cancel_step
         noop: true
         next:
-          - if: "context.canceled_name = 'transfer money'"
-            then: "inform_user"
-          - else: "cancel_flow" # skips the inform step
-      - id: "inform_user"
+          - if: context.canceled_name = "transfer money"
+            then: inform_user
+          - else: cancel_flow # skips the inform step
+      - id: inform_user
         action: utter_flow_cancelled_rasa
-        next: "cancel_flow"
-      - id: "cancel_flow"
+        next: cancel_flow
+      - id: cancel_flow
         action: action_cancel_flow

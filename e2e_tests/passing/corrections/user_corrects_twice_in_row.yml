@@ -9,6 +9,6 @@ test_cases:
       - utter: utter_ask_confirm_slot_correction
       - user: "yes"
       - slot_was_set:
-          - transfer_money_recipient: "Alex"
+          - transfer_money_recipient: Alex
       - utter: utter_corrected_previous_input
       - utter: utter_ask_transfer_money_amount_of_money

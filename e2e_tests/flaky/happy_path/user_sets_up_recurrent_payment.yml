@@ -5,5 +5,5 @@ test_cases:
       - utter: utter_ask_recurrent_payment_type
       - user: stand order
       - slot_was_set:
-          - recurrent_payment_type: "standing order"
+          - recurrent_payment_type: standing order
       - utter: utter_ask_recipient

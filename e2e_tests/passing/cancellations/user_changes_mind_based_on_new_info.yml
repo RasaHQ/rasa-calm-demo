@@ -7,5 +7,5 @@ test_cases:
       - utter: utter_transactions
       - utter: utter_flow_continue_interrupted
       - utter: utter_ask_transfer_money_amount_of_money
-      - user: Ah nevermind, I already sent the money earlier
+      - user: Ah never mind, I already sent the money earlier
       - utter: utter_flow_cancelled_rasa

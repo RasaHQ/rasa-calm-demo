@@ -14,15 +14,15 @@ flows:
           - if: not slots.is_restaurant_available
             then:
               - action: utter_restaurant_not_available
-              - id: "ask_alternative"
+              - id: ask_alternative
                 collect: book_restaurant_alternative_dummy
                 description:
                   do not fill this slot, instead fill the given parts of the
                   alternative into their respective slots
-                next: "ask_alternative"
+                next: ask_alternative
           - else: available
       - id: available
-        action: "utter_restaurant_available"
+        action: utter_restaurant_available
       - collect: book_restaurant_reservation_name
         ask_before_filling: true
       - collect: book_restaurant_confirmation

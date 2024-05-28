@@ -5,7 +5,7 @@ flows:
     steps:
       - collect: transfer_money_recipient
         description: the name of a person
-      - id: "ask_amount" # we keep this id, because we use it for a jump
+      - id: ask_amount # we keep this id, because we use it for a jump
         collect: transfer_money_amount_of_money
         description: the amount of money without any currency designation
       - action: check_transfer_funds
@@ -16,7 +16,7 @@ flows:
               - set_slots:
                   - transfer_money_amount_of_money: null
                   - transfer_money_has_sufficient_funds: null
-                next: "ask_amount"
+                next: ask_amount
           - else: transfer_money_final_confirmation
       - id: transfer_money_final_confirmation
         collect: transfer_money_final_confirmation
@@ -26,7 +26,7 @@ flows:
           - if: not slots.transfer_money_final_confirmation
             then:
               - action: utter_transfer_cancelled
-                next: "END"
+                next: END
           - else: execute_transfer
       - id: execute_transfer
         action: execute_transfer
@@ -34,7 +34,7 @@ flows:
           - if: slots.transfer_money_transfer_successful
             then:
               - action: utter_transfer_complete
-                next: "END"
+                next: END
           - else:
               - action: utter_transfer_failed
-                next: "END"
+                next: END

@@ -44,7 +44,7 @@ responses:
   utter_ask_transfer_money_final_confirmation:
     - buttons:
         - payload: yes
-          title: Yes
+          title: "Yes"
         - payload: no
-          title: No, cancel the transaction
+          title: "No, cancel the transaction"
       text: Would you like to transfer {transfer_money_amount_of_money} to {transfer_money_recipient}?

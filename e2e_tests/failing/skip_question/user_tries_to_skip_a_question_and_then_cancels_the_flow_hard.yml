@@ -3,11 +3,9 @@ test_cases:
     steps:
       - user: send money to John
       - utter: utter_ask_transfer_money_amount_of_money
-
       - user: i don't want to answer this
       - utter: utter_skip_question_answer
       - utter: utter_ask_transfer_money_amount_of_money
-
       - user: i don't want to continue
       - utter: utter_flow_cancelled_rasa
       - utter: utter_can_do_something_else
