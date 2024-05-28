@@ -4,18 +4,11 @@ pipeline:
 - name: KeywordIntentClassifier
 - name: NLUCommandAdapter
 - name: custom_components.multi_step_llm_command_generator.MultiStepLLMCommandGenerator
-  refine_slots: False
-  stronger_llm:
-    model: gpt-3.5-turbo
-#    model: Llama-3-70b-chat-hf
-    prompts:
-      - refine_slot
-  weaker_llm:
-    model: gpt-3.5-turbo
-    prompts:
-      - fill_slots_for_newly_started_flow
-      - fill_slots_of_current_flow
-      - start_or_end_flows
+  prompts:
+    start_or_end_flow:
+      file_path: "/Users/Tanja/Repositories/rasa-calm-demo/custom_components/start_or_end_flows_prompt.jinja2"
+    fill_slots:
+      file_path: "/Users/Tanja/Repositories/rasa-calm-demo/custom_components/fill_slots_prompt.jinja2"
   flow_retrieval:
     active: false
 #- name: LLMCommandGenerator

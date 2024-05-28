@@ -1,11 +1,7 @@
-from __future__ import annotations
-
 import importlib.resources
-import os
 import re
-from typing import Optional, Tuple, Union, Text, Any, Dict, List
 from dataclasses import dataclass
-from rasa.shared.core.events import Event
+from typing import Dict, Any, List, Optional, Tuple, Union, Text
 
 import structlog
 from jinja2 import Template
@@ -33,6 +29,7 @@ from rasa.engine.graph import ExecutionContext, GraphComponent
 from rasa.engine.recipes.default_recipe import DefaultV1Recipe
 from rasa.engine.storage.resource import Resource
 from rasa.engine.storage.storage import ModelStorage
+from rasa.shared.core.events import Event
 from rasa.shared.core.flows import FlowStep, Flow, FlowsList
 from rasa.shared.core.flows.steps.collect import CollectInformationFlowStep
 from rasa.shared.core.slots import (
@@ -55,57 +52,32 @@ from rasa.shared.utils.llm import (
     tracker_as_readable_transcript,
     sanitize_message_for_prompt,
 )
-from langchain.callbacks import OpenAICallbackHandler
-
-openai_callback_handler = OpenAICallbackHandler()
 
 # multistep template keys
-REFINE_SLOT_TEMPLATE_KEY = "refine_slot_template"
-START_OR_END_FLOWS_TEMPLATE_KEY = "start_or_end_flows_template"
-FILL_SLOTS_FOR_NEWLY_STARTED_FLOW_TEMPLATE_KEY = (
-    "fill_slots_for_newly_started_flow_template"
-)
-FILL_SLOTS_OF_CURRENT_FLOW_TEMPLATE_KEY = "fill_slots_of_current_flow_template"
+START_OR_END_FLOW_KEY = "start_or_end_flow"
+FILL_SLOTS_KEY = "fill_slots"
 
 # multistep template file names
-REFINE_SLOT_PROMPT_FILE_NAME = "refine_slot_prompt.jinja2"
 START_OR_END_FLOWS_PROMPT_FILE_NAME = "start_or_end_flows_prompt.jinja2"
-FILL_SLOTS_FOR_NEWLY_STARTED_FLOW_PROMPT_FILE_NAME = (
-    "fill_slots_for_newly_started_flow_prompt.jinja2"
-)
-FILL_SLOTS_OF_CURRENT_FLOW_PROMPT_FILE_NAME = "fill_slots_of_current_flow_prompt.jinja2"
+FILL_SLOTS_PROMPT_FILE_NAME = "fill_slots_prompt.jinja2"
 
 # multistep templates
-DEFAULT_REFINE_SLOT_TEMPLATE = importlib.resources.read_text(
-    "custom_components", "refine_slot.jinja2"
-).strip()
 DEFAULT_START_OR_END_FLOWS_TEMPLATE = importlib.resources.read_text(
-    "custom_components", "start_or_end_flows.jinja2"
+    "custom_components", "start_or_end_flows_prompt.jinja2"
 ).strip()
-DEFAULT_FILL_SLOTS_FOR_NEWLY_STARTED_FLOW_TEMPLATE = importlib.resources.read_text(
-    "custom_components", "fill_slots_for_newly_started_flow.jinja2"
-).strip()
-DEFAULT_FILL_SLOTS_OF_CURRENT_FLOW_TEMPLATE = importlib.resources.read_text(
-    "custom_components", "fill_slots_of_current_flow.jinja2"
+DEFAULT_FILL_SLOTS_TEMPLATE = importlib.resources.read_text(
+    "custom_components", "fill_slots_prompt.jinja2"
 ).strip()
 
 # dictionary of template names and associated file names and default values
 PROMPT_TEMPLATES = {
-    REFINE_SLOT_TEMPLATE_KEY: (
-        REFINE_SLOT_PROMPT_FILE_NAME,
-        DEFAULT_REFINE_SLOT_TEMPLATE,
-    ),
-    START_OR_END_FLOWS_TEMPLATE_KEY: (
+    START_OR_END_FLOW_KEY: (
         START_OR_END_FLOWS_PROMPT_FILE_NAME,
         DEFAULT_START_OR_END_FLOWS_TEMPLATE,
     ),
-    FILL_SLOTS_FOR_NEWLY_STARTED_FLOW_TEMPLATE_KEY: (
-        FILL_SLOTS_FOR_NEWLY_STARTED_FLOW_PROMPT_FILE_NAME,
-        DEFAULT_FILL_SLOTS_FOR_NEWLY_STARTED_FLOW_TEMPLATE,
-    ),
-    FILL_SLOTS_OF_CURRENT_FLOW_TEMPLATE_KEY: (
-        FILL_SLOTS_OF_CURRENT_FLOW_PROMPT_FILE_NAME,
-        DEFAULT_FILL_SLOTS_OF_CURRENT_FLOW_TEMPLATE,
+    FILL_SLOTS_KEY: (
+        FILL_SLOTS_PROMPT_FILE_NAME,
+        DEFAULT_FILL_SLOTS_TEMPLATE,
     ),
 }
 
@@ -117,11 +89,10 @@ DEFAULT_LLM_CONFIG = {
     "max_tokens": DEFAULT_OPENAI_MAX_GENERATED_TOKENS,
 }
 
-WEAKER_LLM_CONFIG_KEY = "weaker_llm"
-STRONGER_LLM_CONFIG_KEY = "stronger_llm"
+LLM_CONFIG_KEY = "llm"
 USER_INPUT_CONFIG_KEY = "user_input"
-PROMPT_TEMPLATES_KEY = "prompt_templates"
-CONTEXT_SLOTS = "context_slots"
+FILE_PATH_KEY = "file_path"
+
 
 structlogger = structlog.get_logger()
 
@@ -137,7 +108,7 @@ class ChangeFlowCommand(Command):
         return "change_flow"
 
     @classmethod
-    def from_dict(cls, data: Dict[str, Any]) -> ChangeFlowCommand:
+    def from_dict(cls, data: Dict[str, Any]) -> "ChangeFlowCommand":
         """Converts the dictionary to a command.
 
         Returns:
@@ -156,6 +127,7 @@ class ChangeFlowCommand(Command):
         return []
 
 
+
 @DefaultV1Recipe.register(
     [
         DefaultV1Recipe.ComponentType.COMMAND_GENERATOR,
@@ -169,21 +141,10 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
     def get_default_config() -> Dict[str, Any]:
         """The component's default config (see parent class for full docstring)."""
         return {
-            PROMPT_TEMPLATES_KEY: {},
+            "prompts": {},
             USER_INPUT_CONFIG_KEY: None,
-            WEAKER_LLM_CONFIG_KEY: None,
-            STRONGER_LLM_CONFIG_KEY: None,
-            CONTEXT_SLOTS: [],
-            "refine_slots": True,
+            LLM_CONFIG_KEY: None,
         }
-
-    def prepare_context_slots(self, tracker: DialogueStateTracker) -> List[Dict[str, Any]]:
-        result = []
-        for slot in self.config.get(CONTEXT_SLOTS, []):
-            value = tracker.get_slot(slot)
-            if value:
-                result.append({"name": slot, "value": value})
-        return result
 
     def __init__(
         self,
@@ -194,31 +155,22 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
     ) -> None:
         super().__init__(config)
         self.config = {**self.get_default_config(), **config}
+        print(self.config)
         self._prompts: Dict[Text, Optional[Text]] = {
-            REFINE_SLOT_TEMPLATE_KEY: None,
-            START_OR_END_FLOWS_TEMPLATE_KEY: None,
-            FILL_SLOTS_FOR_NEWLY_STARTED_FLOW_TEMPLATE_KEY: None,
-            FILL_SLOTS_OF_CURRENT_FLOW_TEMPLATE_KEY: None,
+            START_OR_END_FLOW_KEY: None,
+            FILL_SLOTS_KEY: None,
         }
         self._init_prompt_templates(prompt_templates)
         self._model_storage = model_storage
         self._resource = resource
 
     @property
-    def refine_slot_prompt(self) -> Optional[Text]:
-        return self._prompts[REFINE_SLOT_TEMPLATE_KEY]
-
-    @property
     def start_or_end_flows_prompt(self) -> Optional[Text]:
-        return self._prompts[START_OR_END_FLOWS_TEMPLATE_KEY]
+        return self._prompts[START_OR_END_FLOW_KEY]
 
     @property
-    def fill_slots_for_newly_started_flow_prompt(self) -> Optional[Text]:
-        return self._prompts[FILL_SLOTS_FOR_NEWLY_STARTED_FLOW_TEMPLATE_KEY]
-
-    @property
-    def fill_slots_of_current_flow_prompt(self) -> Optional[Text]:
-        return self._prompts[FILL_SLOTS_OF_CURRENT_FLOW_TEMPLATE_KEY]
+    def fill_slots_prompt(self) -> Optional[Text]:
+        return self._prompts[FILL_SLOTS_KEY]
 
     def _init_prompt_templates(self, prompt_templates: Dict[Text, Any]) -> None:
         for key in self._prompts.keys():
@@ -239,12 +191,14 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
         associated with the key is missing in both the `prompt_templates` and the
         `config`, this method defaults to using a predefined prompt template. Each key
         is uniquely associated with a distinct step of the command generation process.
+
         Args:
             prompt_templates: A dictionary of override templates.
             config: The components config that may contain the file paths to the prompt
             templates.
             key: The key for the desired template.
             default_value: The default template to use if no other is found.
+
         Returns:
             Prompt template.
         """
@@ -256,15 +210,9 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
         ):
             return prompt_templates[key]  # type: ignore[return-value]
         return get_prompt_template(
-            config.get(PROMPT_TEMPLATES_KEY, {}).get(key),
+            config.get("prompts", {}).get(key, {}).get(FILE_PATH_KEY),
             default_value,
         )
-
-    def has_active_flow(self, tracker: DialogueStateTracker) -> bool:
-        from rasa.dialogue_understanding.stack.utils import top_flow_frame
-
-        top_relevant_frame = top_flow_frame(tracker.stack)
-        return bool(top_relevant_frame and top_relevant_frame.flow_id)
 
     @classmethod
     def create(
@@ -288,7 +236,6 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
     ) -> "MultiStepLLMCommandGenerator":
         """Loads trained component (see parent class for full docstring)."""
         prompts = cls._load_prompt_templates(model_storage, resource)
-        config[PROMPT_TEMPLATES_KEY] = prompts
         return cls(config, model_storage, resource, prompts)
 
     @staticmethod
@@ -327,6 +274,12 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
                 file_path = path / file_name
                 rasa.shared.utils.io.write_text_file(template, file_path)
 
+    def _has_active_flow(self, stack):
+        from rasa.dialogue_understanding.stack.utils import top_flow_frame
+
+        top_relevant_frame = top_flow_frame(stack)
+        return bool(top_relevant_frame and top_relevant_frame.flow_id)
+
     async def predict_commands(
         self,
         message: Message,
@@ -334,10 +287,12 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
         tracker: Optional[DialogueStateTracker] = None,
     ) -> List[Command]:
         """Predict commands using the LLM.
+
         Args:
             message: The message from the user.
             flows: The flows available to the user.
             tracker: The tracker containing the current state of the conversation.
+
         Returns:
             The commands generated by the llm.
         """
@@ -346,7 +301,7 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
             # cannot do anything if there are no flows or no tracker
             return []
 
-        if self.has_active_flow(tracker):
+        if self._has_active_flow(tracker.stack):
             commands_from_active_flow = await self.predict_commands_for_active_flow(
                 message, tracker, flows
             )
@@ -371,8 +326,9 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
             commands_for_starting_or_ending_flows = []
 
         if contains_change_flow_command:
-            commands_from_active_flow.pop(commands_from_active_flow.index(
-                ChangeFlowCommand()))
+            commands_from_active_flow.pop(
+                commands_from_active_flow.index(ChangeFlowCommand())
+            )
 
         started_flows = FlowsList(
             [
@@ -391,23 +347,17 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
             )
         )
 
-        structlogger.info(
-            "multi_step_llm_command_generator.predict_commands",
-            commands_for_starting_or_ending_flows=commands_for_starting_or_ending_flows,
-            commands_from_active_flow=commands_from_active_flow,
-            commands_for_newly_started_flows=commands_for_newly_started_flows,
+        commands = list(
+            set(
+                commands_from_active_flow
+                + commands_for_starting_or_ending_flows
+                + commands_for_newly_started_flows
+            )
         )
-
-        commands = list(set(
-            commands_from_active_flow
-            + commands_for_starting_or_ending_flows
-            + commands_for_newly_started_flows
-        ))
-        if self.config["refine_slots"]:
-            commands = await self.refine_commands(commands, tracker, flows, message)
-
-        structlogger.info(
-            "multi_step_llm_command_generator.predict_commands.finished",
+        # do not refine slots as it does not work well
+        # commands = await self.refine_commands(commands, tracker, flows, message)
+        structlogger.debug(
+            "multi_step_llm_command_generator" ".predict_commands" ".finished",
             commands=commands,
         )
 
@@ -426,9 +376,7 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
         if inputs["current_flow"] is None:
             return []
 
-        prompt = (
-            Template(self.fill_slots_of_current_flow_prompt).render(**inputs).strip()
-        )
+        prompt = Template(self.fill_slots_prompt).render(**inputs).strip()
         structlogger.debug(
             "multi_step_llm_command_generator"
             ".predict_commands_for_active_flow"
@@ -436,7 +384,7 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
             prompt=prompt,
         )
 
-        actions = await self._invoke_llm(prompt, "fill_slots_of_current_flow")
+        actions = await self._invoke_llm(prompt)
         structlogger.debug(
             "multi_step_llm_command_generator"
             ".predict_commands_for_active_flow"
@@ -466,7 +414,7 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
             prompt=prompt,
         )
 
-        actions = await self._invoke_llm(prompt, "start_or_end_flows")
+        actions = await self._invoke_llm(prompt)
         structlogger.debug(
             "multi_step_llm_command_generator"
             ".predict_commands_for_starting_and_ending_flows"
@@ -535,9 +483,7 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
             # return empty if the newly started flow does not have any slots
             return []
 
-        prompt = Template(self.fill_slots_for_newly_started_flow_prompt).render(
-            **inputs
-        )
+        prompt = Template(self.fill_slots_prompt).render(**inputs)
         structlogger.debug(
             "multi_step_llm_command_generator"
             ".predict_commands_for_newly_started_flow"
@@ -546,7 +492,7 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
             prompt=prompt,
         )
 
-        actions = await self._invoke_llm(prompt, "fill_slots_for_newly_started_flow")
+        actions = await self._invoke_llm(prompt)
         structlogger.debug(
             "multi_step_llm_command_generator"
             ".predict_commands_for_newly_started_flow"
@@ -574,125 +520,6 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
         )
 
         return commands
-
-    async def refine_commands(
-        self,
-        commands: List[Command],
-        tracker: DialogueStateTracker,
-        flows: FlowsList,
-        message: Message,
-    ) -> List[Command]:
-        # separate SetSlotCommands from other commands
-        slot_commands = [
-            command for command in commands if isinstance(command, SetSlotCommand)
-        ]
-        commands_without_slots = [
-            command for command in commands if not isinstance(command, SetSlotCommand)
-        ]
-        # get new flows started by StartFlowCommand
-        new_flows = [
-            command.flow
-            for command in commands
-            if isinstance(command, StartFlowCommand)
-        ]
-        # refine slot commands
-        refined_slot_commands = await self.refine_slot_commands(
-            slot_commands, new_flows, tracker, flows, message
-        )
-        # reassemble commands
-        commands = commands_without_slots + refined_slot_commands
-        return commands
-
-    async def refine_slot_commands(
-        self,
-        slot_commands: List[SetSlotCommand],
-        new_flows: List[str],
-        tracker: DialogueStateTracker,
-        flows: FlowsList,
-        message: Message,
-    ) -> List[Command]:
-        top_frame = top_flow_frame(tracker.stack)
-
-        active_and_new_flows = user_flows_on_the_stack(tracker.stack) | set(new_flows)
-        if top_frame:
-            active_and_new_flows.add(top_frame.flow_id)
-
-        slots_of_active_flows = {}
-        for flow_id in active_and_new_flows:
-            flow = flows.flow_by_id(flow_id)
-            if flow is None:
-                continue
-            for q in flow.get_collect_steps():
-                allowed_values = self.allowed_values_for_slot(tracker.slots[q.collect])
-                slots_of_active_flows[q.collect] = {
-                    "description": q.description if q.description else None,
-                    "allowed_values": allowed_values,
-                }
-
-        structlogger.debug(
-            "multi_step_llm_command_generator.refine_slots.info_collected",
-            slots=slots_of_active_flows,
-        )
-
-        refined_commands: List[Command] = []
-        latest_user_message = sanitize_message_for_prompt(message.get(TEXT))
-
-        for slot_command in slot_commands:
-            info = slots_of_active_flows.get(slot_command.name)
-            if info is None:
-                continue
-            if slot_command.value is None:
-                refined_commands.append(slot_command)
-                continue
-            if tracker.slots[slot_command.name].type_name == "bool":
-                # do not refine boolean slots
-                refined_commands.append(slot_command)
-                continue
-            if info["allowed_values"] and slot_command.value in info["allowed_values"].strip(
-                "[] "
-            ).split(", "):
-                refined_commands.append(slot_command)
-                continue
-            inputs = {
-                "context_slots": self.prepare_context_slots(tracker),
-                "slot": slot_command.name,
-                "potential_value": slot_command.value,
-                "slot_description": info["description"],
-                "allowed_values": info["allowed_values"],
-                "latest_user_message": latest_user_message,
-            }
-            prompt = Template(self.refine_slot_prompt).render(**inputs)
-            structlogger.debug(
-                "multi_step_llm_command_generator.refine_slots.prompt_rendered",
-                prompt=prompt,
-            )
-
-            action_list = await self._invoke_llm(prompt, "refine_slot")
-            if action_list is None:
-                refined_commands.append(slot_command)
-            else:
-                refined_slot_commands = self.parse_commands(action_list, tracker, flows)
-                if len(refined_slot_commands) > 1:
-                    structlogger.debug(
-                        "multi_step_llm_command_generator.refine_slots.drop_new_value",
-                        set_slot_commands=refined_slot_commands,
-                        message="too many commands generated"
-                    )
-                elif not isinstance(refined_slot_commands[0], SetSlotCommand):
-                    structlogger.debug(
-                        "multi_step_llm_command_generator.refine_slots.drop_new_value",
-                        set_slot_commands=refined_slot_commands,
-                        message="not a set slot command"
-                    )
-                else:
-                    new_value = refined_slot_commands[0].value
-                    structlogger.debug(
-                        "multi_step_llm_command_generator.refine_slots.new_value",
-                        new_value=new_value,
-                    )
-                    refined_commands.append(SetSlotCommand(slot_command.name, new_value))
-
-        return refined_commands
 
     def prepare_inputs(
         self,
@@ -732,16 +559,14 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
         if current_slot:
             current_slot_type = tracker.slots.get(current_slot).type_name
             current_slot_allowed_values = self.allowed_values_for_slot(
-                        tracker.slots.get(current_slot)
-                    )
-
+                tracker.slots.get(current_slot)
+            )
         (
             current_conversation,
             latest_user_message,
         ) = self.prepare_conversation_context_for_template(message, tracker, max_turns)
 
         inputs = {
-            "context_slots": self.prepare_context_slots(tracker),
             "available_flows": self.prepare_flows_for_template(flows, tracker),
             "current_conversation": current_conversation,
             "current_flow": top_flow.id if top_flow is not None else None,
@@ -754,6 +579,7 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
             "top_flow_is_pattern": top_flow_is_pattern,
             "top_user_flow": top_user_flow.id if top_user_flow is not None else None,
             "top_user_flow_slots": top_user_flow_slots,
+            "flow_active": True,
         }
         return inputs
 
@@ -772,69 +598,26 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
             latest_user_message,
         ) = self.prepare_conversation_context_for_template(message, tracker, max_turns)
         inputs = {
-            "context_slots": self.prepare_context_slots(tracker),
             "current_conversation": current_conversation,
             "flow_slots": flow_slots,
             "current_flow": flow.id,
             "last_user_message": latest_user_message,
+            "flow_active": False,
         }
         return inputs
 
-    def _invoke_llm_together(self, prompt: Text) -> Optional[Text]:
-        import requests
-        endpoint = 'https://api.together.xyz/v1/chat/completions'
-        res = requests.post(endpoint, json={
-            # "model": "mistralai/Mixtral-8x22B-Instruct-v0.1",
-            "model": "meta-llama/Llama-3-70b-chat-hf",
-            # "model": "lmsys/vicuna-13b-v1.5",
-            "max_tokens": 512,
-            "temperature": 0.0,
-            "top_p": 0.7,
-            "top_k": 50,
-            "repetition_penalty": 1,
-            "stop": [
-                "<|eot_id|>"
-                # "</s>",
-                # "[/INST]"
-            ],
-            "messages": [
-                {
-                    "content": prompt,
-                    "role": "system"
-                }
-            ]
-        }, headers={
-            "Authorization": os.environ["TOGETHER_API_KEY"],
-        })
-        output = res.json()["choices"][0]["message"]["content"]
-        output = output.replace("\_", "_")
-        return output
-
-    async def _invoke_llm(self, prompt: Text, prompt_name: Text) -> Optional[
-        Text]:
+    async def _invoke_llm(self, prompt: Text) -> Optional[Text]:
         """Use LLM to generate a response.
+
         Args:
             prompt: The prompt to send to the LLM.
+
         Returns:
             The generated text.
         """
-        if ("prompts" in self.config.get(STRONGER_LLM_CONFIG_KEY) and prompt_name in
-                self.config.get(STRONGER_LLM_CONFIG_KEY)["prompts"]):
-            if self.config.get(STRONGER_LLM_CONFIG_KEY)["model"] == "Llama-3-70b-chat-hf":
-                return self._invoke_llm_together(prompt)
-            llm_config = self.config.get(STRONGER_LLM_CONFIG_KEY)
-        else:
-            if self.config.get(WEAKER_LLM_CONFIG_KEY)["model"] == "Llama-3-70b-chat-hf":
-                return self._invoke_llm_together(prompt)
-            llm_config = self.config.get(WEAKER_LLM_CONFIG_KEY)
-
-        if "prompts" in llm_config:
-            llm_config.pop("prompts")
-
-        llm = llm_factory(llm_config, DEFAULT_LLM_CONFIG)
-
+        llm = llm_factory(self.config.get(LLM_CONFIG_KEY), DEFAULT_LLM_CONFIG)
         try:
-            return await llm.apredict(prompt, callbacks=[openai_callback_handler])
+            return await llm.apredict(prompt)
         except Exception as e:
             # unfortunately, langchain does not wrap LLM exceptions which means
             # we have to catch all exceptions here
@@ -850,11 +633,13 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
         is_start_or_end_prompt: bool = False,
     ) -> List[Command]:
         """Parse the actions returned by the llm into intent and entities.
+
         Args:
             actions: The actions returned by the llm.
             tracker: The tracker containing the current state of the conversation.
             flows: The list of flows.
             is_start_or_end_prompt: bool
+
         Returns:
             The parsed commands.
         """
@@ -928,6 +713,7 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
     @staticmethod
     def start_flow_by_name(flow_name: str, flows: FlowsList) -> List[Command]:
         """Start a flow by name.
+
         If the flow does not exist, no command is returned."""
         if flow_name in flows.user_flow_ids:
             return [StartFlowCommand(flow=flow_name)]
@@ -963,8 +749,10 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
     @classmethod
     def get_nullable_slot_value(cls, slot_value: Text) -> Optional[Text]:
         """Get the slot value or None if the value is a none value.
+
         Args:
             slot_value: the value to coerce
+
         Returns:
             The slot value or None if the value is a none value.
         """
@@ -978,9 +766,11 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
         self, flows: FlowsList, tracker: DialogueStateTracker
     ) -> List[Dict[Text, Any]]:
         """Format data on available flows for insertion into the prompt template.
+
         Args:
             flows: The flows available to the user.
             tracker: The tracker containing the current state of the conversation.
+
         Returns:
             The inputs for the prompt template.
         """
@@ -1021,10 +811,12 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
         self, top_flow: Flow, current_step: FlowStep, tracker: DialogueStateTracker
     ) -> List[Dict[Text, Any]]:
         """Prepare the current flow slots for the template.
+
         Args:
             top_flow: The top flow.
             current_step: The current step in the flow.
             tracker: The tracker containing the current state of the conversation.
+
         Returns:
             The slots with values, types, allowed values and a description.
         """
@@ -1064,13 +856,16 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
         current_step: Optional[FlowStep] = None,
     ) -> bool:
         """Check if the `collect` can be filled.
+
         A collect slot can only be filled if the slot exist
         and either the collect has been asked already or the
         slot has been filled already.
+
         Args:
             collect_step: The collect_information step.
             tracker: The tracker containing the current state of the conversation.
             current_step: The current step in the flow.
+
         Returns:
             `True` if the slot can be filled, `False` otherwise.
         """
@@ -1104,9 +899,11 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
     @staticmethod
     def get_slot_value(tracker: DialogueStateTracker, slot_name: str) -> str:
         """Get the slot value from the tracker.
+
         Args:
             tracker: The tracker containing the current state of the conversation.
             slot_name: The name of the slot.
+
         Returns:
             The slot value as a string.
         """
@@ -1119,27 +916,18 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
     @classmethod
     def fingerprint_addon(cls, config: Dict[str, Any]) -> Optional[str]:
         """Add a fingerprint for the graph."""
-        refine_slot_template = get_prompt_template(
-            config[PROMPT_TEMPLATES_KEY].get(REFINE_SLOT_TEMPLATE_KEY),
-            DEFAULT_REFINE_SLOT_TEMPLATE,
-        )
         start_or_end_flows_template = get_prompt_template(
-            config[PROMPT_TEMPLATES_KEY].get(START_OR_END_FLOWS_TEMPLATE_KEY),
+            config.get("prompts", {}).get(START_OR_END_FLOW_KEY, {}).get(FILE_PATH_KEY),
             DEFAULT_START_OR_END_FLOWS_TEMPLATE,
         )
-        fill_slots_for_newly_started_flow_template = get_prompt_template(
-            config[PROMPT_TEMPLATES_KEY].get(FILL_SLOTS_FOR_NEWLY_STARTED_FLOW_TEMPLATE_KEY),
-            DEFAULT_FILL_SLOTS_FOR_NEWLY_STARTED_FLOW_TEMPLATE,
-        )
-        fill_slots_of_current_flow_template = get_prompt_template(
-            config[PROMPT_TEMPLATES_KEY].get(FILL_SLOTS_OF_CURRENT_FLOW_TEMPLATE_KEY),
-            DEFAULT_FILL_SLOTS_OF_CURRENT_FLOW_TEMPLATE,
+        fill_slots_template = get_prompt_template(
+            config.get("prompts", {}).get(FILL_SLOTS_KEY, {}).get(FILE_PATH_KEY),
+            DEFAULT_FILL_SLOTS_TEMPLATE,
         )
         return deep_container_fingerprint(
             [
-                refine_slot_template,
                 start_or_end_flows_template,
-                fill_slots_for_newly_started_flow_template,
-                fill_slots_of_current_flow_template,
+                fill_slots_template,
             ]
         )
+
