@@ -1,0 +1,11 @@
+test_cases:
+  - test_case: User asks unrelated knowledge questions
+    steps:
+    - user: Where is the train station?
+    - commands:
+        - cannot_handle
+    - utter: utter_ask_rephrase
+    - user: How fast do modern trains go?
+    - commands:
+        - cannot_handle
+    - utter: utter_ask_rephrase

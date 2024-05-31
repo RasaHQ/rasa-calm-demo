@@ -1,0 +1,16 @@
+test_cases:
+  # test fails as flow retrieval just determines list_contacts as relevant
+  # so the LLM does not have any options to choose from
+  - test_case: user says they don't want two options
+    steps:
+      - user: contact
+      - commands:
+        - clarify:
+            - add_contact
+            - list_contacts
+            - remove_contact
+      - utter: utter_clarification_options_rasa
+      - user: not add or remove
+      - commands:
+        - start_flow: list_contacts
+      - utter: utter_list_contacts

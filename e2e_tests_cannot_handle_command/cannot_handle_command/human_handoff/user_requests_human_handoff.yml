@@ -1,0 +1,21 @@
+test_cases:
+  - test_case: User requests human handoff multiple times
+    steps:
+    - user: I want to speak to a human
+    - commands:
+        - cannot_handle  # human_handoff
+    - utter: utter_ask_rephrase
+    - user: Can you connect me with a person?
+    - commands:
+      - cannot_handle  # human_handoff
+    - utter: utter_ask_rephrase
+    - commands:
+        - cannot_handle  # human_handoff
+    - user: Handoff the conversation to a real person
+    - utter: utter_ask_rephrase
+    - commands:
+        - cannot_handle  # human_handoff
+    - user: Can I talk to the human operator?
+    - commands:
+        - cannot_handle  # human_handoff
+    - utter: utter_ask_rephrase

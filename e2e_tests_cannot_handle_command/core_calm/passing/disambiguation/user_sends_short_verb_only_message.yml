@@ -1,0 +1,13 @@
+test_cases:
+  - test_case: user sends short verb only message
+    steps:
+      - user: add
+      - commands:
+          - clarify:
+            - "add_card"
+            - "add_contact"
+      - utter: utter_clarification_options_rasa
+      - user: contact
+      - commands:
+          - start_flow: add_contact
+      - utter: utter_ask_add_contact_handle

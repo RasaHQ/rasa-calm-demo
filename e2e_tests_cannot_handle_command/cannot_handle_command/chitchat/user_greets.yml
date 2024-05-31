@@ -1,0 +1,7 @@
+test_cases:
+  - test_case: user greets
+    steps:
+      - user: Hi, there
+      - commands:
+          - cannot_handle  # chitchat
+      - utter: utter_ask_rephrase  # utter_greet

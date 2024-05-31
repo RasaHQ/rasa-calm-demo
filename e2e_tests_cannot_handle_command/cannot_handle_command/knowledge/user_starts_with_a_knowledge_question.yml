@@ -1,0 +1,8 @@
+test_cases:
+  - test_case: user starts with a knowledge question
+    steps:
+      - user: Are transfers on free with this service?
+      - commands:
+        - cannot_handle  # knowledge
+      - utter: utter_ask_rephrase  # utter_knowledge_answer_placeholder
+      - utter: utter_can_do_something_else
