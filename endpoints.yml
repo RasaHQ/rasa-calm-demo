@@ -55,5 +55,5 @@ action_endpoint:
 #  password: password
 #  queue: queue
 #
-nlg:
-  type: rephrase
+#nlg:
+#  type: rephrase

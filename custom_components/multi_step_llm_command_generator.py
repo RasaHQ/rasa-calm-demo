@@ -12,11 +12,8 @@ from rasa.dialogue_understanding.commands import (
     SetSlotCommand,
     CancelFlowCommand,
     StartFlowCommand,
-    HumanHandoffCommand,
-    ChitChatAnswerCommand,
-    SkipQuestionCommand,
-    KnowledgeAnswerCommand,
     ClarifyCommand,
+    CannotHandleCommand,
 )
 from rasa.dialogue_understanding.generator import CommandGenerator
 from rasa.dialogue_understanding.stack.frames import UserFlowStackFrame
@@ -557,7 +554,11 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
         current_slot_type = None
         current_slot_allowed_values = None
         if current_slot:
-            current_slot_type = tracker.slots.get(current_slot).type_name
+            current_slot_type = (
+                slot.type_name
+                if (slot := tracker.slots.get(current_slot)) is not None
+                else None
+            )
             current_slot_allowed_values = self.allowed_values_for_slot(
                 tracker.slots.get(current_slot)
             )
@@ -654,10 +655,8 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
         start_flow_re = re.compile(r"StartFlow\(([a-zA-Z0-9_-]+?)\)")
         change_flow_re = re.compile(r"ChangeFlow\(\)")
         cancel_flow_re = re.compile(r"CancelFlow\(\)")
-        chitchat_re = re.compile(r"ChitChat\(\)")
-        skip_question_re = re.compile(r"SkipQuestion\(\)")
-        knowledge_re = re.compile(r"SearchAndReply\(\)")
-        humand_handoff_re = re.compile(r"HumanHandoff\(\)")
+        cannot_handle_re = re.compile(r"CannotHandle\(\)")
+
         clarify_re = re.compile(r"Clarify\(([\"\'a-zA-Z0-9_, ]+)\)")
 
         for action in actions.strip().splitlines():
@@ -668,8 +667,10 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
                     and isinstance(commands[0], ClarifyCommand)
                 ):
                     break
-
-            if match := slot_set_re.search(action):
+            if cannot_handle_re.search(action):
+                commands = [CannotHandleCommand()]
+                break
+            elif match := slot_set_re.search(action):
                 slot_name = cls.clean_extracted_value(match.group(1).strip())
                 slot_value = cls.clean_extracted_value(match.group(2))
                 # error case where the llm tries to start a flow using a slot set
@@ -685,14 +686,6 @@ class MultiStepLLMCommandGenerator(GraphComponent, CommandGenerator):
                 commands.extend(cls.start_flow_by_name(flow_name, flows))
             elif cancel_flow_re.search(action):
                 commands.append(CancelFlowCommand())
-            elif chitchat_re.search(action):
-                commands.append(ChitChatAnswerCommand())
-            elif skip_question_re.search(action):
-                commands.append(SkipQuestionCommand())
-            elif knowledge_re.search(action):
-                commands.append(KnowledgeAnswerCommand())
-            elif humand_handoff_re.search(action):
-                commands.append(HumanHandoffCommand())
             elif match := clarify_re.search(action):
                 options = sorted([opt.strip() for opt in match.group(1).split(",")])
                 valid_options = [
