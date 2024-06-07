@@ -2,8 +2,8 @@ name: Continous Integration and Deployment
 
 on:
   schedule:
-    # Run cron job at 8AM Monday to Sunday.
-    - cron: '0 8 * * *'
+    # Run cron job at 8AM Monday every week.
+    - cron: '0 8 * * 1'
   workflow_dispatch:
 
 env:
@@ -70,21 +70,6 @@ jobs:
           RASA_DUCKLING_HTTP_URL: ${{secrets.DUCKLING_URL}}
         run: |
           make train
-
-      - name: Upload model to Rasa X
-        id: upload_model
-        run: |
-          cd models
-          files=(*)
-          curl -k -F "model=@$files" "${{secrets.RASA_X_DEPLOYMENT}}/api/projects/default/models?api_token=${{secrets.RASA_X_TOKEN}}"
-          echo "model=${files%%.*}" >> "$GITHUB_OUTPUT"
-
-      - name: Tag model as production in Rasa X
-        if: github.ref == 'refs/heads/main'
-        run: |
-          curl --request PUT \
-          --url "${{secrets.RASA_X_DEPLOYMENT}}/api/projects/default/models/${{steps.upload_model.outputs.model}}/tags/production?api_token=${{secrets.RASA_X_TOKEN}} \
-          --header 'content-type: application/json'
 
       - name: Persist model
         uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
