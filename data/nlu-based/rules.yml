@@ -16,6 +16,7 @@ rules:
   steps:
   - intent: list_restaurants
   - action: action_list_restaurants
+  - action: action_reset_routing
 
 - rule: activate restaurant form
   steps:
