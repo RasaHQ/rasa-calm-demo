@@ -1,7 +1,7 @@
 flows:
   setup_recurrent_payment:
     name: setup recurrent payment
-    description: This flow let users to set up a recurring payment, which can either be a direct debit or a standing order.
+    description: set up a recurring payment, which can either be a direct debit or a standing order
     steps:
       - collect: recurrent_payment_type
         description: the type of payment

@@ -11,6 +11,7 @@ ORIGIN_DB_PATH = "db"
 CONTACTS = "contacts.json"
 TRANSACTIONS = "transactions.json"
 MY_ACCOUNT = "my_account.json"
+RESTAURANTS = "restaurants.json"
 
 
 class MyAccount(BaseModel):
@@ -35,9 +36,17 @@ class Contact(BaseModel):
     handle: str
 
 
+class Restaurant(BaseModel):
+    name: str
+    address: str
+    city: str
+    cuisine: str
+    capacity: int
+
+
 def get_session_db_path(session_id: str) -> str:
     tempdir = tempfile.gettempdir()
-    project_name = "financial_demo_flows_llms"
+    project_name = "rasa-calm-demo"
     return os.path.join(tempdir, project_name, session_id)
 
 
@@ -91,3 +100,7 @@ def add_transaction(session_id: str, transaction: Transaction) -> None:
 
 def write_contacts(session_id: str, contacts: List[Contact]) -> None:
     write_db(session_id, CONTACTS, [c.dict() for c in contacts])
+
+
+def get_restaurants(session_id: str) -> List[Restaurant]:
+    return [Restaurant(**item) for item in read_db(session_id, RESTAURANTS)]

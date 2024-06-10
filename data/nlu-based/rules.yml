@@ -1,0 +1,36 @@
+version: "3.1"
+
+rules:
+
+- rule: greeting
+  steps:
+  - intent: greet
+  - action: utter_greet
+
+- rule: goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- rule: list restaurants
+  steps:
+  - intent: list_restaurants
+  - action: action_list_restaurants
+
+- rule: activate restaurant form
+  steps:
+  - intent: request_restaurant
+  - action: restaurant_form
+  - active_loop: restaurant_form
+
+- rule: submit restaurant form
+  condition:
+  - active_loop: restaurant_form
+  steps:
+  - action: restaurant_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: utter_restaurant_form_submit
+  - action: utter_restaurant_available
+  - action: action_reset_routing

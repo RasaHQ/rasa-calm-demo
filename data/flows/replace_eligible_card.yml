@@ -1,6 +1,7 @@
 flows:
   replace_eligible_card:
-    description: Never predict StartFlow for this flow, users are not able to trigger it themselves.
+    description: the user needs to replace their eligible card
+    if: False
     name: replace eligible card
     steps:
       - collect: replacement_reason

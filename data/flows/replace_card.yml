@@ -1,6 +1,6 @@
 flows:
   replace_card:
-    description: The user needs to replace their card.
+    description: the user needs to replace their card
     name: replace_card
     steps:
       - collect: confirm_correct_card

@@ -2,7 +2,7 @@ from typing import Any, Dict
 from rasa_sdk import Action, Tracker
 from rasa_sdk.events import SlotSet
 from rasa_sdk.executor import CollectingDispatcher
-from actions.db import get_contacts, add_contact, Contact
+from actions.db import get_contacts
 
 
 class ListContacts(Action):
