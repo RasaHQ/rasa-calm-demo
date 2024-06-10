@@ -5,6 +5,7 @@ intents:
 
 actions:
   - remove_contact
+  - action_ask_remove_contact_handle
 
 slots:
   remove_contact_name:
@@ -21,8 +22,6 @@ slots:
       - type: custom
 
 responses:
-  utter_ask_remove_contact_handle:
-    - text: What's the handle of the user you want to remove?
   utter_contact_not_in_list:
     - text: That contact is not in your list.
   utter_remove_contact_error:

@@ -1,7 +1,6 @@
-from typing import Dict, Text, List
+from typing import Dict, Text
 
 from rasa_sdk import Tracker
-from rasa_sdk.events import EventType, ActionExecutionRejected
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk import Action
 
