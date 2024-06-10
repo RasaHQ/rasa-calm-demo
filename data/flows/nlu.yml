@@ -1,20 +1,120 @@
-version: "3.1"
+version: 3.1
 
 nlu:
-  - intent: health_advice
+  - intent: replace_card
     examples: |
-      - I need some medical advice.
-      - Can you help me with some health issues?
-      - I need medical support.
-      - I'm experiencing some symptoms and I need guidance on what to do.
-      - Can you provide me with health recommendations?
-      - I'm struggling with some health concerns. Can you offer advice?
-      - Can you suggest ways to improve my overall well-being?
-      - I'm looking for tips on managing stress and anxiety. Any advice?
-      - I have a specific health question. Can you offer me some insights?
-      - I need suggestions on maintaining a healthy diet and exercise routine.
-      - Is there anyone knowledgeable about natural remedies who can give me advice?
-      - Can you provide me with information on preventing common illnesses?
-      - I'm interested in learning about alternative therapies. Can you share your expertise?
-      - Can you recommend a good doctor? I'm not feeling well.
-      
+      - I need to replace my card.
+      - Can you help me with a card replacement?
+      - I lost my card, can I get a replacement?
+      - My card is damaged, I need a new one.
+      - Help me order a replacement card.
+      - Replace my current card, please.
+      - I need a new card issued.
+      - My card was stolen, I need a new one.
+      - Can you issue me a replacement card?
+      - I need to replace my lost card.
+      - I want to report my card lost and get a replacement.
+      - I need to get a replacement for my worn-out card.
+      - I need a new card, mine is missing.
+      - I need to replace my expired card.
+      - I need assistance with replacing my card.
+      - Can you help me get a new card issued?
+
+  - intent: add_card
+    examples: |
+      - I want to add a card to my account.
+      - I need to add a card to my profile.
+      - Please help me add a card.
+      - Add a new card to my account.
+      - I want to register a new card on my account.
+      - I need to link a card to my account.
+      - Please add a card to my account.
+      - Help me add a credit card to my profile.
+      - I want to add a debit card to my account.
+      - Can you attach this card to my account?
+      - I need to connect a card to my account.
+      - Add this card to my account, please.
+      - Can I add another card to my profile?
+      - How do I save a new card to my account?
+      - I need to input a new card to my account.
+      - Can you help me store a new card on my account?
+      - Please add this card to my account details.
+      - I want to link a new payment card to my account.
+      - How do I add a credit card to my profile?
+
+  - intent: verify_account
+    examples: |
+      - I need to verify my account for higher transfer limits.
+      - I want to verify my account for larger transfers.
+      - Verify my account to raise my transfer limits.
+      - Help me verify my account to increase my transfer capacity.
+      - Help me verify my account.
+      - I need to upgrade my transfer limits by verifying my account.
+      - Please verify my account for increased transfer limits.
+      - I want to verify my details for higher transfer limits.
+      - Assist me in verifying my account.
+      - What are the steps to verify my account for larger transfers?
+      - Verify my account so I can transfer more funds.
+      - Can I get my account verified for higher transaction limits?
+      - I need to authenticate my account for higher transfer limits.
+      - Help me with the process to verify my account for higher transfers.
+      - Help me with the process to verify my account.
+      - I want to verify my account for extended transfer limits.
+      - Can you verify my account?
+      - What do I need to verify for higher transfer allowances?
+      - Guide me through account verification.
+      - I need a higher transfer limit; can you verify my account?
+
+  - intent: add_contact
+    examples: |
+      - I need to add a new contact.
+      - Can you help me add a contact?
+      - How do I add John to my contacts?
+      - Please add a contact for me.
+      - Add a new contact to my list.
+      - I want to save a new contact.
+      - Can you save this contact for me?
+      - Help me add a contact.
+      - Add Max to my contacts.
+      - I need to enter a new contact.
+      - How can I add a contact?
+      - Save a new contact to my directory.
+      - Include a new contact in my list, please.
+      - I want to include a new contact.
+      - Help me save a new contact.
+      - Add a contact to my address book.
+      - I need to input a new contact.
+      - Please help me add Jane to my contacts.
+      - Add a friend to my contacts.
+      - Can you create a new contact for me?
+      - I want to add Paula to my contacts.
+      - Add a new entry to my contact list.
+      - Help me store a new contact.
+
+  - intent: remove_contact
+    examples: |
+      - I need to remove a contact.
+      - Can you help me delete a contact?
+      - How do I remove Max from my contacts?
+      - Please delete a contact for me.
+      - Remove a contact from my list.
+      - I want to delete a contact.
+      - Can you take John off my contact list?
+      - Help me remove a contact.
+      - Delete Tom from my contacts.
+      - I need to erase a contact.
+      - How can I delete a contact?
+      - Remove a contact from my directory.
+      - Exclude a contact from my list, please.
+      - Can you delete a contact from my phonebook?
+      - I want to erase a contact.
+      - Help me delete a contact.
+      - Remove a contact from my address book.
+      - I need to get rid of a contact.
+      - Please help me remove Paula from my contacts.
+      - Erase this number from my contacts.
+      - Delete a friend from my contacts.
+      - Can you remove a contact for me?
+      - I want to delete Alex from my contacts.
+      - Remove an entry from my contact list.
+      - Help me delete a contact permanently.

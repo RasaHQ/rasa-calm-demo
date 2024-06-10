@@ -2,6 +2,10 @@ flows:
   verify_account:
     name: verify account
     description: Verify an account for higher transfer limits
+    nlu_trigger:
+      - intent:
+          name: verify_account
+          confidence_threshold: 0.9
     steps:
       - collect: verify_account_email
         ask_before_filling: true

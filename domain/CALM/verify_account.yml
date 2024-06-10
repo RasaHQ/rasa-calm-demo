@@ -1,5 +1,8 @@
 version: "3.1"
 
+intents:
+  - verify_account
+
 slots:
   verify_account_email:
     type: text

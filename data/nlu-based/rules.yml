@@ -18,6 +18,11 @@ rules:
   - action: action_list_restaurants
   - action: action_reset_routing
 
+- rule: health advice
+  steps:
+    - intent: health_advice
+    - action: utter_cant_advice_on_health
+
 - rule: activate restaurant form
   steps:
   - intent: request_restaurant
