@@ -22,6 +22,14 @@ rules:
   steps:
     - intent: health_advice
     - action: utter_cant_advice_on_health
+    - action: action_reset_routing
+
+- rule: hotel search
+  steps:
+    - intent: hotel_search
+    - action: action_search_hotel
+    - action: utter_hotel_inform_rating
+    - action: action_reset_routing
 
 - rule: activate restaurant form
   steps:

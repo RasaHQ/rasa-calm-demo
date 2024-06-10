@@ -74,6 +74,32 @@ nlu:
     - I'm interested in learning about alternative therapies. Can you share your expertise?
     - Can you recommend a good doctor? I'm not feeling well.
 
+- intent: hotel_search
+  examples: |
+    - I need to find a hotel.
+    - Can you help me search for hotels?
+    - Please search for hotels in my area.
+    - Find hotels near me.
+    - I want to look for hotels.
+    - Can you locate hotels for me?
+    - Help me find a hotel.
+    - Search for hotel options nearby.
+    - I need a hotel for my trip.
+    - How can I search for hotels?
+    - Look up hotels in this city.
+    - Show me hotels in the area.
+    - Can you recommend any hotels?
+    - I want to see available hotels.
+    - Help me locate a hotel.
+    - Find some hotels for me.
+    - I need hotel suggestions.
+    - Please find a hotel where I can stay.
+    - Search for hotels around this place.
+    - Can you find nearby hotels?
+    - I’m looking for hotels in the vicinity.
+    - Help me search for a place to stay.
+    - Show available hotels for my stay.
+
 - intent: list_restaurants
   examples: | 
     - Do you know any good restaurant?

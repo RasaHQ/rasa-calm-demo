@@ -16,4 +16,3 @@ slots:
 responses:
   utter_hotel_inform_rating:
     - text: The {hotel_name} has an average rating of {hotel_average_rating}
-

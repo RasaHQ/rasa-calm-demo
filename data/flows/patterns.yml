@@ -46,3 +46,10 @@ flows:
         next: cancel_flow
       - id: cancel_flow
         action: action_cancel_flow
+
+  pattern_completed:
+    description: all flows have been completed and there is nothing else to be done
+    name: pattern completed
+    steps:
+      - action: utter_can_do_something_else
+      - action: action_reset_routing
