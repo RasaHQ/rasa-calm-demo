@@ -1,0 +1,24 @@
+flows:
+  authenticate_user:
+    description: "Authenticate the user if they are not already logged in."
+    if: False
+    steps:
+      - noop: true
+        next:
+          - if: not slots.is_user_logged_in
+            then: ask_user_credentials
+          - else: END
+      - id: ask_user_credentials
+        collect: user_name
+        description: "The user name of the user."
+      - collect: user_password
+        description: "The password of the user."
+      - action: action_authenticate_user
+        next:
+        - if: not slots.is_user_logged_in
+          then:
+            - action: utter_authentication_failed
+              next: ask_user_credentials
+        - else:
+            - action: utter_authentication_successful
+              next: END

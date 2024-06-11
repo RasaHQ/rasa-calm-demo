@@ -1,0 +1,24 @@
+flows:
+  check_portfolio:
+    description: "Check the user's investment portfolio, including stocks, bonds, and mutual funds."
+    steps:
+      - call: authenticate_user
+      - collect: portfolio_type
+        description: "The type of portfolio (e.g., stocks, bonds, mutual funds)."
+      - action: action_check_portfolio
+        next:
+          - if: slots.portfolio_exists
+            then: show_portfolio
+          - else:
+            - action: utter_portfolio_not_found
+              next: END
+      - id: show_portfolio
+        action: action_show_portfolio
+        next:
+          - if: slots.portfolio_options
+            then:
+            - action: utter_portfolio_options_found
+              next: END
+          - else:
+            - action: utter_portfolio_options_not_found
+              next: END

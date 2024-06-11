@@ -12,6 +12,7 @@ CONTACTS = "contacts.json"
 TRANSACTIONS = "transactions.json"
 MY_ACCOUNT = "my_account.json"
 RESTAURANTS = "restaurants.json"
+PORTFOLIO_OPTIONS = "portfolio_options.json"
 
 
 class MyAccount(BaseModel):
@@ -42,6 +43,11 @@ class Restaurant(BaseModel):
     city: str
     cuisine: str
     capacity: int
+
+
+class Portfolio(BaseModel):
+    type: str
+    options: List[str]
 
 
 def get_session_db_path(session_id: str) -> str:
@@ -104,3 +110,7 @@ def write_contacts(session_id: str, contacts: List[Contact]) -> None:
 
 def get_restaurants(session_id: str) -> List[Restaurant]:
     return [Restaurant(**item) for item in read_db(session_id, RESTAURANTS)]
+
+
+def get_portfolio_options(session_id: str) -> List[Portfolio]:
+    return [Portfolio(**item) for item in read_db(session_id, PORTFOLIO_OPTIONS)]
