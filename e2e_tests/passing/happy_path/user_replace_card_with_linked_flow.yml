@@ -1,12 +1,63 @@
 test_cases:
-  - test_case: user needs card replacement
+  - test_case: Replace lost card which was used fraudulently
     steps:
       - user: I need to replace my card
       - utter: utter_ask_confirm_correct_card
       - user: "yes"
+      - slot_was_set:
+        - confirm_correct_card: true
       - utter: utter_ask_replacement_reason
-      - user: lost
+      - user: I lost my card
+      - slot_was_set:
+        - replacement_reason: "lost"
+      - utter: utter_ask_was_card_used_fraudulently
+      - user: "yes"
+      - slot_was_set:
+        - was_card_used_fraudulently: true
+      - utter: utter_report_fraud
+
+  - test_case: Replace lost card which was not used fraudulently
+    steps:
+      - user: I need to replace my card
+      - utter: utter_ask_confirm_correct_card
+      - user: "yes"
+      - slot_was_set:
+        - confirm_correct_card: true
+      - utter: utter_ask_replacement_reason
+      - user: I lost my card
+      - slot_was_set:
+        - replacement_reason: lost
       - utter: utter_ask_was_card_used_fraudulently
       - user: "no"
+      - slot_was_set:
+        - was_card_used_fraudulently: false
       - utter: utter_will_cancel_and_send_new
       - utter: utter_new_card_has_been_ordered
+
+  - test_case: Replace damaged card
+    steps:
+      - user: I need to replace my card
+      - utter: utter_ask_confirm_correct_card
+      - user: "yes"
+      - slot_was_set:
+        - confirm_correct_card: true
+      - utter: utter_ask_replacement_reason
+      - user: My card is damaged
+      - slot_was_set:
+        - replacement_reason: damaged
+      - utter: utter_will_cancel_and_send_new
+      - utter: utter_new_card_has_been_ordered
+
+  - test_case: Replace card with unknown replacement reason
+    steps:
+    - user: I need to replace my card
+    - utter: utter_ask_confirm_correct_card
+    - user: "yes"
+    - slot_was_set:
+      - confirm_correct_card: true
+    - utter: utter_ask_replacement_reason
+    - user: some other reason
+    - utter: utter_categorical_slot_rejection
+    - utter: utter_ask_replacement_reason
+    - user: ok, stop then
+    - utter: utter_can_do_something_else

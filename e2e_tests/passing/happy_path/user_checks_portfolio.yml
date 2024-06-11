@@ -1,0 +1,16 @@
+test_cases:
+  - test_case: Authenticate and check mutual funds portfolio with options found
+    steps:
+      - user: I want to check my portfolio
+      - utter: utter_ask_user_name
+      - user: Max
+      - utter: utter_ask_user_password
+      - user: "1234"
+      - utter: utter_authentication_successful
+      - utter: utter_ask_portfolio_type
+      - user: mutual funds
+      - slot_was_set:
+        - portfolio_type: mutual_funds
+        - portfolio_exists: True
+        - portfolio_options
+      - utter: utter_portfolio_options_found

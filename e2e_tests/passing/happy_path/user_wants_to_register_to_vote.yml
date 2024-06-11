@@ -1,0 +1,20 @@
+fixtures:
+  - california_resident:
+      - based_in_california: True
+  - non_california_resident:
+      - based_in_california: False
+
+test_cases:
+  - test_case: Register to vote for California resident
+    fixtures:
+      - california_resident
+    steps:
+      - user: I want to register to vote
+      - utter: utter_register_to_vote_in_california
+
+  - test_case: Register to vote for non-California resident (should not trigger)
+    fixtures:
+      - non_california_resident
+    steps:
+      - user: I want to register to vote
+      - utter: utter_cannot_answer

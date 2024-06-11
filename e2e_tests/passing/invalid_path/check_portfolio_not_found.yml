@@ -1,0 +1,23 @@
+test_cases:
+  - test_case: Authenticate and check portfolio with invalid value twice
+    steps:
+    - user: I want to check my portfolio
+    - utter: utter_ask_user_name
+    - user: Max
+    - utter: utter_ask_user_password
+    - user: "1234"
+    - utter: utter_authentication_successful
+    - utter: utter_ask_portfolio_type
+    - user: other
+    - utter: utter_categorical_slot_rejection
+    - utter: utter_ask_portfolio_type
+    - user: other
+    - utter: utter_categorical_slot_rejection
+    - utter: utter_ask_portfolio_type
+    - user: bonds
+    - slot_was_set:
+      - portfolio_type: bonds
+      - portfolio_exists: True
+      - portfolio_options
+    - utter: utter_portfolio_options_found
+    - utter: utter_can_do_something_else

@@ -1,17 +1,18 @@
 test_cases:
   - test_case: user books a restaurant
     steps:
-      - user: I want to book a table for 4 at Xaigon for 8pm tonight
-      - slot_was_set:
-          - book_restaurant_name_of_restaurant: Xaigon
-          - book_restaurant_number_of_people: "4"
-          - book_restaurant_date
-          - book_restaurant_time
-      - utter: utter_restaurant_available
-      - utter: utter_ask_book_restaurant_reservation_name
-      - user: Emil
-      - slot_was_set:
-          - book_restaurant_reservation_name: Emil
-      - utter: utter_ask_book_restaurant_confirmation
-      - user: "yes"
-      - utter: utter_confirm_restaurant_booking
+    - user: book a restaurant
+    - slot_was_set:
+        - route_session_to_calm: False
+    - utter: utter_ask_restaurant_form_city
+    - user: Berlin
+    - utter: What cuisine are you looking for?
+    - user: Thai
+    - utter: Do you know which restaurant you would like me to reverse a table at?
+    - user: Thai Spice
+    - utter: utter_ask_restaurant_form_num_people
+    - user: "3"
+    - utter: utter_ask_restaurant_form_restaurant_time
+    - user: Next Wednesday at 6pm
+    - utter: utter_restaurant_form_submit
+    - utter: utter_restaurant_available
