@@ -3,6 +3,7 @@ test_cases:
     steps:
       - user: send money
       - utter: utter_ask_transfer_money_recipient
+      # the llm is extracting "good friend" as the recipient
       - user: to a good friend
       - utter: utter_ask_transfer_money_recipient
       - user: okay, to Mary

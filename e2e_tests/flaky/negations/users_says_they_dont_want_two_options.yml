@@ -1,7 +1,11 @@
+fixtures:
+  - route_to_calm:
+      - route_session_to_calm: True
+
 test_cases:
-  # test fails as flow retrieval just determines list_contacts as relevant
-  # so the LLM does not have any options to choose from
   - test_case: user says they don't want two options
+    fixtures:
+      - route_to_calm
     steps:
       - user: contact
       - utter: utter_clarification_options_rasa

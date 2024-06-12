@@ -1,3 +1,5 @@
+# recurrent_payment_type is not mapped to standing order
+
 test_cases:
   - test_case: user wants to set up a new recurrent payment, but specifies the type incompletely, example 3
     steps:

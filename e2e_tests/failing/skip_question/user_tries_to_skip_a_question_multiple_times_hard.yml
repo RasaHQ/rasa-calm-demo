@@ -7,6 +7,7 @@ test_cases:
       - utter: utter_skip_question_answer
       - utter: utter_ask_transfer_money_amount_of_money
       - user: i don't want to answer this
+      # cancel flow instead of skip question is predicted
       - utter: utter_skip_question_answer
       - utter: utter_ask_transfer_money_amount_of_money
       - user: okay 50

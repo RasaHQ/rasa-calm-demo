@@ -1,3 +1,5 @@
+# The first utterance ("10 transfers") already sets the amount of money to 10
+
 test_cases:
   - test_case: user asks to start 10 transfers
     steps:

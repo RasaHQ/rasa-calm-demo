@@ -1,3 +1,5 @@
+# cancel flow is predicted instead of skip question
+
 test_cases:
   - test_case: user tries to skip a question multiple times (easy)
     steps:
