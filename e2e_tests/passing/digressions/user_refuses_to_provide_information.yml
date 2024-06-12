@@ -2,6 +2,8 @@ test_cases:
   - test_case: user refuses to provide information
     steps:
       - user: I want to verify my account
+      - slot_was_set:
+        - route_session_to_calm: True
       - utter: utter_ask_verify_account_email
       - user: It's thomas@x.com
       - utter: utter_ask_based_in_california

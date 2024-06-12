@@ -2,7 +2,7 @@ test_cases:
   - test_case: user removes a contact
     steps:
       - user: Remove contact
-      - utter: utter_ask_remove_contact_handle
+      # we use action_ask_remove_contact_handle for the collect step
       - user: "@MaryLu"
       - slot_was_set:
           - remove_contact_handle: "@MaryLu"

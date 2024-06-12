@@ -6,4 +6,4 @@ test_cases:
       - user: "no"
       - slot_was_set:
         - confirm_correct_card: false
-      - action: utter_relevant_card_not_linked
+      - utter: utter_relevant_card_not_linked

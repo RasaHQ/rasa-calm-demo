@@ -3,14 +3,14 @@ test_cases:
     steps:
     - user: I want to book a table for 3 people for tomorrow
     - utter: utter_ask_restaurant_form_city
-    - user: Berlin
-    - utter: What cuisine are you looking for?
-    - user: Japanese
-    - utter: Do you know which restaurant you would like me to reverse a table at?
+    - user: /inform{"location":"berlin"}
+    # we use action_ask_restaurant_form_cuisine for the collect step
+    - user: /inform{"cuisine":"Japanese"}
+    # we use action_ask_restaurant_form_restaurant_name for the collect step
     - user: Ah, wait. John just texted me, we need to move the date to Wednesday, 6pm.
     - slot_was_set:
         - restaurant_time
-    - utter: Do you know which restaurant you would like me to reverse a table at?
-    - user: Sakura Sushi House
+    # we use action_ask_restaurant_form_restaurant_name for the collect step
+    - user: /inform{"restaurant_name":"Sakura Sushi House"}
     - utter: utter_restaurant_form_submit
     - utter: utter_restaurant_available

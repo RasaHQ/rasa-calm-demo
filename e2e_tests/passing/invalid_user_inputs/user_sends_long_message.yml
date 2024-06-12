@@ -1,5 +1,11 @@
+fixtures:
+  - route_to_calm:
+      - route_session_to_calm: True
+
 test_cases:
   - test_case: user sends the long message that exceeds 420 characters
+    fixtures:
+      - route_to_calm
     steps:
       - user: >- 
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed diam eget sem ultrices dignissim. 

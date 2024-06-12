@@ -3,6 +3,7 @@ test_cases:
     steps:
       - user: send John 50
       - slot_was_set:
+        - route_session_to_calm: True
         - transfer_money_amount_of_money: "50"
         - transfer_money_recipient: John
       - utter: utter_ask_transfer_money_final_confirmation

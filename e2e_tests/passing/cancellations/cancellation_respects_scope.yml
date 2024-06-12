@@ -2,6 +2,8 @@ test_cases:
   - test_case: cancellation respects scope
     steps:
       - user: send money to John
+      - slot_was_set:
+          - route_session_to_calm: True
       - utter: utter_ask_transfer_money_amount_of_money
       - user: cancel
       - utter: utter_flow_cancelled_rasa

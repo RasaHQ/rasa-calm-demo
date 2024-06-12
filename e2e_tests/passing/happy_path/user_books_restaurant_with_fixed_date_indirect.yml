@@ -2,11 +2,10 @@ test_cases:
   - test_case: user books restaurant with fixed date
     steps:
     - user: I want to book a table for two 7pm tonight
-    - utter: utter_ask_restaurant_form_city
-    - user: Berlin
-    - utter: What cuisine are you looking for?
-    - user: French
-    - utter: Do you know which restaurant you would like me to reverse a table at?
-    - user: Le Gourmet
+    - user: /inform{"location":"berlin"}
+    # we use action_ask_restaurant_form_cuisine for the collect step
+    - user: /inform{"cuisine":"French"}
+    # we use action_ask_restaurant_form_restaurant_name for the collect step
+    - user: /inform{"restaurant_name":"Le Gourmet"}
     - utter: utter_restaurant_form_submit
     - utter: utter_restaurant_available

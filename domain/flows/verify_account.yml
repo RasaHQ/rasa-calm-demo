@@ -12,6 +12,7 @@ slots:
     type: bool
     mappings:
       - type: custom
+    shared_for_coexistence: True
   verify_account_sufficient_california_income:
     type: bool
     mappings:

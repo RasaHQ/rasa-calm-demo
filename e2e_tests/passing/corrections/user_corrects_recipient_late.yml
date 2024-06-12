@@ -2,6 +2,8 @@ test_cases:
   - test_case: user corrects recipient late
     steps:
       - user: I want to transfer money
+      - slot_was_set:
+        - route_session_to_calm: True
       - utter: utter_ask_transfer_money_recipient
       - user: John
       - slot_was_set:
