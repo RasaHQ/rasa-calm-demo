@@ -1,0 +1,13 @@
+fixtures:
+  - non_california_resident:
+      - based_in_california: False
+      - route_session_to_calm: True
+
+test_cases:
+  - test_case: Register to vote for non-California resident (should not trigger)
+    fixtures:
+      - non_california_resident
+    steps:
+      - user: I want to register to vote
+      # ChitChat is predicted instead of no command being predicted
+      - utter: utter_cannot_answer

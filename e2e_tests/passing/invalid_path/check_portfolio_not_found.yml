@@ -8,10 +8,10 @@ test_cases:
     - user: "1234"
     - utter: utter_authentication_successful
     - utter: utter_ask_portfolio_type
-    - user: other
+    - user: loan
     - utter: utter_categorical_slot_rejection
     - utter: utter_ask_portfolio_type
-    - user: other
+    - user: loan
     - utter: utter_categorical_slot_rejection
     - utter: utter_ask_portfolio_type
     - user: bonds
