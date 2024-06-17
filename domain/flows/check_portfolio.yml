@@ -1,0 +1,41 @@
+version: "3.1"
+
+slots:
+  portfolio_type:
+    type: categorical
+    values:
+      - stocks
+      - bonds
+      - mutual_funds
+    mappings:
+      - type: custom
+  portfolio_exists:
+    type: bool
+    mappings:
+      - type: custom
+  portfolio_options:
+    type: list
+    initial_value: []
+    mappings:
+      - type: custom
+
+responses:
+  utter_portfolio_not_found:
+    - text: I couldn't find your portfolio. Please ensure you have a valid account.
+  utter_ask_portfolio_type:
+    - text: Please select your portfolio type.
+      buttons:
+        - payload: stocks
+          title: stocks
+        - payload: bonds
+          title: bonds
+        - payload: mutual_funds
+          title: mutual funds
+  utter_portfolio_options_found:
+    - text: "Your {portfolio_type} portfolio: {portfolio_options}"
+  utter_portfolio_options_not_found:
+    - text: You don't have any {portfolio_type} investments.
+
+actions:
+  - action_check_portfolio_exists
+  - action_show_portfolio

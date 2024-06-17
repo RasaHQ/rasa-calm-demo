@@ -2,12 +2,16 @@ flows:
   add_contact:
     description: add a contact to your contact list
     name: add a contact
+    nlu_trigger:
+      - intent:
+          name: add_contact
+          confidence_threshold: 0.9
     steps:
-      - collect: "add_contact_handle"
-        description: "a user handle starting with @"
-      - collect: "add_contact_name"
-        description: "a name of a person"
-      - collect: "add_contact_confirmation"
+      - collect: add_contact_handle
+        description: a user handle starting with @
+      - collect: add_contact_name
+        description: a name of a person
+      - collect: add_contact_confirmation
         ask_before_filling: true
         next:
           - if: not slots.add_contact_confirmation

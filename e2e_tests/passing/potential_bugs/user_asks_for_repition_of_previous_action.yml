@@ -1,5 +1,5 @@
 test_cases:
-  # this takes makes sure that final confirmation is asked always
+  # this test makes sure that final confirmation is asked always
   - test_case: user asks for repetition of previous action
     steps:
       - user: send 50 USD to John

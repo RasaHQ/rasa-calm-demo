@@ -3,6 +3,8 @@ version: "3.1"
 slots:
   return_value:
     type: any
+  route_session_to_calm:
+    type: bool
 
 responses:
   utter_goodbye:

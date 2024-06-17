@@ -1,0 +1,14 @@
+[
+  {
+    "type": "stocks",
+    "options": ["AAPL", "GOOGL", "MSFT"]
+  },
+  {
+    "type": "bonds",
+    "options": ["US Treasury", "Corporate Bonds"]
+  },
+  {
+    "type": "mutual_funds",
+    "options": ["Vanguard 500 Index", "Fidelity Contrafund"]
+  }
+]

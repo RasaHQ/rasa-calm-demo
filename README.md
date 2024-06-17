@@ -14,16 +14,21 @@ This project is released under the Rasa's [Early Release Software Access Terms](
 
 ## Demo Bot
 
-The demo bot's business logic is implemented as a set of [flows](https://rasa.com/docs/rasa-pro/concepts/flows), 
+The demo bot's business logic is implemented as a set of [flows](https://rasa.com/docs/rasa-pro/concepts/flows), [rules](https://rasa.com/docs/rasa/rules), and [stories](https://rasa.com/docs/rasa/stories), 
 which are organized into three main skill groups: Contacts, Transactions, 
 and Others/Misc.
+
+The skill groups `Contacts` and `Transactions` are implemented using CALM, e.g. are defined in flows.
+The skill group `Others/Misc` is implemented via the [nlu-based approach](https://rasa.com/docs/rasa/training-data-format).
+[Coexistence](https://rasa.com/docs/rasa-pro/building-assistants/coexistence) allows you to run a single assistant that uses both the Conversational AI with Language Models (CALM) 
+approach and an NLU-based system in parallel.
 
 Each flow consists of a `yaml` file and a [domain definition](https://rasa.com/docs/rasa-pro/concepts/domain), 
 which includes [actions](https://rasa.com/docs/rasa-pro/concepts/domain#actions), 
 [slots](https://rasa.com/docs/rasa-pro/concepts/domain#slots), and 
 [bot ressponses](https://rasa.com/docs/rasa-pro/concepts/domain#responses). 
-The table below shows all the skills implemented in the bot, along with the flow and 
-domain definitions for each:
+
+The table below shows all the skills implemented in the bot:
 
 <table border="1">
    <tr>
@@ -41,21 +46,21 @@ domain definitions for each:
       <td>Add new contact</td>
       <td>Adds a new contact to the user's list.</td>
       <td><a href="data/flows/add_contact.yml">Link</a></td>
-      <td><a href="domain/add_contact.yml">Link</a></td>
+      <td><a href="domain/flows/add_contact.yml">Link</a></td>
    </tr>
    
    <tr>
       <td>Remove contact</td>
       <td>Removes selected contact from the user's list.</td>
       <td><a href="data/flows/remove_contact.yml">Link</a></td>
-      <td><a href="domain/remove_contact.yml">Link</a></td>
+      <td><a href="domain/flows/remove_contact.yml">Link</a></td>
    </tr>
 
    <tr>
       <td>List contacts</td>
       <td>List all of user's saved contacts.</td>
       <td><a href="data/flows/list_contacts.yml">Link</a></td>
-      <td><a href="domain/list_contacts.yml">Link</a></td>
+      <td><a href="domain/flows/list_contacts.yml">Link</a></td>
    </tr>
 
 
@@ -66,35 +71,35 @@ domain definitions for each:
       <td>Check account balance</td>
       <td>Allows users to check their current account balance.</td>
       <td><a href="data/flows/check_balance.yml">Link</a></td>
-      <td><a href="domain/check_balance.yml">Link</a></td>
+      <td><a href="domain/flows/check_balance.yml">Link</a></td>
    </tr>
 
    <tr>
       <td>Transfer money</td>
       <td>Facilitates the transfer of funds to user's contacts.</td>
       <td><a href="data/flows/transfer_money.yml">Link</a></td>
-      <td><a href="domain/transfer_money.yml">Link</a></td>
+      <td><a href="domain/flows/transfer_money.yml">Link</a></td>
    </tr>
 
    <tr>
       <td>Setup recurrent payment</td>
       <td>Sets up recurring payments which can either be a direct debit or a standing order.</td>
       <td><a href="data/flows/setup_recurrent_payment.yml">Link</a></td>
-      <td><a href="domain/setup_recurrent_payment.yml">Link</a></td>
+      <td><a href="domain/flows/setup_recurrent_payment.yml">Link</a></td>
    </tr>
 
    <tr>
       <td>List transactions</td>
       <td>List the last user's transactions.</td>
       <td><a href="data/flows/transaction_search.yml">Link</a></td>
-      <td><a href="domain/transaction_search.yml">Link</a></td>
+      <td><a href="domain/flows/transaction_search.yml">Link</a></td>
    </tr>
    
    <tr>
       <td>Replace card</td>
       <td>Replace the user's card.</td>
       <td><a href="data/flows/replace_card.yml">Link</a></td>
-      <td><a href="domain/replace_card.yml">Link</a></td>
+      <td><a href="domain/flows/replace_card.yml">Link</a></td>
    </tr>
 
    <tr>
@@ -108,9 +113,19 @@ domain definitions for each:
       <td>Verify account</td>
       <td>Verify an account for higher transfer limits.</td>
       <td><a href="data/flows/verify_account.yml">Link</a></td>
-      <td><a href="domain/verify_account.yml">Link</a></td>
+      <td><a href="domain/flows/verify_account.yml">Link</a></td>
    </tr>
+  
+</table>
 
+
+<table border="1">
+   <tr>
+   <th>Skill Group</th>
+   <th>Description</th>
+   <th>Link to story, rules, nlu data</th>
+   <th>Link to domain</th>
+   </tr>
    
    <!-- Others / Misc -->
    
@@ -118,30 +133,30 @@ domain definitions for each:
       <td rowspan="5">Others / Misc</td>
       <td>Book Restaurant</td>
       <td>Make a reservation at a restaurant.</td>
-      <td><a href="data/flows/book_restaurant.yml">Link</a></td>
-      <td><a href="domain/book_restaurant.yml">Link</a></td>
+      <td><a href="data/nlu-based">Link</a></td>
+      <td><a href="domain/nlu-based/restaurant.yml">Link</a></td>
    </tr>
 
    <tr>
       <td>Health Advice</td>
       <td>Detects an out-of-scope topic: health advice.</td>
-      <td><a href="data/flows/health_advice.yml">Link</a></td>
-      <td><a href="domain/health_advice.yml">Link</a></td>
+      <td><a href="data/nlu-based">Link</a></td>
+      <td><a href="domain/nlu-based/health_advice.yml">Link</a></td>
    </tr>
 
    <tr>
       <td>Hotel search</td>
       <td>Search for a hotel and show hotel rating.</td>
-      <td><a href="data/flows/hotel_search.yml">Link</a></td>
-      <td><a href="domain/hotel_search.yml">Link</a></td>
+      <td><a href="data/nlu-based">Link</a></td>
+      <td><a href="domain/nlu-based/hotel_search.yml">Link</a></td>
    </tr>
   
 </table>
 
-Rasa ships with a default behavior for every [conversation repair case](https://rasa.com/docs/rasa-pro/concepts/conversation-repair/#conversation-repair-cases)
+Rasa ships with a default behavior in CALM for every [conversation repair case](https://rasa.com/docs/rasa-pro/concepts/conversation-repair/#conversation-repair-cases)
 which is handled through a [default pattern flow](https://rasa.com/docs/rasa-pro/concepts/conversation-repair/#conversation-repair-cases). 
 In addition to its core functionality, the demo bot also includes an examples of 
-pattern overriding in [`data/flows/patterns.yml`](./data/flows/patterns.yml).
+pattern overriding in [`data/flows/patterns.yml`](data/flows/patterns.yml).
 
 ## Running the project
 

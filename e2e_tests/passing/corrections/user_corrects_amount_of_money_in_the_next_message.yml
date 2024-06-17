@@ -2,16 +2,18 @@ test_cases:
   - test_case: user corrects amount of money in the next message
     steps:
       - user: I want to transfer money
+      - slot_was_set:
+        - route_session_to_calm: True
       - utter: utter_ask_transfer_money_recipient
       - user: John
       - slot_was_set:
-          - transfer_money_recipient: "John"
+          - transfer_money_recipient: John
       - utter: utter_ask_transfer_money_amount_of_money
-      - user: "100 USD"
+      - user: 100 USD
       - slot_was_set:
           - transfer_money_amount_of_money: "100"
       - utter: utter_ask_transfer_money_final_confirmation
-      - user: "Ah, scratch that, I meant 110$"
+      - user: Ah, scratch that, I meant 110$
       - utter: utter_ask_confirm_slot_correction
       - user: "yes"
       - slot_was_set:

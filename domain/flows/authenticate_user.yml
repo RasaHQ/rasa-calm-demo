@@ -1,0 +1,26 @@
+version: "3.1"
+
+slots:
+  is_user_logged_in:
+    type: bool
+  user_name:
+    type: text
+    mappings:
+      - type: custom
+  user_password:
+    type: text
+    mappings:
+      - type: custom
+
+responses:
+  utter_authentication_failed:
+    - text: Authentication failed. Please try again.
+  utter_authentication_successful:
+    - text: You have successfully logged in.
+  utter_ask_user_name:
+    - text: Please enter your user name.
+  utter_ask_user_password:
+    - text: Please enter your password.
+
+actions:
+  - action_authenticate_user

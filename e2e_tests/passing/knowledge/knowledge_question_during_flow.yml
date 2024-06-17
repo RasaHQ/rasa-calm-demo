@@ -4,9 +4,10 @@ test_cases:
       - user: I want to send some money to Tre
       - utter: utter_ask_transfer_money_amount_of_money
       - user: btw, are these transfers free of charge?
-      - utter: utter_free_transfers
+      # not able to test the response of enterprise search
+      # - utter: utter_free_transfers
       - utter: utter_ask_transfer_money_amount_of_money
       - user: great, 50$ then
       - utter: utter_ask_transfer_money_final_confirmation
-      - user: yes
+      - user: "yes"
       - utter: utter_transfer_complete

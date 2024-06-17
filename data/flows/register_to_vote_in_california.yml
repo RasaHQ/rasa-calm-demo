@@ -1,6 +1,6 @@
 flows:
   register_to_vote_in_california:
-    description: To enable a california resident to register to vote."
+    description: To enable a california resident to register to vote.
     if: slots.based_in_california
     steps:
       - action: utter_register_to_vote_in_california

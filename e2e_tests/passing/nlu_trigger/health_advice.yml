@@ -1,5 +1,0 @@
-test_cases:
-  - test_case: can't advice on health
-    steps:
-      - user: I need medical support.
-      - utter: utter_cant_advice_on_health

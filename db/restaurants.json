@@ -1,0 +1,198 @@
+[
+  {
+    "name": "La Bella Italia",
+    "address": "123 Hauptstraße, Berlin 10115",
+    "city": "Berlin",
+    "cuisine": "Italian",
+    "capacity": 80
+  },
+  {
+    "name": "Sakura Sushi House",
+    "address": "456 Lindenstraße, Berlin 10243",
+    "city": "Berlin",
+    "cuisine": "Japanese",
+    "capacity": 60
+  },
+  {
+    "name": "Curry Palace",
+    "address": "789 Eichenallee, Berlin 10365",
+    "city": "Berlin",
+    "cuisine": "Indian",
+    "capacity": 100
+  },
+  {
+    "name": "El Rancho Grande",
+    "address": "101 Kiefernstraße, Berlin 10437",
+    "city": "Berlin",
+    "cuisine": "Mexican",
+    "capacity": 120
+  },
+  {
+    "name": "Le Petit Bistro",
+    "address": "202 Ahornweg, Berlin 10587",
+    "city": "Berlin",
+    "cuisine": "French",
+    "capacity": 50
+  },
+  {
+    "name": "Golden Dragon",
+    "address": "303 Zedernallee, Berlin 10623",
+    "city": "Berlin",
+    "cuisine": "Chinese",
+    "capacity": 90
+  },
+  {
+    "name": "Oasis Mediterranean Grill",
+    "address": "404 Birkenstraße, Berlin 10785",
+    "city": "Berlin",
+    "cuisine": "Mediterranean",
+    "capacity": 70
+  },
+  {
+    "name": "Spicy Thai Kitchen",
+    "address": "606 Palmendamm, Berlin 10961",
+    "city": "Berlin",
+    "cuisine": "Thai",
+    "capacity": 65
+  },
+  {
+    "name": "Trattoria Roma",
+    "address": "808 Seeblickstraße, Berlin 11129",
+    "city": "Berlin",
+    "cuisine": "Italian",
+    "capacity": 95
+  },
+  {
+    "name": "Chez Louis",
+    "address": "909 Gartenweg, Berlin 11237",
+    "city": "Berlin",
+    "cuisine": "French",
+    "capacity": 75
+  },
+  {
+    "name": "Bangkok Delight",
+    "address": "1010 Flussallee, Berlin 11347",
+    "city": "Berlin",
+    "cuisine": "Thai",
+    "capacity": 85
+  },
+  {
+    "name": "El Jardin",
+    "address": "1111 Blumenstraße, Berlin 11457",
+    "city": "Berlin",
+    "cuisine": "Mexican",
+    "capacity": 90
+  },
+  {
+    "name": "Bistro Belle Epoque",
+    "address": "1212 Weintraubenstraße, Berlin 11567",
+    "city": "Berlin",
+    "cuisine": "French",
+    "capacity": 60
+  },
+  {
+    "name": "Cantina del Sol",
+    "address": "1313 Sonnenuntergangsstraße, Berlin 11677",
+    "city": "Berlin",
+    "cuisine": "Mexican",
+    "capacity": 130
+  },
+  {
+    "name": "Tuscany Tavern",
+    "address": "1414 Uferstraße, Berlin 11787",
+    "city": "Berlin",
+    "cuisine": "Italian",
+    "capacity": 65
+  },
+  {
+    "name": "Le Gourmet",
+    "address": "1515 Plaza Boulevard, Berlin 11897",
+    "city": "Berlin",
+    "cuisine": "French",
+    "capacity": 55
+  },
+  {
+    "name": "Pasta Fresca",
+    "address": "1616 Marktstraße, Berlin 11907",
+    "city": "Berlin",
+    "cuisine": "Italian",
+    "capacity": 72
+  },
+  {
+    "name": "Thai Spice",
+    "address": "1717 Ozeanstraße, Berlin 12017",
+    "city": "Berlin",
+    "cuisine": "Thai",
+    "capacity": 80
+  },
+  {
+    "name": "Ristorante Incanto",
+    "address": "Amstel 2, 1017 AA Amsterdam",
+    "city": "Amsterdam",
+    "cuisine": "Italian",
+    "capacity": 60
+  },
+  {
+    "name": "Yamazato Restaurant",
+    "address": "Ferdinand Bolstraat 333, 1072 LH Amsterdam",
+    "city": "Amsterdam",
+    "cuisine": "Japanese",
+    "capacity": 55
+  },
+  { "name": "Pind Punjabi",
+    "address": "Eerste Sweelinckstraat 25, 1073 CL Amsterdam",
+    "city": "Amsterdam",
+    "cuisine": "Indian",
+    "capacity": 70
+  },
+  {
+    "name": "Los Pilones",
+    "address": "Kerkstraat 63, 1017 GC Amsterdam",
+    "city": "Amsterdam",
+    "cuisine": "Mexican",
+    "capacity": 50
+  },
+  {
+    "name": "Ciel Bleu",
+    "address": "Ferdinand Bolstraat 333, 1072 LH Amsterdam",
+    "city": "Amsterdam",
+    "cuisine": "French",
+    "capacity": 80
+  },
+  {
+    "name": "Sea Palace",
+    "address": "Oosterdokskade 8, 1011 AE Amsterdam",
+    "city": "Amsterdam",
+    "cuisine": "Chinese",
+    "capacity": 120
+  },
+  {
+    "name": "Cafe de Klos",
+    "address": "Kerkstraat 41, 1017 GB Amsterdam",
+    "city": "Amsterdam",
+    "cuisine": "Mediterranean",
+    "capacity": 55
+  },
+  {
+    "name": "Bird Thai Restaurant",
+    "address": "Zeedijk 72-74, 1012 BA Amsterdam",
+    "city": "Amsterdam",
+    "cuisine": "Thai",
+    "capacity": 90
+  },
+  {
+    "name": "Trattoria Graziella",
+    "address": "Via Amsterdam, 1097 BA Amsterdam",
+    "city": "Amsterdam",
+    "cuisine": "Italian",
+    "capacity": 65
+  },
+  {
+    "name": "Sushisamba",
+    "address": "Max Euweplein 64, 1017 MB Amsterdam",
+    "city": "Amsterdam",
+    "cuisine": "Japanese",
+    "capacity": 110
+  }
+
+]

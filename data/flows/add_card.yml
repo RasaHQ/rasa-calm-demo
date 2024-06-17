@@ -2,5 +2,9 @@ flows:
   add_card:
     description: add a card to your account
     name: add a card
+    nlu_trigger:
+      - intent:
+          name: add_card
+          confidence_threshold: 0.9
     steps:
       - action: utter_card_added
