@@ -14,13 +14,13 @@ slots:
 
 responses:
   utter_authentication_failed:
-    - text: "Authentication failed. Please try again."
+    - text: Authentication failed. Please try again.
   utter_authentication_successful:
-    - text: "You have successfully logged in."
+    - text: You have successfully logged in.
   utter_ask_user_name:
-    - text: "Please enter your user name."
+    - text: Please enter your user name.
   utter_ask_user_password:
-    - text: "Please enter your password."
+    - text: Please enter your password.
 
 actions:
   - action_authenticate_user

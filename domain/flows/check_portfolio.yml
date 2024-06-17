@@ -37,5 +37,5 @@ responses:
     - text: You don't have any {portfolio_type} investments.
 
 actions:
-  - action_check_portfolio
+  - action_check_portfolio_exists
   - action_show_portfolio

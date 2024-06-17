@@ -5,7 +5,7 @@ flows:
       - call: authenticate_user
       - collect: portfolio_type
         description: "The type of portfolio (e.g., stocks, bonds, mutual funds)."
-      - action: action_check_portfolio
+      - action: action_check_portfolio_exists
         next:
           - if: slots.portfolio_exists
             then: show_portfolio

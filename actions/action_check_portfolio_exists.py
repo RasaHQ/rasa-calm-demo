@@ -5,10 +5,10 @@ from rasa_sdk.executor import CollectingDispatcher
 from actions.db import get_portfolio_options
 
 
-class ActionCheckPortfolio(Action):
+class ActionCheckPortfolioExists(Action):
 
     def name(self) -> str:
-        return "action_check_portfolio"
+        return "action_check_portfolio_exists"
 
     def run(self, dispatcher: CollectingDispatcher, tracker: Tracker,
             domain: dict) -> list:
