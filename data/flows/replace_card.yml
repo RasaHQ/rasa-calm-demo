@@ -12,7 +12,8 @@ flows:
         next:
           - if: slots.confirm_correct_card
             then:
-              - link: replace_eligible_card
+              - call: replace_eligible_card
+                next: END
           - else:
               - action: utter_relevant_card_not_linked
                 next: END
