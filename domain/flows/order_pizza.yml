@@ -1,0 +1,129 @@
+version: "3.1"
+
+intents:
+  - greet
+  - inform_pizza
+  - inform_address
+  - inform_num_pizza
+  - ask_availability
+  - correct_order
+
+entities:
+  - pizza_type
+  - topping
+
+slots:
+  pizza:
+    type: text
+    mappings:
+        - type: from_entity
+          entity: pizza_type
+  num_pizza:
+    type: float
+    mappings:
+        - type: from_entity
+          entity: number  # this is defined in the restaurant.yml domain file
+          conditions:
+            - active_flow: fill_pizza_order
+  address:
+    type: text
+    mappings:
+      - type: from_text
+        intent: inform_address
+        conditions:
+          - active_flow: fill_pizza_order
+  confirmation_order:
+    type: bool
+    mappings:
+        - type: from_llm
+  token:
+    type: text
+    mappings:
+      - type: from_llm
+        conditions:
+        - active_flow: auth_user
+  membership_points:
+    type: float
+    mappings:
+      - type: custom
+  payment_option:
+    type: categorical
+    values:
+      - card
+      - membership_points
+    mappings:
+        - type: from_llm
+  card_details:
+    type: text
+    mappings:
+      - type: from_llm
+  correct_order:
+    type: bool
+    mappings:
+        - type: custom
+  extra_topping:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: topping
+
+responses:
+  utter_ask_pizza:
+    - text: What type of pizza would you like to order?
+
+  utter_place_order:
+    - text: Your order for a {pizza} pizza has been placed. It will be delivered to {address} in 30 minutes.
+
+  utter_ask_num_pizza:
+    - text: How many pizzas would you like to order?
+
+  utter_ask_address:
+    - text: What is the delivery address?
+
+  utter_confirm:
+    - text: You have put in a order for {num_pizza} {pizza} pizzas. Please confirm the details above are correct?
+
+  utter_cancel_order:
+    - text: Your order has been cancelled.
+
+  utter_pizza_availability:
+    - text: "Yes, we have a variety of pizzas available for delivery."
+
+  utter_card_details:
+    - text: "Your card number is 1234 5678 9101 1121. The expiry date is 01/23."
+
+  utter_cancel_request:
+    - text: "Your token is invalid, therefore this request is cancelled."
+
+  utter_ask_token:
+    - text: "Please provide your token to proceed."
+
+  utter_auth_first:
+    - text: "Please authenticate yourself first."
+
+  utter_token_success:
+    - text: "Your token has been successfully authenticated."
+
+  utter_use_points:
+    - text: "You have successfully used {membership_points} membership points."
+
+  utter_no_points:
+    - text: "You have no membership points."
+
+  utter_ask_payment_option:
+    - text: "How would you like to pay for your order?"
+
+  utter_ask_card_details:
+    - text: "Please provide your card number."
+
+  utter_execute_payment:
+    - text: "Your payment has been processed."
+
+  utter_ask_extra_topping:
+    - text: "Would you like to add any extra toppings to your pizza?"
+
+actions:
+  - action_ask_confirmation_order
+  - action_check_points
+  - action_ask_correct_order
+  - action_fill_cancel_order

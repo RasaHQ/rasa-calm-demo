@@ -5,6 +5,7 @@ intents:
   - request_restaurant
   - inform
   - list_restaurants
+  - goodbye
 
 entities:
 - cuisine

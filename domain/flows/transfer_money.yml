@@ -9,22 +9,24 @@ slots:
     type: bool
     mappings:
       - type: custom
+        action: execute_transfer
   transfer_money_has_sufficient_funds:
     type: bool
     mappings:
       - type: custom
+        action: check_transfer_funds
   transfer_money_recipient:
     type: text
     mappings:
-      - type: custom
+      - type: from_llm
   transfer_money_amount_of_money:
     type: text
     mappings:
-      - type: custom
+      - type: from_llm
   transfer_money_final_confirmation:
     type: text
     mappings:
-      - type: custom
+      - type: from_llm
 
 responses:
   utter_transfer_money_insufficient_funds:

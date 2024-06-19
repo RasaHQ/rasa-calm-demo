@@ -13,7 +13,7 @@ from actions.entity_extractor import duckling_entity_extractor
 def parse_datetime(text: str) -> Optional[datetime]:
     msg = Message.build(text)
     duckling_entity_extractor.process([msg])
-    if len(msg.data["entities"]) == 0:
+    if len(msg.data.get("entities", [])) == 0:
         return None
 
     parsed_value = msg.data["entities"][0]["value"]
