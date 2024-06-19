@@ -16,7 +16,7 @@ class AskForRemoveContactHandle(Action):
     ):
         contacts = get_contacts(tracker.sender_id)
 
-        dispatcher.utter_button_message(
+        dispatcher.utter_message(
             text="What's the handle of the user you want to remove?",
             buttons=[
                 {"title": f"{c.handle} ({c.name})", "payload": c.handle}

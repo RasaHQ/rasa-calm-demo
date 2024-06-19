@@ -185,7 +185,8 @@ Prerequisites:
   `poetry self update`
 - python (3.10.12), e.g. using [pyenv](https://github.com/pyenv/pyenv) 
   `pyenv install 3.10.12`
-- set up and running [Duckling](https://github.com/facebook/duckling) server
+- set up and running [Duckling](https://github.com/facebook/duckling) server; the easiest option is to spin up a docker container using
+`docker run -p 8000:8000 rasa/duckling`.
 
 After you cloned the repository and are authenticated, follow the installation steps:
 
