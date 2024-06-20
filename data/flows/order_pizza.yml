@@ -17,7 +17,7 @@ flows:
       next:
         - if: slots.payment_option is 'card'
           then: "use_card_details"
-        - if: slots.payment_option is 'membership_points'
+        - if: slots.payment_option is 'membership points'
           then: "use_membership_points"
         - else: "cancel_order"
     - id: "use_card_details"
@@ -46,7 +46,6 @@ flows:
       - collect: pizza
       - collect: num_pizza
       - collect: address
-      - collect: extra_topping
       - collect: confirmation_order
         reset_after_flow_ends: False
 

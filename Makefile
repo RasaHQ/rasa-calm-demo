@@ -11,6 +11,7 @@ help:
 .EXPORT_ALL_VARIABLES:
 
 install:
+	poetry run python -m pip install -U pip
 	poetry install
 
 test: .EXPORT_ALL_VARIABLES

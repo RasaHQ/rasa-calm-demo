@@ -7,11 +7,11 @@ intents:
   - inform_num_pizza
   - ask_availability
   - correct_order
-  - inform_topping
+  - affirm
+  - deny
 
 entities:
   - pizza_type
-  - topping
   - address
 
 slots:
@@ -41,7 +41,16 @@ slots:
   confirmation_order:
     type: bool
     mappings:
-        - type: custom
+        - type: from_intent
+          intent: affirm
+          value: true
+          conditions:
+            - active_flow: fill_pizza_order
+        - type: from_intent
+          intent: deny
+          value: false
+          conditions:
+            - active_flow: fill_pizza_order
   token:
     type: text
     mappings:
@@ -57,7 +66,7 @@ slots:
     type: categorical
     values:
       - card
-      - membership_points
+      - "membership points"
     mappings:
         - type: from_llm
   card_details:
@@ -100,7 +109,7 @@ responses:
     - text: "Your token is invalid, therefore this request is cancelled."
 
   utter_ask_token:
-    - text: "Please provide your token to proceed."
+    - text: "Please provide your token to login first."
 
   utter_auth_first:
     - text: "Please authenticate yourself first."

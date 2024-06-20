@@ -146,17 +146,6 @@ nlu:
       - [3](number) pizzas
       - [4](number) pizzas
 
-  - intent: inform_topping
-    examples: |
-      - extra [cheese](topping)
-      - [mushrooms](topping)
-      - [pepperoni](topping)
-      - [onions](topping)
-      - [green peppers](topping)
-      - some [black olives](topping)
-      - extra [nduja](topping)
-      - more [anchovies](topping)
-
   - intent: ask_availability
     examples: |
       - Do you have any pizzas left?
@@ -187,3 +176,17 @@ nlu:
       - I made a mistake in the payment option.
       - Can I pay with credit card instead?
       - I actually want to pay with membership points.
+
+  - intent: affirm
+    examples: |
+      - Yes, that's correct.
+      - Yes, that's right.
+      - Yes, that's it.
+      - Yes
+
+  - intent: deny
+    examples: |
+      - No, that's not right.
+      - No, that's incorrect.
+      - No, that's not it.
+      - No
