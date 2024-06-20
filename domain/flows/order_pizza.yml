@@ -7,6 +7,9 @@ intents:
   - inform_num_pizza
   - ask_availability
   - correct_order
+  - correct_num_pizza
+  - correct_pizza_type
+  - correct_payment_option
   - affirm
   - deny
 
@@ -30,7 +33,7 @@ slots:
             - active_flow: fill_pizza_order
         - type: from_entity
           entity: number
-          intent: correct_order
+          intent: correct_num_pizza
   address:
     type: text
     mappings:

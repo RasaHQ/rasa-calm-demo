@@ -167,13 +167,34 @@ nlu:
       - I actually need to update my order.
       - I made a mistake in my order.
       - I need to change my order.
-      - I actually want to order [2](number) pizzas.
-      - Need [10](number) pizzas now instead.
       - I made a mistake in the delivery address.
       - I need to update the delivery address.
-      - I actually want to order a [vegetarian](pizza_type) pizza.
-      - I actually want to order [pepperoni](pizza_type) pizzas.
       - I made a mistake in the payment option.
+
+  - intent: correct_num_pizza
+    examples: |
+        - I actually want to order [2](number) pizzas.
+        - Need [10](number) pizzas now instead.
+        - I actually want to order [3](number) pizzas.
+        - I actually want to order [4](number) pizzas.
+        - I actually want to order [5](number) pizzas.
+        - I actually want to order [6](number) pizzas.
+        - I actually want to order [7](number) pizzas.
+        - I actually want to order [8](number) pizzas.
+        - I actually want to order [9](number) pizzas.
+        - I actually want to order [10](number) pizzas.
+
+  - intent: correct_pizza_type
+    examples: |
+        - I actually want to order a [margherita](pizza_type) pizza.
+        - I actually want to order a [pepperoni](pizza_type) pizza.
+        - I actually want to order a [vegetarian](pizza_type) pizza.
+        - I actually want to order a [hawaiian](pizza_type) pizza.
+        - I actually want to order a [diavola](pizza_type) pizza.
+        - I actually want to order a [quattro formaggi](pizza_type) pizza.
+
+  - intent: correct_payment_option
+    examples: |
       - Can I pay with credit card instead?
       - I actually want to pay with membership points.
 
