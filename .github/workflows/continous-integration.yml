@@ -167,7 +167,7 @@ jobs:
 
     - name: Run duckling server
       run: |
-        docker run -d -p 8000:8000 rasa/duckling --name duckling_container
+        docker run --name duckling_container -d -p 8000:8000 rasa/duckling
 
     - name: Run e2e passing tests
       env:
