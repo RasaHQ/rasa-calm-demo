@@ -34,6 +34,9 @@ slots:
         - type: from_entity
           entity: number
           intent: correct_num_pizza
+          conditions:
+          - active_flow: fill_pizza_order
+          - active_flow: order_pizza
   address:
     type: text
     mappings:
