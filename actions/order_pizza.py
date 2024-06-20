@@ -50,3 +50,26 @@ class ActionCorrectOrderDetails(Action):
             ]
         )
         return [SlotSet("confirmation_order", None), SlotSet("correct_order", True)]
+
+class ActionShowVacancie(Action):
+
+    def name(self) -> str:
+        return "action_show_vacancies"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker, domain: Dict[str, Any]):
+        department = tracker.get_slot("department")
+
+        if department == "kitchen":
+            dispatcher.utter_message(
+                text="We are looking for a chef and a kitchen assistant. Please visit our website to apply."
+            )
+        elif department == "service":
+            dispatcher.utter_message(
+                text="We are looking for a cashier and a waiter. Please visit our website to apply."
+            )
+        else:
+            dispatcher.utter_message(
+                text="We don't have any vacancies at the moment in that department. Please check back later."
+            )
+        return []

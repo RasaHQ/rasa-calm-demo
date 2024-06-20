@@ -86,3 +86,15 @@ flows:
     steps:
       - collect: correct_order
       - call: "fill_pizza_order"
+
+  job_vacancies:
+    name: job vacancies
+    description: user asks for job vacancies
+    steps:
+      - collect: department
+        next:
+            - if: slots.department
+              then: "show_vacancies"
+            - else: END
+      - id: "show_vacancies"
+        action: action_show_vacancies

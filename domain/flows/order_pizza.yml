@@ -16,6 +16,7 @@ intents:
 entities:
   - pizza_type
   - address
+  - department
 
 slots:
   pizza:
@@ -83,6 +84,11 @@ slots:
     type: bool
     mappings:
         - type: custom
+  department:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: department
 
 responses:
   utter_ask_pizza:
@@ -133,10 +139,11 @@ responses:
   utter_execute_payment:
     - text: "Your payment has been processed."
 
-  utter_ask_extra_topping:
-    - text: "Would you like to add any extra toppings to your pizza?"
+  utter_ask_department:
+    - text: "Which department would you like to apply to?"
 
 actions:
   - action_ask_confirmation_order
   - action_check_points
   - action_ask_correct_order
+  - action_show_vacancies

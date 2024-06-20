@@ -192,6 +192,12 @@ nlu:
         - I actually want to order a [hawaiian](pizza_type) pizza.
         - I actually want to order a [diavola](pizza_type) pizza.
         - I actually want to order a [quattro formaggi](pizza_type) pizza.
+        - Actually, can i get a [margherita](pizza_type) instead.
+        - Actually, can i get a [pepperoni](pizza_type) instead.
+        - Actually, can i get a [vegetarian](pizza_type) instead.
+        - Actually, can i get a [hawaiian](pizza_type) instead.
+        - Actually, can i get a [diavola](pizza_type) instead.
+        - Actually, can i get a [quattro formaggi](pizza_type) instead.
 
   - intent: correct_payment_option
     examples: |

@@ -14,3 +14,56 @@ test_cases:
       - user: "yes"
       - utter: utter_corrected_previous_input
       - utter: utter_ask_payment_option
+
+  - test_case: user_orders_pizza_stating_which_type_and_corrects_pizza_type_later
+    steps:
+      - user: I would like to order a diavola pizza.
+      - utter: utter_ask_num_pizza
+      - user: 1 please
+      - utter: utter_ask_address
+      - user: 30 Pine Road
+      - utter: utter_confirm
+      - user: /SetSlots(confirmation_order=True)
+      - utter: utter_ask_payment_option
+      - user: actually can i get a margherita instead
+      - utter: utter_ask_confirm_slot_correction
+      - user: "yes"
+      - utter: utter_corrected_previous_input
+      - utter: utter_ask_payment_option
+
+  - test_case: user_orders_pizza_stating_which_type_and_corrects_payment_option_later
+    steps:
+      - user: I would like to order a diavola pizza.
+      - utter: utter_ask_num_pizza
+      - user: 1 please
+      - utter: utter_ask_address
+      - user: 30 Pine Road
+      - utter: utter_confirm
+      - user: /SetSlots(confirmation_order=True)
+      - utter: utter_ask_payment_option
+      - user: loyalty points
+      - utter: utter_ask_token
+      - user: actually can i pay with a credit card
+      - utter: utter_ask_confirm_slot_correction
+      - user: "yes"
+      - utter: utter_corrected_previous_input
+      - utter: utter_ask_card_details
+
+  - test_case: user_orders_pizza_stating_which_type_and_corrects_order_details_later
+    steps:
+      - user: I would like to order a diavola pizza.
+      - utter: utter_ask_num_pizza
+      - user: 1 please
+      - utter: utter_ask_address
+      - user: 30 Pine Road
+      - utter: utter_confirm
+      - user: /SetSlots(confirmation_order=True)
+      - utter: utter_ask_payment_option
+      - user: actually, i made a mistake and need to update my delivery address first.
+      - bot: "I'm sorry about that. Let's correct your order. What would you like to change?"
+        # TODO: ideal place to test next buttons feature in e2e testing
+      - user: /SetSlots(address=null)
+# FIXME: To uncomment once ATO-2553 is fixed
+#      - utter: utter_ask_address
+#      - user: 3 Pine Road
+#      - utter: utter_confirm
