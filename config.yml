@@ -36,7 +36,6 @@ pipeline:
 policies:
 - name: RulePolicy
 - name: TEDPolicy
-  epochs: 20
   constrain_similarities: true
 - name: FlowPolicy
 - name: EnterpriseSearchPolicy

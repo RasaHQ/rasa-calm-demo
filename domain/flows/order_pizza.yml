@@ -77,11 +77,6 @@ slots:
     type: bool
     mappings:
         - type: custom
-  extra_topping:
-    type: text
-    mappings:
-      - type: from_entity
-        entity: topping
 
 responses:
   utter_ask_pizza:
