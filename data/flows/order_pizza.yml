@@ -50,14 +50,6 @@ flows:
       - collect: confirmation_order
         reset_after_flow_ends: False
 
-  see_card_details:
-    name: see card details
-    description: user asks to see card details
-    steps:
-      - action: utter_auth_first
-      - call: "auth_user"
-      - action: "utter_card_details"
-
   auth_user:
     name: auth user
     description: user is asked to authenticate before proceeding

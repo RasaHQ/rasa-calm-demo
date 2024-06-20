@@ -7,10 +7,12 @@ intents:
   - inform_num_pizza
   - ask_availability
   - correct_order
+  - inform_topping
 
 entities:
   - pizza_type
   - topping
+  - address
 
 slots:
   pizza:
@@ -23,8 +25,12 @@ slots:
     mappings:
         - type: from_entity
           entity: number  # this is defined in the restaurant.yml domain file
+          intent: inform_num_pizza
           conditions:
             - active_flow: fill_pizza_order
+        - type: from_entity
+          entity: number
+          intent: correct_order
   address:
     type: text
     mappings:
@@ -35,7 +41,7 @@ slots:
   confirmation_order:
     type: bool
     mappings:
-        - type: from_llm
+        - type: custom
   token:
     type: text
     mappings:
@@ -46,6 +52,7 @@ slots:
     type: float
     mappings:
       - type: custom
+        action: action_check_points
   payment_option:
     type: categorical
     values:
@@ -89,9 +96,6 @@ responses:
   utter_pizza_availability:
     - text: "Yes, we have a variety of pizzas available for delivery."
 
-  utter_card_details:
-    - text: "Your card number is 1234 5678 9101 1121. The expiry date is 01/23."
-
   utter_cancel_request:
     - text: "Your token is invalid, therefore this request is cancelled."
 
@@ -126,4 +130,3 @@ actions:
   - action_ask_confirmation_order
   - action_check_points
   - action_ask_correct_order
-  - action_fill_cancel_order

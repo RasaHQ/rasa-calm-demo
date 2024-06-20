@@ -1,0 +1,18 @@
+test_cases:
+  - test_case: user_orders_pizza_with_topping_stating_which_type_and_pays_with_card
+    steps:
+      - user: I would like to order a diavola pizza.
+      - utter: utter_ask_num_pizza
+      - user: 2 please
+      - utter: utter_ask_address
+      - user: 30 Pine Road
+      - utter: utter_ask_extra_topping
+      - user: extra cheese
+      - utter: utter_confirm
+      - user: /SetSlots(confirmation_order=True)
+      - utter: utter_ask_payment_option
+      - user: credit card
+      - utter: utter_ask_card_details
+      - user: 1234 5678 9012 3456
+      - utter: utter_execute_payment
+
