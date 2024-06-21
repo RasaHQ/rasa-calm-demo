@@ -185,14 +185,16 @@ Prerequisites:
   `poetry self update`
 - python (3.10.12), e.g. using [pyenv](https://github.com/pyenv/pyenv) 
   `pyenv install 3.10.12`
-- set up and running [Duckling](https://github.com/facebook/duckling) server; the easiest option is to spin up a docker container using
-`docker run -p 8000:8000 rasa/duckling`.
+- set up and running [Duckling](https://github.com/facebook/duckling) server;
+The easiest option is to spin up a docker container using`docker run -p 8000:8000 rasa/duckling`.
+Alternatively, you can use the `make run-duckling` command locally.
+This runs automatically only when you use the `make run` command, before it launches the Inspector app.
 
 After you cloned the repository and are authenticated, follow the installation steps:
 
 1. Locate to the cloned repo:
    ```
-   cd demo-flows
+   cd rasa-calm-demo
    ```
 2. Set the python environment with `pyenv` or any other tool that gets you the right 
    python version
