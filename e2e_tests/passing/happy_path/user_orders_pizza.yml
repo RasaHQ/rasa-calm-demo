@@ -25,9 +25,11 @@ test_cases:
       - user: /SetSlots(confirmation_order=True)
       - utter: utter_ask_payment_option
       - user: loyalty points
-      - utter: utter_ask_token
-      - user: ABCD12EF
-      - utter: utter_token_success
+      - utter: utter_ask_user_name
+      - user: janedoe
+      - utter: utter_ask_user_password
+      - user: r@nd0m
+      - utter: utter_authentication_successful
       - bot: "You have 150 points in your membership account. That's enough to get a free pizza!"
       - utter: utter_execute_payment
 

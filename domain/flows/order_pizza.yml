@@ -58,12 +58,6 @@ slots:
           value: false
           conditions:
             - active_flow: fill_pizza_order
-  token:
-    type: text
-    mappings:
-      - type: from_llm
-        conditions:
-        - active_flow: auth_user
   membership_points:
     type: float
     mappings:
@@ -73,7 +67,7 @@ slots:
     type: categorical
     values:
       - card
-      - "membership points"
+      - membership_points
     mappings:
         - type: from_llm
   card_details:
@@ -109,38 +103,23 @@ responses:
   utter_cancel_order:
     - text: Your order has been cancelled.
 
-  utter_pizza_availability:
-    - text: "Yes, we have a variety of pizzas available for delivery."
-
-  utter_cancel_request:
-    - text: "Your token is invalid, therefore this request is cancelled."
-
-  utter_ask_token:
-    - text: "Please provide your token to login first."
-
-  utter_auth_first:
-    - text: "Please authenticate yourself first."
-
-  utter_token_success:
-    - text: "Your token has been successfully authenticated."
-
   utter_use_points:
-    - text: "You have successfully used {membership_points} membership points."
+    - text: You have successfully used {membership_points} membership points.
 
   utter_no_points:
-    - text: "You have no membership points."
+    - text: You have no membership points.
 
   utter_ask_payment_option:
-    - text: "How would you like to pay for your order?"
+    - text: How would you like to pay for your order?
 
   utter_ask_card_details:
-    - text: "Please provide your card number."
+    - text: Please provide your card number.
 
   utter_execute_payment:
-    - text: "Your payment has been processed."
+    - text: Your payment has been processed.
 
   utter_ask_department:
-    - text: "Which department would you like to apply to?"
+    - text: Which department would you like to apply to?
 
 actions:
   - action_ask_confirmation_order
