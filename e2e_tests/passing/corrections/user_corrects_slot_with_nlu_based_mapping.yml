@@ -27,7 +27,7 @@ test_cases:
       - utter: utter_ask_payment_option
       - user: actually can i get a margherita instead
       - utter: utter_ask_confirm_slot_correction
-      - user: "Yes"
+      - user: "yes"
       - utter: utter_corrected_previous_input
       - utter: utter_ask_payment_option
 
