@@ -42,10 +42,10 @@ test_cases:
       - user: /SetSlots(confirmation_order=True)
       - utter: utter_ask_payment_option
       - user: loyalty points
-      - utter: utter_ask_token
+      - utter: utter_ask_user_name
       - user: actually can i pay with a credit card
       - utter: utter_ask_confirm_slot_correction
-      - user: "yes"
+      - user: "Yes"
       - utter: utter_corrected_previous_input
       - utter: utter_ask_card_details
 
