@@ -45,7 +45,7 @@ test_cases:
       - utter: utter_ask_user_name
       - user: actually can i pay with a credit card
       - utter: utter_ask_confirm_slot_correction
-      - user: "yes"
+      - user: /SetSlots(confirm_slot_correction=true)
       - utter: utter_corrected_previous_input
       - utter: utter_ask_card_details
 

@@ -10,9 +10,9 @@ responses:
   utter_ask_confirm_slot_correction:
     - text: "Do you want to update the {{ context.corrected_slots.keys()|join(', ') }}?"
       buttons:
-        - payload: yes
+        - payload: /SetSlots(confirm_slot_correction=true)
           title: "Yes"
-        - payload: no
+        - payload: /SetSlots(confirm_slot_correction=false)
           title: "No, please keep the previous information"
       metadata:
         rephrase: True
