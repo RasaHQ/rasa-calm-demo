@@ -118,3 +118,102 @@ nlu:
       - I want to delete Alex from my contacts.
       - Remove an entry from my contact list.
       - Help me delete a contact permanently.
+
+  - intent: inform_pizza
+    examples: |
+      - Can i get a pizza please?
+      - I would like to order a pizza.
+      - I would like to order a [margherita](pizza_type) pizza.
+      - I want to order a [pepperoni](pizza_type) pizza.
+      - I would like to order a [vegetarian](pizza_type) pizza.
+      - I want to order a [hawaiian](pizza_type) pizza.
+      - I would like to order a [diavola](pizza_type) pizza.
+      - I would like to order a [quattro formaggi](pizza_type) pizza.
+
+  - intent: inform_address
+    examples: |
+      - 1234 Main Street
+      - 56 Elm Road
+      - 789 Maple Avenue
+      - 1011 Oak Drive
+      - 1213 Pine Lane
+      - 1415 Cedar Court
+
+  - intent: inform_num_pizza
+    examples: |
+      - [1](number) please
+      - [2](number) please
+      - [3](number) pizzas
+      - [4](number) pizzas
+
+  - intent: ask_availability
+    examples: |
+      - Do you have any pizzas left?
+      - Are there any [diavola](pizza_type) pizzas in stock?
+      - Can I still order a [margherita](pizza_type) pizza?
+      - Are there any pizzas available for delivery?
+      - Can I order a pizza now?
+      - Do you have any pizzas available for delivery?
+      - Can I still get a pizza delivered?
+      - Are there any pizzas left for delivery?
+      - Can I order a pizza for delivery now?
+      - Do you have any [margherita](pizza_type) pizzas available for takeout?
+      - Can I still get a [pepperoni](pizza_type) pizza for takeout?
+      - Are there any pizzas left for takeout?
+      - Can I order a [diavola](pizza_type) pizza for takeout now?
+
+  - intent: correct_order
+    examples: |
+      - I actually need to update my order.
+      - I made a mistake in my order.
+      - I need to change my order.
+      - I made a mistake in the delivery address.
+      - I need to update the delivery address.
+      - I made a mistake in the payment option.
+
+  - intent: correct_num_pizza
+    examples: |
+        - I actually want to order [2](number) pizzas.
+        - Need [10](number) pizzas now instead.
+        - I actually want to order [3](number) pizzas.
+        - I actually want to order [4](number) pizzas.
+        - I actually want to order [5](number) pizzas.
+        - I actually want to order [6](number) pizzas.
+        - I actually want to order [7](number) pizzas.
+        - I actually want to order [8](number) pizzas.
+        - I actually want to order [9](number) pizzas.
+        - I actually want to order [10](number) pizzas.
+
+  - intent: correct_pizza_type
+    examples: |
+        - I actually want to order a [margherita](pizza_type) pizza.
+        - I actually want to order a [pepperoni](pizza_type) pizza.
+        - I actually want to order a [vegetarian](pizza_type) pizza.
+        - I actually want to order a [hawaiian](pizza_type) pizza.
+        - I actually want to order a [diavola](pizza_type) pizza.
+        - I actually want to order a [quattro formaggi](pizza_type) pizza.
+        - Actually, can i get a [margherita](pizza_type) instead.
+        - Actually, can i get a [pepperoni](pizza_type) instead.
+        - Actually, can i get a [vegetarian](pizza_type) instead.
+        - Actually, can i get a [hawaiian](pizza_type) instead.
+        - Actually, can i get a [diavola](pizza_type) instead.
+        - Actually, can i get a [quattro formaggi](pizza_type) instead.
+
+  - intent: correct_payment_option
+    examples: |
+      - Can I pay with credit card instead?
+      - I actually want to pay with membership points.
+
+  - intent: affirm
+    examples: |
+      - Yes, that's correct.
+      - Yes, that's right.
+      - Yes, that's it.
+      - Yes
+
+  - intent: deny
+    examples: |
+      - No, that's not right.
+      - No, that's incorrect.
+      - No, that's not it.
+      - No

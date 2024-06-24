@@ -165,6 +165,10 @@ jobs:
       run: |
         make actions &
 
+    - name: Run duckling server
+      run: |
+        make run-duckling
+
     - name: Run e2e passing tests
       env:
         OPENAI_API_KEY: ${{secrets.OPENAI_API_KEY}}
@@ -191,3 +195,7 @@ jobs:
         RASA_PRO_BETA_INTENTLESS: true
       run: |
         make test-failing | grep '0 passed'
+
+    - name: Stop Duckling server
+      run: |
+          make stop-duckling

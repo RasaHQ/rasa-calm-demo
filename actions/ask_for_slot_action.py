@@ -21,7 +21,7 @@ class AskForRestaurantFormCuisine(Action):
             if r.city.lower() == tracker.get_slot("city").lower()
         ])
 
-        dispatcher.utter_button_message(
+        dispatcher.utter_message(
             text="What cuisine are you looking for?",
             buttons=[
                 {"title": c, "payload": f'/inform{{"cuisine":"{c}"}}'}
@@ -46,7 +46,7 @@ class AskForRestaurantFormRestaurantName(Action):
         ])
 
         if len(restaurant_names) > 0:
-            dispatcher.utter_button_message(
+            dispatcher.utter_message(
                 text="Do you know which restaurant you would like me to reverse a table at?",
                 buttons=[
                     {"title": r, "payload": f'/inform{{"restaurant_name":"{r}"}}'}

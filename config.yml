@@ -3,9 +3,9 @@ language: en
 pipeline:
 - name: LLMBasedRouter
   calm_entry:
-    sticky: "handles everything else"
+    sticky: "handles everything else, including finance and pizza orders"
   nlu_entry:
-    sticky: "handles everything around booking a hotel or a restaurant and health advice"
+    sticky: "handles everything around health advice and hotel or restaurant bookings"
     non_sticky: "handles chitchat"
 - name: WhitespaceTokenizer
 - name: CountVectorsFeaturizer
@@ -14,6 +14,11 @@ pipeline:
   min_ngram: 1
   max_ngram: 4
 - name: LogisticRegressionClassifier
+  max_iter: 100
+  solver: lbfgs
+  tol: 0.0001
+  random_state: 42
+  ranking_length: 10
 - name: CRFEntityExtractor
 - name: DucklingEntityExtractor
   url: "http://localhost:8000"
@@ -31,6 +36,7 @@ pipeline:
 policies:
 - name: RulePolicy
 - name: TEDPolicy
+  constrain_similarities: true
 - name: FlowPolicy
 - name: EnterpriseSearchPolicy
 - name: IntentlessPolicy

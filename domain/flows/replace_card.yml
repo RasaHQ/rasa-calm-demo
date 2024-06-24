@@ -7,18 +7,18 @@ slots:
   confirm_correct_card:
     type: bool
     mappings:
-      - type: custom
+      - type: from_llm
   replacement_reason:
     type: categorical
     values:
       - lost
       - damaged
-    mappings: 
-    - type: custom
+    mappings:
+      - type: from_llm
   was_card_used_fraudulently:
     type: bool
     mappings:
-      - type: custom
+      - type: from_llm
 
 responses:
   utter_ask_confirm_correct_card:

@@ -1,0 +1,25 @@
+version: 1
+disable_existing_loggers: false
+formatters:
+    customFormatter:
+        format: "{\"time\": \"%(asctime)s\", \"name\": \"[%(name)s]\", \"levelname\": \"%(levelname)s\", \"message\": \"%(message)s\"}"
+
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: INFO
+    formatter: customFormatter
+    stream: ext://sys.stdout
+  file:
+    class: logging.FileHandler
+    filename: "logconfig.log"
+    level: DEBUG
+    formatter: customFormatter
+
+loggers:
+  root:
+    handlers: [console]
+  rasa:
+    handlers: [file]
+    propagate: 0
+

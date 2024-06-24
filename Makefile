@@ -11,12 +11,16 @@ help:
 .EXPORT_ALL_VARIABLES:
 
 install:
+	poetry run python3 -m pip install -U pip
 	poetry install
+
+run-duckling:
+	docker run --rm --name duckling_container -d -p 8000:8000 rasa/duckling
 
 test: .EXPORT_ALL_VARIABLES
 	poetry run rasa test e2e e2e_tests
 
-run: .EXPORT_ALL_VARIABLES
+run: .EXPORT_ALL_VARIABLES run-duckling
 	poetry run rasa inspect --debug
 
 train: .EXPORT_ALL_VARIABLES
@@ -36,3 +40,6 @@ test-failing: .EXPORT_ALL_VARIABLES
 
 test-one: .EXPORT_ALL_VARIABLES
 	poetry run rasa test e2e $(target) --debug
+
+stop-duckling:
+	docker stop duckling_container

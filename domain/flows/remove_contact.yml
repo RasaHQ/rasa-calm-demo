@@ -11,15 +11,15 @@ slots:
   remove_contact_name:
     type: text
     mappings:
-      - type: custom
+      - type: from_llm
   remove_contact_handle:
     type: text
     mappings:
-      - type: custom
+      - type: from_llm
   remove_contact_confirmation:
     type: text
     mappings:
-      - type: custom
+      - type: from_llm
 
 responses:
   utter_contact_not_in_list:
