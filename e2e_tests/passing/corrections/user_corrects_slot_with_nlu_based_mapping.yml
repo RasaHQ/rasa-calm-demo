@@ -61,9 +61,8 @@ test_cases:
       - utter: utter_ask_payment_option
       - user: actually, i made a mistake and need to update my delivery address first.
       - bot: "I'm sorry about that. Let's correct your order. What would you like to change?"
-        # TODO: ideal place to test next buttons feature in e2e testing
+        # TODO: ideal place to assert planned buttons feature in e2e testing
       - user: /SetSlots(address=null)
-# FIXME: To uncomment once ATO-2553 is fixed
-#      - utter: utter_ask_address
-#      - user: 3 Pine Road
-#      - utter: utter_confirm
+      - utter: utter_ask_address
+      - user: 3 Pine Road
+      - utter: utter_confirm
