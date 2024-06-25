@@ -64,3 +64,11 @@ nlg:
 #  port: 6831
 #  service_name: rasa
 #  sync_export: ~
+
+vector_store:
+  type: qdrant
+  collection: squad
+  host: 0.0.0.0
+  port: 6334
+  content_payload_key: page_content
+  metadata_payload_key: metadata
