@@ -4,7 +4,7 @@ flows:
     description: user asks for a pizza
     nlu_trigger:
     - intent:
-        name: inform_pizza
+        name: request_pizza
         confidence_threshold: 0.5
     steps:
     - call: fill_pizza_order

@@ -31,6 +31,22 @@ test_cases:
       - utter: utter_corrected_previous_input
       - utter: utter_ask_payment_option
 
+#  - test_case: user_orders_pizza_stating_which_type_and_corrects_address_later
+#    steps:
+#      - user: I would like to order a diavola pizza.
+#      - utter: utter_ask_num_pizza
+#      - user: 1 please
+#      - utter: utter_ask_address
+#      - user: 30 Pine Road
+#      - utter: utter_confirm
+#      - user: /SetSlots(confirmation_order=True)
+#      - utter: utter_ask_payment_option
+#      - user: actually can i get the pizza delivered to 13 Pine Road.
+#      - utter: utter_ask_confirm_slot_correction
+#      - user: /SetSlots(confirm_slot_correction=true)
+#      - utter: utter_corrected_previous_input
+#      - utter: utter_ask_payment_option
+
   - test_case: user_orders_pizza_stating_which_type_and_corrects_payment_option_later
     steps:
       - user: I would like to order a diavola pizza.

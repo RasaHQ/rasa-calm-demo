@@ -2,10 +2,10 @@ version: "3.1"
 
 intents:
   - greet
-  - inform_pizza
+  - request_pizza
+  - inform_pizza_type
   - inform_address
   - inform_num_pizza
-  - ask_availability
   - correct_order
   - correct_num_pizza
   - correct_pizza_type
@@ -15,7 +15,6 @@ intents:
 
 entities:
   - pizza_type
-  - address
   - department
 
 slots:
