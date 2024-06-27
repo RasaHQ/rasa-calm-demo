@@ -202,6 +202,14 @@ nlu:
         - Actually, can i get a [diavola](pizza_type) instead.
         - Actually, can i get a [quattro formaggi](pizza_type) instead.
 
+  - intent: correct_address
+    examples: |
+      - I actually want to change the delivery address to 13 Pine Road.
+      - actually can i get the pizza delivered to 13 Pine Road.
+      - I made a mistake and need to update my delivery address first to 43 Elm Street.
+      - Send the pizza to 25 Maple Avenue instead.
+      - I need to update the delivery address to 59 Oak Drive.
+
   - intent: correct_payment_option
     examples: |
       - Can I pay with credit card instead?
