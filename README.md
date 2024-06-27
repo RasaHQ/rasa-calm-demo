@@ -221,6 +221,11 @@ After you cloned the repository and are authenticated, follow the installation s
    ```
    pyenv local 3.10.12
    ```
+3. Create and activate virtual environment
+   ```
+   pyenv virtualenv 3.10.12 new_venv
+   pyenv activate new_venv
+   ```
 3. Install the dependencies with `poetry`
    ```
    poetry install
@@ -232,7 +237,8 @@ After you cloned the repository and are authenticated, follow the installation s
    OPENAI_API_KEY=<your openai api key>
    RASA_DUCKLING_HTTP_URL=<url to the duckling server>
    ```
-5. [Optional] Set up the extractive search:
+
+5. Set up the extractive search:
    - Setup a local docker instance of Qdrant
       ```
       docker pull qdrant/qdrant
@@ -240,14 +246,15 @@ After you cloned the repository and are authenticated, follow the installation s
          -v $(pwd)/qdrant_storage:/qdrant/storage:z \
          qdrant/qdrant
       ```
-   - Update the virtual environment
-      ```
-      poetry add datasets cohere qdrant-client sentence-transformers
-      ```
-   - Ingest documents from SQUAD dataset (modify the script if qdrant isn't running locally!)
-      ```
-      python scripts/load-data-to-qdrant.py
-      ```
+   - Upload data to Qdrant
+      - Create a virtual environment for the upload:
+         ```
+         pip install -r qdrant-requirements.txt
+         ```
+      - Ingest documents from SQUAD dataset (modify the script if qdrant isn't running locally!)
+         ```
+         python scripts/load-data-to-qdrant.py
+         ```
    You can toggle parameter `use_generative_llm` in config.yml to change the behavior. The answer is selected from the first search result -> metadata -> `answer` key
 
 #### Custom Information Retriever
@@ -366,3 +373,5 @@ or
 ```commandline
 rasa test e2e e2e/tests/path/to/a/target/test.yml
 ```
+
+## Running the project with enterprise search

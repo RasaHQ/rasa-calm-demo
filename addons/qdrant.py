@@ -1,4 +1,4 @@
-from typing import Text, Any
+from typing import Text, Any, Dict
 
 import structlog
 from langchain.vectorstores.qdrant import Qdrant
@@ -39,7 +39,7 @@ class QdrantInformationRetrievalException(InformationRetrievalException):
     def __str__(self) -> str:
         return self.base_message + self.message + f"{self.__cause__}"
 
-def prepare_search_query(tracker_state: dict[str, Any]) -> str:
+def prepare_search_query(tracker_state: Dict[str, Any]) -> str:
     """Uses Cohere to generate a search query from the chat history.
     Args:
         tracker_state: The tracker state.
@@ -97,7 +97,7 @@ class Qdrant_Store(InformationRetrieval):
         )
 
     async def search(
-        self, query: Text, tracker_state: dict[str, Any], threshold: float = 0.0
+        self, query: Text, tracker_state: Dict[str, Any], threshold: float = 0.0
     ) -> SearchResultList:
         """Search for a document in the Qdrant vector store.
 
