@@ -119,7 +119,7 @@ nlu:
       - Remove an entry from my contact list.
       - Help me delete a contact permanently.
 
-  - intent: inform_pizza
+  - intent: request_pizza
     examples: |
       - Can i get a pizza please?
       - I would like to order a pizza.
@@ -129,6 +129,25 @@ nlu:
       - I want to order a [hawaiian](pizza_type) pizza.
       - I would like to order a [diavola](pizza_type) pizza.
       - I would like to order a [quattro formaggi](pizza_type) pizza.
+
+  - intent: inform_pizza_type
+    examples: |
+      - [margherita](pizza_type)
+      - [pepperoni](pizza_type)
+      - [vegetarian](pizza_type)
+      - [hawaiian](pizza_type)
+      - [diavola](pizza_type)
+      - [quattro formaggi](pizza_type)
+      - a [margherita](pizza_type) pizza
+      - a [pepperoni](pizza_type) pizza
+      - a [vegetarian](pizza_type) pizza
+      - a [hawaiian](pizza_type) pizza
+      - a [diavola](pizza_type) pizza
+      - a [quattro formaggi](pizza_type) and a [margherita](pizza_type) pizza
+      - a [quattro formaggi](pizza_type) and a [pepperoni](pizza_type) pizza
+      - a [quattro formaggi](pizza_type) and a [vegetarian](pizza_type) pizza
+      - a [quattro formaggi](pizza_type) and a [hawaiian](pizza_type) pizza
+      - a [quattro formaggi](pizza_type) and a [diavola](pizza_type) pizza
 
   - intent: inform_address
     examples: |
@@ -145,22 +164,6 @@ nlu:
       - [2](number) please
       - [3](number) pizzas
       - [4](number) pizzas
-
-  - intent: ask_availability
-    examples: |
-      - Do you have any pizzas left?
-      - Are there any [diavola](pizza_type) pizzas in stock?
-      - Can I still order a [margherita](pizza_type) pizza?
-      - Are there any pizzas available for delivery?
-      - Can I order a pizza now?
-      - Do you have any pizzas available for delivery?
-      - Can I still get a pizza delivered?
-      - Are there any pizzas left for delivery?
-      - Can I order a pizza for delivery now?
-      - Do you have any [margherita](pizza_type) pizzas available for takeout?
-      - Can I still get a [pepperoni](pizza_type) pizza for takeout?
-      - Are there any pizzas left for takeout?
-      - Can I order a [diavola](pizza_type) pizza for takeout now?
 
   - intent: correct_order
     examples: |
@@ -198,6 +201,14 @@ nlu:
         - Actually, can i get a [hawaiian](pizza_type) instead.
         - Actually, can i get a [diavola](pizza_type) instead.
         - Actually, can i get a [quattro formaggi](pizza_type) instead.
+
+  - intent: correct_address
+    examples: |
+      - I actually want to change the delivery address to 13 Pine Road.
+      - actually can i get the pizza delivered to 13 Pine Road.
+      - I made a mistake and need to update my delivery address first to 43 Elm Street.
+      - Send the pizza to 25 Maple Avenue instead.
+      - I need to update the delivery address to 59 Oak Drive.
 
   - intent: correct_payment_option
     examples: |

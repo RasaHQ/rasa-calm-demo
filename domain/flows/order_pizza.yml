@@ -2,20 +2,20 @@ version: "3.1"
 
 intents:
   - greet
-  - inform_pizza
+  - request_pizza
+  - inform_pizza_type
   - inform_address
   - inform_num_pizza
-  - ask_availability
   - correct_order
   - correct_num_pizza
   - correct_pizza_type
+  - correct_address
   - correct_payment_option
   - affirm
   - deny
 
 entities:
   - pizza_type
-  - address
   - department
 
 slots:
@@ -126,3 +126,4 @@ actions:
   - action_check_points
   - action_ask_correct_order
   - action_show_vacancies
+  - action_correct_address
