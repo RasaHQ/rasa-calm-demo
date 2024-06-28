@@ -517,8 +517,8 @@ files = [
 
 [package.dependencies]
 numpy = [
-    {version = ">=1.19.0", markers = "python_version >= \"3.9\""},
     {version = ">=1.15.0", markers = "python_version < \"3.9\""},
+    {version = ">=1.19.0", markers = "python_version >= \"3.9\""},
 ]
 
 [[package]]
@@ -555,8 +555,8 @@ files = [
 jmespath = ">=0.7.1,<2.0.0"
 python-dateutil = ">=2.1,<3.0.0"
 urllib3 = [
-    {version = ">=1.25.4,<2.2.0 || >2.2.0,<3", markers = "python_version >= \"3.10\""},
     {version = ">=1.25.4,<1.27", markers = "python_version < \"3.10\""},
+    {version = ">=1.25.4,<2.2.0 || >2.2.0,<3", markers = "python_version >= \"3.10\""},
 ]
 
 [package.extras]
@@ -2329,13 +2329,13 @@ tpu = ["jaxlib (==0.4.13)", "libtpu-nightly (==0.1.dev20230622)"]
 
 [[package]]
 name = "jinja2"
-version = "3.1.3"
+version = "3.1.4"
 description = "A very fast and expressive template engine."
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "Jinja2-3.1.3-py3-none-any.whl", hash = "sha256:7d6d50dd97d52cbc355597bd845fabfbac3f551e1f99619e39a35ce8c370b5fa"},
-    {file = "Jinja2-3.1.3.tar.gz", hash = "sha256:ac8bd6544d4bb2c9792bf3a159e80bba8fda7f07e81bc3aed565432d5925ba90"},
+    {file = "jinja2-3.1.4-py3-none-any.whl", hash = "sha256:bc5dd2abb727a5319567b7a813e6a2e7318c39f4f487cfe6c89c6f9c7d25197d"},
+    {file = "jinja2-3.1.4.tar.gz", hash = "sha256:4a3aee7acbbe7303aede8e9648d13b8bf88a429282aa6122a993f0ac800cb369"},
 ]
 
 [package.dependencies]
@@ -2949,8 +2949,8 @@ files = [
 
 [package.dependencies]
 numpy = [
-    {version = ">=1.21.2", markers = "python_version > \"3.9\""},
     {version = ">1.20", markers = "python_version <= \"3.9\""},
+    {version = ">=1.21.2", markers = "python_version > \"3.9\""},
 ]
 
 [package.extras]
@@ -3524,8 +3524,8 @@ files = [
 
 [package.dependencies]
 numpy = [
-    {version = ">=1.21.0", markers = "python_version >= \"3.10\""},
     {version = ">=1.20.3", markers = "python_version < \"3.10\""},
+    {version = ">=1.21.0", markers = "python_version >= \"3.10\""},
 ]
 python-dateutil = ">=2.8.2"
 pytz = ">=2020.1"
@@ -4660,6 +4660,7 @@ files = [
     {file = "PyYAML-6.0.1-cp311-cp311-win_amd64.whl", hash = "sha256:bf07ee2fef7014951eeb99f56f39c9bb4af143d8aa3c21b1677805985307da34"},
     {file = "PyYAML-6.0.1-cp312-cp312-macosx_10_9_x86_64.whl", hash = "sha256:855fb52b0dc35af121542a76b9a84f8d1cd886ea97c84703eaa6d88e37a2ad28"},
     {file = "PyYAML-6.0.1-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:40df9b996c2b73138957fe23a16a4f0ba614f4c0efce1e9406a184b6d07fa3a9"},
+    {file = "PyYAML-6.0.1-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:a08c6f0fe150303c1c6b71ebcd7213c2858041a7e01975da3a99aed1e7a378ef"},
     {file = "PyYAML-6.0.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:6c22bec3fbe2524cde73d7ada88f6566758a8f7227bfbf93a408a9d86bcc12a0"},
     {file = "PyYAML-6.0.1-cp312-cp312-musllinux_1_1_x86_64.whl", hash = "sha256:8d4e9c88387b0f5c7d5f281e55304de64cf7f9c0021a3525bd3b1c542da3b0e4"},
     {file = "PyYAML-6.0.1-cp312-cp312-win32.whl", hash = "sha256:d483d2cdf104e7c9fa60c544d92981f12ad66a457afae824d146093b8c294c54"},
@@ -4696,13 +4697,13 @@ files = [
 
 [[package]]
 name = "qdrant-client"
-version = "1.8.2"
+version = "1.9.2"
 description = "Client library for the Qdrant vector search engine"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "qdrant_client-1.8.2-py3-none-any.whl", hash = "sha256:ee5341c0486d09e4346b0f5ef7781436e6d8cdbf1d5ecddfde7adb3647d353a8"},
-    {file = "qdrant_client-1.8.2.tar.gz", hash = "sha256:65078d5328bc0393f42a46a31cd319a989b8285bf3958360acf1dffffdf4cc4e"},
+    {file = "qdrant_client-1.9.2-py3-none-any.whl", hash = "sha256:0f49a4a6a47f62bc2c9afc69f9e1fb7790e4861ffe083d2de78dda30eb477d0e"},
+    {file = "qdrant_client-1.9.2.tar.gz", hash = "sha256:35ba55a8484a4b817f985749d11fe6b5d2acf617fec07dd8bc01f3e9b4e9fa79"},
 ]
 
 [package.dependencies]
@@ -4715,7 +4716,8 @@ pydantic = ">=1.10.8"
 urllib3 = ">=1.26.14,<3"
 
 [package.extras]
-fastembed = ["fastembed (==0.2.5)"]
+fastembed = ["fastembed (==0.2.7)"]
+fastembed-gpu = ["fastembed-gpu (==0.2.7)"]
 
 [[package]]
 name = "questionary"
@@ -4749,14 +4751,12 @@ fire = "*"
 
 [[package]]
 name = "rasa-pro"
-version = "3.8.8"
+version = "3.8.10"
 description = "State-of-the-art open-core Conversational AI framework for Enterprises that natively leverages generative AI for effortless assistant development."
 optional = false
 python-versions = ">=3.8.1,<3.11"
-files = [
-    {file = "rasa_pro-3.8.8-py3-none-any.whl", hash = "sha256:716286dcf7cda0dc7e8fd7200a9bdb452822a5b87e0c7849da65571b6c200455"},
-    {file = "rasa_pro-3.8.8.tar.gz", hash = "sha256:f172c6b61edef7f1c65248d3aa7c5ae698e20ebee9f32f9e7bc55211fbe80af2"},
-]
+files = []
+develop = true
 
 [package.dependencies]
 absl-py = ">=2.0,<2.1"
@@ -4765,111 +4765,111 @@ aiogram = ">=2.15,<2.26"
 aiohttp = ">=3.9.4,<3.10"
 apscheduler = ">=3.10,<3.11"
 attrs = ">=23.1,<23.2"
-azure-storage-blob = ">=12.16.0,<12.17.0"
-boto3 = ">=1.27.1,<2.0.0"
-CacheControl = ">=0.12.14,<0.13.0"
+azure-storage-blob = ">=12.16.0, <12.17.0"
+boto3 = "^1.27.1"
+CacheControl = "^0.12.14"
 certifi = ">=2023.7.22"
 cloudpickle = ">=2.2.1,<3.1"
-colorama = {version = ">=0.4.6,<0.5.0", markers = "sys_platform == \"win32\""}
-colorclass = ">=2.2,<2.3"
+colorama = {version = "^0.4.6", markers = "sys_platform == \"win32\""}
+colorclass = "~2.2"
 coloredlogs = ">=15,<16"
 colorhash = ">=2.0,<2.1.0"
 confluent-kafka = ">=2.3.0,<3.0.0"
 cryptography = ">=42.0.5"
-cvg-python-sdk = ">=0.5.1,<0.6.0"
+cvg-python-sdk = "^0.5.1"
 dask = {version = "2022.10.2", markers = "python_version >= \"3.8\" and python_version < \"3.11\""}
 dnspython = "2.6.1"
-faiss-cpu = ">=1.7.4,<2.0.0"
-faker = ">=19.13.0,<20.0.0"
-fbmessenger = ">=6.0.0,<6.1.0"
+faiss-cpu = "^1.7.4"
+faker = "^19.13.0"
+fbmessenger = "~6.0.0"
 google-auth = ">=2.23.4,<3"
-google-cloud-storage = ">=2.13.0,<3.0.0"
-hvac = ">=1.2.1,<2.0.0"
-importlib-metadata = ">=6.8.0,<7.0.0"
-importlib-resources = ">=6.1.1,<7.0.0"
-jinja2 = ">=3.1.3,<4.0.0"
+google-cloud-storage = "^2.13.0"
+hvac = "^1.2.1"
+importlib-metadata = "^6.8.0"
+importlib-resources = "^6.1.1"
+jinja2 = "^3.1.4"
 joblib = ">=1.2.0,<1.3.0"
-jsonpatch = ">=1.33,<2.0"
+jsonpatch = "^1.33"
 jsonpickle = ">=3.0,<3.1"
 jsonschema = ">=4.20,<4.21"
-langchain = ">=0.0.329,<0.0.330"
+langchain = "^0.0.329"
 matplotlib = ">=3.7,<3.8"
-mattermostwrapper = ">=2.2,<2.3"
+mattermostwrapper = "~2.2"
 networkx = ">=3.1,<3.2"
 numpy = [
-    {version = "1.22.3", markers = "sys_platform == \"win32\" and platform_python_implementation != \"PyPy\" and python_version == \"3.10\""},
     {version = ">=1.23.5,<1.25.0", markers = "sys_platform != \"win32\" and python_version >= \"3.8\" and python_version < \"3.11\" or platform_python_implementation == \"PyPy\" and python_version >= \"3.8\" and python_version < \"3.11\""},
+    {version = "1.22.3", markers = "sys_platform == \"win32\" and platform_python_implementation != \"PyPy\" and python_version == \"3.10\""},
 ]
-openai = ">=0.28.1,<0.29.0"
-opentelemetry-api = ">=1.15.0,<1.16.0"
-opentelemetry-exporter-jaeger = ">=1.15.0,<1.16.0"
-opentelemetry-exporter-otlp = ">=1.15.0,<1.16.0"
-opentelemetry-sdk = ">=1.15.0,<1.16.0"
+openai = "^0.28.1"
+opentelemetry-api = "~1.15.0"
+opentelemetry-exporter-jaeger = "~1.15.0"
+opentelemetry-exporter-otlp = "~1.15.0"
+opentelemetry-sdk = "~1.15.0"
 packaging = ">=20.9,<21.0"
-pep440-version-utils = ">=0.3.0,<0.4.0"
-pluggy = ">=1.2.0,<2.0.0"
-portalocker = ">=2.7.0,<3.0.0"
-presidio-analyzer = ">=2.2.33,<2.2.34"
-presidio-anonymizer = ">=2.2.33,<2.2.34"
-prompt-toolkit = ">=3.0.28,<3.0.29"
-protobuf = ">=4.23.3,<4.23.4"
-psutil = ">=5.9.5,<6.0.0"
+pep440-version-utils = "^0.3.0"
+pluggy = "^1.2.0"
+portalocker = "^2.7.0"
+presidio-analyzer = "^2.2.33, <2.2.34"
+presidio-anonymizer = "^2.2.33, <2.2.34"
+prompt-toolkit = "^3.0.28,<3.0.29"
+protobuf = ">=4.23.3,< 4.23.4"
+psutil = "^5.9.5"
 psycopg2-binary = ">=2.9.9,<2.10.0"
-pycountry = ">=22.3.5,<23.0.0"
-pydantic = ">=2.0,<3.0"
-pydot = ">=1.4,<1.5"
-PyJWT = {version = ">=2.8.0,<3.0.0", extras = ["crypto"]}
+pycountry = "^22.3.5"
+pydot = "~1.4"
+PyJWT = {version = "^2.8.0", extras = ["crypto"]}
 pykwalify = ">=1.8,<1.9"
-pymilvus = ">=2.3.6,<3.0.0"
+pymilvus = "^2.3.6"
 pymongo = {version = ">=4.6.3,<4.7", extras = ["srv", "tls"]}
-pypred = ">=0.4.0,<0.5.0"
-python-dateutil = ">=2.8.2,<2.9.0"
-python-dotenv = ">=1.0.1,<2.0.0"
-python-engineio = ">=4.5.1,<5.0.0 || >5.0.0,<6"
-python-keycloak = ">=3.7.0,<4.0.0"
+pypred = "^0.4.0"
+python-dateutil = "~2.8.2"
+python-dotenv = "^1.0.1"
+python-engineio = ">=4.5.1,<6,!=5.0.0"
+python-keycloak = "^3.7.0"
 python-socketio = ">=5.8,<6"
 pytz = ">=2022.7.1,<2023.0"
 pyyaml = ">=6.0"
-qdrant-client = ">=1.7.2,<2.0.0"
+qdrant-client = "^1.9.0"
 questionary = ">=1.10.0,<1.11.0"
 randomname = ">=0.2.1,<0.3.0"
-rasa-sdk = ">=3.8.0,<3.9.0"
-redis = ">=4.6.0,<6.0"
+rasa-sdk = "~3.8.0"
+redis = ">=4.6.0, <6.0"
 regex = ">=2022.10.31,<2022.11"
-requests = ">=2.31.0,<3.0.0"
-rich = ">=13.4.2,<14.0.0"
+requests = "~2.31.0"
+rich = "^13.4.2"
 rocketchat_API = ">=1.30.0,<1.31.0"
 "ruamel.yaml" = ">=0.17.21,<0.17.22"
-sanic = ">=21.12.2,<21.13.0"
-sanic-cors = ">=2.0.1,<2.1.0"
-sanic-jwt = ">=1.8.0,<2.0.0"
-sanic-routing = ">=0.7.2,<0.8.0"
+sanic = "~21.12.2"
+sanic-cors = "~2.0.1"
+sanic-jwt = "^1.8.0"
+sanic-routing = "^0.7.2"
 scikit-learn = {version = ">=1.1.3,<1.2", markers = "python_version >= \"3.8\" and python_version < \"3.11\""}
 scipy = {version = ">=1.10.1,<1.11.0", markers = "python_version >= \"3.8\" and python_version < \"3.11\""}
 sentry-sdk = ">=1.14.0,<1.15.0"
 setuptools = ">=68.0.0"
-sklearn-crfsuite = ">=0.3.6,<0.4.0"
-slack-sdk = ">=3.21.3,<4.0.0"
+sklearn-crfsuite = "~0.3.6"
+slack-sdk = "^3.21.3"
 SQLAlchemy = ">=2.0.22,<2.1.0"
 structlog = ">=23.1.0,<23.2.0"
-structlog-sentry = ">=2.0.3,<3.0.0"
+structlog-sentry = "^2.0.3"
 tarsafe = ">=0.0.5,<0.0.6"
+tenacity = "~8.4.1"
 tensorflow = {version = "2.12.0", markers = "sys_platform != \"darwin\" or platform_machine != \"arm64\""}
 tensorflow-cpu-aws = {version = "2.12.0", markers = "sys_platform == \"linux\" and (platform_machine == \"arm64\" or platform_machine == \"aarch64\")"}
-tensorflow_hub = ">=0.13.0,<0.14.0"
+tensorflow_hub = "^0.13.0"
 tensorflow-intel = {version = "2.12.0", markers = "sys_platform == \"win32\""}
 tensorflow-io-gcs-filesystem = [
     {version = "0.31", markers = "sys_platform == \"win32\""},
-    {version = "0.32", markers = "sys_platform == \"darwin\" and platform_machine != \"arm64\" or sys_platform == \"linux\""},
+    {version = "0.32", markers = "sys_platform == \"linux\" or sys_platform == \"darwin\" and platform_machine != \"arm64\""},
 ]
 tensorflow-macos = {version = "2.12.0", markers = "sys_platform == \"darwin\" and platform_machine == \"arm64\""}
 tensorflow-text = {version = "2.12.0", markers = "sys_platform != \"win32\" and (platform_machine != \"arm64\" and platform_machine != \"aarch64\")"}
-terminaltables = ">=3.1.10,<3.2.0"
-tiktoken = ">=0.4.0,<0.5.0"
-tqdm = ">=4.66,<5.0"
+terminaltables = "~3.1.10"
+tiktoken = "^0.4.0"
+tqdm = "^4.66"
 twilio = ">=8.4,<8.5"
 typing-extensions = ">=4.7.1,<5.0.0"
-typing-utils = ">=0.1.0,<0.2.0"
+typing-utils = "^0.1.0"
 ujson = ">=5.8,<6.0"
 webexteamssdk = ">=1.6.1,<1.7.0"
 websockets = ">=10.4,<11.0"
@@ -4884,9 +4884,8 @@ spacy = ["spacy (>=3.5.4,<4.0.0)"]
 transformers = ["sentencepiece[sentencepiece] (>=0.1.99,<0.2.0)", "transformers (>=4.36.2,<4.37.0)"]
 
 [package.source]
-type = "legacy"
-url = "https://europe-west3-python.pkg.dev/rasa-releases/rasa-pro-python/simple"
-reference = "rasa-pro"
+type = "directory"
+url = "../rasa-private"
 
 [[package]]
 name = "rasa-sdk"
@@ -5701,8 +5700,8 @@ jinja2 = "*"
 langcodes = ">=3.2.0,<4.0.0"
 murmurhash = ">=0.28.0,<1.1.0"
 numpy = [
-    {version = ">=1.19.0", markers = "python_version >= \"3.9\""},
     {version = ">=1.15.0", markers = "python_version < \"3.9\""},
+    {version = ">=1.19.0", markers = "python_version >= \"3.9\""},
 ]
 packaging = ">=20.0"
 preshed = ">=3.0.2,<3.1.0"
@@ -5960,17 +5959,18 @@ files = [
 
 [[package]]
 name = "tenacity"
-version = "8.2.3"
+version = "8.4.2"
 description = "Retry code until it succeeds"
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.8"
 files = [
-    {file = "tenacity-8.2.3-py3-none-any.whl", hash = "sha256:ce510e327a630c9e1beaf17d42e6ffacc88185044ad85cf74c0a8887c6a0f88c"},
-    {file = "tenacity-8.2.3.tar.gz", hash = "sha256:5398ef0d78e63f40007c1fb4c0bff96e1911394d2fa8d194f77619c05ff6cc8a"},
+    {file = "tenacity-8.4.2-py3-none-any.whl", hash = "sha256:9e6f7cf7da729125c7437222f8a522279751cdfbe6b67bfe64f75d3a348661b2"},
+    {file = "tenacity-8.4.2.tar.gz", hash = "sha256:cd80a53a79336edba8489e767f729e4f391c896956b57140b5d7511a64bbd3ef"},
 ]
 
 [package.extras]
-doc = ["reno", "sphinx", "tornado (>=4.5)"]
+doc = ["reno", "sphinx"]
+test = ["pytest", "tornado (>=4.5)", "typeguard"]
 
 [[package]]
 name = "tensorboard"
@@ -6394,8 +6394,8 @@ confection = ">=0.0.1,<1.0.0"
 cymem = ">=2.0.2,<2.1.0"
 murmurhash = ">=1.0.2,<1.1.0"
 numpy = [
-    {version = ">=1.19.0", markers = "python_version >= \"3.9\""},
     {version = ">=1.15.0", markers = "python_version < \"3.9\""},
+    {version = ">=1.19.0", markers = "python_version >= \"3.9\""},
 ]
 packaging = ">=20.0"
 preshed = ">=3.0.2,<3.1.0"
@@ -7216,4 +7216,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8.1,<3.11"
-content-hash = "d914c9d17851bd2d4323627f04216674eb86e62623c9c0d69442e516faa4e09f"
+content-hash = "d7e72a6325f21f196a2e1fdca5981df36b0d6cdae0c4a060a83f54d3c0b54072"

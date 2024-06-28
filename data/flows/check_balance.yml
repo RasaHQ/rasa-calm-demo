@@ -3,5 +3,6 @@ flows:
     name: check your balance
     description: check the user's account balance
     steps:
+      - collect: temp_check
       - action: check_balance
       - action: utter_current_balance

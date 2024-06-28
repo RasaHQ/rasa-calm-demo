@@ -5,6 +5,10 @@ slots:
     type: float
     mappings:
       - type: custom
+  temp_check:
+    type: bool
+    mappings:
+      - type: custom
 
 actions:
   - check_balance
@@ -12,3 +16,5 @@ actions:
 responses:
   utter_current_balance:
     - text: You still have {current_balance} in your account.
+  utter_ask_temp_check:
+    - text: "I will check your balance. Please wait a moment."
