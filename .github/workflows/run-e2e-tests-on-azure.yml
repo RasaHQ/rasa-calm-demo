@@ -1,9 +1,13 @@
 name: Run e2e tests on azure
 
 on:
-  schedule:
-    # Run cron job at 8AM Monday every week.
-    - cron: '0 8 * * 1'
+  push:
+    branches:
+      - 'fix-test-run-schedule'
+
+#  schedule:
+#    # Run cron job at 8AM Monday every week.
+#    - cron: '0 8 * * 1'
   workflow_dispatch:
 
 env:
@@ -19,7 +23,7 @@ jobs:
       - name: Checkout git repository 🕝
         uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c
         with:
-          ref: test-azure-openai
+          ref: azure-openai-release-3.9
 
       - name: Setup Python
         uses: actions/setup-python@57ded4d7d5e986d7296eab16560982c6dd7c923b
@@ -76,12 +80,6 @@ jobs:
         with:
           name: trained-model
           path: models/${{steps.upload_model.outputs.model}}.tar.gz
-
-
-      - uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a
-        with:
-          name: trained-model
-          path: models/
 
       - name: Init LLM Cache
         id: cache-llm
