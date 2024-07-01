@@ -3,8 +3,8 @@ version: "3.1"
 slots:
   return_value:
     type: any
-  route_session_to_calm:
-    type: bool
+  # route_session_to_calm:
+  #   type: bool
 
 responses:
   utter_goodbye:
@@ -54,6 +54,9 @@ responses:
     - text: I can't wait to see how this unfolds.
   utter_conversation_highlight:
     - text: Our conversation was a highlight of my virtual day!
+
+actions:
+  - action_session_start
 
 session_config:
   session_expiration_time: 60

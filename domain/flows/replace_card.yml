@@ -4,6 +4,16 @@ intents:
   - replace_card
 
 slots:
+  current_card_name:
+    type: text
+  current_card_number:
+    type: text
+  current_card_replacement_eligibility:
+    type: text
+  num_cards:
+    type: text
+  cards:
+    type: list
   confirm_correct_card:
     type: bool
     mappings:
@@ -13,6 +23,17 @@ slots:
     values:
       - lost
       - damaged
+      - never_received
+      - stolen
+    mappings: 
+    - type: custom
+  replace_card_eligibility:
+    type: categorical
+    values:
+      - is_eligible
+      - no_card_on_file
+      - not_eligible_child
+      - other
     mappings: 
     - type: custom
   was_card_used_fraudulently:
@@ -22,7 +43,12 @@ slots:
 
 responses:
   utter_ask_confirm_correct_card:
-    - text: I've found the card with number ****3452 on file. Is this the card you want to replace?
+    - text: I've found the card with number {current_card_number} on file. Is this the card you want to replace?
+      buttons:
+        - payload: yes
+          title: "Yes"
+        - payload: no
+          title: "No"
   utter_relevant_card_not_linked:
     - text: Seems like I don't have the card you're asking about on file.
   utter_ask_replacement_reason:
@@ -32,6 +58,10 @@ responses:
         payload: "lost"
       - title: "Damaged"
         payload: "damaged"
+      - title: "Never Received"
+        payload: "never_received"
+      - title: "Stolen"
+        payload: "stolen"
   utter_ask_was_card_used_fraudulently:
     - text: Is it possible that someone else has managed to use your card?
   utter_will_cancel_and_send_new:
@@ -44,3 +74,8 @@ responses:
     - text: Let me connect you to an agent, to get the details of what happened to your card.
   utter_failed_handoff:
     - text: I am sorry, I was not able to connect you to an agent. I have created a support ticket for you. Someone will reach out to you shortly.
+  utter_ineligible_child_card:
+    - text: I am sorry, but you are not eligible to replace the card. Please ask your parent or guardian to contact us.
+
+actions:
+  - action_replace_card_eligibility

@@ -1,0 +1,40 @@
+version: "3.1"
+
+slots:
+  days_since_card_sent:
+    type: text
+  lock_card:
+    type: bool
+  whos_card:
+    type: text
+
+responses:
+  utter_card_recently_sent:
+    - text: I see, it's because we recently sent you a new card {days_since_card_sent} days ago. It should arrive soon.
+  utter_ask_lock_card:
+    - text: I'll connect you with a specialist who can file a report and replace your card but would you like me to lock your current card first?
+      buttons:
+        - payload: yes
+          title: "Yes"
+        - payload: no
+          title: "No"
+  utter_sorry_damaged:
+    - text: I'm sorry to hear that your card was damaged. I can take care of that for you.
+  utter_card_locked:
+    - text: Ok, your card is now locked
+  utter_connect_to_specialist:
+    - text: Let me get you to someone who can help.
+  utter_whos_card:
+    - text: I see you have an authorized user on your account. Whose card would you like to replace?
+      buttons:
+        - payload: mine
+          title: "My card"
+        - payload: other
+          title: "Maria's card"
+        - payload: both
+          title: "Both cards"
+  utter_start_damage_replacement:
+    - text: I'll start your request now. While you wait, any current cards will still be active.
+
+actions:
+  - action_days_since_card_sent

@@ -73,6 +73,13 @@
             "cwd": "${workspaceFolder}/../example",
             "justMyCode": false,
             "python": "${workspaceFolder}/.venv/bin/python",
-        }
+        },
+        {
+            "name": "action server",
+            "type": "python",
+            "request": "launch",
+            "module": "rasa",
+            "args": ["run", "actions", "--auto-reload", "--debug"]
+        },
     ]
 }

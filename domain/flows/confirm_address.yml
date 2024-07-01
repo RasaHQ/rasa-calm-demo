@@ -1,0 +1,31 @@
+slots:
+  address_line_1:
+    type: text
+  address_line_2:
+    type: text
+  city:
+    type: text
+  state:
+    type: text
+  zip_code:
+    type: text
+  address_confirmation:
+    type: bool
+
+responses:
+  utter_confirm_address:
+    - text: "I just need to make sure I have your address correct. Is this right? {address_line_1}, {address_line_2}, {city}, {state}, {zip_code}"
+      buttons:
+        - payload: yes
+          title: "Yes"
+        - payload: no
+          title: "No"
+  
+  utter_card_arrival:
+    - text: "Great. Your new card should arrive in 5 to 7 business days in a plain white envelope."
+  
+  utter_different_address:
+    - text: "OK, if you'd like your order mailed to a different address, you'll need to give us a call."
+  
+  utter_transfer_to_help:
+    - text: "Let me get you to someone who can help."

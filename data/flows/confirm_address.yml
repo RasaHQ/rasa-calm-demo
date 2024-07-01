@@ -1,0 +1,16 @@
+flows:
+  confirm_address:
+    description: This flow is called from any other flow to confirm that the user's address is correct.
+    steps:
+      - action: utter_confirm_address
+      - collect: address_confirmation
+        description: Confirms if the user's address on file is correct
+        next:
+          - if: slots.address_confirmation == true
+            then:
+              - action: utter_card_arrival
+                next: END
+          - else:
+              - action: utter_different_address
+              - action: utter_transfer_to_help
+                next: END

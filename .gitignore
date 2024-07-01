@@ -135,3 +135,6 @@ dmypy.json
 .pyre/
 .rasa/
 models/
+
+# vscode
+.history/
