@@ -1,13 +1,13 @@
 name: Run e2e tests on azure
+# This workflow runs `e2e_tests/passing/happy_path` and `e2e_tests/passing/chitchat` tests
+# using azure openai configurations
+# the config files are located on the branch `azure-openai-release-3.9`
+# the workflow checks out the `azure-openai-release-3.9` branch and runs the tests.
 
 on:
-  push:
-    branches:
-      - 'fix-test-run-schedule'
-
-#  schedule:
-#    # Run cron job at 8AM Monday every week.
-#    - cron: '0 8 * * 1'
+  schedule:
+    # Run cron job at 8AM Monday every week.
+    - cron: '0 8 * * 1'
   workflow_dispatch:
 
 env:
@@ -49,18 +49,6 @@ jobs:
 
       - name: Set up virtual environment
         run: poetry config virtualenvs.in-project true
-
-      # Authenticate with gcloud for release registry (where Rasa is published)
-      - id: "auth-release"
-        name: Authenticate with gcloud for release registry 🎫
-        uses: "google-github-actions/auth@ef5d53e30bbcd8d0836f4288f5e50ff3e086997d"
-        with:
-          token_format: 'access_token'
-          credentials_json: "${{ secrets.RASA_RELEASES_READ }}"
-
-      - name: Configure OAuth token for poetry
-        run: |
-          poetry config http-basic.rasa-plus oauth2accesstoken $(gcloud auth print-access-token)
 
       - name: Install Dependencies 📦
         run: |
@@ -107,6 +95,7 @@ jobs:
           poetry run rasa test e2e e2e_tests/passing/happy_path
 
       - name: Run e2e chitchat tests
+        if: always()
         env:
           OPENAI_API_KEY: ${{secrets.AZURE_OPENAI_API_KEY}}
           RASA_PRO_LICENSE: ${{secrets.RASA_PRO_LICENSE}}
@@ -114,4 +103,4 @@ jobs:
           RASA_PRO_BETA_INTENTLESS: true
         run: |
           poetry run rasa test e2e e2e_tests/passing/chitchat
-        
+      
