@@ -57,6 +57,13 @@ action_endpoint:
 #
 nlg:
   type: rephrase
+  llm:
+    model_name: "gpt-35-turbo"
+    engine: "test-gpt-35-turbo"
+    api_type: "azure"
+    api_version: "2024-02-01"
+    openai_api_base: "https://devtribe-testing-canada-east.openai.azure.com/"
+    request_timeout: 14
 
 #tracing:
 #  type: jaeger
