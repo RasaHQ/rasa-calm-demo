@@ -142,3 +142,6 @@ models/
 prompts/
 tests/
 qdrant_storage/
+
+# vscode
+.history/

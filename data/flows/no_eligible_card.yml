@@ -1,0 +1,8 @@
+flows:
+  no_eligible_card:
+    description: no eligible card on file that can be replaced
+    if: False
+    name: no eligible card on file
+    steps:
+      - action: utter_ineligible_no_card_on_file
+      - action: utter_think_you_have_eligible_card

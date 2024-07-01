@@ -17,7 +17,46 @@ flows:
                         next: END
                   - else: start_replacement
           - if: slots.replacement_reason = "damaged"
-            then: start_replacement
+            then:
+              - action: utter_sorry_damaged
+                next:
+                - if: slots.num_cards = 2
+                  then:
+                    - collect: whos_card
+                      ask_before_filling: true
+                    - action: utter_start_damage_replacement
+                    - call: confirm_address
+                      next: END
+                - if: slots.num_cards = 1
+                  then:
+                    - action: utter_start_damage_replacement
+                    - call: confirm_address
+                      next: END
+                - else:
+                    - action: utter_start_damage_replacement
+                      next: END
+          - if: slots.replacement_reason = "never_received"
+            then:
+              - action: action_days_since_card_sent
+                next:
+                  - if: slots.days_since_card_sent > 7
+                    then: start_replacement
+                  - else:
+                    - action: utter_card_recently_sent
+                      next: END
+          - if: slots.replacement_reason = "stolen"
+            then:
+              - collect: lock_card
+                ask_before_filling: true
+                next:
+                  - if: slots.lock_card
+                    then:
+                      - action: utter_card_locked
+                        next: connect_to_specialist
+                  - else: connect_to_specialist
+              - id: connect_to_specialist
+                action: utter_connect_to_specialist
+                next: END
           - else:
             - action: utter_unknown_replacement_reason_handover
               next: END

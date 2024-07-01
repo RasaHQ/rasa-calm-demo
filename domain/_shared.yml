@@ -62,6 +62,9 @@ responses:
   utter_conversation_highlight:
     - text: Our conversation was a highlight of my virtual day!
 
+actions:
+  - action_session_start
+
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true

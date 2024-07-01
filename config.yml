@@ -21,9 +21,9 @@ pipeline:
   ranking_length: 10
 - name: CRFEntityExtractor
 - name: DucklingEntityExtractor
-  url: "http://localhost:8000"
+  url: "http://duckling.gstephens.org"
   dimensions: [ "time", "number" ]
-  timezone: "Europe/Berlin"
+  timezone: "Americas/Los_Angeles"
   timeout: 3
 - name: NLUCommandAdapter
 - name: SingleStepLLMCommandGenerator

@@ -1,0 +1,7 @@
+version: "3.1"
+
+responses:
+  utter_ineligible_no_card_on_file:
+    - text: I don't see an eligible card account in your profile
+  utter_think_you_have_eligible_card:
+    - text: If you think you have an eligible card, you can check your account settings to see if you've hidden it

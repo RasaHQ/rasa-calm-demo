@@ -22,6 +22,9 @@ rasa-run: .EXPORT_ALL_VARIABLES
 rasa-train: .EXPORT_ALL_VARIABLES
 	rasa train -c config.yml -d domain --data data
 
+rasa-validate: .EXPORT_ALL_VARIABLES
+	rasa data validate -c config.yml -d domain --data data
+
 rasa-actions:
 	rasa run actions
 
