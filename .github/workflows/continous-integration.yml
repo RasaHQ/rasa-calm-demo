@@ -48,6 +48,11 @@ jobs:
       - name: Set up virtual environment
         run: poetry config virtualenvs.in-project true
 
+      - name: Install pip dependencies from requirements file
+        run: |
+          source .venv/bin/activate
+          pip install -r qdrant-requirements.txt
+
       # Authenticate with gcloud for release registry (where Rasa is published)
       - id: "auth-release"
         name: Authenticate with gcloud for release registry 🎫

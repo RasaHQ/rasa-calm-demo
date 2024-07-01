@@ -1,0 +1,4 @@
+datasets==2.20.0
+cohere==5.5.8
+qdrant-client==1.9.2
+sentence-transformers==3.0.1
