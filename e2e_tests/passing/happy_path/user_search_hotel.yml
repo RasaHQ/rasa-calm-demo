@@ -1,0 +1,43 @@
+metadata:
+  - german_hotel_search:
+      hotel_name: Steigenberger Hotel
+      hotel_average_rating: 3
+  - uk_hotel_search:
+      hotel_name: Britannia International Hotel
+      hotel_average_rating: 4
+  - updated_rating:
+      hotel_average_rating: 8.5
+
+test_cases:
+  - test_case: user searches for hotels with no metadata
+    steps:
+      - user: I want to search for hotels
+      - slot_was_set:
+          - hotel_name: "Shadyside Inn"
+          - hotel_average_rating: 2
+      - utter: utter_hotel_inform_rating
+  - test_case: user searches for hotels with test_case metadata
+    metadata: german_hotel_search
+    steps:
+      - user: I want to search for hotels
+      - slot_was_set:
+          - hotel_name: "Steigenberger Hotel"
+          - hotel_average_rating: 3
+      - utter: utter_hotel_inform_rating
+  - test_case: user searches for hotels with user step metadata
+    steps:
+      - user: I want to search for hotels
+        metadata: uk_hotel_search
+      - slot_was_set:
+          - hotel_name: "Britannia International Hotel"
+          - hotel_average_rating: 4
+      - utter: utter_hotel_inform_rating
+  - test_case: user searches for hotels with test_case and user step metadata
+    metadata: german_hotel_search
+    steps:
+      - user: I want to search for hotels
+        metadata: updated_rating
+      - slot_was_set:
+          - hotel_name: "Steigenberger Hotel"
+          - hotel_average_rating: 8.5
+      - utter: utter_hotel_inform_rating
