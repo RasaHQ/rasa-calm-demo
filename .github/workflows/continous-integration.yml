@@ -179,6 +179,7 @@ jobs:
         make test-passing
 
     - name: Run e2e flaky tests
+      if: always()
       env:
         OPENAI_API_KEY: ${{secrets.OPENAI_API_KEY}}
         RASA_PRO_LICENSE: ${{secrets.RASA_PRO_LICENSE}}
@@ -188,6 +189,7 @@ jobs:
         make test-flaky || true
 
     - name: Run e2e failing tests
+      if: always()
       env:
         OPENAI_API_KEY: ${{secrets.OPENAI_API_KEY}}
         RASA_PRO_LICENSE: ${{secrets.RASA_PRO_LICENSE}}
