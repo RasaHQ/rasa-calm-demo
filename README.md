@@ -122,6 +122,7 @@ The table below shows all the skills implemented in the bot:
 <table border="1">
    <tr>
    <th>Skill Group</th>
+   <th>Title</th>
    <th>Description</th>
    <th>Link to story, rules, nlu data</th>
    <th>Link to domain</th>
