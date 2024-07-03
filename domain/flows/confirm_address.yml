@@ -1,10 +1,12 @@
+version: "3.1"
+
 slots:
   address_line_1:
     type: text
   address_line_2:
     type: text
-  city:
-    type: text
+  # city:
+  #   type: text
   state:
     type: text
   zip_code:
