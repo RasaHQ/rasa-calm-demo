@@ -1,3 +1,4 @@
+version: "3.1"
 flows:
   replace_eligible_card:
     description: the user needs to replace their eligible card
@@ -13,8 +14,17 @@ flows:
                 next:
                   - if: slots.was_card_used_fraudulently
                     then:
-                      - action: utter_report_fraud
-                        next: END
+                    - collect: lock_card
+                      ask_before_filling: true
+                      next:
+                        - if: slots.lock_card
+                          then:
+                            - action: utter_card_locked
+                              next: connect_to_specialist
+                        - else: connect_to_specialist_lost
+                    - id: connect_to_specialist_lost
+                      action: utter_connect_to_specialist
+                      next: END
                   - else: start_replacement
           - if: slots.replacement_reason = "damaged"
             then:
@@ -23,7 +33,7 @@ flows:
                 - if: slots.num_cards = 2
                   then:
                     - collect: whos_card
-                      ask_before_filling: true
+                    # TODO: flow not followed after this point
                     - action: utter_start_damage_replacement
                     - call: confirm_address
                       next: END
@@ -34,6 +44,8 @@ flows:
                       next: END
                 - else:
                     - action: utter_start_damage_replacement
+                    - action: utter_replacement_sent_to_authorized_user
+                    - call: confirm_address
                       next: END
           - if: slots.replacement_reason = "never_received"
             then:

@@ -21,10 +21,10 @@ responses:
   utter_sorry_damaged:
     - text: I'm sorry to hear that your card was damaged. I can take care of that for you.
   utter_card_locked:
-    - text: Ok, your card is now locked
+    - text: Ok, your {current_card_name} is now locked
   utter_connect_to_specialist:
     - text: Let me get you to someone who can help.
-  utter_whos_card:
+  utter_ask_whos_card:
     - text: I see you have an authorized user on your account. Whose card would you like to replace?
       buttons:
         - payload: mine
@@ -35,6 +35,8 @@ responses:
           title: "Both cards"
   utter_start_damage_replacement:
     - text: I'll start your request now. While you wait, any current cards will still be active.
+  utter_replacement_sent_to_authorized_user:
+    - text: The authroized users on this account will get replacement cards too.
 
 actions:
   - action_days_since_card_sent

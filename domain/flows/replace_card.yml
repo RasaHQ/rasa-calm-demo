@@ -43,7 +43,7 @@ slots:
 
 responses:
   utter_ask_confirm_correct_card:
-    - text: I've found the card with number {current_card_number} on file. Is this the card you want to replace?
+    - text: I've found the {current_card_name} with number {current_card_number} on file. Is this the card you want to replace?
       buttons:
         - payload: yes
           title: "Yes"
@@ -64,6 +64,11 @@ responses:
         payload: "stolen"
   utter_ask_was_card_used_fraudulently:
     - text: Is it possible that someone else has managed to use your card?
+      buttons:
+        - payload: yes
+          title: "Yes"
+        - payload: no
+          title: "No"
   utter_will_cancel_and_send_new:
     - text: Alright, I'll cancel your card and send you a new one.
   utter_new_card_has_been_ordered:
