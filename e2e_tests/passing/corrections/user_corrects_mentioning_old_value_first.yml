@@ -15,7 +15,7 @@ test_cases:
       - utter: utter_ask_transfer_money_final_confirmation
       - user: Ah, not 50, I meant 55
       - utter: utter_ask_confirm_slot_correction
-      - user: "yes"
+      - user: /SetSlots(confirm_slot_correction=true)
       - slot_was_set:
           - transfer_money_amount_of_money: "55"
       - utter: utter_corrected_previous_input

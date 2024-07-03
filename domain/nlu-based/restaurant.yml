@@ -39,8 +39,6 @@ slots:
     mappings:
     - type: from_entity
       entity: number
-      conditions:
-        - active_loop: restaurant_form
   restaurant_name:
     type: text
     mappings:
@@ -51,8 +49,6 @@ slots:
     mappings:
     - type: from_entity
       entity: time
-      conditions:
-        - active_loop: restaurant_form
 
 actions:
   - action_list_restaurants

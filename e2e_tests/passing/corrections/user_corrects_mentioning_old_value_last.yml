@@ -11,7 +11,7 @@ test_cases:
       - utter: utter_ask_transfer_money_amount_of_money
       - user: Sorry, I meant to say Jimmy, not John
       - utter: utter_ask_confirm_slot_correction
-      - user: "yes"
+      - user: /SetSlots(confirm_slot_correction=true)
       - slot_was_set:
           - transfer_money_recipient: Jimmy
       - utter: utter_corrected_previous_input

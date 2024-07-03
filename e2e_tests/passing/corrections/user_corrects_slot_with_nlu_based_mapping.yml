@@ -11,8 +11,10 @@ test_cases:
       - utter: utter_ask_payment_option
       - user: actually can i get 2 pizzas instead
       - utter: utter_ask_confirm_slot_correction
-      - user: "yes"
+      - user: /SetSlots(confirm_slot_correction=true)
       - utter: utter_corrected_previous_input
+      - utter: utter_confirm
+      - user: /SetSlots(confirmation_order=True)
       - utter: utter_ask_payment_option
 
   - test_case: user_orders_pizza_stating_which_type_and_corrects_pizza_type_later
@@ -27,8 +29,29 @@ test_cases:
       - utter: utter_ask_payment_option
       - user: actually can i get a margherita instead
       - utter: utter_ask_confirm_slot_correction
-      - user: "yes"
+      - user: /SetSlots(confirm_slot_correction=true)
       - utter: utter_corrected_previous_input
+      - utter: utter_confirm
+      - user: /SetSlots(confirmation_order=True)
+      - utter: utter_ask_payment_option
+
+  - test_case: user_orders_pizza_stating_which_type_and_corrects_address_later
+    steps:
+      - user: I would like to order a diavola pizza.
+      - utter: utter_ask_num_pizza
+      - user: 1 please
+      - utter: utter_ask_address
+      - user: 31 Pine Road
+      - utter: utter_confirm
+      - user: /SetSlots(confirmation_order=True)
+      - utter: utter_ask_payment_option
+      - user: wait, i meant to say the pizza should be delivered to 13 Pine Road.
+      - bot: "I'm sorry about that. Let's correct your address. Please confirm your new address?"
+      - utter: utter_ask_address
+      - user: 13 Pine Road
+      - utter: utter_confirm
+      - user: /SetSlots(confirmation_order=True)
+      - utter: utter_flow_continue_interrupted
       - utter: utter_ask_payment_option
 
   - test_case: user_orders_pizza_stating_which_type_and_corrects_payment_option_later
@@ -45,7 +68,7 @@ test_cases:
       - utter: utter_ask_user_name
       - user: actually can i pay with a credit card
       - utter: utter_ask_confirm_slot_correction
-      - user: "yes"
+      - user: /SetSlots(confirm_slot_correction=true)
       - utter: utter_corrected_previous_input
       - utter: utter_ask_card_details
 
@@ -61,9 +84,11 @@ test_cases:
       - utter: utter_ask_payment_option
       - user: actually, i made a mistake and need to update my delivery address first.
       - bot: "I'm sorry about that. Let's correct your order. What would you like to change?"
-        # TODO: ideal place to test next buttons feature in e2e testing
+        # TODO: ideal place to assert planned buttons feature in e2e testing
       - user: /SetSlots(address=null)
-# FIXME: To uncomment once ATO-2553 is fixed
-#      - utter: utter_ask_address
-#      - user: 3 Pine Road
-#      - utter: utter_confirm
+      - utter: utter_ask_address
+      - user: 3 Pine Road
+      - utter: utter_confirm
+      - user: /SetSlots(confirmation_order=True)
+      - utter: utter_flow_continue_interrupted
+      - utter: utter_ask_payment_option

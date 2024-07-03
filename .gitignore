@@ -137,3 +137,5 @@ dmypy.json
 models/
 .config/
 .keras/
+prompts/
+tests/

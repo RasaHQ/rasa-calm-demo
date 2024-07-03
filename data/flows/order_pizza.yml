@@ -4,7 +4,7 @@ flows:
     description: user asks for a pizza
     nlu_trigger:
     - intent:
-        name: inform_pizza
+        name: request_pizza
         confidence_threshold: 0.5
     steps:
     - call: fill_pizza_order
@@ -48,6 +48,7 @@ flows:
       - collect: address
       - collect: confirmation_order
         reset_after_flow_ends: False
+        ask_before_filling: True
 
   use_membership_points:
     if: False
@@ -71,6 +72,17 @@ flows:
         confidence_threshold: 0.5
     steps:
       - collect: correct_order
+      - call: fill_pizza_order
+
+  correct_address:
+    name: correct_address
+    description: user wants to correct the delivery address
+    nlu_trigger:
+    - intent:
+        name: correct_address
+        confidence_threshold: 0.7
+    steps:
+      - action: action_correct_address
       - call: fill_pizza_order
 
   job_vacancies:

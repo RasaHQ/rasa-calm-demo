@@ -9,7 +9,7 @@ test_cases:
       - utter: utter_ask_confirm_slot_correction
       - user: damn, should be Alex
       - utter: utter_ask_confirm_slot_correction
-      - user: "Yes"
+      - user: /SetSlots(confirm_slot_correction=true)
       - slot_was_set:
           - transfer_money_recipient: Alex
       - utter: utter_corrected_previous_input

@@ -51,7 +51,8 @@ class ActionCorrectOrderDetails(Action):
         )
         return [SlotSet("confirmation_order", None), SlotSet("correct_order", True)]
 
-class ActionShowVacancie(Action):
+
+class ActionShowVacancies(Action):
 
     def name(self) -> str:
         return "action_show_vacancies"
@@ -73,3 +74,16 @@ class ActionShowVacancie(Action):
                 text="We don't have any vacancies at the moment in that department. Please check back later."
             )
         return []
+
+
+class ActionCorrectAddress(Action):
+
+        def name(self) -> str:
+            return "action_correct_address"
+
+        def run(self, dispatcher: CollectingDispatcher,
+                tracker: Tracker, domain: Dict[str, Any]):
+            dispatcher.utter_message(
+                text="I'm sorry about that. Let's correct your address. Please confirm your new address?"
+            )
+            return [SlotSet("address", None)]

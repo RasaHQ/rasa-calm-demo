@@ -11,7 +11,7 @@ test_cases:
       - utter: utter_ask_verify_account_sufficient_california_income
       - user: sorry, I need to correct the previous input
       - utter: utter_ask_confirm_slot_correction
-      - user: "yes"
+      - user: /SetSlots(confirm_slot_correction=true)
       - utter: utter_corrected_previous_input
       - slot_was_set:
           - based_in_california
