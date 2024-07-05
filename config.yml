@@ -39,6 +39,17 @@ policies:
   constrain_similarities: true
 - name: FlowPolicy
 - name: EnterpriseSearchPolicy
+  #use_generative_llm: false
+  #prompt: rag.jinja2
+  vector_store:
+    type: "addons.qdrant.Qdrant_Store"
+  embeddings:
+    type: "huggingface"
+    model_name: "BAAI/bge-small-en-v1.5"
+    model_kwargs:
+      device: 'cpu'
+    encode_kwargs:
+      normalize_embeddings: True
 - name: IntentlessPolicy
 
 assistant_id: 20240418-073244-narrow-archive

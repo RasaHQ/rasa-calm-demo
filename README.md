@@ -28,6 +28,8 @@ which includes [actions](https://rasa.com/docs/rasa-pro/concepts/domain#actions)
 [slots](https://rasa.com/docs/rasa-pro/concepts/domain#slots), and 
 [bot ressponses](https://rasa.com/docs/rasa-pro/concepts/domain#responses). 
 
+Additionaly, the bot can showcase the enterprise search capability based on the [SQUAD dataset](https://huggingface.co/datasets/rajpurkar/squad).
+
 The table below shows all the skills implemented in the bot:
 
 <table border="1">
@@ -153,6 +155,24 @@ The table below shows all the skills implemented in the bot:
   
 </table>
 
+<table border="1">
+   <tr>
+   <th>Skill Group</th>
+   <th>Description</th>
+   <th>Link to loading script</th>
+   </tr>
+   
+   <!-- Enterprise Search -->
+   
+   <tr>
+      <td rowspan="5">Enterprise Search</td>
+      <td>Q&A based on SQUAD Dataset</td>
+      <td>Load and search the https://huggingface.co/datasets/rajpurkar/squad dataset.</td>
+      <td><a href="scripts/load-data-to-qdrant.py">Link</a></td>
+   </tr>
+  
+</table>
+
 Rasa ships with a default behavior in CALM for every [conversation repair case](https://rasa.com/docs/rasa-pro/concepts/conversation-repair/#conversation-repair-cases)
 which is handled through a [default pattern flow](https://rasa.com/docs/rasa-pro/concepts/conversation-repair/#conversation-repair-cases). 
 In addition to its core functionality, the demo bot also includes an examples of 
@@ -201,6 +221,11 @@ After you cloned the repository and are authenticated, follow the installation s
    ```
    pyenv local 3.10.12
    ```
+3. Create and activate virtual environment
+   ```
+   pyenv virtualenv 3.10.12 new_venv
+   pyenv activate new_venv
+   ```
 3. Install the dependencies with `poetry`
    ```
    poetry install
@@ -212,6 +237,42 @@ After you cloned the repository and are authenticated, follow the installation s
    OPENAI_API_KEY=<your openai api key>
    RASA_DUCKLING_HTTP_URL=<url to the duckling server>
    ```
+
+5. Set up the extractive search:
+   - Setup a local docker instance of Qdrant
+      ```
+      docker pull qdrant/qdrant
+      docker run -p 6333:6333 -p 6334:6334 \
+         -v $(pwd)/qdrant_storage:/qdrant/storage:z \
+         qdrant/qdrant
+      ```
+   - Upload data to Qdrant
+      - Create a virtual environment for the upload:
+         ```
+         pip install -r qdrant-requirements.txt
+         ```
+      - Ingest documents from SQUAD dataset (modify the script if qdrant isn't running locally!)
+         ```
+         python scripts/load-data-to-qdrant.py
+         ```
+   You can toggle parameter `use_generative_llm` in config.yml to change the behavior. The answer is selected from the first search result -> metadata -> `answer` key
+
+#### Custom Information Retriever
+
+You can use a custom component for Information Retrieval by defining the custom component class name in the config as follows:
+
+```
+policies:
+- name: FlowPolicy
+- name: EnterpriseSearchPolicy
+vector_store:
+   type: "addons.qdrant.Qdrant_Store"
+```
+
+This configuration refers to `addons/qdrant.py` file and the class `Qdrant_Store`. This class is also an example that information retrievers can use a custom query, note that in `search()` function the query is rewritten using the chat transcript by `prepare_search_query` function.
+
+
+Check `config.yml` to make sure the configuration is appropriate before you train and run the bot.
 
 ### Training the bot
 
@@ -312,3 +373,5 @@ or
 ```commandline
 rasa test e2e e2e/tests/path/to/a/target/test.yml
 ```
+
+## Running the project with enterprise search
