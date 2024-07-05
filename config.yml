@@ -32,7 +32,7 @@ pipeline:
 
 policies:
 - name: RulePolicy
-- name: TEDPolicy
+# - name: TEDPolicy
 - name: FlowPolicy
 - name: EnterpriseSearchPolicy
 # - name: IntentlessPolicy

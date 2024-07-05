@@ -6,14 +6,19 @@ intents:
 slots:
   current_card_name:
     type: text
+    shared_for_coexistence: True
   current_card_number:
     type: text
+    shared_for_coexistence: True
   current_card_replacement_eligibility:
     type: text
+    shared_for_coexistence: True
   num_cards:
     type: text
+    shared_for_coexistence: True
   cards:
     type: list
+    shared_for_coexistence: True
   confirm_correct_card:
     type: bool
     mappings:

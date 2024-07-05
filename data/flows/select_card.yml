@@ -1,0 +1,13 @@
+flows:
+  select_card:
+    description: This flow is called when the user has multiple cards and needs to select one.
+    name: Select card
+    # block this flow from the LLM, should only be called from other flows
+    if: False
+    steps:
+      - action: select_card
+        next: collect_card_name
+      - id: collect_card_name
+        collect: current_card_name
+        ask_before_filling: true
+        next: END

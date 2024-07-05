@@ -3,15 +3,19 @@ version: "3.1"
 slots:
   address_line_1:
     type: text
+    shared_for_coexistence: True
   address_line_2:
     type: text
+    shared_for_coexistence: True
   # city:
   #   type: text
   state:
     type: text
+    shared_for_coexistence: True
   zip_code:
     type: text
-  address_confirmation:
+    shared_for_coexistence: True
+  confirm_address:
     type: bool
 
 responses:
