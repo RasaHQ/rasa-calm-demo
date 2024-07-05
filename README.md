@@ -1,6 +1,9 @@
 # Rasa CALM Demo
 
-This demo showcases a chatbot built with Rasa's LLM-native approach: [CALM](https://rasa.com/docs/rasa-pro/calm). 
+This demo showcases a chatbot built with Rasa's LLM-native approach: [CALM](https://rasa.com/docs/rasa-pro/calm).
+
+> [!IMPORTANT]
+> The primary purpose of the maintaining this branch is to test the updates to Rasa Pro version 3.8.x.
 
 > [!CAUTION]
 > Please note that the demo bot is an evolving platform. The flows currently 
