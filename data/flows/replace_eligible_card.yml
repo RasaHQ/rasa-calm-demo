@@ -26,6 +26,7 @@ flows:
                       action: utter_connect_to_specialist
                       next: END
                   - else: start_replacement
+                    next: END
           - if: slots.replacement_reason = "damaged"
             then:
               - action: utter_sorry_damaged
