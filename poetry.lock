@@ -2620,7 +2620,6 @@ description = "Clang Python Bindings, mirrored from the official LLVM repo: http
 optional = false
 python-versions = "*"
 files = [
-    {file = "libclang-18.1.1-1-py2.py3-none-macosx_11_0_arm64.whl", hash = "sha256:0b2e143f0fac830156feb56f9231ff8338c20aecfe72b4ffe96f19e5a1dbb69a"},
     {file = "libclang-18.1.1-py2.py3-none-macosx_10_9_x86_64.whl", hash = "sha256:6f14c3f194704e5d09769108f03185fce7acaf1d1ae4bbb2f30a72c2400cb7c5"},
     {file = "libclang-18.1.1-py2.py3-none-macosx_11_0_arm64.whl", hash = "sha256:83ce5045d101b669ac38e6da8e58765f12da2d3aafb3b9b98d88b286a60964d8"},
     {file = "libclang-18.1.1-py2.py3-none-manylinux2010_x86_64.whl", hash = "sha256:c533091d8a3bbf7460a00cb6c1a71da93bffe148f172c7d03b1c31fbf8aa2a0b"},
@@ -4686,7 +4685,6 @@ files = [
     {file = "PyYAML-6.0.1-cp311-cp311-win_amd64.whl", hash = "sha256:bf07ee2fef7014951eeb99f56f39c9bb4af143d8aa3c21b1677805985307da34"},
     {file = "PyYAML-6.0.1-cp312-cp312-macosx_10_9_x86_64.whl", hash = "sha256:855fb52b0dc35af121542a76b9a84f8d1cd886ea97c84703eaa6d88e37a2ad28"},
     {file = "PyYAML-6.0.1-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:40df9b996c2b73138957fe23a16a4f0ba614f4c0efce1e9406a184b6d07fa3a9"},
-    {file = "PyYAML-6.0.1-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:a08c6f0fe150303c1c6b71ebcd7213c2858041a7e01975da3a99aed1e7a378ef"},
     {file = "PyYAML-6.0.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:6c22bec3fbe2524cde73d7ada88f6566758a8f7227bfbf93a408a9d86bcc12a0"},
     {file = "PyYAML-6.0.1-cp312-cp312-musllinux_1_1_x86_64.whl", hash = "sha256:8d4e9c88387b0f5c7d5f281e55304de64cf7f9c0021a3525bd3b1c542da3b0e4"},
     {file = "PyYAML-6.0.1-cp312-cp312-win32.whl", hash = "sha256:d483d2cdf104e7c9fa60c544d92981f12ad66a457afae824d146093b8c294c54"},
@@ -4774,13 +4772,13 @@ fire = "*"
 
 [[package]]
 name = "rasa-pro"
-version = "3.9.0"
+version = "3.9.1"
 description = "State-of-the-art open-core Conversational AI framework for Enterprises that natively leverages generative AI for effortless assistant development."
 optional = false
 python-versions = ">=3.8.1,<3.11"
 files = [
-    {file = "rasa_pro-3.9.0-py3-none-any.whl", hash = "sha256:3c5ed3847563003b3ca17518f736542f3b43159a339edef591040e4f3f33cfad"},
-    {file = "rasa_pro-3.9.0.tar.gz", hash = "sha256:16a5233c5f744c8750ff8c6a9867c4d6b617b6732bbf7923a657bd907b8f1f4f"},
+    {file = "rasa_pro-3.9.1-py3-none-any.whl", hash = "sha256:542f78fb6be252e021e99a482b733d4bcb9636d96374f31eef072a9d84935b41"},
+    {file = "rasa_pro-3.9.1.tar.gz", hash = "sha256:c636b861a1eaa4db7caaf46bd2fa6f3260705c9fc9380296d1489bdeb89c43a5"},
 ]
 
 [package.dependencies]
@@ -7273,4 +7271,4 @@ test = ["big-O", "importlib-resources", "jaraco.functools", "jaraco.itertools", 
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8.1,<3.11"
-content-hash = "8fb25ebbffff2375c8be859e713a629d2a3f524e06bca69533e354691f3b9507"
+content-hash = "4ac1534d0bb8ff3d8d66a48f1f56189ddc32fcc5a31ad04095d36a2c7b5056dc"
