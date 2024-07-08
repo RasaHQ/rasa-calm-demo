@@ -8,7 +8,7 @@ This demo showcases a chatbot built with Rasa's LLM-native approach: [CALM](http
 > capabilities of the CALM bot. The functionality of each flow may vary, reflecting 
 > CALM's current stage of development.
 
-> [!INFO]
+> [!NOTE]
 > This demo bot is currently compatible with `3.9.1`.
 
 ## Terms of Use
@@ -172,6 +172,7 @@ The table below shows all the skills implemented in the bot:
 <table border="1">
    <tr>
    <th>Skill Group</th>
+   <th>Name</th>
    <th>Description</th>
    <th>Link to story, rules, nlu data</th>
    <th>Link to domain</th>
@@ -206,6 +207,7 @@ The table below shows all the skills implemented in the bot:
 <table border="1">
    <tr>
    <th>Skill Group</th>
+   <th>Name</th>
    <th>Description</th>
    <th>Link to loading script</th>
    </tr>
