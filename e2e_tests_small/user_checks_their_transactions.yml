@@ -1,7 +1,0 @@
-test_cases:
-  - test_case: user checks their transactions
-    steps:
-      - user: Show my transactions please
-      - commands:
-        - start_flow: "transaction_search"
-      - utter: utter_transactions

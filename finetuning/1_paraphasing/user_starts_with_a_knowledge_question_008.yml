@@ -1,9 +1,0 @@
-fixtures: []
-test_cases:
-- test_case: user starts with a knowledge question 008
-  fixtures: null
-  steps:
-  - user: Is it true that this service includes free transfers?
-  - commands:
-    - knowledge
-  - utter: utter_knowledge_answer_placeholder

@@ -1,9 +1,0 @@
-fixtures: []
-test_cases:
-- test_case: can't advice on health 004
-  fixtures: null
-  steps:
-  - user: Could you provide some medical guidance?
-  - commands:
-    - start_flow: health_advice
-  - utter: utter_cant_advice_on_health
