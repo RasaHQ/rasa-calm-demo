@@ -120,6 +120,51 @@ The table below shows all the skills implemented in the bot:
       <td><a href="data/flows/verify_account.yml">Link</a></td>
       <td><a href="domain/flows/verify_account.yml">Link</a></td>
    </tr>
+
+   <!-- Pizza -->
+
+   <tr>
+      <td rowspan="6">Ordering Pizza</td>
+      <td>Order Pizza</td>
+      <td>Allows users to order a pizza.</td>
+      <td><a href="data/flows/order_pizza.yml">Link</a></td>
+      <td><a href="domain/flows/order_pizza.yml">Link</a></td>
+   </tr>
+
+   <tr>
+      <td>Fill pizza order details</td>
+      <td>User is asked to fill out pizza order details.</td>
+      <td><a href="data/flows/order_pizza.yml">Link</a></td>
+      <td><a href="domain/flows/order_pizza.yml">Link</a></td>
+   </tr>
+
+   <tr>
+      <td>Use membership points</td>
+      <td>User asks to use membership or loyalty points.</td>
+      <td><a href="data/flows/order_pizza.yml">Link</a></td>
+      <td><a href="domain/flows/order_pizza.yml">Link</a></td>
+   </tr>
+
+   <tr>
+      <td>Correct Order</td>
+      <td>Allows users to correct order details.</td>
+      <td><a href="data/flows/order_pizza.yml">Link</a></td>
+      <td><a href="domain/flows/order_pizza.yml">Link</a></td>
+   </tr>
+
+   <tr>
+      <td>Correct Address</td>
+      <td>Allows users to correct the delivery address.</td>
+      <td><a href="data/flows/order_pizza.yml">Link</a></td>
+      <td><a href="domain/flows/order_pizza.yml">Link</a></td>
+   </tr>
+
+   <tr>
+      <td>Job vacancies</td>
+      <td>Allows users to ask for job vacancies.</td>
+      <td><a href="data/flows/order_pizza.yml">Link</a></td>
+      <td><a href="domain/flows/order_pizza.yml">Link</a></td>
+   </tr>
   
 </table>
 
