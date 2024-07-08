@@ -1,0 +1,29 @@
+fixtures: []
+test_cases:
+- test_case: user asks why information is needed 003
+  fixtures: null
+  steps:
+  - user: I would like to validate my account.
+  - commands:
+    - start_flow: verify_account
+  - utter: utter_ask_verify_account_email
+  - user: I use a.tweep@twitter.com as my email.
+  - commands:
+    - set_slot:
+      - verify_account_email: "a.tweep@twitter.com"
+  - utter: utter_ask_based_in_california
+  - user: What's the purpose of this question?
+  - commands:
+    - chitchat
+  - utter: utter_california_compliance
+  - utter: utter_ask_based_in_california
+  - user: No, I don't live in California.
+  - commands:
+    - set_slot:
+      - based_in_california: "False"
+  - utter: utter_ask_verify_account_confirmation
+  - user: Yes, that's accurate.
+  - commands:
+    - set_slot:
+      - verify_account_confirmation: "True"
+  - utter: utter_verify_account_success

@@ -1,0 +1,36 @@
+fixtures: []
+test_cases:
+- test_case: correction mentioning old value first 006
+  fixtures: null
+  steps:
+  - user: I have to send money.
+  - commands:
+    - start_flow: transfer_money
+  - utter: utter_ask_transfer_money_recipient
+  - user: John is the one I want to send money to.
+  - commands:
+    - set_slot:
+      - transfer_money_recipient: "John"
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: I'm transferring 50.
+  - commands:
+    - set_slot:
+      - transfer_money_amount_of_money: "50"
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: I misspoke, it's 55 not 50.
+  - commands:
+    - correct_slot:
+      - transfer_money_amount_of_money: "55"
+  - utter: utter_ask_confirm_slot_correction
+  - user: Yes, that's precisely it.
+  - commands:
+    - set_slot:
+      - confirm_slot_correction: "True"
+  - utter: utter_corrected_previous_input
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: The transfer of {transfer_money_amount_of_money} to {transfer_money_recipient}
+      has been completed successfully.
+  - commands:
+    - set_slot:
+      - transfer_money_final_confirmation: "True"
+  - utter: utter_transfer_complete

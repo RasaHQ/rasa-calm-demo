@@ -1,0 +1,28 @@
+fixtures: []
+test_cases:
+- test_case: user corrects a value twice in a row while being asked for confirmation
+    005
+  fixtures: null
+  steps:
+  - user: I desire to send cash to Joe.
+  - commands:
+    - start_flow: transfer_money
+    - set_slot:
+      - transfer_money_recipient: "Joe"
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: I slipped up, I meant John.
+  - commands:
+    - correct_slot:
+      - transfer_money_recipient: "John"
+  - utter: utter_ask_confirm_slot_correction
+  - user: I erred again, it's Alex.
+  - commands:
+    - correct_slot:
+      - transfer_money_recipient: "Alex"
+  - utter: utter_ask_confirm_slot_correction
+  - user: Sure thing.
+  - commands:
+    - set_slot:
+      - confirm_slot_correction: "True"
+  - utter: utter_corrected_previous_input
+  - utter: utter_ask_transfer_money_amount_of_money

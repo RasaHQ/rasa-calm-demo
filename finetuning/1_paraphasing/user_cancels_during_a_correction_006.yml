@@ -1,0 +1,21 @@
+fixtures: []
+test_cases:
+- test_case: user cancels during a correction 006
+  fixtures: null
+  steps:
+  - user: I wish to remit some money to Joe.
+  - commands:
+    - start_flow: transfer_money
+    - set_slot:
+      - transfer_money_recipient: 'Joe'
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: John is the correct name, not Joe.
+  - commands:
+    - correct_slot:
+      - transfer_money_recipient: 'John'
+  - utter: utter_ask_confirm_slot_correction
+  - user: I want to back out, cancel the transfer.
+  - commands:
+    - cancel_flow
+  - utter: utter_flow_cancelled_rasa
+  - utter: utter_can_do_something_else

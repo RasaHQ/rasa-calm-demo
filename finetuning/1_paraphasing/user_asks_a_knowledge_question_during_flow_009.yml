@@ -1,0 +1,26 @@
+fixtures: []
+test_cases:
+- test_case: user asks a knowledge question during flow 009
+  fixtures: null
+  steps:
+  - user: I plan to wire some funds to Tre.
+  - commands:
+    - start_flow: transfer_money
+    - set_slot:
+      - transfer_money_recipient: "Tre"
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: Can you tell me, are these transfers chargeable?
+  - commands:
+    - knowledge
+  - utter: utter_knowledge_answer_placeholder
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: Sounds good, I'll stick with 50$.
+  - commands:
+    - set_slot:
+      - transfer_money_amount_of_money: "50"
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: Yes, indeed.'
+  - commands:
+    - set_slot:
+      - transfer_money_final_confirmation: "True"
+  - utter: utter_transfer_complete

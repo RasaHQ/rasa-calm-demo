@@ -1,0 +1,13 @@
+fixtures: []
+test_cases:
+- test_case: user follows up on a knowledge question 002
+  fixtures: null
+  steps:
+  - user: Is it possible to make transfers without any charges with this service?
+  - commands:
+    - knowledge
+  - utter: utter_knowledge_answer_placeholder
+  - user: Does this apply to international transfers as well?
+  - commands:
+    - knowledge
+  - utter: utter_knowledge_answer_placeholder

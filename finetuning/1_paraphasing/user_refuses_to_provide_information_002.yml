@@ -1,0 +1,28 @@
+fixtures: []
+test_cases:
+- test_case: user refuses to provide information 002
+  fixtures: null
+  steps:
+  - user: Can I authenticate my account?
+  - commands:
+    - start_flow: verify_account
+  - utter: utter_ask_verify_account_email
+  - user: The email address is thomas@x.com.
+  - commands:
+    - set_slot:
+      - verify_account_email: "thomas@x.com"
+  - utter: utter_ask_based_in_california
+  - user: Affirmative.
+  - commands:
+    - set_slot:
+      - based_in_california: "True"
+  - utter: utter_ask_verify_account_sufficient_california_income
+  - user: What's the reason for asking?
+  - commands:
+    - chitchat
+  - utter: utter_california_compliance
+  - utter: utter_ask_verify_account_sufficient_california_income
+  - user: Let's drop it then!
+  - commands:
+    - cancel_flow
+  - utter: utter_can_do_something_else

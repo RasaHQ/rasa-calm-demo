@@ -1,0 +1,20 @@
+fixtures: []
+test_cases:
+- test_case: cancellation respects scope 007
+  fixtures: null
+  steps:
+  - user: Please assist me in sending money to John.
+  - commands:
+    - start_flow: transfer_money
+    - set_slot:
+      - transfer_money_recipient: 'John'
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: I need to call off the transaction.
+  - commands:
+    - cancel_flow
+  - utter: utter_flow_cancelled_rasa
+  - utter: utter_can_do_something_else
+  - user: I need to make a payment.
+  - commands:
+    - start_flow: transfer_money
+  - utter: utter_ask_transfer_money_recipient

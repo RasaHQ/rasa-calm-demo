@@ -1,0 +1,19 @@
+fixtures: []
+test_cases:
+- test_case: user answers and also asks a question 006
+  fixtures: null
+  steps:
+  - user: I have to send 50$ to Justin.
+  - commands:
+    - start_flow: transfer_money
+    - set_slot:
+      - transfer_money_recipient: Justin
+      - transfer_money_amount_of_money: 50
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: Yes, and out of curiosity, are there any costs associated with this transaction?
+  - commands:
+    - set_slot:
+      - transfer_money_final_confirmation: "True"
+    - knowledge
+  - utter: utter_knowledge_answer_placeholder
+  - utter: utter_transfer_complete

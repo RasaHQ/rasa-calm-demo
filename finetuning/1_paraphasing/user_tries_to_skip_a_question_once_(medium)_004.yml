@@ -1,0 +1,26 @@
+fixtures: []
+test_cases:
+- test_case: user tries to skip a question once (medium) 004
+  fixtures: null
+  steps:
+  - user: I need to remit some funds to John.
+  - commands:
+    - start_flow: transfer_money
+    - set_slot:
+      - transfer_money_recipient: John
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: Could you pose a different question?
+  - commands:
+    - skip_question
+  - utter: utter_skip_question_answer
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: Sure, the number is 50.
+  - commands:
+    - set_slot:
+      - transfer_money_amount_of_money: 50
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: Positively.'
+  - commands:
+    - set_slot:
+      - transfer_money_final_confirmation: "True"
+  - utter: utter_transfer_complete

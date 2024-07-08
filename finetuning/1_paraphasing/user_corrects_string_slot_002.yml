@@ -1,0 +1,32 @@
+fixtures: []
+test_cases:
+- test_case: user corrects string slot 002
+  fixtures: null
+  steps:
+  - user: Can I put Peter on my contact list?
+  - commands:
+    - start_flow: add_contact
+    - set_slot:
+      - add_contact_name: "Peter"
+  - utter: utter_ask_add_contact_handle
+  - user: He's known as @PeterPark.
+  - commands:
+    - set_slot:
+      - add_contact_handle: "@PeterPark"
+  - utter: utter_ask_add_contact_confirmation
+  - user: I'd prefer if you used Spidey as the name.
+  - commands:
+    - correct_slot:
+      - add_contact_name: "Spidey"
+  - utter: utter_ask_confirm_slot_correction
+  - user: Absolutely.
+  - commands:
+    - set_slot:
+      - confirm_slot_correction: "True"
+  - utter: utter_corrected_previous_input
+  - utter: utter_ask_add_contact_confirmation
+  - user: Sure thing.
+  - commands:
+    - set_slot:
+      - add_contact_confirmation: "True"
+  - utter: utter_contact_added

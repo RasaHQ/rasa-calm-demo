@@ -1,0 +1,26 @@
+fixtures: []
+test_cases:
+- test_case: user asks for a moment to think 004
+  fixtures: null
+  steps:
+  - user: I'd like to wire some money to Yizhi.
+  - commands:
+    - start_flow: transfer_money
+    - set_slot:
+      - transfer_money_recipient: "Yizhi"
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: I need a moment.
+  - commands:
+    - chitchat
+  - utter: utter_take_your_time
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: It's 100.
+  - commands:
+    - set_slot:
+      - transfer_money_amount_of_money: "100"
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: Of course.
+  - commands:
+    - set_slot:
+      - transfer_money_final_confirmation: "True"
+  - utter: utter_transfer_complete

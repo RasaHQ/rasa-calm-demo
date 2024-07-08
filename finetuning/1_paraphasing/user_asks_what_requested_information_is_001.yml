@@ -1,0 +1,26 @@
+fixtures: []
+test_cases:
+- test_case: user asks what requested information is 001
+  fixtures: null
+  steps:
+  - user: I'd like to include Kate in my contact list.
+  - commands:
+    - start_flow: add_contact
+    - set_slot:
+      - add_contact_name: Kate
+  - utter: utter_ask_add_contact_handle
+  - user: What does a contact handle mean?
+  - commands:
+    - knowledge
+  - utter: utter_knowledge_answer_placeholder
+  - utter: utter_ask_add_contact_handle
+  - user: Alright, she gave it to me, it's @KatePurry.
+  - commands:
+    - set_slot:
+      - add_contact_handle: "@KatePurry"
+  - utter: utter_ask_add_contact_confirmation
+  - user: Yeah.
+  - commands:
+    - set_slot:
+      - add_contact_confirmation: "True"
+  - utter: utter_contact_added

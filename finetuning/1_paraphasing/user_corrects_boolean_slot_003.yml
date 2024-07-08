@@ -1,0 +1,35 @@
+fixtures: []
+test_cases:
+- test_case: user corrects boolean slot 003
+  fixtures: null
+  steps:
+  - user: I'm looking to confirm my account.
+  - commands:
+    - start_flow: verify_account
+  - utter: utter_ask_verify_account_email
+  - user: You can reach me at mag@pie.com.
+  - commands:
+    - set_slot:
+      - verify_account_email: "mag@pie.com"
+  - utter: utter_ask_based_in_california
+  - user: Affirmative.
+  - commands:
+    - set_slot:
+      - based_in_california: "True"
+  - utter: utter_ask_verify_account_sufficient_california_income
+  - user: Affirmative.
+  - commands:
+    - set_slot:
+      - verify_account_sufficient_california_income: "True"
+  - utter: utter_ask_verify_account_confirmation
+  - user: In reality, my income is not that high.
+  - commands:
+    - correct_slot:
+      - verify_account_sufficient_california_income: "False"
+  - utter: utter_ask_verify_account_sufficient_california_income
+  - user: No, that's not right.
+  - commands:
+    - set_slot:
+      - verify_account_sufficient_california_income: "False"
+  - utter: utter_ca_income_insufficient
+  - utter: utter_can_do_something_else

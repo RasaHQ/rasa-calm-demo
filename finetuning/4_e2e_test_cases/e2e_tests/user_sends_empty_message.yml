@@ -1,0 +1,8 @@
+test_cases:
+  - test_case: user sends the long message that exceeds 420 characters
+    steps:
+      - user: "     "
+      - commands:
+        - error:
+          - error_type: rasa_internal_error_user_input_empty
+      - utter: utter_user_input_empty_error_rasa

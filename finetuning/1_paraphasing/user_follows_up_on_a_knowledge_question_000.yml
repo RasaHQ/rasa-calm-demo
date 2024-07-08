@@ -1,0 +1,13 @@
+fixtures: []
+test_cases:
+- test_case: user follows up on a knowledge question 000
+  fixtures: null
+  steps:
+  - user: Are transfers on free with this service?
+  - commands:
+    - knowledge
+  - utter: utter_knowledge_answer_placeholder
+  - user: How about international ones?
+  - commands:
+    - knowledge
+  - utter: utter_knowledge_answer_placeholder

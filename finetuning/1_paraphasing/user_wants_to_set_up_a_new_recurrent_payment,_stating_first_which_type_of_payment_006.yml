@@ -1,0 +1,12 @@
+fixtures: []
+test_cases:
+- test_case: user wants to set up a new recurrent payment, stating first which type
+    of payment 006
+  fixtures: null
+  steps:
+  - user: I wish to put in place a new standing order payment.
+  - commands:
+    - start_flow: setup_recurrent_payment
+    - set_slot:
+      - recurrent_payment_type: "standing order"
+  - utter: utter_ask_recipient

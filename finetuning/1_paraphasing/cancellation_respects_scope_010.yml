@@ -1,0 +1,20 @@
+fixtures: []
+test_cases:
+- test_case: cancellation respects scope 010
+  fixtures: null
+  steps:
+  - user: John is the person I want to send money to.
+  - commands:
+    - start_flow: transfer_money
+    - set_slot:
+      - transfer_money_recipient: 'John'
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: I'd like to abort the current operation.
+  - commands:
+    - cancel_flow
+  - utter: utter_flow_cancelled_rasa
+  - utter: utter_can_do_something_else
+  - user: I'm interested in making a money transfer.'
+  - commands:
+    - start_flow: transfer_money
+  - utter: utter_ask_transfer_money_recipient

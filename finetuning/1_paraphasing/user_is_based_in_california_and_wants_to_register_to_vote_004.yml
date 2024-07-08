@@ -1,0 +1,35 @@
+fixtures: []
+test_cases:
+- test_case: user is based in california and wants to register to vote 004
+  fixtures: null
+  steps:
+  - user: Can we proceed with account verification?
+  - commands:
+    - start_flow: verify_account
+  - utter: utter_ask_verify_account_email
+  - user: The email I use is sam@microsoft.com.
+  - commands:
+    - set_slot:
+      - verify_account_email: sam@microsoft.com
+  - utter: utter_ask_based_in_california
+  - user: Absolutely.
+  - commands:
+    - set_slot:
+      - based_in_california: "True"
+  - utter: utter_ask_verify_account_sufficient_california_income
+  - user: Yes, that's right.
+  - commands:
+    - set_slot:
+      - verify_account_sufficient_california_income: "True"
+  - utter: utter_ask_verify_account_confirmation
+  - user: Absolutely.
+  - commands:
+    - set_slot:
+      - verify_account_confirmation: "True"
+  - utter: utter_verify_account_success
+  - utter: utter_can_do_something_else
+  - user: I'd like to get registered to vote in California.
+  - commands:
+    - start_flow: register_to_vote_in_california
+  - utter: utter_register_to_vote_in_california
+  - utter: utter_can_do_something_else

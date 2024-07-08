@@ -1,0 +1,11 @@
+fixtures: []
+test_cases:
+- test_case: user starts multiple flows 003
+  fixtures: null
+  steps:
+  - user: Could you please show me my transactions and help me send some money?
+  - commands:
+    - start_flow: transaction_search
+    - start_flow: transfer_money
+  - utter: utter_transactions
+  - utter: utter_ask_transfer_money_recipient

@@ -1,0 +1,13 @@
+fixtures: []
+test_cases:
+- test_case: user changes mind based on new info 001
+  fixtures: null
+  steps:
+  - user: I'm looking to transfer some funds.
+  - commands:
+    - start_flow: transfer_money
+  - utter: utter_ask_transfer_money_recipient
+  - user: halt.
+  - commands:
+    - cancel_flow
+  - utter: utter_flow_cancelled_rasa

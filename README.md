@@ -190,27 +190,23 @@ and run end-to-end tests.
 
 > [!IMPORTANT]
 > To build, run, and explore the bot's features, you need Rasa Pro license. You also 
-> need access to the `rasa-plus` Python package, which requires authentication with 
-> our artifact repository. For detailed instructions on the authentication process,
+> need access to the `rasa-pro` Python package. For installation instructions
 > please refer our documentation [here](https://rasa.com/docs/rasa-pro/installation/python/installation).
 
 > [!NOTE]
-> If you want to use a different version of `rasa` or `rasa-plus`, you can 
+> If you install with poetry and you want to use a different version of `rasa-pro`, you can 
 > change the versions in the [pyproject.toml](./pyproject.toml) file.
 
 Prerequisites:
 - rasa pro license
-- being authenticated with our artifact registry
-- [poetry](https://python-poetry.org/docs/#installation) (1.8.2), e.g. using 
-  `poetry self update`
 - python (3.10.12), e.g. using [pyenv](https://github.com/pyenv/pyenv) 
   `pyenv install 3.10.12`
-- set up and running [Duckling](https://github.com/facebook/duckling) server;
+- Some flows require to set up and run [Duckling](https://github.com/facebook/duckling) server
 The easiest option is to spin up a docker container using `docker run -p 8000:8000 rasa/duckling`.
 Alternatively, you can use the `make run-duckling` command locally.
 This runs automatically only when you use the `make run` command, before it launches the Inspector app.
 
-After you cloned the repository and are authenticated, follow the installation steps:
+After you cloned the repository, follow these installation steps:
 
 1. Locate to the cloned repo:
    ```
@@ -221,14 +217,10 @@ After you cloned the repository and are authenticated, follow the installation s
    ```
    pyenv local 3.10.12
    ```
-3. Create and activate virtual environment
+3. Install the dependencies with `pip`
    ```
-   pyenv virtualenv 3.10.12 new_venv
-   pyenv activate new_venv
-   ```
-3. Install the dependencies with `poetry`
-   ```
-   poetry install
+   pip install uv
+   uv pip install rasa-pro --extra-index-url=https://europe-west3-python.pkg.dev/rasa-releases/rasa-pro-python/simple/
    ```
 4. Create an environment file `.env` in the root of the project with the following 
    content:
@@ -278,7 +270,7 @@ Check `config.yml` to make sure the configuration is appropriate before you trai
 
 To train a model use `make` command for simplicity:
 ```commandline
-make train
+make rasa-train
 ```
 which is a shortcut for:
 ```commandline
@@ -293,7 +285,7 @@ Before interacting with your assistant, start the action server to enable the
 assistant to perform custom actions located in the `actions` directory. Start the 
 action server with the `make` command:
 ```commandline
-make actions
+make rasa-actions
 ```
 which is a shortcut for:
 ```commandline
@@ -302,13 +294,15 @@ rasa run actions
 
 Once the action server is started, you have two options to interact with your trained
 assistant:
-1. **CLI-based interaction** using rasa shell:
+
+1. **GUI-based interaction** using rasa inspector:
 ```commandline
-rasa shell
+rasa inspect --debug
 ```
-2. **GUI-based interaction** using rasa inspector:
+
+2. **CLI-based interaction** using rasa shell:
 ```commandline
-rasa inspect
+rasa shell --debug
 ```
 
 ### Running e2e test
@@ -328,24 +322,24 @@ failing tests, or a single specific test.
 
 To run **all the tests** you can use the `make` command:
 ```commandline
-make test
+make rasa-test
 ```
 or
 ```commandline
-run rasa test e2e e2e_tests
+rasa test e2e e2e_tests
 ```
 
 ------
 
 To run **passing/failing/flaky** tests you can use the `make` command:
 ```commandline
-make test-passing
+make rasa-test-passing
 ```
 ```commandline
-make test-failing
+make rasa-test-failing
 ```
 ```commandline
-make test-flaky
+make rasa-test-flaky
 ```
 or
 ```commandline
@@ -367,11 +361,9 @@ export target=e2e_tests/path/to/a/target/test.yml
 ```
 and then run:
 ```commandline
-make test-one
+make rasa-test-one
 ```
 or
 ```commandline
 rasa test e2e e2e/tests/path/to/a/target/test.yml
 ```
-
-## Running the project with enterprise search

@@ -1,0 +1,33 @@
+test_cases:
+  - test_case: user corrects recipient in the next message
+    steps:
+      - user: I want to transfer money
+      - commands:
+          - start_flow: transfer_money
+      - utter: utter_ask_transfer_money_recipient
+      - user: John
+      - commands:
+        - set_slot:
+          - transfer_money_recipient: "John"
+      - utter: utter_ask_transfer_money_amount_of_money
+      - user: Sorry, I meant to say Joe
+      - commands:
+        - correct_slot:
+          - transfer_money_recipient: "Joe"
+      - utter: utter_ask_confirm_slot_correction
+      - user: "yes"
+      - commands:
+        - set_slot:
+          - confirm_slot_correction: "True"
+      - utter: utter_corrected_previous_input
+      - utter: utter_ask_transfer_money_amount_of_money
+      - user: "50"
+      - commands:
+        - set_slot:
+          - transfer_money_amount_of_money: "50"
+      - utter: utter_ask_transfer_money_final_confirmation
+      - user: "yes"
+      - commands:
+        - set_slot:
+          - transfer_money_final_confirmation: "True"
+      - utter: utter_transfer_complete

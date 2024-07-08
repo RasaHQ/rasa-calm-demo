@@ -1,0 +1,9 @@
+fixtures: []
+test_cases:
+- test_case: user starts with a knowledge question 004
+  fixtures: null
+  steps:
+  - user: I'm wondering if transfers are free of charge with this service.
+  - commands:
+    - knowledge
+  - utter: utter_knowledge_answer_placeholder

@@ -1,0 +1,26 @@
+fixtures: []
+test_cases:
+- test_case: user asks to start 10 transfers 000
+  fixtures: null
+  steps:
+  - user: Please start ten transfers to Jim
+  - commands:
+    - start_flow: transfer_money
+    - set_slot:
+      - transfer_money_recipient: Jim
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: '10'
+  - commands:
+    - set_slot:
+      - transfer_money_amount_of_money: 10
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: yes
+  - commands:
+    - set_slot:
+      - transfer_money_final_confirmation: "True"
+  - utter: utter_transfer_complete
+  - utter: utter_can_do_something_else
+  - user: show my transactions please
+  - commands:
+    - start_flow: transaction_search
+  - utter: utter_transactions

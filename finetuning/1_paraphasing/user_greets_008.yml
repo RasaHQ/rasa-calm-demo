@@ -1,0 +1,9 @@
+fixtures: []
+test_cases:
+- test_case: user greets 008
+  fixtures: null
+  steps:
+  - user: Hiya!
+  - commands:
+    - chitchat
+  - utter: utter_greet

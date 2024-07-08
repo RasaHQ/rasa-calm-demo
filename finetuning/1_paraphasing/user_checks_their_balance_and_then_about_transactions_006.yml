@@ -1,0 +1,14 @@
+fixtures: []
+test_cases:
+- test_case: user checks their balance and then about transactions 006
+  fixtures: null
+  steps:
+  - user: What's the current standing of my account?
+  - commands:
+    - start_flow: "check_balance"
+  - utter: utter_current_balance
+  - utter: utter_can_do_something_else
+  - user: I want to see my account activity.
+  - commands:
+    - start_flow: "transaction_search"
+  - utter: utter_transactions

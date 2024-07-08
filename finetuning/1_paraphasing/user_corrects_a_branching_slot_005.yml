@@ -1,0 +1,35 @@
+fixtures: []
+test_cases:
+- test_case: user corrects a branching slot 005
+  fixtures: null
+  steps:
+  - user: Can we proceed with account verification?
+  - commands:
+    - start_flow: verify_account
+  - utter: utter_ask_verify_account_email
+  - user: I use birdie@example.com for my email.
+  - commands:
+    - set_slot:
+      - verify_account_email: "birdie@example.com"
+  - utter: utter_ask_based_in_california
+  - user: Yes, indeed.
+  - commands:
+    - set_slot:
+      - based_in_california: "True"
+  - utter: utter_ask_verify_account_sufficient_california_income
+  - user: Actually, I don't reside in California.
+  - commands:
+    - correct_slot:
+      - based_in_california: "False"
+  - utter: utter_ask_confirm_slot_correction
+  - user: Yes, that's right.
+  - commands:
+    - set_slot:
+      - confirm_slot_correction: "True"
+  - utter: utter_corrected_previous_input
+  - utter: utter_ask_verify_account_confirmation
+  - user: Yes, that's accurate.
+  - commands:
+    - set_slot:
+      - verify_account_confirmation: "True"
+  - utter: utter_verify_account_success

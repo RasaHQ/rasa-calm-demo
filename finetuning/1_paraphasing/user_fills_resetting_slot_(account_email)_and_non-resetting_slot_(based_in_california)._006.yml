@@ -1,0 +1,30 @@
+fixtures: []
+test_cases:
+- test_case: user fills resetting slot (account_email) and non-resetting slot (based_in_california).
+    006
+  fixtures: null
+  steps:
+  - user: Is it possible to verify my account?
+  - commands:
+    - start_flow: "verify_account"
+  - utter: utter_ask_verify_account_email
+  - user: My registered email is gos@hawk.com.
+  - commands:
+    - set_slot:
+      - verify_account_email: gos@hawk.com
+  - utter: utter_ask_based_in_california
+  - user: I'm not located in California.
+  - commands:
+    - set_slot:
+      - based_in_california: "False"
+  - utter: utter_ask_verify_account_confirmation
+  - user: That's accurate.
+  - commands:
+    - set_slot:
+      - verify_account_confirmation: "True"
+  - utter: utter_verify_account_success
+  - utter: utter_can_do_something_else
+  - user: See you next time.
+  - commands:
+    - chitchat
+  - utter: utter_goodbye

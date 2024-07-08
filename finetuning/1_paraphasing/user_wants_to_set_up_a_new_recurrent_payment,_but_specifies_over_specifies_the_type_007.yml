@@ -1,0 +1,15 @@
+fixtures: []
+test_cases:
+- test_case: user wants to set up a new recurrent payment, but specifies over specifies
+    the type 007
+  fixtures: null
+  steps:
+  - user: I desire to put in place a new regular payment.
+  - commands:
+    - start_flow: setup_recurrent_payment
+  - utter: utter_ask_recurrent_payment_type
+  - user: I'm keen on starting a direct debit transfer payment.
+  - commands:
+    - set_slot:
+      - recurrent_payment_type: "direct debit"
+  - utter: utter_ask_recipient

@@ -1,0 +1,17 @@
+fixtures: []
+test_cases:
+- test_case: user transfers money mentioning two slots upfront eg 2 002
+  fixtures: null
+  steps:
+  - user: I need to send Maria 413$.
+  - commands:
+    - start_flow: transfer_money
+    - set_slot:
+      - transfer_money_recipient: Maria
+      - transfer_money_amount_of_money: "413"
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: Sure.
+  - commands:
+    - set_slot:
+      - transfer_money_final_confirmation: "True"
+  - utter: utter_transfer_complete

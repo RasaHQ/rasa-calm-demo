@@ -1,0 +1,24 @@
+fixtures: []
+test_cases:
+- test_case: user transfers money 004
+  fixtures: null
+  steps:
+  - user: I'd like to wire some money.
+  - commands:
+    - start_flow: transfer_money
+  - utter: utter_ask_transfer_money_recipient
+  - user: John is the one I'm sending money to.
+  - commands:
+    - set_slot:
+      - transfer_money_recipient: John
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: I'd like to transfer an amount of 150$.
+  - commands:
+    - set_slot:
+      - transfer_money_amount_of_money: "150"
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: Definitely.
+  - commands:
+    - set_slot:
+      - transfer_money_final_confirmation: "True"
+  - utter: utter_transfer_complete

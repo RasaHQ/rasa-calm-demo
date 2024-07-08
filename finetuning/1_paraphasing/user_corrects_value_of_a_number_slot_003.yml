@@ -1,0 +1,44 @@
+fixtures: []
+test_cases:
+- test_case: user corrects value of a number slot 003
+  fixtures: null
+  steps:
+  - user: I want to arrange a table at Prometheus pizza, I adore their doughy crust.
+  - commands:
+    - start_flow: book_restaurant
+    - set_slot:
+      - book_restaurant_name_of_restaurant: Prometheus pizza
+  - utter: utter_ask_book_restaurant_number_of_people
+  - user: for 4 people.
+  - commands:
+    - set_slot:
+      - book_restaurant_number_of_people: "4"
+  - utter: utter_ask_book_restaurant_date
+  - user: Hold up, let's make it 5, Barbara is coming along.
+  - commands:
+    - correct_slot:
+      - book_restaurant_number_of_people: "5"
+  - utter: utter_ask_confirm_slot_correction
+  - user: Yes, please.
+  - commands:
+    - set_slot:
+      - confirm_slot_correction: "True"
+  - utter: utter_corrected_previous_input
+  - utter: utter_ask_book_restaurant_date
+  - user: Is there availability for 8 pm tomorrow night?
+  - commands:
+    - set_slot:
+      - book_restaurant_date: "tomorrow"
+      - book_restaurant_time: "8 pm"
+  - utter: utter_restaurant_available
+  - utter: utter_ask_book_restaurant_reservation_name
+  - user: It's for Jamie.
+  - commands:
+    - set_slot:
+      - book_restaurant_reservation_name: "Jamie"
+  - utter: utter_ask_book_restaurant_confirmation
+  - user: Yes, please.
+  - commands:
+    - set_slot:
+      - book_restaurant_confirmation: "True"
+  - utter: utter_confirm_restaurant_booking

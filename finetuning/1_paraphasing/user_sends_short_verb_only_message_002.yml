@@ -1,0 +1,15 @@
+fixtures: []
+test_cases:
+- test_case: user sends short verb only message 002
+  fixtures: null
+  steps:
+  - user: I'm thinking of adding something.
+  - commands:
+    - clarify:
+      - "add_card"
+      - "add_contact"
+  - utter: utter_clarification_options_rasa
+  - user: I have a contact to add.
+  - commands:
+    - start_flow: add_contact
+  - utter: utter_ask_add_contact_handle

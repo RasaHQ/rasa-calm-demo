@@ -1,0 +1,36 @@
+fixtures: []
+test_cases:
+- test_case: user tries to skip a question multiple times (easy) 002
+  fixtures: null
+  steps:
+  - user: Could you help me send some cash to John?
+  - commands:
+    - start_flow: transfer_money
+    - set_slot:
+      - transfer_money_recipient: John
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: Can we move on to a different question?
+  - commands:
+    - skip_question
+  - utter: utter_skip_question_answer
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: Could we advance to the next query?
+  - commands:
+    - skip_question
+  - utter: utter_skip_question_answer
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: Can I answer the following question first?
+  - commands:
+    - skip_question
+  - utter: utter_skip_question_answer
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: Alright, 50 it is.
+  - commands:
+    - set_slot:
+      - transfer_money_amount_of_money: 50
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: Absolutely.
+  - commands:
+    - set_slot:
+      - transfer_money_final_confirmation: true
+  - utter: utter_transfer_complete

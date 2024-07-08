@@ -1,0 +1,36 @@
+fixtures: []
+test_cases:
+- test_case: user corrects amount of money in the next message 006
+  fixtures: null
+  steps:
+  - user: I need to shift some funds.
+  - commands:
+    - start_flow: transfer_money
+  - utter: utter_ask_transfer_money_recipient
+  - user: I'm transferring the money to John.
+  - commands:
+    - set_slot:
+      - transfer_money_recipient: "John"
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: I want to send 100 bucks.
+  - commands:
+    - set_slot:
+      - transfer_money_amount_of_money: "100"
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: Sorry, I meant 110$.
+  - commands:
+    - correct_slot:
+      - transfer_money_amount_of_money: "110"
+  - utter: utter_ask_confirm_slot_correction
+  - user: Yes, that's it.
+  - commands:
+    - set_slot:
+      - confirm_slot_correction: "True"
+  - utter: utter_corrected_previous_input
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: The wire of {transfer_money_amount_of_money} to {transfer_money_recipient}
+      was successful.
+  - commands:
+    - set_slot:
+      - transfer_money_final_confirmation: "True"
+  - utter: utter_transfer_complete

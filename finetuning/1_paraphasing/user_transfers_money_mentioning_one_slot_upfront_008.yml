@@ -1,0 +1,21 @@
+fixtures: []
+test_cases:
+- test_case: user transfers money mentioning one slot upfront 008
+  fixtures: null
+  steps:
+  - user: I desire to convey some cash to Jacqueline.
+  - commands:
+    - start_flow: transfer_money
+    - set_slot:
+      - transfer_money_recipient: Jacqueline
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: I wish to transfer 130 dollars.
+  - commands:
+    - set_slot:
+      - transfer_money_amount_of_money: "130"
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: Sure thing.
+  - commands:
+    - set_slot:
+      - transfer_money_final_confirmation: "True"
+  - utter: utter_transfer_complete

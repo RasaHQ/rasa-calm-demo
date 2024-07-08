@@ -1,0 +1,26 @@
+fixtures: []
+test_cases:
+- test_case: user tries to skip a question once (easy) 005
+  fixtures: null
+  steps:
+  - user: I wish to remit money to John.
+  - commands:
+    - start_flow: transfer_money
+    - set_slot:
+      - transfer_money_recipient: John
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: I want to sidestep this question.
+  - commands:
+    - skip_question
+  - utter: utter_skip_question_answer
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: Sure thing, 50 it is.
+  - commands:
+    - set_slot:
+      - transfer_money_amount_of_money: 50
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: Sure, go ahead.
+  - commands:
+    - set_slot:
+      - transfer_money_final_confirmation: "True"
+  - utter: utter_transfer_complete

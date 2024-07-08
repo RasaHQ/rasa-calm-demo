@@ -1,0 +1,13 @@
+fixtures: []
+test_cases:
+- test_case: user follows up on a knowledge question 004
+  fixtures: null
+  steps:
+  - user: I'm wondering if this service allows free transfers.
+  - commands:
+    - knowledge
+  - utter: utter_knowledge_answer_placeholder
+  - user: And what about transfers that are international?
+  - commands:
+    - knowledge
+  - utter: utter_knowledge_answer_placeholder

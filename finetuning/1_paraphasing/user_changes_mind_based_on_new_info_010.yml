@@ -1,0 +1,21 @@
+fixtures: []
+test_cases:
+- test_case: user changes mind based on new info 010
+  fixtures: null
+  steps:
+  - user: Could you assist me in sending some money to Joe?
+  - commands:
+    - start_flow: transfer_money
+    - set_slot:
+      - transfer_money_recipient: 'Joe'
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: Hold on, I'd like to have a look at the transactions.
+  - commands:
+    - start_flow: transaction_search
+  - utter: utter_transactions
+  - utter: utter_flow_continue_interrupted
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: Wait, cancel that, I've already made the transfer earlier.
+  - commands:
+    - cancel_flow
+  - utter: utter_flow_cancelled_rasa

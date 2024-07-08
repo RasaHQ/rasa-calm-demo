@@ -1,0 +1,9 @@
+fixtures: []
+test_cases:
+- test_case: user checks their transactions 004
+  fixtures: null
+  steps:
+  - user: I want to check my transactions.
+  - commands:
+    - start_flow: "transaction_search"
+  - utter: utter_transactions

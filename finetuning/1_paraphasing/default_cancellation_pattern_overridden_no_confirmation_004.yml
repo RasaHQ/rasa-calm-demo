@@ -1,0 +1,18 @@
+fixtures: []
+test_cases:
+- test_case: default cancellation pattern overridden no confirmation 004
+  fixtures: null
+  steps:
+  - user: I want to arrange a dinner reservation.
+  - commands:
+    - start_flow: "book_restaurant"
+  - utter: utter_ask_book_restaurant_name_of_restaurant
+  - user: I'd prefer Noma.
+  - commands:
+    - set_slot:
+      - book_restaurant_name_of_restaurant: Noma
+  - utter: utter_ask_book_restaurant_number_of_people
+  - user: I've reconsidered, please cancel that.
+  - commands:
+    - cancel_flow
+  - utter: utter_can_do_something_else

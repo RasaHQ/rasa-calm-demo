@@ -1,0 +1,12 @@
+fixtures: []
+test_cases:
+- test_case: user starts with a very long message 009
+  fixtures: null
+  steps:
+  - user: I need to clear my debt with Steven for his help yesterday when my phone
+      was out of energy.
+  - commands:
+    - start_flow: transfer_money
+    - set_slot:
+      - transfer_money_recipient: Steven
+  - utter: utter_ask_transfer_money_amount_of_money

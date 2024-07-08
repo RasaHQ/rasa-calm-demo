@@ -1,0 +1,23 @@
+fixtures: []
+test_cases:
+- test_case: validation too little money 002
+  fixtures: null
+  steps:
+  - user: I wish to send Martin a sum of $5000.
+  - commands:
+    - start_flow: transfer_money
+    - set_slot:
+      - transfer_money_recipient: Martin
+      - transfer_money_amount_of_money: "5000"
+  - utter: utter_transfer_money_insufficient_funds
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: I must have miscalculated, please transfer $3000 for now.
+  - commands:
+    - set_slot:
+      - transfer_money_amount_of_money: "3000"
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: Absolutely.
+  - commands:
+    - set_slot:
+      - transfer_money_final_confirmation: "True"
+  - utter: utter_transfer_complete

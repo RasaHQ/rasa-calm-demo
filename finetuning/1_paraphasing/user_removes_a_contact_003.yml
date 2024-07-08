@@ -1,0 +1,19 @@
+fixtures: []
+test_cases:
+- test_case: user removes a contact 003
+  fixtures: null
+  steps:
+  - user: I'm interested in removing a contact.
+  - commands:
+    - start_flow: remove_contact
+  - utter: utter_ask_remove_contact_handle
+  - user: The contact handle I want to remove is @MaryLu.
+  - commands:
+    - set_slot:
+      - remove_contact_handle: "@MaryLu"
+  - utter: utter_ask_remove_contact_confirmation
+  - user: Yes, go ahead.
+  - commands:
+    - set_slot:
+      - remove_contact_confirmation: "Yes"
+  - utter: utter_remove_contact_success

@@ -1,0 +1,37 @@
+fixtures: []
+test_cases:
+- test_case: user resets a slot by value 008
+  fixtures: null
+  steps:
+  - user: I intend to transmit some money to John.
+  - commands:
+    - start_flow: transfer_money
+    - set_slot:
+      - transfer_money_recipient: "John"
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: Approximately 50.
+  - commands:
+    - set_slot:
+      - transfer_money_amount_of_money: "50"
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: I intend to reassign the recipient.
+  - commands:
+    - correct_slot:
+      - transfer_money_recipient: null
+  - utter: utter_ask_confirm_slot_correction
+  - user: Right.
+  - commands:
+    - set_slot:
+      - confirm_slot_correction: "True"
+  - utter: utter_corrected_previous_input
+  - utter: utter_ask_transfer_money_recipient
+  - user: Near Eliza.
+  - commands:
+    - set_slot:
+      - transfer_money_recipient: "Eliza"
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: Right.
+  - commands:
+    - set_slot:
+      - transfer_money_final_confirmation: "True"
+  - utter: utter_transfer_complete

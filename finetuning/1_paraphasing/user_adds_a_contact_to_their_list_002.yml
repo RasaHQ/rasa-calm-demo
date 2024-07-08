@@ -1,0 +1,19 @@
+fixtures: []
+test_cases:
+- test_case: user adds a contact to their list 002
+  fixtures: null
+  steps:
+  - user: I'm looking to expand my contact list with a new addition.
+  - commands:
+    - start_flow: "add_contact"
+  - utter: utter_ask_add_contact_handle
+  - user: You can find them at @barts.
+  - commands:
+    - set_slot:
+      - add_contact_handle: "@barts"
+  - utter: utter_ask_add_contact_name
+  - user: He's simply known as Bart.
+  - commands:
+    - set_slot:
+      - add_contact_name: Bart
+  - utter: utter_ask_add_contact_confirmation

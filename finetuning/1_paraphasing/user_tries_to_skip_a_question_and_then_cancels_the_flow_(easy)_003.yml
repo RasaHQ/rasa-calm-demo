@@ -1,0 +1,21 @@
+fixtures: []
+test_cases:
+- test_case: user tries to skip a question and then cancels the flow (easy) 003
+  fixtures: null
+  steps:
+  - user: I need to make a payment to John.
+  - commands:
+    - start_flow: transfer_money
+    - set_slot:
+      - transfer_money_recipient: John
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: I prefer not to answer this question.
+  - commands:
+    - skip_question
+  - utter: utter_skip_question_answer
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: I wish to abort this.
+  - commands:
+    - cancel_flow
+  - utter: utter_flow_cancelled_rasa
+  - utter: utter_can_do_something_else

@@ -1,0 +1,15 @@
+fixtures: []
+test_cases:
+- test_case: user says they don't want one option 001
+  fixtures: null
+  steps:
+  - user: Cash is what I'm interested in.
+  - commands:
+    - clarify:
+      - check_balance
+      - transfer_money
+  - utter: utter_clarification_options_rasa
+  - user: I'm not thinking about a transfer.
+  - commands:
+    - start_flow: check_balance
+  - utter: utter_current_balance

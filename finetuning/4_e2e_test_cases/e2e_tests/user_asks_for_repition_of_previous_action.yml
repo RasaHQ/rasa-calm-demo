@@ -1,0 +1,30 @@
+test_cases:
+  # this takes makes sure that final confirmation is asked always
+  - test_case: user asks for repetition of previous action
+    steps:
+      - user: send 50 USD to John
+      - commands:
+        - start_flow: transfer_money
+        - set_slot:
+            - transfer_money_recipient: John
+            - transfer_money_amount_of_money: 50
+      - utter: utter_ask_transfer_money_final_confirmation
+      - user: "yes"
+      - commands:
+        - set_slot:
+            - transfer_money_final_confirmation: "True"
+      - utter: utter_transfer_complete
+      - utter: utter_can_do_something_else
+      - user: now do it again
+      - commands:
+        - start_flow: transfer_money
+        - set_slot:
+            - transfer_money_recipient: John
+            - transfer_money_amount_of_money: 50
+            - transfer_money_final_confirmation: "True"
+      - utter: utter_ask_transfer_money_final_confirmation
+      - user: "yes"
+      - commands:
+        - set_slot:
+            - transfer_money_final_confirmation: "True"
+      - utter: utter_transfer_complete

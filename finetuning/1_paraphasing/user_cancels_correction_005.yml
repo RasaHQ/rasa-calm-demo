@@ -1,0 +1,28 @@
+fixtures: []
+test_cases:
+- test_case: user cancels correction 005
+  fixtures: null
+  steps:
+  - user: Please, can we arrange a transfer of 50 to John?
+  - commands:
+    - start_flow: transfer_money
+    - set_slot:
+      - transfer_money_amount_of_money: "50"
+      - transfer_money_recipient: "John"
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: Hold on, I think I made a mistake. I owe him 60.
+  - commands:
+    - correct_slot:
+      - transfer_money_amount_of_money: "60"
+  - utter: utter_ask_confirm_slot_correction
+  - user: No, thank you.
+  - commands:
+    - set_slot:
+      - confirm_slot_correction: "False"
+  - utter: utter_not_corrected_previous_input
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: Yes, please.
+  - commands:
+    - set_slot:
+      - transfer_money_final_confirmation: "True"
+  - bot: Successfully transferred 50 to John.

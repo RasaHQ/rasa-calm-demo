@@ -1,0 +1,38 @@
+fixtures: []
+test_cases:
+- test_case: user books a restaurant with an alternative time 000
+  fixtures: null
+  steps:
+  - user: I want to book a table for 4 at Xaigon for 7pm tonight
+  - commands:
+    - start_flow: "book_restaurant"
+    - set_slot:
+      - book_restaurant_name_of_restaurant: Xaigon
+      - book_restaurant_number_of_people: "4"
+      - book_restaurant_date: tonight
+      - book_restaurant_time: 7pm
+  - utter: utter_restaurant_not_available
+  - utter: utter_ask_book_restaurant_alternative_dummy
+  - user: sounds good!
+  - commands:
+    - correct_slot:
+      - book_restaurant_time: 8pm
+  - utter: utter_ask_confirm_slot_correction
+  - user: yes
+  - commands:
+    - set_slot:
+      - confirm_slot_correction: "True"
+  - utter: utter_corrected_previous_input
+  - utter: utter_restaurant_available
+  - utter: utter_ask_book_restaurant_reservation_name
+  - user: Emil
+  - commands:
+    - set_slot:
+      - book_restaurant_reservation_name: Emil
+  - utter: utter_ask_book_restaurant_confirmation
+  - user: yes
+  - commands:
+    - set_slot:
+      - book_restaurant_confirmation: "True"
+  - utter: utter_confirm_restaurant_booking
+  - utter: utter_can_do_something_else

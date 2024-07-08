@@ -1,0 +1,9 @@
+fixtures: []
+test_cases:
+- test_case: user starts with a knowledge question 002
+  fixtures: null
+  steps:
+  - user: Is it possible to make transfers at no cost with this service?
+  - commands:
+    - knowledge
+  - utter: utter_knowledge_answer_placeholder
