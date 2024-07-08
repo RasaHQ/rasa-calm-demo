@@ -11,9 +11,6 @@ This demo showcases a chatbot built with Rasa's LLM-native approach: [CALM](http
 > [!INFO]
 > This demo bot is currently compatible with `3.9.1`.
 
-If you want to check out the state of the demo bot compatible with Rasa 3.8.8, please check out the branch
-[3.8.x](https://github.com/RasaHQ/rasa-calm-demo/tree/3.8.x).
-
 ## Terms of Use
 
 This project is released under the Rasa's [Early Release Software Access Terms](https://rasa.com/early-release-software-terms/). 
@@ -200,8 +197,8 @@ and run end-to-end tests.
 > please refer our documentation [here](https://rasa.com/docs/rasa-pro/installation/python/installation).
 
 > [!NOTE]
-> If you install with poetry and you want to use a different version of `rasa-pro`, you can 
-> change the versions in the [pyproject.toml](./pyproject.toml) file.
+> If you want to check out the state of the demo bot compatible with Rasa 3.8.8, please check out the branch
+> [3.8.x](https://github.com/RasaHQ/rasa-calm-demo/tree/3.8.x).
 
 Prerequisites:
 - rasa pro license
