@@ -33,7 +33,7 @@ pipeline:
   timezone: "Europe/Berlin"
   timeout: 3
 - name: NLUCommandAdapter
-- name: MultiStepLLMCommandGenerator
+- name: SingleStepLLMCommandGenerator
   flow_retrieval:
     embeddings:
       model: text-embedding-3-small
@@ -41,14 +41,13 @@ pipeline:
       openai_api_base: "https://devtribe-testing-canada-east.openai.azure.com/"
       openai_api_type: azure
       openai_api_version: "2024-02-01"
-#- name: SingleStepLLMCommandGenerator
-#  llm:
-#    model_name: "gpt-35-turbo"
-#    engine: "test-gpt-35-turbo"
-#    api_type: "azure"
-#    api_version: "2024-02-01"
-#    openai_api_base: "https://devtribe-testing-canada-east.openai.azure.com/"
-#    request_timeout: 7
+  llm:
+    model_name: "gpt-35-turbo"
+    engine: "test-gpt-35-turbo"
+    api_type: "azure"
+    api_version: "2024-02-01"
+    openai_api_base: "https://devtribe-testing-canada-east.openai.azure.com/"
+    request_timeout: 7
 
 policies:
 - name: RulePolicy
