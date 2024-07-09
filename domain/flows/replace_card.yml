@@ -4,13 +4,16 @@ intents:
   - replace_card
 
 slots:
+  cardholder_name:
+    type: text
+    shared_for_coexistence: True
   current_card_name:
     type: text
     shared_for_coexistence: True
   current_card_number:
     type: text
     shared_for_coexistence: True
-  current_card_replacement_eligibility:
+  cardholder_replacement_eligibility:
     type: text
     shared_for_coexistence: True
   num_cards:

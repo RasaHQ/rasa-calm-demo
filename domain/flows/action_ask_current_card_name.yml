@@ -9,4 +9,4 @@ responses:
     - text: "Which card?"
 
 actions:
-  - select_card
+  - action_ask_current_card_name

@@ -2,7 +2,6 @@ flows:
   confirm_address:
     description: This flow is called from any other flow to confirm that the user's address is correct.
     steps:
-      - action: utter_confirm_address
       - collect: confirm_address
         description: Confirms if the user's address on file is correct
         next:

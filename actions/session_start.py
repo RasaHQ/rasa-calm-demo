@@ -11,6 +11,7 @@ from pydantic import BaseModel, HttpUrl, UUID4
 __version__ = "0.1.0"
 __build_date__ = "1 Jul 2024"
 
+
 class Card(BaseModel):
     name: str
     number: str
@@ -18,18 +19,86 @@ class Card(BaseModel):
 
 
 # from rasa_sdk.forms import FormValidationAction
-from rasa_sdk.events import AllSlotsReset, SlotSet, EventType, ActionExecuted, SessionStarted, FollowupAction
+from rasa_sdk.events import (
+    AllSlotsReset,
+    SlotSet,
+    EventType,
+    ActionExecuted,
+    SessionStarted,
+    FollowupAction,
+)
 
 logger = logging.getLogger(__name__)
 
+
 def get_cards(num_cards: int) -> List[Any]:
-    available_cards = [
-        {"name": "Gold Card", "number": "xxxx1", "replacement_eligibility": "is_eligible"},
-        {"name": "Kids Card", "number": "xxxx2", "replacement_eligibility": "not_eligible_child"},
-        {"name": "Satin Card", "number": "xxxx3", "replacement_eligibility": "is_eligible"},
-        {"name": "Family Card", "number": "xxxx4", "replacement_eligibility": "no_card_on_file"},
-    ]
+    available_cards = []
     return random.sample(available_cards, num_cards)
+
+
+def select_cardholder_profile():
+    cardholder_profiles = [
+        {
+            "name": "Maria Gonzalez",
+            "replacement_eligibility": "is_eligible",
+            "address_line_1": "300 Lakeside Ave",
+            "address_line_2": "Unit 121",
+            "city": "Seattle",
+            "state": "WA",
+            "postal_code": "98112",
+            "country": "US",
+            "cards": [
+                {"name": "Gold Card", "number": "xxxx1"},
+                {"name": "Satin Card", "number": "xxxx3"},
+            ],
+        },
+        {
+            "name": "Stefan Müller",
+            "replacement_eligibility": "is_eligible",
+            "address_line_1": "Laemmleshalde 33",
+            "address_line_2": "",
+            "city": "Herrenberg",
+            "state": "BV",
+            "postal_code": "71083",
+            "country": "DE",
+            "cards": [
+                {"name": "Silicon Card", "number": "xxxx1"},
+                {"name": "Family Card", "number": "xxxx4"},
+            ],
+        },
+        {
+            "name": "Mira Patel",
+            "replacement_eligibility": "is_eligible",
+            "address_line_1": "4 Church Walk",
+            "address_line_2": "",
+            "city": "Richmond",
+            "state": "Surrey",
+            "postal_code": "TW9 1SN",
+            "country": "UK",
+            "cards": [
+                {"name": "Gold Card", "number": "xxxx1"},
+                {"name": "Kids Card", "number": "xxxx2"},
+                {"name": "Family Card", "number": "xxxx4"},
+            ],
+        },
+        {
+            "name": "David Benoit",
+            "replacement_eligibility": "not_eligible_child",
+            "address_line_1": "7 Rue de la Coudre",
+            "address_line_2": "",
+            "city": "Saint-Malo",
+            "state": "Bretagne",
+            "postal_code": "35400",
+            "country": "FR",
+            "cards": [
+                {"name": "Kids Card", "number": "xxxx2"},
+            ],
+        },
+    ]
+    # select a random cardholder profile
+    profile = random.choice(cardholder_profiles)
+    return profile
+
 
 class ActionSessionStart(Action):
     """Executes at start of session"""
@@ -63,25 +132,38 @@ class ActionSessionStart(Action):
         domain: Dict[Text, Any],
     ) -> List[EventType]:
         """Executes the custom action"""
+        events = []
         # the session should begin with a `session_started` event
-        events = [SessionStarted()]
+        events.append(SessionStarted())
 
-        num_cards = random.randint(1, 3)
+        # select cardholder profile
+        profile = select_cardholder_profile()
+
+        num_cards = len(profile["cards"])
         print(f"Setting num_cards slot to {num_cards}")
         events.append(SlotSet("num_cards", num_cards))
 
-        cards = get_cards(num_cards)
+        cards = profile["cards"]
         events.append(SlotSet("cards", cards))
-        events.append(SlotSet("current_card_name", cards[0]['name']))
-        events.append(SlotSet("current_card_number", cards[0]['number']))
-        events.append(SlotSet("current_card_replacement_eligibility", cards[0]['replacement_eligibility']))
-        logger.debug(f"Setting current_card_name slot to {cards[0]['name']}, current_card_number slot to {cards[0]['number']}, current_card_replacement_eligibility slot to {cards[0]['replacement_eligibility']}")
+        events.append(SlotSet("current_card_name", cards[0]["name"]))
+        events.append(SlotSet("current_card_number", cards[0]["number"]))
+        events.append(
+            SlotSet(
+                "cardholder_replacement_eligibility",
+                profile["replacement_eligibility"],
+            )
+        )
+        logger.debug(
+            f"Setting current_card_name slot to {cards[0]['name']}, current_card_number slot to {cards[0]['number']}, cardholder_replacement_eligibility slot to {profile['replacement_eligibility']}"
+        )
 
-        events.append(SlotSet("address_line_1", "300 Lakeside Ave"))
-        events.append(SlotSet("address_line_2", "Unit 121"))
-        events.append(SlotSet("city", "Seattle"))
-        events.append(SlotSet("state", "WA"))
-        events.append(SlotSet("zip_code", "98112"))
+        events.append(SlotSet("cardholder_name", profile["name"]))
+        events.append(SlotSet("address_line_1", profile["address_line_1"]))
+        events.append(SlotSet("address_line_2", profile["address_line_2"]))
+        events.append(SlotSet("city", profile["city"]))
+        events.append(SlotSet("state", profile["state"]))
+        events.append(SlotSet("postal_code", profile["postal_code"]))
+        events.append(SlotSet("country", profile["country"]))
 
         events.append(ActionExecuted("action_listen"))
         return events

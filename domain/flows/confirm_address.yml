@@ -12,15 +12,18 @@ slots:
   state:
     type: text
     shared_for_coexistence: True
-  zip_code:
+  postal_code:
+    type: text
+    shared_for_coexistence: True
+  country:
     type: text
     shared_for_coexistence: True
   confirm_address:
     type: bool
 
 responses:
-  utter_confirm_address:
-    - text: "I just need to make sure I have your address correct. Is this right? {address_line_1}, {address_line_2}, {city}, {state}, {zip_code}"
+  utter_ask_confirm_address:
+    - text: "I just need to make sure I have your address correct. Is this right? {cardholder_name}, {address_line_1}, {address_line_2}, {city}, {state}, {postal_code}"
       buttons:
         - payload: yes
           title: "Yes"

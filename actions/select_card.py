@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 
 class ActionShowSlots(Action):
     def name(self):
-        return "select_card"
+        return "action_ask_current_card_name"
 
     def run(self, dispatcher, tracker, domain):
         events = []
