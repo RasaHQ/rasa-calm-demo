@@ -133,9 +133,12 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Rasa
 .rasa/
 models/
 .config/
 .keras/
 prompts/
 tests/
+qdrant_storage/
