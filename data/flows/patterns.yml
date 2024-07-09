@@ -10,6 +10,7 @@ flows:
                 next: END
           - else:
             - collect: confirm_slot_correction
+              description: boolean value set when the user affirms or denies the correction
               next:
                 - if: not slots.confirm_slot_correction
                   then:

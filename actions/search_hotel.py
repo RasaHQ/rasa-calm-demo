@@ -32,4 +32,7 @@ class SearchHotelAction(Action):
                 returned through the endpoint
         """
 
-        return [SlotSet("hotel_name", "Shadyside Inn"), SlotSet("hotel_average_rating", 2)]
+        metadata = tracker.latest_message.get("metadata", {})
+        hotel_name = metadata.get("hotel_name", "Shadyside Inn")
+        hotel_average_rating = metadata.get("hotel_average_rating", 2)
+        return [SlotSet("hotel_name", hotel_name), SlotSet("hotel_average_rating", hotel_average_rating)]

@@ -48,6 +48,11 @@ jobs:
       - name: Set up virtual environment
         run: poetry config virtualenvs.in-project true
 
+      - name: Install pip dependencies from requirements file
+        run: |
+          source .venv/bin/activate
+          pip install -r qdrant-requirements.txt
+
       # Authenticate with gcloud for release registry (where Rasa is published)
       - id: "auth-release"
         name: Authenticate with gcloud for release registry 🎫
@@ -165,6 +170,10 @@ jobs:
       run: |
         make actions &
 
+    - name: Run duckling server
+      run: |
+        make run-duckling
+
     - name: Run e2e passing tests
       env:
         OPENAI_API_KEY: ${{secrets.OPENAI_API_KEY}}
@@ -175,6 +184,7 @@ jobs:
         make test-passing
 
     - name: Run e2e flaky tests
+      if: always()
       env:
         OPENAI_API_KEY: ${{secrets.OPENAI_API_KEY}}
         RASA_PRO_LICENSE: ${{secrets.RASA_PRO_LICENSE}}
@@ -184,6 +194,7 @@ jobs:
         make test-flaky || true
 
     - name: Run e2e failing tests
+      if: always()
       env:
         OPENAI_API_KEY: ${{secrets.OPENAI_API_KEY}}
         RASA_PRO_LICENSE: ${{secrets.RASA_PRO_LICENSE}}
@@ -191,3 +202,7 @@ jobs:
         RASA_PRO_BETA_INTENTLESS: true
       run: |
         make test-failing | grep '0 passed'
+
+    - name: Stop Duckling server
+      run: |
+          make stop-duckling

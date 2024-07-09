@@ -8,6 +8,9 @@ This demo showcases a chatbot built with Rasa's LLM-native approach: [CALM](http
 > capabilities of the CALM bot. The functionality of each flow may vary, reflecting 
 > CALM's current stage of development.
 
+> [!NOTE]
+> This demo bot is currently compatible with `3.9.1`.
+
 ## Terms of Use
 
 This project is released under the Rasa's [Early Release Software Access Terms](https://rasa.com/early-release-software-terms/). 
@@ -27,6 +30,8 @@ Each flow consists of a `yaml` file and a [domain definition](https://rasa.com/d
 which includes [actions](https://rasa.com/docs/rasa-pro/concepts/domain#actions), 
 [slots](https://rasa.com/docs/rasa-pro/concepts/domain#slots), and 
 [bot ressponses](https://rasa.com/docs/rasa-pro/concepts/domain#responses). 
+
+Additionaly, the bot can showcase the enterprise search capability based on the [SQUAD dataset](https://huggingface.co/datasets/rajpurkar/squad).
 
 The table below shows all the skills implemented in the bot:
 
@@ -115,6 +120,51 @@ The table below shows all the skills implemented in the bot:
       <td><a href="data/flows/verify_account.yml">Link</a></td>
       <td><a href="domain/flows/verify_account.yml">Link</a></td>
    </tr>
+
+   <!-- Pizza -->
+
+   <tr>
+      <td rowspan="6">Ordering Pizza</td>
+      <td>Order Pizza</td>
+      <td>Allows users to order a pizza.</td>
+      <td><a href="data/flows/order_pizza.yml">Link</a></td>
+      <td><a href="domain/flows/order_pizza.yml">Link</a></td>
+   </tr>
+
+   <tr>
+      <td>Fill pizza order details</td>
+      <td>User is asked to fill out pizza order details.</td>
+      <td><a href="data/flows/order_pizza.yml">Link</a></td>
+      <td><a href="domain/flows/order_pizza.yml">Link</a></td>
+   </tr>
+
+   <tr>
+      <td>Use membership points</td>
+      <td>User asks to use membership or loyalty points.</td>
+      <td><a href="data/flows/order_pizza.yml">Link</a></td>
+      <td><a href="domain/flows/order_pizza.yml">Link</a></td>
+   </tr>
+
+   <tr>
+      <td>Correct Order</td>
+      <td>Allows users to correct order details.</td>
+      <td><a href="data/flows/order_pizza.yml">Link</a></td>
+      <td><a href="domain/flows/order_pizza.yml">Link</a></td>
+   </tr>
+
+   <tr>
+      <td>Correct Address</td>
+      <td>Allows users to correct the delivery address.</td>
+      <td><a href="data/flows/order_pizza.yml">Link</a></td>
+      <td><a href="domain/flows/order_pizza.yml">Link</a></td>
+   </tr>
+
+   <tr>
+      <td>Job vacancies</td>
+      <td>Allows users to ask for job vacancies.</td>
+      <td><a href="data/flows/order_pizza.yml">Link</a></td>
+      <td><a href="domain/flows/order_pizza.yml">Link</a></td>
+   </tr>
   
 </table>
 
@@ -122,6 +172,7 @@ The table below shows all the skills implemented in the bot:
 <table border="1">
    <tr>
    <th>Skill Group</th>
+   <th>Name</th>
    <th>Description</th>
    <th>Link to story, rules, nlu data</th>
    <th>Link to domain</th>
@@ -153,6 +204,25 @@ The table below shows all the skills implemented in the bot:
   
 </table>
 
+<table border="1">
+   <tr>
+   <th>Skill Group</th>
+   <th>Name</th>
+   <th>Description</th>
+   <th>Link to loading script</th>
+   </tr>
+   
+   <!-- Enterprise Search -->
+   
+   <tr>
+      <td rowspan="5">Enterprise Search</td>
+      <td>Q&A based on SQUAD Dataset</td>
+      <td>Load and search the https://huggingface.co/datasets/rajpurkar/squad dataset.</td>
+      <td><a href="scripts/load-data-to-qdrant.py">Link</a></td>
+   </tr>
+  
+</table>
+
 Rasa ships with a default behavior in CALM for every [conversation repair case](https://rasa.com/docs/rasa-pro/concepts/conversation-repair/#conversation-repair-cases)
 which is handled through a [default pattern flow](https://rasa.com/docs/rasa-pro/concepts/conversation-repair/#conversation-repair-cases). 
 In addition to its core functionality, the demo bot also includes an examples of 
@@ -174,14 +244,17 @@ and run end-to-end tests.
 > please refer our documentation [here](https://rasa.com/docs/rasa-pro/installation/python/installation).
 
 > [!NOTE]
-> If you install with poetry and you want to use a different version of `rasa-pro`, you can 
-> change the versions in the [pyproject.toml](./pyproject.toml) file.
+> If you want to check out the state of the demo bot compatible with Rasa 3.8.8, please check out the branch
+> [3.8.x](https://github.com/RasaHQ/rasa-calm-demo/tree/3.8.x).
 
 Prerequisites:
 - rasa pro license
 - python (3.10.12), e.g. using [pyenv](https://github.com/pyenv/pyenv) 
   `pyenv install 3.10.12`
 - Some flows require to set up and run [Duckling](https://github.com/facebook/duckling) server
+The easiest option is to spin up a docker container using `docker run -p 8000:8000 rasa/duckling`.
+Alternatively, you can use the `make run-duckling` command locally.
+This runs automatically only when you use the `make run` command, before it launches the Inspector app.
 
 After you cloned the repository, follow these installation steps:
 
@@ -206,6 +279,42 @@ After you cloned the repository, follow these installation steps:
    OPENAI_API_KEY=<your openai api key>
    RASA_DUCKLING_HTTP_URL=<url to the duckling server>
    ```
+
+5. Set up the extractive search:
+   - Setup a local docker instance of Qdrant
+      ```
+      docker pull qdrant/qdrant
+      docker run -p 6333:6333 -p 6334:6334 \
+         -v $(pwd)/qdrant_storage:/qdrant/storage:z \
+         qdrant/qdrant
+      ```
+   - Upload data to Qdrant
+      - Create a virtual environment for the upload:
+         ```
+         pip install -r qdrant-requirements.txt
+         ```
+      - Ingest documents from SQUAD dataset (modify the script if qdrant isn't running locally!)
+         ```
+         python scripts/load-data-to-qdrant.py
+         ```
+   You can toggle parameter `use_generative_llm` in config.yml to change the behavior. The answer is selected from the first search result -> metadata -> `answer` key
+
+#### Custom Information Retriever
+
+You can use a custom component for Information Retrieval by defining the custom component class name in the config as follows:
+
+```
+policies:
+- name: FlowPolicy
+- name: EnterpriseSearchPolicy
+vector_store:
+   type: "addons.qdrant.Qdrant_Store"
+```
+
+This configuration refers to `addons/qdrant.py` file and the class `Qdrant_Store`. This class is also an example that information retrievers can use a custom query, note that in `search()` function the query is rewritten using the chat transcript by `prepare_search_query` function.
+
+
+Check `config.yml` to make sure the configuration is appropriate before you train and run the bot.
 
 ### Training the bot
 
