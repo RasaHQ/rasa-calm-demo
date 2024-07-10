@@ -36,18 +36,15 @@ flows:
                     - collect: whos_card
                     # TODO: flow not followed after this point
                     - action: utter_start_damage_replacement
-                    - call: confirm_address
-                      next: END
+                      next: confirm_address
                 - if: slots.num_cards = 1
                   then:
                     - action: utter_start_damage_replacement
-                    - call: confirm_address
-                      next: END
+                      next: confirm_address
                 - else:
                     - action: utter_start_damage_replacement
                     - action: utter_replacement_sent_to_authorized_user
-                    - call: confirm_address
-                      next: END
+                      next: confirm_address
           - if: slots.replacement_reason = "never_received"
             then:
               - action: action_days_since_card_sent
@@ -73,6 +70,9 @@ flows:
           - else:
             - action: utter_unknown_replacement_reason_handover
               next: END
+      - id: confirm_address
+        call: confirm_address
+        next: END
       - id: start_replacement
         action: utter_will_cancel_and_send_new
       - action: utter_new_card_has_been_ordered

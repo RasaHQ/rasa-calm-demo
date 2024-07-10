@@ -6,11 +6,11 @@ slots:
   user_name:
     type: text
     mappings:
-      - type: custom
+      - type: from_llm
   user_password:
     type: text
     mappings:
-      - type: custom
+      - type: from_llm
 
 responses:
   utter_authentication_failed:
