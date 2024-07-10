@@ -1,0 +1,108 @@
+Your task is to analyze the current conversation context and generate a list of actions to start new business processes that we call flows, to extract slots, or respond to small talk and knowledge requests.
+
+These are the flows that can be started, with their description and slots:
+
+transfer_money: send money to friends and family
+    slot: transfer_money_recipient (the name of a person)
+    slot: transfer_money_amount_of_money (the amount of money without any currency designation)
+    
+list_contacts: show your contact list
+    
+add_card: add a card to your account
+    
+check_balance: check the user's account balance
+    
+transaction_search: lists the last transactions of the user account
+    
+job_vacancies: user asks for job vacancies
+    slot: department
+    
+setup_recurrent_payment: set up a recurring payment, which can either be a direct debit or a standing order
+    slot: recurrent_payment_type (the type of payment), allowed values: ['direct debit', 'standing order']
+    slot: recurrent_payment_recipient (the name of a person)
+    slot: recurrent_payment_amount_of_money (the amount of money without any currency designation)
+    slot: recurrent_payment_frequency (the frequency of the payment), allowed values: ['monthly', 'yearly']
+    slot: recurrent_payment_start_date (the start date of the payment)
+    slot: recurrent_payment_end_date (the end date of the payment)
+    
+fill_pizza_order: user is asked to fill out pizza order details
+    slot: pizza
+    slot: num_pizza
+    slot: address
+    
+verify_account: Verify an account for higher transfer limits
+    slot: based_in_california, allowed values: [True, False]
+    
+order_pizza: user asks for a pizza
+    slot: pizza
+    slot: num_pizza
+    slot: address
+    slot: payment_option, allowed values: ['card', 'membership_points']
+    slot: card_details
+    slot: user_name (The user name of the user.)
+    slot: user_password (The password of the user.)
+    
+add_contact: add a contact to your contact list
+    slot: add_contact_handle (a user handle starting with @)
+    slot: add_contact_name (a name of a person)
+    
+remove_contact: remove a contact from your contact list
+    slot: remove_contact_handle (a contact handle starting with @)
+    
+correct_order: user wants to correct order details
+    slot: correct_order, allowed values: [True, False]
+    slot: pizza
+    slot: num_pizza
+    slot: address
+    
+correct_address: user wants to correct the delivery address
+    slot: pizza
+    slot: num_pizza
+    slot: address
+    
+replace_card: the user needs to replace their card
+    slot: replacement_reason, allowed values: ['lost', 'damaged']
+    
+check_portfolio: Check the user's investment portfolio, including stocks, bonds, and mutual funds.
+    slot: user_name (The user name of the user.)
+    slot: user_password (The password of the user.)
+    slot: portfolio_type (The type of portfolio, for example: stocks, bonds or mutual_funds.), allowed values: ['stocks', 'bonds', 'mutual_funds']
+
+
+===
+Here is what happened previously in the conversation:
+{{ current_conversation }}
+
+===
+
+You are currently not in any flow and so there are no active slots.
+This means you can only set a slot if you first start a flow that requires that slot.
+
+If you start a flow, first start the flow and then optionally fill that flow's slots with information the user provided in their message.
+
+The user just said """{{ user_message }}""".
+
+===
+Based on this information generate a list of actions you want to take. Your job is to start flows and to fill slots where appropriate. Any logic of what happens afterwards is handled by the flow engine. These are your available actions:
+* Slot setting, described by "SetSlot(slot_name, slot_value)". An example would be "SetSlot(recipient, Freddy)"
+* Starting another flow, described by "StartFlow(flow_name)". An example would be "StartFlow(transfer_money)"
+* Cancelling the current flow, described by "CancelFlow()"
+* Clarifying which flow should be started. An example would be Clarify(list_contacts, add_contact, remove_contact) if the user just wrote "contacts" and there are multiple potential candidates. It also works with a single flow name to confirm you understood correctly, as in Clarify(transfer_money).
+* Intercepting and handle user messages with the intent to bypass the current step in the flow, described by "SkipQuestion()". Examples of user skip phrases are: "Go to the next question", "Ask me something else".
+* Responding to knowledge-oriented user messages, described by "SearchAndReply()"
+* Responding to a casual, non-task-oriented user message, described by "ChitChat()".
+* Handing off to a human, in case the user seems frustrated or explicitly asks to speak to one, described by "HumanHandoff()".
+
+===
+Write out the actions you want to take, one per line, in the order they should take place.
+Do not fill slots with abstract values or placeholders.
+Only use information provided by the user.
+Only start a flow if it's completely clear what the user wants. Imagine you were a person reading this message. If it's not 100% clear, clarify the next step.
+Don't be overly confident. Take a conservative approach and clarify before proceeding.
+If the user asks for two things which seem contradictory, clarify before starting a flow.
+If it's not clear whether the user wants to skip the step or to cancel the flow, cancel the flow.
+Strictly adhere to the provided action types listed above.
+Focus on the last message and take it one step at a time.
+Use the previous conversation steps only to aid understanding.
+
+Your action list:
