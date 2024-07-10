@@ -1,8 +1,7 @@
-import uuid
 import logging
-import inspect
+import websockets
 from typing import Text, Callable, Awaitable, List, Any, Dict, Optional
-from sanic import Blueprint, response
+from sanic import Blueprint, response, Websocket
 from sanic.request import Request
 from sanic.response import HTTPResponse
 
@@ -77,37 +76,13 @@ class TwilioVoiceInput(InputChannel):
             voice_response = VoiceResponse()
             voice_response.say(self.initial_prompt)
             start = Connect()
-            start.stream(url=f"wss://{self.server_url}/socket.io")
+            start.stream(url=f"wss://{self.server_url}/webhooks/twilio_web_sockets/websocket")
             voice_response.append(start)
             voice_response.pause(10)
             
             return response.text(str(voice_response), content_type='text/xml')
         return twilio_voice_webhook
 
-class SocketBlueprint(Blueprint):
-    """Blueprint for socketio connections."""
-
-    def __init__(
-        self, sio: AsyncServer, socketio_path: Text, *args: Any, **kwargs: Any
-    ) -> None:
-        """Creates a :class:`sanic.Blueprint` for routing socketio connenctions.
-
-        :param sio: Instance of :class:`socketio.AsyncServer` class
-        :param socketio_path: string indicating the route to accept requests on.
-        """
-        super().__init__(*args, **kwargs)
-        self.ctx.sio = sio
-        self.ctx.socketio_path = socketio_path
-
-    def register(self, app: Sanic, options: Dict[Text, Any]) -> None:
-        """Attach the Socket.IO webserver to the given Sanic instance.
-
-        :param app: Instance of :class:`sanic.app.Sanic` class
-        :param options: Options to be used while registering the
-            blueprint into the app.
-        """
-        self.ctx.sio.attach(app, self.ctx.socketio_path)
-        super().register(app, options)
 
 class TwilioWebSockets(InputChannel):
     """A socket.io input channel."""
@@ -159,37 +134,19 @@ class TwilioWebSockets(InputChannel):
         self, on_new_message: Callable[[UserMessage], Awaitable[Any]]
     ) -> Blueprint:
         """Defines a Sanic blueprint."""
-        # Workaround so that socketio works with requests from other origins.
-        # https://github.com/miguelgrinberg/python-socketio/issues/205#issuecomment-493769183
-        sio = AsyncServer(async_mode="sanic", cors_allowed_origins=[])
-        socketio_webhook = SocketBlueprint(
-            sio, self.socketio_path, "socketio_webhook", __name__
+        socketio_webhook = Blueprint(
+            "socketio_webhook", __name__
         )
 
-        # make sio object static to use in get_output_channel
-        self.sio = sio
-
+        
         @socketio_webhook.route("/", methods=["GET"])
         async def health(_: Request) -> HTTPResponse:
             return response.json({"status": "ok"})
-        @sio.on("media")
-        async def handle_message(request: Dict) -> HTTPResponse:
-            import json
-            print(request)
-            async for message in request:
-                data = json.loads(message)
-                print(data)
-                if data.get('event') == 'media':
-                    # Extract the payload
-                    media_payload = data['media']['payload']
-            
-            # Send back the same audio payload
-                    await self.sio.send(json.dumps({
-                        'event': 'media',
-                        'media': {
-                            'payload': media_payload
-                        }
-                    }))
+        
+        @socketio_webhook.websocket("/websocket")
+        async def handle_message(request: Request, ws: Websocket) -> None:
+            async for message in ws:
+                print(message)
 
         
             
