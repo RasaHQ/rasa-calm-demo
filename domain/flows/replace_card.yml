@@ -22,7 +22,7 @@ slots:
   confirm_correct_card:
     type: bool
     mappings:
-      - type: from_llm
+      - type: custom
   replacement_reason:
     type: categorical
     values:
@@ -31,7 +31,7 @@ slots:
       - never_received
       - stolen
     mappings: 
-    - type: from_llm
+    - type: custom
   replace_card_eligibility:
     type: categorical
     values:
@@ -40,11 +40,11 @@ slots:
       - not_eligible_child
       - other
     mappings: 
-    - type: from_llm
+    - type: custom
   was_card_used_fraudulently:
     type: bool
     mappings:
-      - type: from_llm
+      - type: custom
 
 responses:
   utter_ask_confirm_correct_card:

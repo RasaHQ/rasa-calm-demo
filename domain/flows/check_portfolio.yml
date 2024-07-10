@@ -8,16 +8,16 @@ slots:
       - bonds
       - mutual_funds
     mappings:
-      - type: from_llm
+      - type: custom
   portfolio_exists:
     type: bool
     mappings:
-      - type: from_llm
+      - type: custom
   portfolio_options:
     type: list
     initial_value: []
     mappings:
-      - type: from_llm
+      - type: custom
 
 responses:
   utter_portfolio_not_found:

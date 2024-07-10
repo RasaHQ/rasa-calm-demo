@@ -8,7 +8,7 @@ slots:
   transactions_list:
     type: text
     mappings:
-      - type: from_llm
+      - type: custom
 
 responses:
   utter_transactions:

@@ -7,20 +7,20 @@ slots:
   verify_account_email:
     type: text
     mappings:
-      - type: from_llm
+      - type: custom
   based_in_california:
     type: bool
     mappings:
-      - type: from_llm
+      - type: custom
     shared_for_coexistence: True
   verify_account_sufficient_california_income:
     type: bool
     mappings:
-      - type: from_llm
+      - type: custom
   verify_account_confirmation:
     type: bool
     mappings:
-      - type: from_llm
+      - type: custom
 
 responses:
   utter_ask_verify_account_email:

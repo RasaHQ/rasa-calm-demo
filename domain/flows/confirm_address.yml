@@ -7,8 +7,8 @@ slots:
   address_line_2:
     type: text
     shared_for_coexistence: True
-  city:
-     type: text
+  # city:
+  #   type: text
   state:
     type: text
     shared_for_coexistence: True
@@ -19,7 +19,7 @@ slots:
     type: bool
 
 responses:
-  utter_ask_confirm_address:
+  utter_confirm_address:
     - text: "I just need to make sure I have your address correct. Is this right? {address_line_1}, {address_line_2}, {city}, {state}, {zip_code}"
       buttons:
         - payload: yes

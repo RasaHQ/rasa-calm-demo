@@ -9,6 +9,5 @@ flows:
         next: collect_card_name
       - id: collect_card_name
         collect: current_card_name
-        utter: utter_ask_confirm_correct_card
         ask_before_filling: true
         next: END

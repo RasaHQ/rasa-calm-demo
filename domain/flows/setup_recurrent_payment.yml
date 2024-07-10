@@ -7,38 +7,38 @@ slots:
       - direct debit
       - standing order
     mappings:
-    - type: from_llm
+    - type: custom
   recurrent_payment_recipient:
     type: text
     mappings:
-    - type: from_llm
+    - type: custom
   recurrent_payment_amount_of_money:
     type: float
     mappings:
-    - type: from_llm
+    - type: custom
   recurrent_payment_frequency:
     type: categorical
     values:
       - monthly
       - yearly
     mappings:
-    - type: from_llm
+    - type: custom
   recurrent_payment_start_date:
     type: any
     mappings:
-    - type: from_llm
+    - type: custom
   recurrent_payment_end_date:
     type: any
     mappings:
-    - type: from_llm
+    - type: custom
   recurrent_payment_confirmation:
     type: bool
     mappings:
-    - type: from_llm
+    - type: custom
   setup_recurrent_payment_successful:
     type: bool
     mappings:
-    - type: from_llm
+    - type: custom
 
 responses:
   utter_ask_recurrent_payment_type:

@@ -22,51 +22,14 @@ from rasa_sdk.events import AllSlotsReset, SlotSet, EventType, ActionExecuted, S
 
 logger = logging.getLogger(__name__)
 
-def get_user_profile(num_cards: int) -> List[Any]:
-    
+def get_cards(num_cards: int) -> List[Any]:
     available_cards = [
-        {"name": "Gold Card", "number": "xxxx1"},
-        {"name": "Kids Card", "number": "xxxx2"},
-        {"name": "Satin Card", "number": "xxxx3"},
-        {"name": "Family Card", "number": "xxxx4"},
+        {"name": "Gold Card", "number": "xxxx1", "replacement_eligibility": "is_eligible"},
+        {"name": "Kids Card", "number": "xxxx2", "replacement_eligibility": "not_eligible_child"},
+        {"name": "Satin Card", "number": "xxxx3", "replacement_eligibility": "is_eligible"},
+        {"name": "Family Card", "number": "xxxx4", "replacement_eligibility": "no_card_on_file"},
     ]
-    cards = random.sample(available_cards, num_cards)
-    available_users = [
-        {"name": "James", 
-         "cards": cards, 
-         "replacement_eligibility": "is_eligible",
-         "address_line_1": "300 Lakeside Ave",
-         "city": "Seattle",
-         "state": "WA",
-         "zip_code": "98112"
-        },
-        {"name": "Philipp", 
-         "cards": cards, 
-         "replacement_eligibility": "not_eligible_child",
-         "address_line_1": "150 Stellar Street",
-         "city": "Milwaukee",
-         "state": "WI",
-         "zip_code": "300212",
-        },
-        {"name": "Patrick", 
-         "cards": cards, 
-         "replacement_eligibility": "is_eligible",
-         "address_line_1": "40th W Street",
-         "city": "Manhattan",
-         "state": "NY",
-         "zip_code": "55045",
-        },
-        {"name": "Jason", 
-         "cards": cards, 
-         "replacement_eligibility": "no_card_on_file",
-         "address_line_1": "30 Richmond Oaks",
-         "city": "San Franscisco",
-         "state": "CA",
-         "zip_code": "90210",
-        }
-    ]
-    return random.sample(available_users, 1)
-
+    return random.sample(available_cards, num_cards)
 
 class ActionSessionStart(Action):
     """Executes at start of session"""
@@ -107,18 +70,18 @@ class ActionSessionStart(Action):
         print(f"Setting num_cards slot to {num_cards}")
         events.append(SlotSet("num_cards", num_cards))
 
-        users = get_user_profile(num_cards)[0]
-        cards = users.get("cards")
-        events.append(SlotSet("users", users))
+        cards = get_cards(num_cards)
+        events.append(SlotSet("cards", cards))
         events.append(SlotSet("current_card_name", cards[0]['name']))
         events.append(SlotSet("current_card_number", cards[0]['number']))
-        events.append(SlotSet("current_card_replacement_eligibility", users.get('replacement_eligibility')))
-        logger.debug(f"Setting current_card_name slot to {cards[0]['name']}, current_card_number slot to {cards[0]['number']}, current_card_replacement_eligibility slot to {users['replacement_eligibility']}")
+        events.append(SlotSet("current_card_replacement_eligibility", cards[0]['replacement_eligibility']))
+        logger.debug(f"Setting current_card_name slot to {cards[0]['name']}, current_card_number slot to {cards[0]['number']}, current_card_replacement_eligibility slot to {cards[0]['replacement_eligibility']}")
 
-        events.append(SlotSet("address_line_1", users.get("address_line_1")))
-        events.append(SlotSet("city", users.get("city")))
-        events.append(SlotSet("state", users.get("state")))
-        events.append(SlotSet("zip_code",users.get("zip_code")))
+        events.append(SlotSet("address_line_1", "300 Lakeside Ave"))
+        events.append(SlotSet("address_line_2", "Unit 121"))
+        events.append(SlotSet("city", "Seattle"))
+        events.append(SlotSet("state", "WA"))
+        events.append(SlotSet("zip_code", "98112"))
 
         events.append(ActionExecuted("action_listen"))
         return events
