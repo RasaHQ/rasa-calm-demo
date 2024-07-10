@@ -21,9 +21,9 @@ pipeline:
 #  timezone: "Americas/Los_Angeles"
 #  timeout: 3
 - name: NLUCommandAdapter
-- name: LLMCommandGenerator
+- name: MultiStepLLMCommandGenerator
   llm:
-    model_name: gpt-4
+    model_name: gpt-3.5-turbo
     request_timeout: 7
     temperature: 0.0
     top_p: 0.0
@@ -34,7 +34,7 @@ policies:
 #- name: RulePolicy
 # - name: TEDPolicy
 - name: FlowPolicy
-#- name: EnterpriseSearchPolicy
+- name: EnterpriseSearchPolicy
 # - name: IntentlessPolicy
 
 assistant_id: 20240418-073244-narrow-archive
