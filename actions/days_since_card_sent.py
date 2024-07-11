@@ -2,7 +2,6 @@ import random
 from typing import Any, Dict
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
-from actions.db import get_restaurants
 from rasa_sdk.events import SlotSet
 
 
