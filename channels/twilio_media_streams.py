@@ -13,7 +13,7 @@ from rasa.core.channels.channel import (
     InputChannel,
     UserMessage,
 )
-from channels.deepgram_proxy import proxy
+from channels.deepgram_proxy import client_receiver, deepgram_proxy
 
 logger = logging.getLogger(__name__)
 
@@ -108,15 +108,13 @@ class TwilioWebSockets(InputChannel):
         """Defines a Sanic blueprint."""
         socketio_webhook = Blueprint("socketio_webhook", __name__)
 
-        
-
         @socketio_webhook.route("/", methods=["GET"])
         async def health(_: Request) -> HTTPResponse:
             return response.json({"status": "ok"})
 
         @socketio_webhook.websocket("/websocket")
         async def handle_message(request: Request, ws: Websocket) -> None:
-            await proxy(ws)
-            
+
+            await client_receiver(ws, self.outbox)
 
         return socketio_webhook
