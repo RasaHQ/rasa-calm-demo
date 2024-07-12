@@ -19,6 +19,16 @@ pipeline:
 
 policies:
 - name: FlowPolicy
-#- name: EnterpriseSearchPolicy
+- name: EnterpriseSearchPolicy
+  llm:
+    type: ollama # defaults to locally running ollama server
+    model_name: finetuned_command_generator
+  embeddings:
+        type: "huggingface"
+        model_name: "sentence-transformers/all-MiniLM-L6-v2"
+        model_kwargs:
+          device: "cpu"
+        encode_kwargs:
+          normalize_embeddings: True
 
 assistant_id: 20240418-073244-narrow-archive
