@@ -1,12 +1,9 @@
 version: "3.1"
 
-slots:
-   current_card_name:
-     type: text
 
 responses:
   utter_select_card:
     - text: "Which card?"
 
 actions:
-  - select_card
+  - action_ask_current_card_name

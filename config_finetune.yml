@@ -24,9 +24,9 @@ pipeline:
 - name: LLMCommandGenerator
   prompt: prompts/on_prem_prompt.jinja2
   llm:
-    model_name: dakshvar22/cmd_gen_l3_instruct_calm-demo_16bit
+    model_name: dakshvar22/cmd_gen_codellama_13b_calm_demo
     type: openai
-    api_base: https://pij23iirezwnod-8000-49sd7l25oy2a4h06o0fk.proxy.runpod.net/v1
+    api_base: https://m1guct51fczfbq-8000.proxy.runpod.net/v1
   flow_retrieval:
     embeddings:
         type: "huggingface"

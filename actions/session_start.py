@@ -40,7 +40,7 @@ def get_user_profile(num_cards: int) -> List[Any]:
          "zip_code": "98112"
         },
         {"name": "Philipp", 
-         "cards": available_cards[2], 
+         "cards": [available_cards[2]], 
          "user_type": "kid",
          "replacement_eligibility": "not_eligible_child",
          "address_line_1": "150 Stellar Street",

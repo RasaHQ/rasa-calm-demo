@@ -7,22 +7,22 @@ flows:
           name: replace_card
           confidence_threshold: 0.9
     steps:
-      - collect: confirm_correct_card
+      - id: check_eligibility
+        noop: true
+        next:
+          - if: slots.current_card_replacement_eligibility = 'not_eligible_child'
+            then:
+              - action: utter_ineligible_child_card
+                next: END
+          - else: confirm_correct_card
+              
+      - id: confirm_correct_card
+        collect: confirm_correct_card
         next:
           - if: slots.confirm_correct_card
-            then:
-              - noop:
-                next:
-                - if: slots.current_card_replacement_eligibility = 'not_eligible_child'
-                  then:
-                    - action: utter_ineligible_child_card
-                      next: END
-                - if: slots.current_card_replacement_eligibility = 'no_card_on_file'
-                  then:
-                    - link: no_eligible_card
-                - else:
-                    - call: replace_eligible_card
-                      next: END
+            then: 
+              - call: replace_eligible_card
+                next: END   
           - else:
               - noop:
                 next:
@@ -32,14 +32,8 @@ flows:
                     next: END
                 - else:
                   - call: select_card
-                    next:
-                    - if: slots.current_card_replacement_eligibility = 'not_eligible_child'
-                      then:
-                        - action: utter_ineligible_child_card
-                          next: END
-                    - if: slots.current_card_replacement_eligibility = 'no_card_on_file'
-                      then:
-                        - link: no_eligible_card
-                    - else:
-                        - call: replace_eligible_card
-                          next: END
+                    next: replace_eligible_card
+      - id: replace_eligible_card
+        call: replace_eligible_card
+        next: END
+     

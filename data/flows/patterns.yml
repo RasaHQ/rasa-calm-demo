@@ -49,4 +49,5 @@ flows:
     description: all flows have been completed and there is nothing else to be done
     name: pattern completed
     steps:
-      - action: utter_can_do_something_else
+      - noop: true
+        next: END

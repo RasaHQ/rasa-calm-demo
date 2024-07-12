@@ -5,13 +5,7 @@ flows:
     # block this flow from the LLM, should only be called from other flows
     if: False
     steps:
-      - action: select_card
-        next: wait_for_input
-      - id: wait_for_input
-        action: action_listen
-        next: collect_card_name
-      - id: collect_card_name
+      - id: collect_current_card_name
         collect: current_card_name
-        utter: utter_ask_confirm_correct_card
         ask_before_filling: true
         next: END
