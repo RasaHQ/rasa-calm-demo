@@ -289,9 +289,10 @@ After you cloned the repository, follow these installation steps:
          qdrant/qdrant
       ```
    - Upload data to Qdrant
-      - Create a virtual environment for the upload:
+      - In your virtual environment where Rasa Pro is installed, also install these dependencies:
          ```
-         pip install -r qdrant-requirements.txt
+         pip install uv
+         uv pip install -r qdrant-requirements.txt
          ```
       - Ingest documents from SQUAD dataset (modify the script if qdrant isn't running locally!)
          ```
