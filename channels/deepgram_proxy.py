@@ -5,7 +5,7 @@ import websockets
 from pydub import AudioSegment
 
 def deepgram_connect():
-	extra_headers = {'Authorization': 'Token d51e0421ea4c82735550f6f22be0e256edfc0fc1'}
+	extra_headers = {'Authorization': 'Token API-KEY'}
 	deepgram_ws = websockets.connect("wss://api.deepgram.com/v1/listen?encoding=mulaw&sample_rate=8000&channels=2&multichannel=true", extra_headers = extra_headers)
 	return deepgram_ws
 
