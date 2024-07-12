@@ -115,6 +115,6 @@ class TwilioWebSockets(InputChannel):
         @socketio_webhook.websocket("/websocket")
         async def handle_message(request: Request, ws: Websocket) -> None:
 
-            await client_receiver(ws, self.outbox)
+            await client_receiver(ws)
 
         return socketio_webhook

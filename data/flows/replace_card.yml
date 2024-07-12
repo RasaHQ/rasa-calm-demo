@@ -1,7 +1,7 @@
 flows:
   replace_card:
     description: the user needs to replace their card
-    name: replace_card
+    name: replace a card
     nlu_trigger:
       - intent:
           name: replace_card

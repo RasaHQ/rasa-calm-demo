@@ -1,8 +1,8 @@
 version: "3.1"
 
-# slots:
-#   current_card_name:
-#     type: text
+slots:
+   current_card_name:
+     type: text
 
 responses:
   utter_select_card:

@@ -1,6 +1,6 @@
 flows:
   add_card:
-    description: add a card to your account
+    description: this flow is triggered when users explicitly wants to add a new card to his account
     name: add a card
     nlu_trigger:
       - intent:

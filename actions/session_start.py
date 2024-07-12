@@ -25,15 +25,14 @@ logger = logging.getLogger(__name__)
 def get_user_profile(num_cards: int) -> List[Any]:
     
     available_cards = [
-        {"name": "Gold Card", "number": "xxxx1"},
-        {"name": "Kids Card", "number": "xxxx2"},
-        {"name": "Satin Card", "number": "xxxx3"},
-        {"name": "Family Card", "number": "xxxx4"},
+        {"name": "Sapphire Reserve", "number": "xxxx1"},
+        {"name": "Prime VISA", "number": "xxxx2"},
+        {"name": "United Explorer", "number": "xxxx3"}
     ]
-    cards = random.sample(available_cards, num_cards)
     available_users = [
         {"name": "James", 
-         "cards": cards, 
+         "user_type": "adult",
+         "cards": available_cards, 
          "replacement_eligibility": "is_eligible",
          "address_line_1": "300 Lakeside Ave",
          "city": "Seattle",
@@ -41,28 +40,13 @@ def get_user_profile(num_cards: int) -> List[Any]:
          "zip_code": "98112"
         },
         {"name": "Philipp", 
-         "cards": cards, 
+         "cards": available_cards[2], 
+         "user_type": "kid",
          "replacement_eligibility": "not_eligible_child",
          "address_line_1": "150 Stellar Street",
          "city": "Milwaukee",
          "state": "WI",
          "zip_code": "300212",
-        },
-        {"name": "Patrick", 
-         "cards": cards, 
-         "replacement_eligibility": "is_eligible",
-         "address_line_1": "40th W Street",
-         "city": "Manhattan",
-         "state": "NY",
-         "zip_code": "55045",
-        },
-        {"name": "Jason", 
-         "cards": cards, 
-         "replacement_eligibility": "no_card_on_file",
-         "address_line_1": "30 Richmond Oaks",
-         "city": "San Franscisco",
-         "state": "CA",
-         "zip_code": "90210",
         }
     ]
     return random.sample(available_users, 1)
@@ -110,6 +94,7 @@ class ActionSessionStart(Action):
         users = get_user_profile(num_cards)[0]
         cards = users.get("cards")
         events.append(SlotSet("users", users))
+        events.append(SlotSet("cards", cards))
         events.append(SlotSet("current_card_name", cards[0]['name']))
         events.append(SlotSet("current_card_number", cards[0]['number']))
         events.append(SlotSet("current_card_replacement_eligibility", users.get('replacement_eligibility')))

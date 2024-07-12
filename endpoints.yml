@@ -57,3 +57,9 @@ action_endpoint:
 #
 #nlg:
 #  type: rephrase
+tracing:
+  type: otlp
+  endpoint: localhost:4317
+  insecure: true
+  host: localhost
+  service_name: rasa

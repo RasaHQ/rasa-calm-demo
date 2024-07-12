@@ -85,7 +85,7 @@ responses:
   utter_failed_handoff:
     - text: I am sorry, I was not able to connect you to an agent. I have created a support ticket for you. Someone will reach out to you shortly.
   utter_ineligible_child_card:
-    - text: I am sorry, but you are not eligible to replace the card. Please ask your parent or guardian to contact us.
+    - text: Your parent or guardian will need to help you with replacing your card. If there's anything else you need, just let me know
 
 actions:
   - action_replace_card_eligibility

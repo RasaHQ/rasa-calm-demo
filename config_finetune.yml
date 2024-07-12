@@ -1,0 +1,48 @@
+recipe: default.v1
+language: en
+pipeline:
+#- name: LLMBasedRouter
+#  calm_entry:
+#    sticky: "handles everything else"
+#  nlu_entry:
+#    sticky: "handles everything around booking a hotel or a restaurant and health advice"
+#    non_sticky: "handles chitchat"
+- name: WhitespaceTokenizer
+- name: CountVectorsFeaturizer
+- name: CountVectorsFeaturizer
+  analyzer: char_wb
+  min_ngram: 1
+  max_ngram: 4
+- name: LogisticRegressionClassifier
+- name: CRFEntityExtractor
+#- name: DucklingEntityExtractor
+#  url: "http://duckling.gstephens.org"
+#  dimensions: [ "time", "number" ]
+#  timezone: "Americas/Los_Angeles"
+#  timeout: 3
+- name: NLUCommandAdapter
+- name: LLMCommandGenerator
+  prompt: prompts/on_prem_prompt.jinja2
+  llm:
+    model_name: dakshvar22/cmd_gen_l3_instruct_calm-demo_16bit
+    type: openai
+    api_base: https://pij23iirezwnod-8000-49sd7l25oy2a4h06o0fk.proxy.runpod.net/v1
+  flow_retrieval:
+    embeddings:
+        type: "huggingface"
+        model_name: "sentence-transformers/all-MiniLM-L6-v2"
+        model_kwargs:
+          device: "cpu"
+        encode_kwargs:
+          normalize_embeddings: True
+    active: true
+    num_flows: 5
+
+policies:
+#- name: RulePolicy
+# - name: TEDPolicy
+- name: FlowPolicy
+#- name: EnterpriseSearchPolicy
+# - name: IntentlessPolicy
+
+assistant_id: 20240418-073244-narrow-archive
