@@ -49,7 +49,7 @@ slots:
 responses:
   utter_ask_confirm_correct_card:
     - text: I've found the {current_card_name} with number {current_card_number} on file. Is this the card you want to replace?
-      channel: twilio_web_sockets
+      channel: twilio_media_streams
     - text: I've found the {current_card_name} with number {current_card_number} on file. Is this the card you want to replace?
       buttons:
         - payload: yes
@@ -60,7 +60,7 @@ responses:
     - text: Seems like I don't have the card you're asking about on file.
   utter_ask_replacement_reason:
     - text: Why do you need to replace your card?
-      channel: twilio_web_sockets
+      channel: twilio_media_streams
     - text: Why do you need to replace your card?
       buttons:
       - title: "Lost"
@@ -73,7 +73,7 @@ responses:
         payload: "stolen"
   utter_ask_was_card_used_fraudulently:
     - text: Is it possible that someone else has managed to use your card?
-      channel: twilio_web_sockets
+      channel: twilio_media_streams
     - text: Is it possible that someone else has managed to use your card?
       buttons:
         - payload: yes

@@ -26,7 +26,7 @@ pipeline:
   llm:
     model_name: dakshvar22/cmd_gen_codellama_13b_calm_demo
     type: openai
-    api_base: https://m1guct51fczfbq-8000.proxy.runpod.net/v1
+    api_base: https://l1m3a5cdpuzs4r-8000.proxy.runpod.net/v1
   flow_retrieval:
     embeddings:
         type: "huggingface"
