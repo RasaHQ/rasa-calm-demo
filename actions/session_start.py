@@ -49,7 +49,7 @@ def get_user_profile(num_cards: int) -> List[Any]:
          "zip_code": "300212",
         }
     ]
-    return random.sample(available_users, 1)
+    return available_users[0]
 
 
 class ActionSessionStart(Action):
@@ -91,7 +91,7 @@ class ActionSessionStart(Action):
         print(f"Setting num_cards slot to {num_cards}")
         events.append(SlotSet("num_cards", num_cards))
 
-        users = get_user_profile(num_cards)[0]
+        users = get_user_profile(num_cards)
         cards = users.get("cards")
         events.append(SlotSet("users", users))
         events.append(SlotSet("cards", cards))

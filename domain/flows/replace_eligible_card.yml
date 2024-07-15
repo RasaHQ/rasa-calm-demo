@@ -13,6 +13,8 @@ responses:
     - text: I see, it's because we recently sent you a new card {days_since_card_sent} days ago. It should arrive soon.
   utter_ask_lock_card:
     - text: I'll connect you with a specialist who can file a report and replace your card but would you like me to lock your current card first?
+      channel: twilio_web_sockets
+    - text: I'll connect you with a specialist who can file a report and replace your card but would you like me to lock your current card first?
       buttons:
         - payload: yes
           title: "Yes"
@@ -25,6 +27,8 @@ responses:
   utter_connect_to_specialist:
     - text: Let me get you to someone who can help.
   utter_ask_whos_card:
+    - text: I see you have an authorized user on your account. Whose card would you like to replace?
+      channel: twilio_web_sockets
     - text: I see you have an authorized user on your account. Whose card would you like to replace?
       buttons:
         - payload: mine
