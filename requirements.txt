@@ -1,0 +1,2 @@
+sentence-transformers==3.0.1
+cohere>=4,<5

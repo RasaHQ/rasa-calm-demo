@@ -1,10 +1,15 @@
 import random
+import logging
 from typing import Any, Dict
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from actions.db import get_restaurants
 from rasa_sdk.events import SlotSet
+from actions.api.mock_bank_api import BankAPI
 
+logger = logging.getLogger(__name__)
+
+bank_api = BankAPI()
 
 class DaysSinceCardSent(Action):
     """This action sets the replace_card_eligibility slot to a random value within the list of possible values."""
@@ -12,7 +17,6 @@ class DaysSinceCardSent(Action):
     def __init__(self):
         # Define the name of the action
         self.index = 0
-        self.replace_card_eligibility_values = ["is_eligible", "no_card_on_file", "not_eligible_child"]
 
 
     def name(self) -> str:
@@ -24,8 +28,12 @@ class DaysSinceCardSent(Action):
             tracker: Tracker,
             domain: Dict[str, Any]
     ):
-        # Generate random number between 1 and 14
-        days = random.randint(1, 14)
-        print(f"Setting days_since_card_sent slot to {days}")
-        # Set the replace_card_eligibility slot to a random value from the list
-        return [SlotSet("days_since_card_sent", days)]
+        cardholder_name = tracker.get_slot("cardholder_name")
+        profile = bank_api.get_cardholder_by_name(cardholder_name)
+        if profile:
+            days = profile["days_since_card_sent"]
+            logger.debug(f"Setting days_since_card_sent slot to {days}")
+            return [SlotSet("days_since_card_sent", days)]
+
+        logger.debug(f"User {cardholder_name} not found, setting days_since_card_sent slot to 100")
+        return [SlotSet("days_since_card_sent", 100)]

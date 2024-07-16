@@ -8,6 +8,7 @@ flows:
           confidence_threshold: 0.9
     steps:
       - collect: confirm_correct_card
+        reset_after_flow_ends: false
         next:
           - if: slots.confirm_correct_card
             then:

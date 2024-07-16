@@ -21,8 +21,8 @@ class ActionShowSlots(Action):
                 buttons.append(
                     {
                         "title": card.get("name"),
-                        "payload": card.get("name"),
-                        # "payload": f"/SetSlots(current_card_name={card.get('name')}, current_card_number={card.get('number')})"
+                        # "payload": card.get("name"),
+                        "payload": f"/SetSlots(current_card_name={card.get('name')}, current_card_number={card.get('number')})"
                     }
                 )
             dispatcher.utter_message(response="utter_select_card", buttons=buttons)

@@ -30,24 +30,9 @@ flows:
           - if: slots.replacement_reason = "damaged"
             then:
               - action: utter_sorry_damaged
-                next:
-                - if: slots.num_cards = 2
-                  then:
-                    - collect: whos_card
-                    # TODO: flow not followed after this point
-                    - action: utter_start_damage_replacement
-                    - call: confirm_address
-                      next: END
-                - if: slots.num_cards = 1
-                  then:
-                    - action: utter_start_damage_replacement
-                    - call: confirm_address
-                      next: END
-                - else:
-                    - action: utter_start_damage_replacement
-                    - action: utter_replacement_sent_to_authorized_user
-                    - call: confirm_address
-                      next: END
+              - action: utter_start_damage_replacement
+              - call: confirm_address
+                next: END
           - if: slots.replacement_reason = "never_received"
             then:
               - action: action_days_since_card_sent

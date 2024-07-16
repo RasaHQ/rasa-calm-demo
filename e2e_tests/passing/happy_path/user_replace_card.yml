@@ -1,0 +1,206 @@
+fixtures:
+  - profile_maria:
+      - cardholder_name: "Maria Gonzalez"
+      - current_card_name: "Gold Card"
+      - address_line_1: "300 Lakeside Ave"
+      - address_line_2: "Suite 200"
+      - city: "Cleveland"
+      - state: "OH"
+      - postal_code: "44113"
+      - country: "US"
+      - cardholder_replacement_eligibility: "is_eligible"
+      - num_cards: 2
+  - profile_stefan:
+      - cardholder_name: "Stefan Müller"
+      - current_card_name: "Silicon Card"
+      - address_line_1: "Laemmleshalde 33"
+      - address_line_2: ""
+      - city: "Herrenberg"
+      - state: "BV"
+      - postal_code: "71083"
+      - country: "DE"
+      - cardholder_replacement_eligibility: "is_eligible"
+      - num_cards: 2
+  - profile_mira:
+      - cardholder_name: "Mira Patel"
+      - current_card_name: "Gold Card"
+      - address_line_1: "4 Church Walk"
+      - address_line_2: ""
+      - city: "Richmond"
+      - state: "Surrey"
+      - postal_code: "TW9 1SN"
+      - country: "UK"
+      - cardholder_replacement_eligibility: "is_eligible"
+      - num_cards: 3
+  - profile_david:
+      - cardholder_name: "David Benoit"
+      - current_card_name: "Kids Card"
+      - address_line_1: "7 Rue de la Coudre"
+      - address_line_2: ""
+      - city: "Saint-Malo"
+      - state: "Bretagne"
+      - postal_code: "35400"
+      - country: "FR"
+      - cardholder_replacement_eligibility: "not_eligible_child"
+      - num_cards: 1
+
+test_cases:
+  - test_case: Stolen, does not confirm card
+    fixtures:
+      - profile_maria
+    steps:
+      - user: I need to replace my card
+      - utter: utter_ask_confirm_correct_card
+      - user: no
+      - utter: utter_select_card
+      - user: /SetSlots(current_card_name=Satin Card, current_card_number=xxxx3)
+      - utter: utter_ask_replacement_reason
+      - user: /SetSlots(replacement_reason=stolen)
+      - utter: utter_ask_lock_card
+      - user: yes
+      - utter: utter_card_locked
+      - utter: utter_connect_to_specialist
+      - utter: utter_can_do_something_else
+
+  - test_case: Lost not used fraudulently
+    fixtures:
+      - profile_stefan
+    steps:
+      - user: hi
+      - utter: utter_greet
+      - user: replace card
+      - utter: utter_ask_confirm_correct_card
+      - user: yes
+      - utter: utter_ask_replacement_reason
+      - user: /SetSlots(replacement_reason=lost)
+      - utter: utter_ask_was_card_used_fraudulently
+      - user: no
+      - utter: utter_will_cancel_and_send_new
+      - utter: utter_new_card_has_been_ordered
+      - utter: utter_can_do_something_else
+
+  - test_case: Lost was used fraudulently
+    fixtures:
+      - profile_mira
+    steps:
+      - user: replace my card
+      - utter: utter_ask_confirm_correct_card
+      - user: yes
+      - utter: utter_ask_replacement_reason
+      - user: /SetSlots(replacement_reason=lost)
+      - utter: utter_ask_was_card_used_fraudulently
+      - user: yes
+      - utter: utter_ask_lock_card
+      - user: yes
+      - utter: utter_card_locked
+      - utter: utter_connect_to_specialist
+      - utter: utter_can_do_something_else
+
+  - test_case: Lost kids card
+    fixtures:
+      - profile_david
+    steps:
+      - user: I didn't receive my card
+      - utter: utter_ask_confirm_correct_card
+      - user: yes
+      - utter: utter_ineligible_child_card
+      - utter: utter_can_do_something_else
+
+  - test_case: Never received, recently sent
+    fixtures:
+      - profile_maria
+    steps:
+      - user: replace card
+      - utter: utter_ask_confirm_correct_card
+      - user: yes
+      - utter: utter_ask_replacement_reason
+      - user: /SetSlots(replacement_reason=never_received)
+      - utter: utter_card_recently_sent
+      - utter: utter_can_do_something_else
+
+  - test_case: Never received, replace
+    fixtures:
+      - profile_stefan
+    steps:
+      - user: I didn't receive my card
+      - utter: utter_ask_confirm_correct_card
+      - user: yes
+      - utter: utter_will_cancel_and_send_new
+      - utter: utter_new_card_has_been_ordered
+      - utter: utter_can_do_something_else
+
+  - test_case: Damaged card
+    fixtures:
+      - profile_maria
+    steps:
+      - user: replace card
+      - utter: utter_ask_confirm_correct_card
+      - user: yes
+      - utter: utter_ask_replacement_reason
+      - user: /SetSlots(replacement_reason=damaged)
+      - utter: utter_sorry_damaged
+      - utter: utter_start_damage_replacement
+      - utter: utter_ask_confirm_address
+      - user: yes
+      - utter: utter_card_arrival
+      - utter: utter_can_do_something_else
+
+  - test_case: Damaged card, address changed
+    fixtures:
+      - profile_maria
+    steps:
+      - user: replace card
+      - utter: utter_ask_confirm_correct_card
+      - user: yes
+      - utter: utter_ask_replacement_reason
+      - user: /SetSlots(replacement_reason=damaged)
+      - utter: utter_sorry_damaged
+      - utter: utter_start_damage_replacement
+      - utter: utter_ask_confirm_address
+      - user: no
+      - utter: utter_different_address
+      - utter: utter_transfer_to_help
+      - utter: utter_can_do_something_else
+
+  - test_case: Stolen
+    fixtures:
+      - profile_maria
+    steps:
+      - user: replace card
+      - utter: utter_ask_confirm_correct_card
+      - user: yes
+      - utter: utter_ask_replacement_reason
+      - user: /SetSlots(replacement_reason=stolen)
+      - utter: utter_ask_lock_card
+      - user: yes
+      - utter: utter_card_locked
+      - utter: utter_connect_to_specialist
+      - utter: utter_can_do_something_else
+
+  - test_case: Unknown reason
+    fixtures:
+      - profile_stefan
+    steps:
+      - user: replace my card
+      - utter: utter_ask_confirm_correct_card
+      - user: yes
+      - utter: utter_ask_replacement_reason
+      - user: some other reason
+      - utter: utter_categorical_slot_rejection
+      - utter: utter_ask_replacement_reason
+      - user: damaged
+      - utter: utter_ask_confirm_address
+      - user: yes
+      - utter: utter_card_arrival
+      - utter: utter_flow_continue_interrupted
+      - utter: utter_ask_replacement_reason
+
+  - test_case: Not the correct card, but have no other cards
+    fixtures:
+      - profile_david
+    steps:
+      - user: replace card
+      - utter: utter_ask_confirm_correct_card
+      - user: no
+      - utter: utter_relevant_card_not_linked
+      - utter: utter_can_do_something_else

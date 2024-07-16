@@ -3,10 +3,16 @@ version: "3.1"
 intents:
   - replace_card
 
+entities:
+  - cardholder_name
+
 slots:
   cardholder_name:
     type: text
     shared_for_coexistence: True
+    # mappings:
+    # - type: from_entity
+    #   entity: cardholder_name
   current_card_name:
     type: text
     shared_for_coexistence: True
@@ -31,14 +37,10 @@ slots:
     values:
       - lost
       - damaged
-<<<<<<< HEAD
-    mappings:
-      - type: from_llm
-=======
       - never_received
       - stolen
-    mappings: 
-    - type: custom
+    mappings:
+      - type: from_llm
   replace_card_eligibility:
     type: categorical
     values:
@@ -48,7 +50,6 @@ slots:
       - other
     mappings: 
     - type: custom
->>>>>>> 63d3415 (in progress)
   was_card_used_fraudulently:
     type: bool
     mappings:
@@ -68,13 +69,13 @@ responses:
     - text: Why do you need to replace your card?
       buttons:
       - title: "Lost"
-        payload: "lost"
+        payload: "/SetSlots(replacement_reason=lost)"
       - title: "Damaged"
-        payload: "damaged"
+        payload: "/SetSlots(replacement_reason=damaged)"
       - title: "Never Received"
-        payload: "never_received"
+        payload: "/SetSlots(replacement_reason=never_received)"
       - title: "Stolen"
-        payload: "stolen"
+        payload: "/SetSlots(replacement_reason=stolen)"
   utter_ask_was_card_used_fraudulently:
     - text: Is it possible that someone else has managed to use your card?
       buttons:

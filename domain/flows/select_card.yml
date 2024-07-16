@@ -6,7 +6,7 @@ version: "3.1"
 
 responses:
   utter_select_card:
-    - text: "Which card?"
+    - text: "Here are the your cards, select the one you are referring to?"
 
 actions:
   - action_ask_current_card_name
