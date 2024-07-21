@@ -1,0 +1,8 @@
+test_cases:
+  - test_case: f028065cd38c4f2898a23cafddfa79f1
+    steps:
+    - user: do you offer gift wrapping services?
+    # it mentions "provided documents" but it shouldn't!
+    - utter: I'm sorry, but based on the provided documents and recent conversation, there is no information indicating that gift wrapping services are offered by FinX. If you have any other questions or need assistance with something else, feel free to ask!
+    # - condition: utter matches not "(?i).*provided documents.*"
+    - utter: utter_can_do_something_else

@@ -1,0 +1,7 @@
+test_cases:
+  - test_case: dd2784e82ea2428c876391b3971d4acf
+    steps:
+    - user: how can I update my account information?
+    # clarification triggered, Clarify(verify_account, replace_card)
+    # i think this should be a knowledge answer
+    - utter: utter_clarification_options_rasa

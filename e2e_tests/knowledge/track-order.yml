@@ -1,0 +1,8 @@
+test_cases:
+  - test_case: b67f0a2e14bb4c7495753c92c76827fa
+    steps:
+    - user: how do i track my order
+    # knowledge answer
+    - utter: To track your order, you can log in to your FinX account and navigate to the "Cards" section. From there, you can follow the prompts to track the status of your finPAY Card. If you encounter any issues, you can reach out to FinX customer support for assistance through the chatbot within the app.
+    # - condition: utter matches "(?i).*track the status.*"
+    - utter: utter_can_do_something_else

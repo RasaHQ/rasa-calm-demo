@@ -1,0 +1,8 @@
+test_cases:
+  - test_case: 3acd4e72521c43329accd5ee31b9c62b
+    steps:
+    - user: what are your business hours?
+    # it mentions "provided documents" but it shouldn't!
+    - utter: I'm sorry, but the provided documents do not contain information about the business hours of the FinX service. If you need assistance with a different topic, feel free to ask.
+    # - condition: utter matches not "(?i).*provided documents.*"
+    - utter: utter_can_do_something_else

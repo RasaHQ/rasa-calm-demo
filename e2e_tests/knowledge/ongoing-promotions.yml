@@ -1,0 +1,8 @@
+test_cases:
+  - test_case: aa1cf79e5bf3462296d75c6f1ceaf4b1
+    steps:
+    - user: do you have ongoing promotions or sales
+    # knowledge answer
+    - utter: Yes, we offer exclusive discounts and weekly offers with the finPAY Card. Enjoy savings and benefits at various merchants by using your card.
+    # - condition: utter matches "(?i).*download the app.*"
+    - utter: utter_can_do_something_else

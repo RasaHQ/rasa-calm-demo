@@ -1,0 +1,7 @@
+test_cases:
+  - test_case: 1157a7effdec4883a6ea2a6471ea5b1a
+    steps:
+    - user: can i return a defective item
+    # terrible rag response
+    - utter: If you have received a defective item, please contact our support team immediately for assistance. We will do our best to help you resolve the situation promptly.
+    - utter: utter_can_do_something_else

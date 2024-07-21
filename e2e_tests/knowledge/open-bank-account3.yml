@@ -1,0 +1,8 @@
+test_cases:
+  - test_case: 987fb609e48a410ea30e48ad577a2130
+    steps:
+    - user: open account
+    # knowledge answer
+    - utter: To open a bank account with FinX, download the app and follow the account verification process to unlock higher transaction limits and enjoy secure payments with finPAY Cards. Your privacy and security are a top priority, and all data provided is handled with the utmost care according to strict privacy policies.
+    # - condition: utter matches "(?i).*download the app.*"
+    - utter: utter_can_do_something_else

@@ -1,0 +1,8 @@
+test_cases:
+  - test_case: 6a797d4fb40441fd989276050c83548d
+    steps:
+    - user: how do I open a bank account
+    # this is a knowledge answer
+    - utter: To open a bank account with FinX, download the app and follow the steps outlined for account verification. Once verified, you can enjoy higher transaction limits and all the benefits FinX has to offer.
+    # - condition: utter matches "(?i).*download the app.*"
+    - utter: utter_can_do_something_else

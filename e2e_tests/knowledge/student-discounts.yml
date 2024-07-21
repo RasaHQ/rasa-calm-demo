@@ -1,0 +1,6 @@
+test_cases:
+  - test_case: 49e221b4c7ed4a969c1c590f112ad628
+    steps:
+    - user: do you offer discounts for students?
+    - utter: Yes, we offer exclusive discounts and weekly offers with our finPAY Card. By becoming a member of the FinX community and ordering your finPAY Card, you can enjoy a range of benefits including discounts at various participating merchants.
+    - utter: utter_can_do_something_else

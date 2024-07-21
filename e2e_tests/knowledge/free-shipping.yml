@@ -1,0 +1,8 @@
+test_cases:
+  - test_case: 9baadf90d9704c25846cf959ad94b6b7
+    steps:
+    - user: do you offer free shipping
+    # fail, it mentions "provided documents" but it shouldn't!
+    - utter: Based on the information provided, FinX offers finPAY Cards with exclusive discounts and secure payments, but there is no mention of free shipping. For more details on any potential shipping fees, it is recommended to contact FinX customer support through the chatbot within the FinX app.
+    # - condition: utter matches not "(?i).*provided documents.*"
+    - utter: utter_can_do_something_else

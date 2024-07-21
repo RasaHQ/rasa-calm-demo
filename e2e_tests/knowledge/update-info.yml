@@ -1,0 +1,7 @@
+test_cases:
+  - test_case: 32f11189a8a44cbf9581edc3f559b730
+    steps:
+    - user: how do i update personal info
+    # knowledge answer but wrong
+    - utter: To update your personal information, you can verify your account with FinX. Follow the account verification process within the app to ensure your data is secure and to potentially access higher transaction limits.
+    - utter: utter_can_do_something_else

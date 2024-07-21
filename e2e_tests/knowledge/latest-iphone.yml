@@ -1,0 +1,8 @@
+test_cases:
+  - test_case: 1cc528b2755149e1ace525a1aefb7668
+    steps:
+    - user: what are the specifications of the latest iphone?
+    # it mentions "provided documents" but it shouldn't!
+    - utter: I do not have information on the specifications of the latest iPhone based on the provided documents and conversation context.
+    # - condition: utter matches not "(?i).*provided documents.*"
+    - utter: utter_can_do_something_else

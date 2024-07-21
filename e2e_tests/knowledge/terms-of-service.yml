@@ -1,0 +1,8 @@
+test_cases:
+  - test_case: 67cbc5caaaf043dcaab1d6a4337b7af5
+    steps:
+    - user: Are there any upcoming changes to your terms of service?
+    # it mentions "provided documents" but it shouldn't!
+    - utter: Based on the provided documents, there is no mention of upcoming changes to the terms of service for FinX. The focus is on security, convenience, and the services offered within the app.
+    # - condition: utter matches not "(?i).*provided documents.*"
+    - utter: utter_can_do_something_else

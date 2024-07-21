@@ -1,0 +1,6 @@
+test_cases:
+  - test_case: 7113513b98e94e9b9d1ed748832b7007
+    steps:
+    - user: can i exchange an item for a different size?
+    # fail, wrong command
+    - utter: utter_human_handoff_not_available

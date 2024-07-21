@@ -1,0 +1,13 @@
+test_cases:
+  - test_case: 0d71fbdc05e04a98bb60f7149aa88eb8
+    steps:
+    - user: hi, is this a bank app
+    - utter: utter_greet
+    - user: do you have accounts
+    - utter: Yes, this is a payment app called FinX that allows hassle-free transactions, secure payments, and easy management of finances. You can verify your account to unlock higher transaction limits and enjoy more flexibility with your funds.
+    - utter: utter_can_do_something_else
+    - user: can i open one?
+    # knowledge answer
+    - utter: To open a bank account with FinX, download the app and follow the account verification process to unlock higher transaction limits and enjoy secure payments with finPAY Cards. Your privacy and security are a top priority, and all data provided is handled with the utmost care according to strict privacy policies.
+    # - condition: utter matches "(?i).*download the app.*"
+    - utter: utter_can_do_something_else

@@ -1,0 +1,7 @@
+test_cases:
+  - test_case: f6af3ceecf93475c82ffaee74811d05c
+    steps:
+    - user: whats the status on my refund request??
+    # terrible response
+    - utter: If you have a refund request, please contact our support team immediately for assistance. They will be able to help you with the status of your refund and provide further guidance.
+    - utter: utter_can_do_something_else

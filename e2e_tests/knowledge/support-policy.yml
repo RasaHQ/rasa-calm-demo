@@ -1,0 +1,10 @@
+test_cases:
+  - test_case: ff7b6b16576d49f58f08759ce40ae02d
+    steps:
+    - user: what is your refund policy?
+    # this test is completely messed up!
+    # wrong answer too IMO
+    - utter: If you are inquiring about our refund policy, please contact our support team for assistance. They will be able to provide you with the necessary information and guidance regarding refunds.
+    - utter: utter_can_do_something_else
+    - user: i bought something online
+    - utter: utter_greet

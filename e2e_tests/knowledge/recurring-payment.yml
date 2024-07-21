@@ -1,0 +1,6 @@
+test_cases:
+  - test_case: da112465e5a24549ac2d676dbcddc350
+    steps:
+    - user: how do i set up recurring payment
+    # pass, shouldn't have used knowledge
+    - utter: utter_ask_recurrent_payment_type

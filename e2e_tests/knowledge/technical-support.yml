@@ -1,0 +1,8 @@
+test_cases:
+  - test_case: 46851cd0958d4f89b002056475700506
+    steps:
+    - user: do you provide technical support for your products?
+    # knowledge answer
+    - utter: Yes, we provide customer support for our products. You can reach out to our dedicated customer support team through the chatbot within the FinX app for assistance with any technical issues or questions you may have.
+    # - condition: utter matches "(?i).*password in FinX.*"
+    - utter: utter_can_do_something_else
