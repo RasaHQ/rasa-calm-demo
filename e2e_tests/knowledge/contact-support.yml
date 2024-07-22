@@ -1,0 +1,7 @@
+test_cases:
+  - test_case: 05f1fe4cb4ed4a4a86566e999b5b4a0f
+    steps:
+    - user: how do i contact customer support?
+    # fail, no self awareness 😆
+    - utter: You can contact FinX customer support through the chatbot within the FinX app. They have a dedicated team available to assist you with any questions or concerns.
+    - utter: utter_can_do_something_else

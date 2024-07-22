@@ -1,0 +1,51 @@
+Question,Commands
+How do I open a bank account?,SearchAndReply
+What's the weather like today?,ChitChat
+Can you tell me a joke?,ChitChat
+Book a restaurant,StartFlow
+Transfer money,StartFlow
+How do I change my password?,SearchAndReply
+What are your business hours?,SearchAndReply
+What is your return policy?,SearchAndReply
+Do you offer discounts for students?,SearchAndReply
+Where is the nearest branch location?,SearchAndReply
+Can I check my order status online?,SearchAndReply
+What payment methods do you accept?,SearchAndReply
+How do I track my order?,SearchAndReply
+What are the specifications of the latest iPhone model?,SearchAndReply
+Do you provide technical support for your products?,SearchAndReply
+What is your refund policy for digital purchases?,SearchAndReply
+How can I contact customer support?,SearchAndReply
+Do you offer free shipping on all orders?,SearchAndReply
+What is the status of my refund request?,SearchAndReply
+Can I return a defective item?,SearchAndReply
+Do you have any ongoing promotions or sales?,SearchAndReply
+How can I update my account information?,SearchAndReply
+What are the dimensions of your large-sized t-shirts?,SearchAndReply
+Do you offer gift wrapping services?,SearchAndReply
+Can I exchange an item for a different size?,SearchAndReply
+I want to transfer money to a friend.,StartFlow
+Book a table for two at a restaurant.,StartFlow
+Can I check my transaction history?,StartFlow
+How do I add a contact?,StartFlow
+I need to replace my lost credit card.,"StartFlow, SetSlot"
+What are the steps to set up a recurring payment?,SearchAndReply
+I'd like to check my account balance.,StartFlow
+Do you offer any health advice or recommendations?,StartFlow
+Can I get a list of my recent purchases?,StartFlow
+How can I update my personal information?,SearchAndReply
+"I want to make a reservation, but I'm not sure about the date.","StartFlow, SetSlot"
+Can I transfer money to myself?,"StartFlow, SetSlot"
+"I need help with my account, but I don't know where to start.",Clarify
+Can we move on to the next question?,SkipQuestion
+I want to cancel the current transaction.,CancelFlow
+Let's skip this step and come back to it later.,SkipQuestion
+I'm getting frustrated. Can I speak to a human?,HumanHandoff
+This is taking too long. Can I talk to a real person?,HumanHandoff
+I need more complex assistance than what the chatbot can provide.,HumanHandoff
+"I want to book a vacation package, including flights and accommodation.",Clarify
+Can I transfer money between different types of accounts?,StartFlow
+I need to update my contact information and change my password.,"StartFlow, StartFlow"
+Are there any upcoming changes to your terms of service?,SearchAndReply
+How do I provide feedback or report a bug?,ChitChat
+Can I get a summary of my recent activities with your service?,StartFlow

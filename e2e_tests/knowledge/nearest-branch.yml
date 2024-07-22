@@ -1,0 +1,8 @@
+test_cases:
+  - test_case: 6250e74065584c15953d8b7baadd3d51
+    steps:
+    - user: where is your nearest branch location?
+    # it mentions "provided documents" but it shouldn't!
+    - utter: I'm sorry, but based on the provided documents and context, there is no information available about the nearest branch location. FinX operates primarily through its app and online services, offering convenience and accessibility without physical branch locations.
+    # - condition: utter matches not "(?i).*provided documents.*"
+    - utter: utter_can_do_something_else

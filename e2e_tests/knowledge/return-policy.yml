@@ -1,0 +1,8 @@
+test_cases:
+  - test_case: 305b4fec6b7741149c48896e1c5f5f2a
+    steps:
+    - user: what is your return policy?
+    # it mentions "provided documents" but it shouldn't!
+    - utter: I do not know the return policy as it is not mentioned in the provided documents or the context of our conversation.
+    # - condition: utter matches not "(?i).*provided documents.*"
+    - utter: utter_can_do_something_else

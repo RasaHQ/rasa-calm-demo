@@ -58,12 +58,12 @@ action_endpoint:
 nlg:
   type: rephrase
 
-#tracing:
-#  type: jaeger
-#  host: localhost
-#  port: 6831
-#  service_name: rasa
-#  sync_export: ~
+tracing:
+ type: jaeger
+ host: localhost
+ port: 6831
+ service_name: rasa
+ sync_export: ~
 
 vector_store:
   type: qdrant

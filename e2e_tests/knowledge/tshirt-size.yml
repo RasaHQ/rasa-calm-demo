@@ -1,0 +1,8 @@
+test_cases:
+  - test_case: 0901702cb1354dd8878d682cf83d56f8
+    steps:
+    - user: what are the sizes of your t shirts
+    # knowledge answer
+    - utter: I do not know the sizes of t-shirts available.
+    # - condition: utter matches "(?i).*do not know.*"
+    - utter: utter_can_do_something_else

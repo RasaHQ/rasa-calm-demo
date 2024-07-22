@@ -1,0 +1,8 @@
+test_cases:
+  - test_case: b0126f2a6f7f46cfb6a0497eb8982507
+    steps:
+    - user: what payment methods do you accept?
+    # knowledge answer
+    - utter: We accept finPAY Cards, which offer secure transactions and exclusive discounts at participating merchants. You can easily request your finPAY Card through your FinX account without any additional costs.
+    # - condition: utter matches "(?i).*finPAY.*"
+    - utter: utter_can_do_something_else
