@@ -25,9 +25,9 @@ logger = logging.getLogger(__name__)
 def get_user_profile(num_cards: int) -> List[Any]:
     
     available_cards = [
-        {"name": "Sapphire Reserve", "number": "xxxx1"},
-        {"name": "Prime VISA", "number": "xxxx2"},
-        {"name": "United Explorer", "number": "xxxx3"}
+        {"name": "Sapphire Reserve", "number": "4564"},
+        {"name": "Prime VISA", "number": "3233"},
+        {"name": "United Explorer", "number": "2134"}
     ]
     available_users = [
         {"name": "James", 

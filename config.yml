@@ -23,7 +23,7 @@ pipeline:
 - name: NLUCommandAdapter
 - name: LLMCommandGenerator
   llm:
-    model_name: gpt-4
+    model_name: gpt-4o-mini-2024-07-18
     request_timeout: 7
     temperature: 0.0
     top_p: 0.0
