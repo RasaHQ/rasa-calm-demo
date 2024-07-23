@@ -5,7 +5,7 @@ pipeline:
 - name: LLMCommandGenerator
   llm:
     type: ollama # defaults to locally running ollama server
-    model_name: finetuned_command_generator
+    model: finetuned_command_generator
   flow_retrieval:
       embeddings:
         type: "huggingface"
@@ -22,7 +22,7 @@ policies:
 - name: EnterpriseSearchPolicy
   llm:
     type: ollama # defaults to locally running ollama server
-    model_name: finetuned_command_generator
+    model: finetuned_command_generator
   embeddings:
         type: "huggingface"
         model_name: "sentence-transformers/all-MiniLM-L6-v2"
