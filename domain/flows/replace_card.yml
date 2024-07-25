@@ -48,20 +48,20 @@ slots:
 
 responses:
   utter_ask_confirm_correct_card:
-    - text: I've found the {current_card_name} with number {current_card_number} on file. Is this the card you want to replace?
+    - text: The number on file for {current_card_name} is {current_card_number}. Is this the card you want to replace?
       channel: twilio_media_streams
-    - text: I've found the {current_card_name} with number {current_card_number} on file. Is this the card you want to replace?
+    - text: The number on file for {current_card_name} is {current_card_number}. Is this the card you want to replace?
       buttons:
         - payload: yes
           title: "Yes"
         - payload: no
           title: "No"
   utter_relevant_card_not_linked:
-    - text: Seems like I don't have the card you're asking about on file.
+    - text: Sorry, I can't seem to find that card on file.
   utter_ask_replacement_reason:
-    - text: Why do you need to replace your card?
+    - text: Why do you need to replace this card?
       channel: twilio_media_streams
-    - text: Why do you need to replace your card?
+    - text: Why do you need to replace this card?
       buttons:
       - title: "Lost"
         payload: "lost"
@@ -72,26 +72,26 @@ responses:
       - title: "Stolen"
         payload: "stolen"
   utter_ask_was_card_used_fraudulently:
-    - text: Is it possible that someone else has managed to use your card?
+    - text: Do you think someone else might have used your card?
       channel: twilio_media_streams
-    - text: Is it possible that someone else has managed to use your card?
+    - text: Do you think someone else might have used your card?
       buttons:
         - payload: yes
           title: "Yes"
         - payload: no
           title: "No"
   utter_will_cancel_and_send_new:
-    - text: Alright, I'll cancel your card and send you a new one.
+    - text: Alright, I'll disable this card and send you a new one.
   utter_new_card_has_been_ordered:
-    - text: Your new card should arrive in 3 to 5 business days in a white envelope.
+    - text: You should get your new card within 5 business days in a plain white envelope. 
   utter_report_fraud:
-    - text: I am sorry to hear that. Unfortunately, I can't directly handle fraudulently used cards. Please go to FinX.com/disputes, to report the fraud on your account.
+    - text: I'm sorry, but I can't handle fraud here. You'll need to report this at FinX.com/disputes to get help.
   utter_unknown_replacement_reason_handover:
-    - text: Let me connect you to an agent, to get the details of what happened to your card.
+    - text: To help you with your card raplacement, let me connect you to an agent.
   utter_failed_handoff:
-    - text: I am sorry, I was not able to connect you to an agent. I have created a support ticket for you. Someone will reach out to you shortly.
+    - text: Sorry about this, but I can't reach an agent right now. I made a request and someone will contact you soon, though.
   utter_ineligible_child_card:
-    - text: Your parent or guardian will need to help you with replacing your card. If there's anything else you need, just let me know
+    - text: You'll need a legal guardian to replace your card. Let me know if you need help with something else, though! 
 
 actions:
   - action_replace_card_eligibility
