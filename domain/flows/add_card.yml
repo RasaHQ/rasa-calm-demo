@@ -5,4 +5,4 @@ intents:
 
 responses:
   utter_card_added:
-    - text: Okay, added another card.
+    - text: Okay, I added another card.
