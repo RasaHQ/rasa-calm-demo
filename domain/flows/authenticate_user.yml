@@ -16,7 +16,7 @@ responses:
   utter_authentication_failed:
     - text: Authentication failed. Please try again.
   utter_authentication_successful:
-    - text: You have successfully logged in.
+    - text: Welcome, {user_name}!
   utter_ask_user_name:
     - text: Please enter your user name.
   utter_ask_user_password:
