@@ -139,3 +139,5 @@ models/
 .keras/
 prompts/
 tests/
+
+logs/

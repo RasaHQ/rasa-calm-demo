@@ -1,0 +1,18 @@
+You are a helpful AI Assistant. 
+Your job is to select the more relevant and helpful response to the last user message under conversation history. 
+You can pick from 2 options: Action 1 and Action 2 below. Both choices will result in a response to the user.
+
+Conversation History:
+{conversation}
+
+Action 1:
+Initiate the following actions: {action_list}
+Flow Description: {flow_description}
+Command Description: 
+{command_description}
+This system-level action will result in a response issued to the user.
+
+Action 2:
+Send the following response to the user: "{search_response}"
+
+Only output a single number (1 or 2) as your answer, followed by a brief explanation of your choice.
