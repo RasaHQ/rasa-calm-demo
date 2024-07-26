@@ -9,7 +9,7 @@ This demo showcases a chatbot built with Rasa's LLM-native approach: [CALM](http
 > CALM's current stage of development.
 
 > [!NOTE]
-> This demo bot is currently compatible with `3.9.1`.
+> This demo bot is currently compatible with `3.9.3`.
 
 ## Terms of Use
 
@@ -280,7 +280,7 @@ After you cloned the repository, follow these installation steps:
    RASA_DUCKLING_HTTP_URL=<url to the duckling server>
    ```
 
-5. Set up the extractive search:
+5. If using qdrant for extractive search:
    - Setup a local docker instance of Qdrant
       ```
       docker pull qdrant/qdrant
@@ -314,8 +314,11 @@ vector_store:
 
 This configuration refers to `addons/qdrant.py` file and the class `Qdrant_Store`. This class is also an example that information retrievers can use a custom query, note that in `search()` function the query is rewritten using the chat transcript by `prepare_search_query` function.
 
+### Configuration
 
-Check `config.yml` to make sure the configuration is appropriate before you train and run the bot.
+Check `config/config.yml` to make sure the configuration is appropriate before you train and run the bot.
+There are some alternative configurations available in the config folder. 
+Theses can be used via the appropriate `make` command during training.
 
 ### Training the bot
 
@@ -325,8 +328,19 @@ make rasa-train
 ```
 which is a shortcut for:
 ```commandline
-rasa train -c config.yml -d domain --data data
+rasa train -c config/config.yml -d domain --data data
 ```
+
+Alternative configurations can be accessed for Multistep command generation:
+```commandline
+make rasa-train-multistep
+```
+or for Enterprise search with qdrant for extractive search:
+```commandline
+make rasa-train-qdrant
+```
+
+
 
 The trained model is stored in `models` directory located in the project root.
 
@@ -417,4 +431,17 @@ make rasa-test-one
 or
 ```commandline
 rasa test e2e e2e/tests/path/to/a/target/test.yml
+```
+
+------
+
+To run only the tests which are relevant to multistep command generation, 
+you can use the make command:
+
+```commandline
+make rasa-test-multistep
+```
+or
+```commandline
+run rasa test e2e e2e_tests/multistep
 ```

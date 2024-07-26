@@ -20,7 +20,13 @@ rasa-run: .EXPORT_ALL_VARIABLES
 	rasa inspect --debug
 
 rasa-train: .EXPORT_ALL_VARIABLES
-	rasa train -c config.yml -d domain --data data
+	rasa train -c config/config.yml -d domain --data data
+
+rasa-train-multistep: .EXPORT_ALL_VARIABLES
+	rasa train -c config/multistep-config.yml -d domain --data data
+
+rasa-train-qdrant: .EXPORT_ALL_VARIABLES
+	rasa train -c config/qdrant-config.yml -d domain --data data
 
 rasa-actions:
 	rasa run actions
@@ -33,6 +39,9 @@ rasa-test-flaky: .EXPORT_ALL_VARIABLES
 
 rasa-test-failing: .EXPORT_ALL_VARIABLES
 	rasa test e2e e2e_tests/failing
+
+rasa-test-multistep: .EXPORT_ALL_VARIABLES
+	rasa test e2e e2e_tests/multistep
 
 rasa-test-one: .EXPORT_ALL_VARIABLES
 	rasa test e2e $(target) --debug
@@ -54,7 +63,13 @@ run: .EXPORT_ALL_VARIABLES run-duckling
 	poetry run rasa inspect --debug
 
 train: .EXPORT_ALL_VARIABLES
-	poetry run rasa train -c config.yml -d domain --data data
+	poetry run rasa train -c config/config.yml -d domain --data data
+
+train-multistep: .EXPORT_ALL_VARIABLES
+	poetry run rasa train -c config/multistep-config.yml -d domain --data data
+
+train-qdrant: .EXPORT_ALL_VARIABLES
+	poetry run rasa train -c config/qdrant-config.yml -d domain --data data
 
 actions:
 	poetry run rasa run actions
@@ -67,6 +82,9 @@ test-flaky: .EXPORT_ALL_VARIABLES
 
 test-failing: .EXPORT_ALL_VARIABLES
 	poetry run rasa test e2e e2e_tests/failing
+
+test-multistep: .EXPORT_ALL_VARIABLES
+	poetry run rasa test e2e e2e_tests/multistep
 
 test-one: .EXPORT_ALL_VARIABLES
 	poetry run rasa test e2e $(target) --debug
