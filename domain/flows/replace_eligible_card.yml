@@ -10,26 +10,26 @@ slots:
 
 responses:
   utter_card_recently_sent:
-    - text: I see, it's because we recently sent you a new card {days_since_card_sent} days ago. It should arrive soon.
+    - text: It seems your new card was sent {days_since_card_sent} days ago. It should arrive soon!
   utter_ask_lock_card:
-    - text: I'll connect you with a specialist who can file a report and replace your card but would you like me to lock your current card first?
+    - text: Do you want to lock this card before I connect you with an agent to replace it?
       channel: twilio_media_streams
-    - text: I'll connect you with a specialist who can file a report and replace your card but would you like me to lock your current card first?
+    - text: Do you want to lock this card before I connect you with an agent to replace it?
       buttons:
         - payload: yes
           title: "Yes"
         - payload: no
           title: "No"
   utter_sorry_damaged:
-    - text: I'm sorry to hear that your card was damaged. I can take care of that for you.
+    - text: Sorry to hear your card is damaged, but I can help you replace it!
   utter_card_locked:
     - text: Ok, your {current_card_name} is now locked
   utter_connect_to_specialist:
-    - text: Let me get you to someone who can help.
+    - text: Let me get a specialist who can help with this.
   utter_ask_whos_card:
-    - text: I see you have an authorized user on your account. Whose card would you like to replace?
+    - text: Your account has more than one card under it. Which one do you want to replace?
       channel: twilio_media_streams
-    - text: I see you have an authorized user on your account. Whose card would you like to replace?
+    - text: Your account has more than one card under it. Which one do you want to replace?
       buttons:
         - payload: mine
           title: "My card"
@@ -38,9 +38,9 @@ responses:
         - payload: both
           title: "Both cards"
   utter_start_damage_replacement:
-    - text: I'll start your request now. While you wait, any current cards will still be active.
+    - text: Okay, I've started the replacement process for you and your current cards will remain active 
   utter_replacement_sent_to_authorized_user:
-    - text: The authroized users on this account will get replacement cards too.
+    - text: The other users you've authorized will get replacement cards, too.
 
 actions:
   - action_days_since_card_sent
