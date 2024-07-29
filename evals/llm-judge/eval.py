@@ -1,8 +1,16 @@
 from inspect_ai import Task, task
-from inspect_ai.dataset import FieldSpec, json_dataset
+from inspect_ai.dataset import FieldSpec, csv_dataset
 from inspect_ai.solver import generate, solver, TaskState, Generate
 from inspect_ai.util import resource
-from inspect_ai.scorer import scorer, Score, CORRECT, INCORRECT, Target
+from inspect_ai.scorer import scorer, Score, CORRECT, INCORRECT, Target, accuracy
+
+ID_KEY = "ID"
+CONVERSATION_KEY = "Conversation"
+ACTIONS_KEY = "Action List"
+FLOWS_KEY = "Flow Description"
+CMD_KEY = "Command Description"
+SEARCH_KEY = "Search Response"
+HUMAN_ANNOTATED_RESPONSE = "Target"
 
 @solver
 def prompt_with_actions():
@@ -11,10 +19,10 @@ def prompt_with_actions():
     async def solve(state: TaskState, generate: Generate) -> TaskState:
         # Extract required fields from metadata
         conversation = state.input_text
-        actions = state.metadata.get('actions', '')
-        flow_desc = state.metadata.get('flow_desc', '')
-        cmd_desc = state.metadata.get('cmd_desc', '')
-        search_response = state.metadata.get('search_response', '')
+        actions = state.metadata.get(ACTIONS_KEY, '')
+        flow_desc = state.metadata.get(FLOWS_KEY, '')
+        cmd_desc = state.metadata.get(CMD_KEY, '')
+        search_response = state.metadata.get(SEARCH_KEY, '')
 
         # Format the template with all required fields
         formatted_prompt = template.format(
@@ -31,14 +39,17 @@ def prompt_with_actions():
 
     return solve
 
-@scorer(metrics=["accuracy", "stderr"])
+@scorer(metrics=[accuracy()])
 def match_target():
     """Check if the model output matches the target answer"""
     async def score(state: TaskState, target: Target) -> Score:
         model_output = state.output.completion.strip()
         correct_answer = target.text.strip()
+
+        # extract the first line of the model output
+        model_choice = model_output.split("\n")[0].strip()
         
-        is_correct = model_output == correct_answer
+        is_correct = model_choice == correct_answer
         
         return Score(
             value=CORRECT if is_correct else INCORRECT,
@@ -51,13 +62,13 @@ def match_target():
 @task
 def llm_judge():
     """Inspect AI task for LLM Judge"""
-    dataset = json_dataset(
-        "conversations.jsonl",
+    dataset = csv_dataset(
+        "conversations.csv",
         FieldSpec(
-            input="conversation",
-            target="target",
-            id="id",
-            metadata=["actions", "flow_desc", "cmd_desc", "search_response"],
+            input=CONVERSATION_KEY,
+            target=HUMAN_ANNOTATED_RESPONSE,
+            id=ID_KEY,
+            metadata=[ACTIONS_KEY, FLOWS_KEY, CMD_KEY, SEARCH_KEY],
         ),
     )
 
