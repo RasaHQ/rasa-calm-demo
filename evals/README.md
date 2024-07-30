@@ -26,5 +26,6 @@ inspect view
 If you have already run any evaluations with Inspect, you will have a `logs` directory at the base of project.
 
 If you do not have the `logs` directory, create it and add the JSON logs you would like to view.
+Logs with results from LLM Judge Evaluation with GPT-4o and GPT-4o-mini [can be found here](https://drive.google.com/file/d/1RvjeLfyY60Ig6gyEwsx8tLSY4fzJ2e3X/view?usp=drive_link)
 
 You can copy the existing JSON logs or add new JSON logs in this directory. These logs will be available in the Inspect View
