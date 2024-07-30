@@ -20,15 +20,20 @@ def prompt_with_actions():
         # Extract required fields from metadata
         conversation = state.input_text
         actions = state.metadata.get(ACTIONS_KEY, '')
-        flow_desc = state.metadata.get(FLOWS_KEY, '')
         cmd_desc = state.metadata.get(CMD_KEY, '')
         search_response = state.metadata.get(SEARCH_KEY, '')
+
+        flow_desc = state.metadata.get(FLOWS_KEY, '')
+        if flow_desc:
+            flow = f"Flow Description: {flow_desc}"
+        else:
+            flow = ""
 
         # Format the template with all required fields
         formatted_prompt = template.format(
             conversation=conversation,
             action_list=actions,
-            flow_description=flow_desc,
+            flow_description=flow,
             command_description=cmd_desc,
             search_response=search_response
         )
