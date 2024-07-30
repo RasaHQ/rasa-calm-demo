@@ -21,6 +21,14 @@ Start the Inspect View,
 inspect view
 ```
 
+# Importing Data from Spreadsheet
+
+Dataset Spreadsheet, [link](https://docs.google.com/spreadsheets/d/1qbpIuJLIBxXxvvZJKgprjL9UwOSNj89l0nymAl1Lli4/edit?gid=1393422094#gid=1393422094)
+
+In Google Sheets, download the sheet as csv. From `File > Download > Comma Seperated Values (.csv)`
+This CSV file can be replaced with `conversations.csv` file
+
+
 # Importing or Exporting Logs
 
 If you have already run any evaluations with Inspect, you will have a `logs` directory at the base of project.
