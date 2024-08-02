@@ -1,0 +1,16 @@
+
+curl -X POST http://localhost:5005/webhooks/delayed_rest/webhook \
+-H 'Content-Type: application/json' \
+-d '{
+      "sender": "test_user",
+      "message": "I want to"
+    }'
+
+
+
+curl -X POST http://localhost:5005/webhooks/delayed_rest/webhook \
+-H 'Content-Type: application/json' \
+-d '{
+      "sender": "test_user",
+      "message": "transfer money"
+    }'
