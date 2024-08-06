@@ -47,7 +47,7 @@ class AskForRestaurantFormRestaurantName(Action):
 
         if len(restaurant_names) > 0:
             dispatcher.utter_message(
-                text="Do you know which restaurant you would like me to reverse a table at?",
+                text="Do you know which restaurant you would like me to reserve a table at?",
                 buttons=[
                     {"title": r, "payload": f'/inform{{"restaurant_name":"{r}"}}'}
                     for r in restaurant_names
