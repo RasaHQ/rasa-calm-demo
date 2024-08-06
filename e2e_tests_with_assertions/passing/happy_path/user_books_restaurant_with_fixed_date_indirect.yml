@@ -1,0 +1,21 @@
+test_cases:
+  - test_case: user_books_restaurant_with_fixed_date_indirect
+    steps:
+    - user: I want to book a table for two 7pm tonight
+      assertions:
+        - bot_uttered:
+            utter_name: utter_ask_restaurant_form_city
+    - user: /inform{"location":"berlin"}
+      assertions:
+        - bot_uttered:
+            text_matches: "What cuisine are you looking for?"
+    - user: /inform{"cuisine":"French"}
+      assertions:
+        - bot_uttered:
+            text_matches: "Do you know which restaurant you would like me to reserve a table at?"
+    - user: /inform{"restaurant_name":"Le Gourmet"}
+      assertions:
+        - bot_uttered:
+            utter_name: utter_restaurant_form_submit
+        - bot_uttered:
+            utter_name: utter_restaurant_available
