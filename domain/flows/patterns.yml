@@ -1,10 +1,20 @@
 version: "3.1"
 
+actions:
+  - action_increase_clarification_count
+
 slots:
   confirm_slot_correction:
     type: bool
     mappings:
       - type: from_llm
+  clarification_count:
+    type: float
+    initial_value: 0.0
+    mappings:
+      - type: custom
+        action: action_increase_clarification_count
+
 
 responses:
   utter_ask_confirm_slot_correction:

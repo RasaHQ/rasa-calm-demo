@@ -13,13 +13,16 @@ class ActionAuthenticateUser(Action):
         # Retrieve the user credentials from slots
         user_name = tracker.get_slot("user_name")
         user_password = tracker.get_slot("user_password")
+        attempts = tracker.get_slot("login_failed_attempts")
+        if not attempts:
+            attempts = 0
 
         # Dummy authentication.
         # Placeholder for user authentication, in real scenarios the username and
         # password should be checked against a database.
-        authenticated = True
+        authenticated = not (user_name == "John" and user_password == "1234")
 
         if authenticated:
             return [SlotSet("is_user_logged_in", True)]
         else:
-            return [SlotSet("is_user_logged_in", False)]
+            return [SlotSet("is_user_logged_in", False), SlotSet("login_failed_attempts", attempts + 1)]

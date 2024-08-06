@@ -52,3 +52,17 @@ flows:
     steps:
       - action: utter_can_do_something_else
       - action: action_reset_routing
+
+  pattern_clarification:
+    description: Conversation repair flow for handling ambiguous requests that could match multiple flows
+    name: pattern clarification
+    steps:
+      - action: action_clarify_flows
+      - action: action_increase_clarification_count
+        next:
+          - if: slots.clarification_count > 2
+            then:
+              - link: pattern_human_handoff
+          - else: clarify_options
+      - id: clarify_options
+        action: utter_clarification_options_rasa
