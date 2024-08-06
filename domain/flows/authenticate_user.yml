@@ -14,6 +14,12 @@ slots:
     type: text
     mappings:
       - type: from_llm
+  login_failed_attempts:
+    type: float
+    initial_value: 0.0
+    mappings:
+      - type: custom
+        action: action_authenticate_user
 
 responses:
   utter_authentication_failed:
@@ -24,6 +30,8 @@ responses:
     - text: Please enter your user name.
   utter_ask_user_password:
     - text: Please enter your password.
+  utter_authentication_failed_multiple_times:
+    - text: Authentication failed again. Stop authentication process.
 
 actions:
   - action_authenticate_user

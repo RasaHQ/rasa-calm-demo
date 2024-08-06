@@ -3,7 +3,13 @@ flows:
     description: "Check the user's investment portfolio, including stocks, bonds, and mutual funds."
     steps:
       - call: authenticate_user
-      - collect: portfolio_type
+        next:
+          - if: slots.login_failed_attempts >= 3
+            then:
+              - link: pattern_human_handoff
+          - else: collect_portfolio_type
+      - id: collect_portfolio_type
+        collect: portfolio_type
         description: "The type of portfolio, for example: stocks, bonds or mutual_funds."
       - action: action_check_portfolio_exists
         next:
