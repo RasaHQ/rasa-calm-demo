@@ -65,3 +65,11 @@ flows:
           - else: clarify_options
       - id: clarify_options
         action: utter_clarification_options_rasa
+      - action: action_increase_clarification_count
+        next:
+          - if: slots.clarification_count > 2
+            then:
+              - link: pattern_human_handoff
+          - else: clarify_options
+      - id: clarify_options
+        action: utter_clarification_options_rasa
