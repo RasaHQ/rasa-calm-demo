@@ -1,0 +1,7 @@
+test_cases:
+  - test_case: user greets
+    steps:
+      - user: Hi, there
+        assertions:
+          - bot_uttered:
+              utter_name: utter_greet

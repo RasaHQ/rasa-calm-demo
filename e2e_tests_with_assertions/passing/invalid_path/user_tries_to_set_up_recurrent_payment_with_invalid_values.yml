@@ -1,0 +1,74 @@
+test_cases:
+  - test_case: user wants to set up a new recurrent payment and inserts an invalid frequency value
+    steps:
+      - user: I want to set up a new standing order payment.
+        assertions:
+          - slot_was_set:
+              - name: recurrent_payment_type
+                value: standing order
+          - bot_uttered:
+              utter_name: utter_ask_recipient
+      - user: Jane Doe
+        assertions:
+          - slot_was_set:
+              - name: recurrent_payment_recipient
+                value: Jane Doe
+          - bot_uttered:
+              utter_name: utter_ask_recurrent_payment_amount_of_money
+      - user: 20 pounds
+        assertions:
+          - slot_was_set:
+              - name: recurrent_payment_amount_of_money
+                value: 20.0
+          - bot_uttered:
+              utter_name: utter_ask_recurrent_payment_frequency
+      - user: weekly
+        assertions:
+          - slot_was_not_set:
+              - name: recurrent_payment_frequency
+          - bot_uttered:
+              utter_name: utter_categorical_slot_rejection
+          - bot_uttered:
+              utter_name: utter_ask_recurrent_payment_frequency
+
+
+  - test_case: user wants to set up a new recurrent payment and gives an invalid start date (precedes current timestamp)
+    steps:
+      - user: i want to set up a new direct debit payment
+        assertions:
+          - slot_was_set:
+              - name: recurrent_payment_type
+                value: direct debit
+          - bot_uttered:
+              utter_name: utter_ask_recipient
+      - user: Jane Doe
+        assertions:
+            - slot_was_set:
+                - name: recurrent_payment_recipient
+                  value: Jane Doe
+            - bot_uttered:
+                utter_name: utter_ask_recurrent_payment_amount_of_money
+      - user: 20 pounds
+        assertions:
+            - slot_was_set:
+                - name: recurrent_payment_amount_of_money
+                  value: 20.0
+            - bot_uttered:
+                utter_name: utter_ask_recurrent_payment_frequency
+      - user: monthly
+        assertions:
+            - slot_was_set:
+                - name: recurrent_payment_frequency
+                  value: monthly
+            - bot_uttered:
+                utter_name: utter_ask_recurrent_payment_start_date
+      - user: 01/10/20
+        assertion_order_enabled: true
+        assertions:
+            - bot_uttered:
+                utter_name: utter_invalid_date
+            - slot_was_set:
+                - name: recurrent_payment_start_date
+                  value: null
+            - bot_uttered:
+                utter_name: utter_ask_recurrent_payment_start_date

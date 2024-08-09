@@ -1,0 +1,34 @@
+test_cases:
+  - test_case: user_transfers_money_mentioning_two_slots_upfront
+    steps:
+      - user: I want to send 40 bucks to Ty
+        assertions:
+          - slot_was_set:
+              - name: transfer_money_amount_of_money
+                value: "40"
+              - name: transfer_money_recipient
+                value: Ty
+          - bot_uttered:
+              utter_name: utter_ask_transfer_money_final_confirmation
+      - user: "yes"
+        assertions:
+          - action_executed: execute_transfer
+          - bot_uttered:
+              utter_name: utter_transfer_complete
+
+  - test_case: user transfers money mentioning two slots upfront eg 2
+    steps:
+      - user: I want to send 413$ to Maria
+        assertions:
+          - slot_was_set:
+              - name: transfer_money_amount_of_money
+                value: "413"
+              - name: transfer_money_recipient
+                value: Maria
+          - bot_uttered:
+                utter_name: utter_ask_transfer_money_final_confirmation
+      - user: "yes"
+        assertions:
+          - action_executed: execute_transfer
+          - bot_uttered:
+              utter_name: utter_transfer_complete

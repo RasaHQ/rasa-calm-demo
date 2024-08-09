@@ -1,0 +1,27 @@
+test_cases:
+  - test_case: user_checks_portfolio
+    steps:
+      - user: I want to check my portfolio
+        assertions:
+          - bot_uttered:
+              utter_name: utter_ask_user_name
+      - user: Max
+        assertions:
+          - bot_uttered:
+              utter_name: utter_ask_user_password
+      - user: "1234"
+        assertions:
+          - bot_uttered:
+              utter_name: utter_authentication_successful
+          - bot_uttered:
+              utter_name: utter_ask_portfolio_type
+      - user: mutual funds
+        assertions:
+          - slot_was_set:
+              - name: portfolio_type
+                value: mutual_funds
+              - name: portfolio_exists
+                value: True
+              - name: portfolio_options
+          - bot_uttered:
+              utter_name: utter_portfolio_options_found

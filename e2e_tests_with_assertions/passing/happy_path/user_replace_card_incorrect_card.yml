@@ -1,0 +1,14 @@
+test_cases:
+  - test_case: user_replace_card_incorrect_card
+    steps:
+      - user: I need to replace my card
+        assertions:
+          - bot_uttered:
+              utter_name: utter_ask_confirm_correct_card
+      - user: "no"
+        assertions:
+          - slot_was_set:
+              - name: confirm_correct_card
+                value: false
+          - bot_uttered:
+              utter_name: utter_relevant_card_not_linked

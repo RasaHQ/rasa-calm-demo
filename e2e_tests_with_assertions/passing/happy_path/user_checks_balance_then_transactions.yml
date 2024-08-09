@@ -1,0 +1,13 @@
+test_cases:
+  - test_case: user_checks_balance_then_transactions
+    steps:
+      - user: Show my balance
+        assertions:
+            - bot_uttered:
+                utter_name: utter_current_balance
+            - bot_uttered:
+                utter_name: utter_can_do_something_else
+      - user: Show my transactions please
+        assertions:
+            - bot_uttered:
+                utter_name: utter_transactions

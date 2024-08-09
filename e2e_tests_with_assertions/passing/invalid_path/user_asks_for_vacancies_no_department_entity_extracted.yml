@@ -1,0 +1,18 @@
+test_cases:
+  - test_case: user_asks_for_vacancies_no_department_entity_extracted
+    # tests that pattern_cannot_handle is triggered when LLM tries to fill in a NLU slot.
+    steps:
+      - user: I would like to apply for a job at your establishment.
+        assertions:
+          - bot_uttered:
+              utter_name: utter_ask_department
+      - user: I would like a role in the Supplies department.
+        assertion_order_enabled: true
+        assertions:
+          - flow_started: pattern_cannot_handle
+          - bot_uttered:
+              utter_name: utter_ask_rephrase
+          - flow_completed:
+              flow_id: pattern_cannot_handle
+          - bot_uttered:
+              utter_name: utter_ask_department

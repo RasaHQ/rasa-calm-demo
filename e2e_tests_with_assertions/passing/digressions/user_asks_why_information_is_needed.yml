@@ -1,0 +1,28 @@
+test_cases:
+  - test_case: user asks why information is needed
+    steps:
+      - user: I want to verify my account
+        assertions:
+          - slot_was_set:
+              - name: route_session_to_calm
+                value: True
+          - bot_uttered:
+              utter_name: utter_ask_verify_account_email
+      - user: It's a.tweep@twitter.com
+        assertions:
+        - bot_uttered:
+            utter_name: utter_ask_based_in_california
+      - user: Why do you need to know this?
+        assertions:
+          - bot_uttered:
+              utter_name: utter_california_compliance
+          - bot_uttered:
+              utter_name: utter_ask_based_in_california
+      - user: "No"
+        assertions:
+          - bot_uttered:
+              utter_name: utter_ask_verify_account_confirmation
+      - user: "Yes"
+        assertions:
+          - bot_uttered:
+              utter_name: utter_verify_account_success
