@@ -20,7 +20,8 @@ def parse_datetime(text: str) -> Optional[datetime]:
     if isinstance(parsed_value, dict):
         parsed_value = parsed_value["from"]
 
-    return datetime.fromisoformat(parsed_value)
+    result = datetime.fromisoformat(parsed_value)
+    return result.replace(tzinfo=None)
 
 
 class ValidatePaymentStartDate(Action):
