@@ -104,7 +104,12 @@ test_cases:
       assertions:
             - slot_was_set:
                 - name: replacement_reason
-                  value: some other reason
+                  # we cannot specify the original user value because the LLM can extract variable values
+                  # however the slot should be reset as part of running the slot rejections, which
+                  # is why we set the value to null
+            - slot_was_set:
+                - name: replacement_reason
+                  value: null
             - bot_uttered:
                 utter_name: utter_categorical_slot_rejection
             - bot_uttered:

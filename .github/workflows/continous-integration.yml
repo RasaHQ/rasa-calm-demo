@@ -100,7 +100,7 @@ jobs:
           path: models/${{steps.upload_model.outputs.model}}.tar.gz
 
   run_e2e_tests:
-    name: Run e2e Tests
+    name: Run e2e tests
     runs-on: ubuntu-22.04
     needs: [train-model]
 
