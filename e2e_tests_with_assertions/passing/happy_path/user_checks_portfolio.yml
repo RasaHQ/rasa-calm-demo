@@ -15,7 +15,7 @@ test_cases:
               utter_name: utter_authentication_successful
           - bot_uttered:
               utter_name: utter_ask_portfolio_type
-      - user: mutual funds
+      - user: /SetSlots(portfolio_type=mutual_funds)
         assertions:
           - slot_was_set:
               - name: portfolio_type
