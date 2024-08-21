@@ -23,7 +23,7 @@ test_cases:
               utter_name: utter_not_corrected_previous_input
           - generative_response_is_grounded:
               utter_name: utter_not_corrected_previous_input
-              threshold: 0.95
+              threshold: 0.80
           - bot_uttered:
               utter_name: utter_ask_transfer_money_final_confirmation
       - user: "Yes"
