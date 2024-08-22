@@ -91,3 +91,12 @@ test-one: .EXPORT_ALL_VARIABLES
 
 stop-duckling:
 	docker stop duckling_container
+
+test-passing-assertions: .EXPORT_ALL_VARIABLES
+	poetry run rasa test e2e e2e_tests_with_assertions/passing
+
+test-flaky-assertions: .EXPORT_ALL_VARIABLES
+	poetry run rasa test e2e e2e_tests_with_assertions/flaky
+
+test-failing-assertions: .EXPORT_ALL_VARIABLES
+	poetry run rasa test e2e e2e_tests_with_assertions/failing

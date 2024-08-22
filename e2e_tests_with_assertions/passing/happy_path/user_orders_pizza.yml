@@ -1,0 +1,120 @@
+test_cases:
+  - test_case: user_orders_pizza_stating_which_type_and_pays_with_card
+    steps:
+      - user: I would like to order a diavola pizza.
+        assertions:
+            - slot_was_set:
+                - name: pizza
+                  value: diavola
+            - bot_uttered:
+                utter_name: utter_ask_num_pizza
+      - user: 2 please
+        assertions:
+            - slot_was_set:
+                - name: num_pizza
+                  value: 2
+            - bot_uttered:
+                utter_name: utter_ask_address
+      - user: 30 Pine Road
+        assertions:
+            - slot_was_set:
+                - name: address
+                  value: 30 Pine Road
+            - bot_uttered:
+                utter_name: utter_confirm
+                buttons:
+                  - title: Yes
+                    payload: /SetSlots(confirmation_order=True)
+                  - title: No
+                    payload: /SetSlots(confirmation_order=False)
+      - user: /SetSlots(confirmation_order=True)
+        assertions:
+            - slot_was_set:
+                - name: confirmation_order
+                  value: True
+            - bot_uttered:
+                utter_name: utter_ask_payment_option
+      - user: credit card
+        assertions:
+            - slot_was_set:
+                - name: payment_option
+                  value: card
+            - bot_uttered:
+                utter_name: utter_ask_card_details
+      - user: 1234 5678 9012 3456
+        assertions:
+            - slot_was_set:
+                - name: card_details
+                  value: 1234 5678 9012 3456
+            - bot_uttered:
+                utter_name: utter_execute_payment
+
+  - test_case: user_orders_pizza_stating_which_type_and_pays_with_points
+    steps:
+      - user: I would like to order a diavola pizza.
+        assertions:
+          - slot_was_set:
+              - name: pizza
+                value: diavola
+          - bot_uttered:
+              utter_name: utter_ask_num_pizza
+      - user: 1 please
+        assertions:
+            - slot_was_set:
+                - name: num_pizza
+                  value: 1
+            - bot_uttered:
+                utter_name: utter_ask_address
+      - user: 40 Elm Street
+        assertions:
+            - slot_was_set:
+                - name: address
+                  value: 40 Elm Street
+            - bot_uttered:
+                utter_name: utter_confirm
+                buttons:
+                  - title: Yes
+                    payload: /SetSlots(confirmation_order=True)
+                  - title: No
+                    payload: /SetSlots(confirmation_order=False)
+      - user: /SetSlots(confirmation_order=True)
+        assertions:
+            - slot_was_set:
+                - name: confirmation_order
+                  value: True
+            - bot_uttered:
+                utter_name: utter_ask_payment_option
+      - user: loyalty points
+        assertions:
+            - slot_was_set:
+                - name: payment_option
+                  value: membership_points
+            - flow_started: authenticate_user
+            - bot_uttered:
+                utter_name: utter_ask_user_name
+      - user: janedoe
+        assertions:
+            - slot_was_set:
+                - name: user_name
+                  value: janedoe
+            - bot_uttered:
+                utter_name: utter_ask_user_password
+      - user: r@nd0m
+        assertions:
+            - slot_was_set:
+                - name: user_password
+                  value: r@nd0m
+            - bot_uttered:
+                utter_name: utter_authentication_successful
+            - flow_completed:
+                 flow_id: authenticate_user
+            - action_executed: action_check_points
+            - bot_uttered:
+                 text_matches: "You have 150 points in your membership account. That's enough to get a free pizza!"
+            - flow_completed:
+               flow_id: use_membership_points
+            - bot_uttered:
+                utter_name: utter_execute_payment
+            - flow_completed:
+                flow_id: order_pizza
+
