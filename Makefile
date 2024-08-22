@@ -100,3 +100,6 @@ test-flaky-assertions: .EXPORT_ALL_VARIABLES
 
 test-failing-assertions: .EXPORT_ALL_VARIABLES
 	poetry run rasa test e2e e2e_tests_with_assertions/failing
+
+make test-passing-stub-custom-actions: .EXPORT_ALL_VARIABLES
+	poetry run rasa test e2e e2e_tests_with_stub_custom_actions/passing

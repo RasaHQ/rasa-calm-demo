@@ -1,0 +1,27 @@
+stub_custom_actions:
+    check_balance:
+        events:
+        - event: slot
+          name: current_balance
+          value: 1300
+        responses: []
+    transaction_search:
+        events:
+        - event: slot
+          name: transactions_list
+          value: '{"amount": 500, "date": "2024-01-01", "description": "rent"}'
+        responses: []
+
+test_cases:
+  - test_case: user_checks_balance_then_transactions
+    steps:
+      - user: Show my balance
+        assertions:
+            - bot_uttered:
+                text_matches: You still have 1300 in your account.
+            - bot_uttered:
+                utter_name: utter_can_do_something_else
+      - user: Show my transactions please
+        assertions:
+            - bot_uttered:
+                text_matches: 'Your current transactions are:\n {"amount": 500, "date": "2024-01-01", "description": "rent"}'
