@@ -8,7 +8,7 @@ test_cases:
       - user: "1234"
       - utter: utter_authentication_successful
       - utter: utter_ask_portfolio_type
-      - user: mutual funds
+      - user: /SetSlots(portfolio_type=mutual_funds)
       - slot_was_set:
         - portfolio_type: mutual_funds
         - portfolio_exists: True

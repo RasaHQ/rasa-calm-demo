@@ -1,0 +1,25 @@
+test_cases:
+  - test_case: user_changes_mind_based_on_new_info
+    steps:
+      - user: Send some money to Joe
+        assertions:
+          - slot_was_set:
+              - name: route_session_to_calm
+                value: True
+              - name: transfer_money_recipient
+                value: Joe
+          - bot_uttered:
+              utter_name: utter_ask_transfer_money_amount_of_money
+      - user: Ah one moment, show transactions.
+        assertions:
+          - bot_uttered:
+              utter_name: utter_transactions
+          - bot_uttered:
+              utter_name: utter_flow_continue_interrupted
+          - bot_uttered:
+              utter_name: utter_ask_transfer_money_amount_of_money
+      - user: Ah never mind, I already sent the money earlier
+        assertions:
+          - flow_started: pattern_cancel_flow
+          - bot_uttered:
+              utter_name: utter_flow_cancelled_rasa

@@ -1,0 +1,21 @@
+test_cases:
+  - test_case: user tries to skip a question once (easy)
+    steps:
+      - user: send money to John
+        assertions:
+          - bot_uttered:
+              utter_name: utter_ask_transfer_money_amount_of_money
+      - user: skip this question
+        assertions:
+          - bot_uttered:
+              utter_name: utter_skip_question_answer
+          - bot_uttered:
+              utter_name: utter_ask_transfer_money_amount_of_money
+      - user: okay 50
+        assertions:
+          - bot_uttered:
+              utter_name: utter_ask_transfer_money_final_confirmation
+      - user: "yes"
+        assertions:
+          - bot_uttered:
+              utter_name: utter_transfer_complete
