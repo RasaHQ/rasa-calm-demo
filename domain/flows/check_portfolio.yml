@@ -31,7 +31,7 @@ responses:
           title: stocks
         - payload: bonds
           title: bonds
-        - payload: mutual_funds
+        - payload: /SetSlots(portfolio_type=mutual_funds)
           title: mutual funds
   utter_portfolio_options_found:
     - text: "Your {portfolio_type} portfolio: {portfolio_options}"

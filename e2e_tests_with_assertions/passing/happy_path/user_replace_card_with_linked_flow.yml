@@ -1,0 +1,120 @@
+metadata:
+  - duplicate_replace_card_1:
+      turn_idx: 1
+  - duplicate_replace_card_2:
+      turn_idx: 2
+test_cases:
+  - test_case: Replace lost card which was used fraudulently
+    steps:
+      - user: I need to replace my card
+        assertions:
+          - bot_uttered:
+              utter_name: utter_ask_confirm_correct_card
+      - user: "yes"
+        metadata: duplicate_replace_card_1
+        assertions:
+          - slot_was_set:
+              - name: confirm_correct_card
+                value: true
+          - bot_uttered:
+              utter_name: utter_ask_replacement_reason
+      - user: I lost my card
+        assertions:
+          - slot_was_set:
+              - name: replacement_reason
+                value: lost
+          - bot_uttered:
+              utter_name: utter_ask_was_card_used_fraudulently
+      - user: "yes"
+        metadata: duplicate_replace_card_2
+        assertions:
+          - slot_was_set:
+              - name: was_card_used_fraudulently
+                value: true
+          - bot_uttered:
+              utter_name: utter_report_fraud
+
+  - test_case: Replace lost card which was not used fraudulently
+    steps:
+      - user: I need to replace my card
+        assertions:
+            - bot_uttered:
+                utter_name: utter_ask_confirm_correct_card
+      - user: "yes"
+        assertions:
+            - slot_was_set:
+                - name: confirm_correct_card
+                  value: true
+            - bot_uttered:
+                utter_name: utter_ask_replacement_reason
+      - user: I lost my card
+        assertions:
+          - slot_was_set:
+              - name: replacement_reason
+                value: lost
+          - bot_uttered:
+              utter_name: utter_ask_was_card_used_fraudulently
+      - user: "no"
+        assertions:
+          - slot_was_set:
+              - name: was_card_used_fraudulently
+                value: false
+          - bot_uttered:
+              utter_name: utter_will_cancel_and_send_new
+          - bot_uttered:
+              utter_name: utter_new_card_has_been_ordered
+
+  - test_case: Replace damaged card
+    steps:
+      - user: I need to replace my card
+        assertions:
+            - bot_uttered:
+                utter_name: utter_ask_confirm_correct_card
+      - user: "yes"
+        assertions:
+            - slot_was_set:
+                - name: confirm_correct_card
+                  value: true
+            - bot_uttered:
+                utter_name: utter_ask_replacement_reason
+      - user: My card is damaged
+        assertions:
+          - slot_was_set:
+              - name: replacement_reason
+                value: damaged
+          - bot_uttered:
+              utter_name: utter_will_cancel_and_send_new
+          - bot_uttered:
+              utter_name: utter_new_card_has_been_ordered
+
+  - test_case: Replace card with unknown replacement reason
+    steps:
+    - user: I need to replace my card
+      assertions:
+        - bot_uttered:
+            utter_name: utter_ask_confirm_correct_card
+    - user: "yes"
+      assertions:
+        - slot_was_set:
+            - name: confirm_correct_card
+              value: true
+        - bot_uttered:
+            utter_name: utter_ask_replacement_reason
+    - user: some other reason
+      assertions:
+            - slot_was_set:
+                - name: replacement_reason
+                  # we cannot specify the original user value because the LLM can extract variable values
+                  # however the slot should be reset as part of running the slot rejections, which
+                  # is why we set the value to null
+            - slot_was_set:
+                - name: replacement_reason
+                  value: null
+            - bot_uttered:
+                utter_name: utter_categorical_slot_rejection
+            - bot_uttered:
+                utter_name: utter_ask_replacement_reason
+    - user: ok, stop then
+      assertions:
+            - bot_uttered:
+                utter_name: utter_can_do_something_else

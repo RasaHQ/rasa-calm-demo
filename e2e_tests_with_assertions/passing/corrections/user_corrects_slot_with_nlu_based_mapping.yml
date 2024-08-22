@@ -1,0 +1,244 @@
+test_cases:
+  - test_case: user_orders_pizza_stating_which_type_and_corrects_quantity_later
+    steps:
+      - user: I would like to order a diavola pizza.
+        assertions:
+            - slot_was_set:
+                - name: pizza
+                  value: diavola
+            - bot_uttered:
+                utter_name: utter_ask_num_pizza
+      - user: 1 please
+        assertions:
+            - slot_was_set:
+                - name: num_pizza
+                  value: 1
+            - bot_uttered:
+                utter_name: utter_ask_address
+      - user: 30 Pine Road
+        assertions:
+            - slot_was_set:
+                - name: address
+                  value: 30 Pine Road
+            - bot_uttered:
+                utter_name: utter_confirm
+      - user: /SetSlots(confirmation_order=True)
+        assertions:
+            - bot_uttered:
+                utter_name: utter_ask_payment_option
+      - user: actually can i get 2 pizzas instead
+        assertions:
+            - flow_started: pattern_correction
+            - bot_uttered:
+                utter_name: utter_ask_confirm_slot_correction
+      - user: /SetSlots(confirm_slot_correction=true)
+        assertions:
+            - slot_was_set:
+                - name: num_pizza
+                  value: 2
+            - bot_uttered:
+                utter_name: utter_corrected_previous_input
+            - bot_uttered:
+                utter_name: utter_confirm
+      - user: /SetSlots(confirmation_order=True)
+        assertions:
+            - bot_uttered:
+                utter_name: utter_ask_payment_option
+
+  - test_case: user_orders_pizza_stating_which_type_and_corrects_pizza_type_later
+    steps:
+      - user: I would like to order a diavola pizza.
+        assertions:
+            - slot_was_set:
+                - name: pizza
+                  value: diavola
+            - bot_uttered:
+                utter_name: utter_ask_num_pizza
+      - user: 1 please
+        assertions:
+            - slot_was_set:
+                - name: num_pizza
+                  value: 1
+            - bot_uttered:
+                utter_name: utter_ask_address
+      - user: 30 Pine Road
+        assertions:
+            - slot_was_set:
+                - name: address
+                  value: 30 Pine Road
+            - bot_uttered:
+                utter_name: utter_confirm
+      - user: /SetSlots(confirmation_order=True)
+        assertions:
+            - bot_uttered:
+                utter_name: utter_ask_payment_option
+      - user: actually can i get a margherita instead
+        assertions:
+            - flow_started: pattern_correction
+            - bot_uttered:
+                utter_name: utter_ask_confirm_slot_correction
+      - user: /SetSlots(confirm_slot_correction=true)
+        assertions:
+            - slot_was_set:
+                - name: pizza
+                  value: margherita
+            - bot_uttered:
+                utter_name: utter_corrected_previous_input
+            - bot_uttered:
+                utter_name: utter_confirm
+      - user: /SetSlots(confirmation_order=True)
+        assertions:
+            - bot_uttered:
+                utter_name: utter_ask_payment_option
+
+  - test_case: user_orders_pizza_stating_which_type_and_corrects_address_later
+    steps:
+      - user: I would like to order a diavola pizza.
+        assertions:
+            - slot_was_set:
+                - name: pizza
+                  value: diavola
+            - bot_uttered:
+                utter_name: utter_ask_num_pizza
+      - user: 1 please
+        assertions:
+            - slot_was_set:
+                - name: num_pizza
+                  value: 1
+            - bot_uttered:
+                utter_name: utter_ask_address
+      - user: 31 Pine Road
+        assertions:
+            - slot_was_set:
+                - name: address
+                  value: 31 Pine Road
+            - bot_uttered:
+                utter_name: utter_confirm
+      - user: /SetSlots(confirmation_order=True)
+        assertions:
+            - bot_uttered:
+                utter_name: utter_ask_payment_option
+      - user: wait, i meant to say the pizza should be delivered to 13 Pine Road.
+        assertions:
+            - bot_uttered:
+                text_matches: "I'm sorry about that. Let's correct your address. Please confirm your new address?"
+            - slot_was_set:
+                - name: address
+                  value: null
+            - bot_uttered:
+                utter_name: utter_ask_address
+      - user: 13 Pine Road
+        assertions:
+            - slot_was_set:
+                - name: address
+                  value: 13 Pine Road
+            - bot_uttered:
+                utter_name: utter_confirm
+      - user: /SetSlots(confirmation_order=True)
+        assertions:
+            - bot_uttered:
+                utter_name: utter_ask_payment_option
+
+  - test_case: user_orders_pizza_stating_which_type_and_corrects_payment_option_later
+    steps:
+      - user: I would like to order a diavola pizza.
+        assertions:
+            - slot_was_set:
+                - name: pizza
+                  value: diavola
+            - bot_uttered:
+                utter_name: utter_ask_num_pizza
+      - user: 1 please
+        assertions:
+            - slot_was_set:
+                - name: num_pizza
+                  value: 1
+            - bot_uttered:
+                utter_name: utter_ask_address
+      - user: 30 Pine Road
+        assertions:
+            - slot_was_set:
+                - name: address
+                  value: 30 Pine Road
+            - bot_uttered:
+                utter_name: utter_confirm
+      - user: /SetSlots(confirmation_order=True)
+        assertions:
+            - bot_uttered:
+                utter_name: utter_ask_payment_option
+      - user: loyalty points
+        assertions:
+            - slot_was_set:
+                - name: payment_option
+                  value: membership_points
+            - flow_started: authenticate_user
+            - bot_uttered:
+                utter_name: utter_ask_user_name
+      - user: actually can i pay with a credit card
+        assertions:
+            - flow_started: pattern_correction
+            - bot_uttered:
+                utter_name: utter_ask_confirm_slot_correction
+      - user: /SetSlots(confirm_slot_correction=true)
+        assertions:
+            - slot_was_set:
+                - name: payment_option
+                  value: card
+            - bot_uttered:
+                utter_name: utter_corrected_previous_input
+            - bot_uttered:
+                utter_name: utter_ask_card_details
+
+  - test_case: user_orders_pizza_stating_which_type_and_corrects_order_details_later
+    steps:
+      - user: I would like to order a diavola pizza.
+        assertions:
+            - slot_was_set:
+                - name: pizza
+                  value: diavola
+            - bot_uttered:
+                utter_name: utter_ask_num_pizza
+      - user: 1 please
+        assertions:
+            - slot_was_set:
+                - name: num_pizza
+                  value: 1
+            - bot_uttered:
+                utter_name: utter_ask_address
+      - user: 30 Pine Road
+        assertions:
+            - slot_was_set:
+                - name: address
+                  value: 30 Pine Road
+            - bot_uttered:
+                utter_name: utter_confirm
+      - user: /SetSlots(confirmation_order=True)
+        assertions:
+            - bot_uttered:
+                utter_name: utter_ask_payment_option
+      - user: actually, i made a mistake and need to update my delivery address first.
+        assertions:
+            - bot_uttered:
+                text_matches: "I'm sorry about that. Let's correct your order. What would you like to change?"
+                buttons:
+                  - title: Pizza
+                    payload: /SetSlots(pizza=null)
+                  - title: Quantity
+                    payload: /SetSlots(num_pizza=null)
+                  - title: Address
+                    payload: /SetSlots(address=null)
+      - user: /SetSlots(address=null)
+        assertions:
+            - bot_uttered:
+                utter_name: utter_ask_address
+      - user: 3 Pine Road
+        assertions:
+            - slot_was_set:
+                - name: address
+                  value: 3 Pine Road
+            - bot_uttered:
+                utter_name: utter_confirm
+      - user: /SetSlots(confirmation_order=True)
+        assertions:
+            - bot_uttered:
+                utter_name: utter_ask_payment_option

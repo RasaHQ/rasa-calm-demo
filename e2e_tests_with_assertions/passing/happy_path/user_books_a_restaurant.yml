@@ -1,0 +1,38 @@
+test_cases:
+  - test_case: user_books_a_restaurant
+    steps:
+    - user: book a restaurant
+      assertions:
+        - slot_was_set:
+            - name: route_session_to_calm
+              value: False
+        - bot_uttered:
+            utter_name: utter_ask_restaurant_form_city
+    - user: /inform{"location":"amsterdam"}
+      assertions:
+        - bot_uttered:
+            text_matches: "What cuisine are you looking for?"
+    - user: /inform{"cuisine":"Thai"}
+      assertions:
+        - slot_was_set:
+            - name: cuisine
+              value: Thai
+        - bot_uttered:
+            text_matches: "Do you know which restaurant you would like me to reserve a table at?"
+    - user: /inform{"restaurant_name":"Thai Spice"}
+      assertions:
+        - slot_was_set:
+            - name: restaurant_name
+              value: Thai Spice
+        - bot_uttered:
+            utter_name: utter_ask_restaurant_form_num_people
+    - user: "3"
+      assertions:
+        - bot_uttered:
+            utter_name: utter_ask_restaurant_form_restaurant_time
+    - user: Next Wednesday at 6pm
+      assertions:
+        - bot_uttered:
+            utter_name: utter_restaurant_form_submit
+        - bot_uttered:
+            utter_name: utter_restaurant_available

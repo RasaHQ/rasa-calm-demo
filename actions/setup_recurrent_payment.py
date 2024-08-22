@@ -20,7 +20,8 @@ def parse_datetime(text: str) -> Optional[datetime]:
     if isinstance(parsed_value, dict):
         parsed_value = parsed_value["from"]
 
-    return datetime.fromisoformat(parsed_value)
+    result = datetime.fromisoformat(parsed_value)
+    return result.replace(tzinfo=None)
 
 
 class ValidatePaymentStartDate(Action):
@@ -43,7 +44,7 @@ class ValidatePaymentStartDate(Action):
             dispatcher.utter_message(response="utter_invalid_date")
             return [SlotSet("recurrent_payment_start_date", None)]
 
-        return [SlotSet("recurrent_payment_start_date", start_date.isoformat())]
+        return [SlotSet("recurrent_payment_start_date", start_date.strftime("%Y-%m-%d"))]
 
 
 class ValidatePaymentEndDate(Action):
@@ -66,11 +67,11 @@ class ValidatePaymentEndDate(Action):
             return [SlotSet("recurrent_payment_end_date", None)]
 
         start_date = tracker.get_slot("recurrent_payment_start_date")
-        if start_date is not None and end_date < datetime.fromisoformat(start_date):
+        if start_date is not None and end_date < datetime.strptime(start_date, "%Y-%m-%d"):
             dispatcher.utter_message(response="utter_invalid_date")
             return [SlotSet("recurrent_payment_end_date", None)]
 
-        return [SlotSet("recurrent_payment_end_date", end_date.isoformat())]
+        return [SlotSet("recurrent_payment_end_date", end_date.strftime("%Y-%m-%d"))]
 
 
 class ExecutePayment(Action):
