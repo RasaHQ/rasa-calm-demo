@@ -2,10 +2,6 @@ flows:
   add_contact:
     description: add a contact to your contact list
     name: add a contact
-    nlu_trigger:
-      - intent:
-          name: add_contact
-          confidence_threshold: 0.9
     steps:
       - collect: add_contact_handle
         description: a user handle starting with @

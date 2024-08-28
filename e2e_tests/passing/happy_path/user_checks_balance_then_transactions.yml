@@ -2,7 +2,7 @@ test_cases:
   - test_case: user checks their balance and then about transactions
     steps:
       - user: Show my balance
-      - utter: utter_current_balance
-      - utter: utter_can_do_something_else
+      - bot: 'You still have 4200 in your account.'
+      - bot: 'Is there anything else you need assistance with?'
       - user: Show my transactions please
-      - utter: utter_transactions      
+      - bot: you spent $100 at starbucks
