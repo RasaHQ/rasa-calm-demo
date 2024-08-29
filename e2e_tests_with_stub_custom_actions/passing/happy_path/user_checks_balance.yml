@@ -1,0 +1,17 @@
+stub_custom_actions:
+  check_balance:
+    events:
+      - event: slot
+        name: current_balance
+        value: 1200
+    responses: []
+
+test_cases:
+  - test_case: user_checks_balance
+    steps:
+      - user: Show my balance
+        assertions:
+          - bot_uttered:
+              text_matches: You still have 1200 in your account.
+          - bot_uttered:
+              utter_name: utter_can_do_something_else
