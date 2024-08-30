@@ -31,9 +31,6 @@ pipeline:
     model_group: openai-direct-gpt-4
 
 policies:
-- name: RulePolicy
-- name: TEDPolicy
-  constrain_similarities: true
 - name: FlowPolicy
 - name: EnterpriseSearchPolicy
 - name: IntentlessPolicy
