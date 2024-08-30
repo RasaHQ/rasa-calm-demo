@@ -21,7 +21,7 @@ pipeline:
   ranking_length: 10
 - name: CRFEntityExtractor
 - name: DucklingEntityExtractor
-  url: "http://localhost:8000"
+  url: ${RASA_DUCKLING_HTTP_URL}
   dimensions: [ "time", "number" ]
   timezone: "Europe/Berlin"
   timeout: 3

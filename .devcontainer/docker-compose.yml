@@ -8,19 +8,45 @@ services:
     command: sleep infinity
     ports:
       - "5005:5005"  # Rasa
-      - "5055:5055"  # Rasa Action Server
+      - "5055:5055"
+    networks: ['rasa-network']
+    # env_file:
+    #   - ../.env
+    environment:
+      - RASA_PRO_LICENSE=${RASA_PRO_LICENSE}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - MAX_NUMBER_OF_PREDICTIONS=${MAX_NUMBER_OF_PREDICTIONS}
+      - RASA_DUCKLING_HTTP_URL=http://duckling:8000
+  
+  # action_server:
+  #   networks: ['rasa-network']
+  #   volumes:
+  #       - ../actions:/app/actions
+  #       - ../db:/app/db
+  #   image: "rasa/rasa-sdk:3.9.0"
+  #   env_file:
+  #     - ../.env
+  #   environment:
+  #     - RASA_PRO_LICENSE=${RASA_PRO_LICENSE}
+  #   ports:
+  #     - "5055:5055"
+  #   command: ["start", "--actions", "actions", "--auto-reload"]
 
   duckling:
+    networks: ['rasa-network']
     restart: unless-stopped
     image: "rasa/duckling:0.2.0.2"
-    expose:
-      - "8000"
+    ports:
+      - "8000:8000"
     command: ["duckling-example-exe", "--no-access-log", "--no-error-log"]
 
   qdrant:
     image: qdrant/qdrant
+    networks: ['rasa-network']
     volumes:
       - ./qdrant_storage:/qdrant/storage:Z
     ports:
       - "6333:6333"
       - "6334:6334"
+
+networks: {rasa-network: {}}

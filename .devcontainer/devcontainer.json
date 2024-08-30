@@ -13,9 +13,6 @@
         }
     },
 
-    "remoteEnv": {
-        "MAX_NUMBER_OF_PREDICTIONS": "50"
-    },
 
     "features": {
         "docker-in-docker": "20.10",
