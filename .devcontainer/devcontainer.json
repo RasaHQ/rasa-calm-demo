@@ -1,0 +1,29 @@
+{
+    "name": "Python 3 with Rasa",
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "app",
+    "workspaceFolder": "/workspaces/rasa",
+
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "python.terminal.activateEnvInCurrentTerminal": true,
+                "python.defaultInterpreterPath": "/workspaces/rasa/.venv/bin/python"
+            }
+        }
+    },
+
+    "remoteEnv": {
+        "MAX_NUMBER_OF_PREDICTIONS": "50"
+    },
+
+    "features": {
+        "docker-in-docker": "20.10",
+        "docker-from-docker": "20.10",
+        "git": "os-provided",
+        "github-cli": "latest",
+        "sshd": "latest"
+    },
+    
+    "remoteUser": "root"
+}
