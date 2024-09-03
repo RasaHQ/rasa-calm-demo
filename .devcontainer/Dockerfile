@@ -14,11 +14,11 @@ ENV PYTHONFAULTHANDLER=1 \
 # Set the working directory and create the virtual environment
 WORKDIR /workspaces/rasa
 
-# Create the virtual environment using Python's built-in venv
-# RUN python -m venv /workspaces/rasa/.venv
-
 # Upgrade pip and install uv within the virtual environment
 RUN pip install --upgrade pip uv
+
+# Create the virtual environment
+RUN uv venv .venv
 
 # Ensure the virtual environment is activated by default
 # ENV PATH="/workspaces/rasa/.venv/bin:$PATH"
@@ -26,9 +26,15 @@ RUN pip install --upgrade pip uv
 # Copy requirements file for Rasa Pro and dependencies
 COPY ../qdrant-requirements.txt .
 
+# Use bash for shell to use 'source'
+SHELL ["/bin/bash", "-c"]
+
+# Activate the virtual environment
+RUN source .venv/bin/activate
+
 # Install Rasa Pro and dependencies in the virtual environment
-RUN uv pip install --system --extra-index-url https://europe-west3-python.pkg.dev/rasa-releases/rasa-pro-python/simple rasa-pro==3.9.6 \
- && uv pip install --system -r qdrant-requirements.txt
+RUN uv pip install --extra-index-url https://europe-west3-python.pkg.dev/rasa-releases/rasa-pro-python/simple rasa-pro==3.9.6 \
+ && uv pip install -r qdrant-requirements.txt
 
 # Expose the ports for Rasa and the Action Server
 EXPOSE 5005

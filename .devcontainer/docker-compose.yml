@@ -4,7 +4,21 @@ services:
       context: ..
       dockerfile: .devcontainer/Dockerfile
     volumes:
-      - ..:/workspaces/rasa:cached
+      # - ../actions:/workspaces/rasa/actions:cached
+      # - ../config:/workspaces/rasa/config:cached
+      # - ../custom_channels:/workspaces/rasa/custom_channels:cached
+      # - ../data:/workspaces/rasa/data:cached
+      # - ../domain:/workspaces/rasa/domain:cached
+      # - ../models:/workspaces/rasa/models:cached
+      # - ../scripts:/workspaces/rasa/scripts:cached
+      # - ../db:/workspaces/rasa/db:cached
+      # - ../endpoints.yml:/workspaces/rasa/endpoints.yml:cached
+      # - ../.git:/workspaces/rasa/.git:cached  # Ensure Git directory is also mounted
+
+      - ../:/workspaces/rasa:cached
+      - /workspaces/rasa/.venv  # This ensures .venv is not mounted
+
+
     command: sleep infinity
     ports:
       - "5005:5005"  # Rasa
