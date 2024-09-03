@@ -17,6 +17,9 @@ services:
       - OPENAI_API_KEY=${OPENAI_API_KEY}
       - MAX_NUMBER_OF_PREDICTIONS=${MAX_NUMBER_OF_PREDICTIONS}
       - RASA_DUCKLING_HTTP_URL=http://duckling:8000
+    depends_on:
+      - duckling
+      - qdrant
   
   # action_server:
   #   networks: ['rasa-network']
