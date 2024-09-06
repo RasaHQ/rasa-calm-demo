@@ -3,11 +3,18 @@ version: "3.1"
 intents:
   - ask_help
 
+actions:
+  - action_session_start
+
 slots:
   return_value:
     type: any
     mappings:
       - type: from_llm
+  user_phone:
+    type: any
+  bot_phone:
+    type: any
 
 responses:
   utter_goodbye:
@@ -19,8 +26,7 @@ responses:
   utter_default:
     - text: I didn't quite understand that. Could you rephrase?
   utter_greet:
-    - text: Hi! I'm your Financial Assistant!
-    - text: Hi! How Can i help you?
+    - text: Hi! I'm your Financial Assistant! Your phone number is {user_phone} and you have called {bot_phone}
   utter_bot:
     - text: I'm a virtual assistant made with Rasa.
   utter_help:
