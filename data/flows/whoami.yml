@@ -1,0 +1,8 @@
+flows:
+  whoami:
+    name: who am I
+    description: user wants to know about themselves
+    steps:
+      - action: utter_whoami
+      - action: utter_goodbye
+      - action: action_hangup
