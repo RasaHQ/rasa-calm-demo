@@ -65,6 +65,12 @@ flows:
           - else: clarify_options
       - id: clarify_options
         action: utter_clarification_options_rasa
+
+  pattern_clarification_with_human_handoff:
+    description: Conversation repair flow for handling ambiguous requests that could match multiple flows, with handoff to human assistant
+    name: pattern clarification with human handoff
+    steps:
+      - action: action_clarify_flows
       - action: action_increase_clarification_count
         next:
           - if: slots.clarification_count > 2
