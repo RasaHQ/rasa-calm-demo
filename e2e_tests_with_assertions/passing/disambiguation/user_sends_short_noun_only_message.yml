@@ -14,3 +14,5 @@ test_cases:
           - pattern_clarification_contains:
               - 'transfer money'
               - 'check your balance'
+          - bot_uttered:
+              utter_name: utter_clarification_options_rasa
