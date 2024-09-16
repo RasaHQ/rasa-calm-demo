@@ -12,7 +12,5 @@ test_cases:
         - pattern_clarification_contains:
             - 'add a card'
             - 'add a contact'
-      - user: contact
-        assertions:
         - bot_uttered:
             utter_name: utter_ask_add_contact_handle
