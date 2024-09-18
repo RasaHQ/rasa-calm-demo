@@ -29,7 +29,7 @@ pipeline:
 - name: SingleStepLLMCommandGenerator
   llm:
     model: gpt-4
-    request_timeout: 7
+    timeout: 7
     temperature: 0.0
     top_p: 0.0
 
