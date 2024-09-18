@@ -90,7 +90,7 @@ jobs:
         if: github.ref == 'refs/heads/main'
         run: |
           curl --request PUT \
-          --url "${{secrets.RASA_X_DEPLOYMENT}}/api/projects/default/models/${{steps.upload_model.outputs.model}}/tags/production?api_token=${{secrets.RASA_X_TOKEN}} \
+          --url "${{secrets.RASA_X_DEPLOYMENT}}/api/projects/default/models/${{steps.upload_model.outputs.model}}/tags/production?api_token=${{secrets.RASA_X_TOKEN}}" \
           --header 'content-type: application/json'
 
       - name: Persist model
