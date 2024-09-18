@@ -1,0 +1,53 @@
+test_cases:
+  - test_case: user wants to set up a new one off payment and starts a different flow
+    steps:
+      - user: I want to set up a new recurrent payment
+        assertions:
+          - bot_uttered:
+              utter_name: utter_ask_recurrent_payment_type
+      - user: international transfer
+      # leads to Clarify('direct debit', 'standing order') which is dropped, so CannotHandle command is predicted and
+      # results in utter_ask_rephrase
+        assertions:
+          - bot_uttered:
+              utter_name: utter_categorical_slot_rejection
+          - bot_uttered:
+              utter_name: utter_ask_recurrent_payment_type
+      - user: none of these, actually just need a one off payment
+        assertions:
+          - bot_uttered:
+              utter_name: utter_ask_transfer_money_recipient
+
+  - test_case: user wants to set up an invalid payment type and the assistant re-asks in a loop until a valid value is given
+    steps:
+      - user: I want to set up a new recurrent payment
+        assertions:
+          - bot_uttered:
+              utter_name: utter_ask_recurrent_payment_type
+      - user: international transfer
+      # leads to Clarify('direct debit', 'standing order') which is dropped, so CannotHandle command is predicted and
+      # results in utter_ask_rephrase
+        assertions:
+          - bot_uttered:
+              utter_name: utter_categorical_slot_rejection
+          - bot_uttered:
+              utter_name: utter_ask_recurrent_payment_type
+      - user: international transfer
+        assertions:
+          - bot_uttered:
+              utter_name: utter_categorical_slot_rejection
+          - bot_uttered:
+              utter_name: utter_ask_recurrent_payment_type
+      - user: international transfer
+        assertions:
+          - bot_uttered:
+              utter_name: utter_categorical_slot_rejection
+          - bot_uttered:
+              utter_name: utter_ask_recurrent_payment_type
+      - user: direct debit
+        assertions:
+          - slot_was_set:
+              - name: recurrent_payment_type
+                value: "direct debit"
+          - bot_uttered:
+              utter_name: utter_ask_recipient

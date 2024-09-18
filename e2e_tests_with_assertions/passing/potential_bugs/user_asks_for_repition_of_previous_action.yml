@@ -1,0 +1,30 @@
+metadata:
+  - duplicate_msg_1:
+      turn_idx: 1
+  - duplicate_msg_2:
+      turn_idx: 2
+
+test_cases:
+  # this test makes sure that final confirmation is asked always
+  - test_case: user asks for repetition of previous action
+    steps:
+      - user: send 50 USD to John
+        assertions:
+          - bot_uttered:
+              utter_name: utter_ask_transfer_money_final_confirmation
+      - user: "yes"
+        metadata: duplicate_msg_1
+        assertions:
+          - bot_uttered:
+              utter_name: utter_transfer_complete
+          - bot_uttered:
+              utter_name: utter_can_do_something_else
+      - user: now do it again
+        assertions:
+          - bot_uttered:
+              utter_name: utter_ask_transfer_money_final_confirmation
+      - user: "yes"
+        metadata: duplicate_msg_2
+        assertions:
+          - bot_uttered:
+              utter_name: utter_transfer_complete

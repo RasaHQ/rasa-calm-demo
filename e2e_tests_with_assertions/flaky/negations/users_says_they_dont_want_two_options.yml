@@ -1,0 +1,17 @@
+fixtures:
+  - route_to_calm:
+      - route_session_to_calm: True
+
+test_cases:
+  - test_case: user says they don't want two options
+    fixtures:
+      - route_to_calm
+    steps:
+      - user: contact
+        assertions:
+          - bot_uttered:
+              utter_name: utter_clarification_options_rasa
+      - user: not add or remove
+        assertions:
+          - bot_uttered:
+              utter_name: utter_list_contacts

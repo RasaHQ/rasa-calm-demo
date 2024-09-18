@@ -100,7 +100,7 @@ jobs:
           path: models/${{steps.upload_model.outputs.model}}.tar.gz
 
   run_e2e_tests:
-    name: Run e2e Tests
+    name: Run e2e tests
     runs-on: ubuntu-22.04
     needs: [train-model]
 
@@ -174,6 +174,10 @@ jobs:
       run: |
         make run-duckling
 
+    - name: Make test results directory
+      run: |
+        mkdir tests
+
     - name: Run e2e passing tests
       env:
         OPENAI_API_KEY: ${{secrets.OPENAI_API_KEY}}
@@ -181,7 +185,14 @@ jobs:
         RASA_DUCKLING_HTTP_URL: ${{secrets.DUCKLING_URL}}
         RASA_PRO_BETA_INTENTLESS: true
       run: |
-        make test-passing
+        make test-passing 
+
+    - name: Save test-passing results
+      if: failure()
+      uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
+      with:
+        name: test-passing-results
+        path: tests/
 
     - name: Run e2e flaky tests
       if: always()
@@ -194,6 +205,7 @@ jobs:
         make test-flaky || true
 
     - name: Run e2e failing tests
+      id: run-e2e-failing-tests 
       if: always()
       env:
         OPENAI_API_KEY: ${{secrets.OPENAI_API_KEY}}
@@ -203,6 +215,232 @@ jobs:
       run: |
         make test-failing | grep '0 passed'
 
+    - name: Save test-failing results
+      if: failure() && steps.run-e2e-failing-tests.outcome == 'failure'
+      uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
+      with:
+        name: test-failing-results
+        path: tests/*passed.yml
+
     - name: Stop Duckling server
       run: |
           make stop-duckling
+
+  run_e2e_tests_with_assertions:
+    name: Run e2e tests with assertions
+    runs-on: ubuntu-22.04
+    needs: [train-model]
+
+    steps:
+    - name: Checkout git repository 🕝
+      uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c
+
+    - name: Setup Python
+      uses: actions/setup-python@57ded4d7d5e986d7296eab16560982c6dd7c923b
+      with:
+        python-version: ${{ env.DEFAULT_PYTHON_VERSION }}
+
+    - name: Install poetry 🦄
+      uses: Gr1N/setup-poetry@15821dc8a61bc630db542ae4baf6a7c19a994844
+      with:
+        poetry-version: ${{ env.POETRY_VERSION }}
+
+    - name: Load Poetry Cached Libraries ⬇
+      id: cache-poetry
+      uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
+      with:
+        path: .venv
+        key: ${{ runner.os }}-poetry-${{ env.POETRY_VERSION }}-${{ env.DEFAULT_PYTHON_VERSION }}-${{ hashFiles('**/poetry.lock') }}
+        restore-keys: ${{ runner.os }}-poetry-${{ env.DEFAULT_PYTHON_VERSION }}
+
+    - name: Create virtual environment
+      if: steps.cache-poetry.outputs.cache-hit != 'true'
+      run: python -m venv create .venv
+
+    - name: Set up virtual environment
+      run: poetry config virtualenvs.in-project true
+
+      # Authenticate with gcloud for release registry (where Rasa is published)
+    - id: "auth-release"
+      name: Authenticate with gcloud for release registry 🎫
+      uses: "google-github-actions/auth@ef5d53e30bbcd8d0836f4288f5e50ff3e086997d"
+      with:
+        token_format: 'access_token'
+        credentials_json: "${{ secrets.RASA_RELEASES_READ }}"
+
+    - name: Configure OAuth token for poetry
+      run: |
+        poetry config http-basic.rasa-plus oauth2accesstoken $(gcloud auth print-access-token)
+
+    - name: Install Dependencies 📦
+      run: |
+        make install
+
+    - uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a
+      with:
+        name: trained-model
+        path: models/
+
+    - name: Init LLM Cache
+      id: cache-llm
+      uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
+      with:
+        path: .rasa
+        key: rasa-llm-cache
+
+    - name: Run action server
+      env:
+        OPENAI_API_KEY: ${{secrets.OPENAI_API_KEY}}
+        RASA_PRO_LICENSE: ${{secrets.RASA_PRO_LICENSE}}
+        RASA_DUCKLING_HTTP_URL: ${{secrets.DUCKLING_URL}}
+        RASA_PRO_BETA_INTENTLESS: true
+      run: |
+        make actions &
+
+    - name: Run duckling server
+      run: |
+        make run-duckling
+
+    - name: Make test results directory
+      run: |
+        mkdir tests
+
+    - name: Run e2e passing tests with assertions
+      env:
+        OPENAI_API_KEY: ${{secrets.OPENAI_API_KEY}}
+        RASA_PRO_LICENSE: ${{secrets.RASA_PRO_LICENSE}}
+        RASA_DUCKLING_HTTP_URL: ${{secrets.DUCKLING_URL}}
+        RASA_PRO_BETA_E2E_ASSERTIONS: true
+      run: |
+        make test-passing-assertions 
+
+    - name: Save test-passing-assertions results
+      if: failure()
+      uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
+      with:
+        name: test-passing-assertions-results
+        path: tests/
+
+    - name: Run e2e flaky tests with assertions
+      if: always()
+      env:
+        OPENAI_API_KEY: ${{secrets.OPENAI_API_KEY}}
+        RASA_PRO_LICENSE: ${{secrets.RASA_PRO_LICENSE}}
+        RASA_DUCKLING_HTTP_URL: ${{secrets.DUCKLING_URL}}
+        RASA_PRO_BETA_E2E_ASSERTIONS: true
+      run: |
+        make test-flaky-assertions || true
+
+    - name: Run e2e failing tests with assertions
+      id: run-e2e-failing-tests-with-assertions
+      if: always()
+      env:
+        OPENAI_API_KEY: ${{secrets.OPENAI_API_KEY}}
+        RASA_PRO_LICENSE: ${{secrets.RASA_PRO_LICENSE}}
+        RASA_DUCKLING_HTTP_URL: ${{secrets.DUCKLING_URL}}
+        RASA_PRO_BETA_E2E_ASSERTIONS: true
+      run: |
+        make test-failing-assertions | grep '0 passed'
+
+    - name: Save test-failing-assertions results
+      if: failure() && steps.run-e2e-failing-tests-with-assertions.outcome == 'failure'
+      uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
+      with:
+        name: test-failing-assertions-results
+        path: tests/*passed.yml
+
+    - name: Stop Duckling server
+      run: |
+          make stop-duckling
+
+  run_e2e_tests_with_stub_custom_actions:
+    name: Run e2e tests with stub custom actions
+    runs-on: ubuntu-22.04
+    needs: [train-model]
+
+    steps:
+    - name: Checkout git repository 🕝
+      uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c
+
+    - name: Setup Python
+      uses: actions/setup-python@57ded4d7d5e986d7296eab16560982c6dd7c923b
+      with:
+        python-version: ${{ env.DEFAULT_PYTHON_VERSION }}
+
+    - name: Install poetry 🦄
+      uses: Gr1N/setup-poetry@15821dc8a61bc630db542ae4baf6a7c19a994844
+      with:
+        poetry-version: ${{ env.POETRY_VERSION }}
+
+    - name: Load Poetry Cached Libraries ⬇
+      id: cache-poetry
+      uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
+      with:
+        path: .venv
+        key: ${{ runner.os }}-poetry-${{ env.POETRY_VERSION }}-${{ env.DEFAULT_PYTHON_VERSION }}-${{ hashFiles('**/poetry.lock') }}
+        restore-keys: ${{ runner.os }}-poetry-${{ env.DEFAULT_PYTHON_VERSION }}
+
+    - name: Create virtual environment
+      if: steps.cache-poetry.outputs.cache-hit != 'true'
+      run: python -m venv create .venv
+
+    - name: Set up virtual environment
+      run: poetry config virtualenvs.in-project true
+
+      # Authenticate with gcloud for release registry (where Rasa is published)
+    - id: "auth-release"
+      name: Authenticate with gcloud for release registry 🎫
+      uses: "google-github-actions/auth@ef5d53e30bbcd8d0836f4288f5e50ff3e086997d"
+      with:
+        token_format: 'access_token'
+        credentials_json: "${{ secrets.RASA_RELEASES_READ }}"
+
+    - name: Configure OAuth token for poetry
+      run: |
+        poetry config http-basic.rasa-plus oauth2accesstoken $(gcloud auth print-access-token)
+
+    - name: Install Dependencies 📦
+      run: |
+        make install
+
+    - uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a
+      with:
+        name: trained-model
+        path: models/
+
+    - name: Init LLM Cache
+      id: cache-llm
+      uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
+      with:
+        path: .rasa
+        key: rasa-llm-cache
+
+    - name: Run duckling server
+      run: |
+        make run-duckling
+
+    - name: Make test results directory
+      run: |
+        mkdir tests
+
+    - name: Run e2e passing tests with stub custom actions
+      env:
+        OPENAI_API_KEY: ${{secrets.OPENAI_API_KEY}}
+        RASA_PRO_LICENSE: ${{secrets.RASA_PRO_LICENSE}}
+        RASA_DUCKLING_HTTP_URL: ${{secrets.DUCKLING_URL}}
+        RASA_PRO_BETA_E2E_ASSERTIONS: true
+        RASA_PRO_BETA_STUB_CUSTOM_ACTION: true
+      run: |
+        make test-passing-stub-custom-actions 
+
+    - name: Save test-stub-custom-actions-passing results
+      if: failure()
+      uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
+      with:
+        name: test-stub-custom-actions-passing-results
+        path: tests/
+
+    - name: Stop Duckling server
+      run: |
+        make stop-duckling
+
