@@ -2,10 +2,6 @@ flows:
   remove_contact:
     name: remove a contact
     description: remove a contact from your contact list
-    nlu_trigger:
-      - intent:
-          name: remove_contact
-          confidence_threshold: 0.9
     steps:
       - collect: remove_contact_handle
         description: a contact handle starting with @

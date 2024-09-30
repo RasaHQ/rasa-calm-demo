@@ -1,8 +1,5 @@
 version: "3.1"
 
-intents:
-  - add_card
-
 responses:
   utter_card_added:
     - text: Okay, added another card.
