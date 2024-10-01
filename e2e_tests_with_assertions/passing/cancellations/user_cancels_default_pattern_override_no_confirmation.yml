@@ -3,9 +3,6 @@ test_cases:
     steps:
       - user: I would like to add a new contact
         assertions:
-          - slot_was_set:
-              - name: route_session_to_calm
-                value: true
           - bot_uttered:
               utter_name: utter_ask_add_contact_handle
       - user: "@max"

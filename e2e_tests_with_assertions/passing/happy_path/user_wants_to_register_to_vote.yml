@@ -1,7 +1,6 @@
 fixtures:
   - california_resident:
       - based_in_california: True
-      - route_session_to_calm: True
 
 test_cases:
   - test_case: user_wants_to_register_to_vote

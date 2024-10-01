@@ -1,11 +1,6 @@
-fixtures:
-  - route_to_calm:
-      - route_session_to_calm: True
 
 test_cases:
   - test_case: user says they don't want one option among three
-    fixtures:
-      - route_to_calm
     steps:
       - user: contact
         assertions:

@@ -3,9 +3,6 @@ test_cases:
     steps:
       - user: Show my transactions and send money
         assertions:
-          - slot_was_set:
-              - name: route_session_to_calm
-                value: True
           - bot_uttered:
               utter_name: utter_transactions
           - bot_uttered:

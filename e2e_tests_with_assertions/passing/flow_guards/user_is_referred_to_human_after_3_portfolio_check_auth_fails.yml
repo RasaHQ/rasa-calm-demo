@@ -1,7 +1,3 @@
-fixtures:
-  - route_to_calm:
-      - route_session_to_calm: True
-
 metadata:
 - duplicate_message_1:
     turn_idx: 1
@@ -12,8 +8,6 @@ metadata:
 
 test_cases:
   - test_case: user_is_referred_to_human_after_3_portfolio_check_auth_fails
-    fixtures:
-      - route_to_calm
     steps:
       - user: I want to check my portfolio
         assertions:

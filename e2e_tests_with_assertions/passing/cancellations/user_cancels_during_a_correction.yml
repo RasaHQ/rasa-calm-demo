@@ -4,8 +4,6 @@ test_cases:
       - user: I want to send money to Joe
         assertions:
           - slot_was_set:
-              - name: route_session_to_calm
-                value: True
               - name: transfer_money_recipient
                 value: Joe
           - bot_uttered:
