@@ -26,7 +26,7 @@ responses:
   utter_default:
     - text: I didn't quite understand that. Could you rephrase?
   utter_greet:
-    - text: Hi! I'm your Financial Assistant! Your phone number is {user_phone} and you have called {bot_phone}
+    - text: Hi! I'm your Financial Assistant! How can I help you?
   utter_whoami:
     - text: Your phone number is {user_phone} and you have called {bot_phone}
   utter_bot:
