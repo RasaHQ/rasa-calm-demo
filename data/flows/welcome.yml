@@ -1,0 +1,6 @@
+flows:
+  welcome:
+    name: say hello
+    description: say hello to the user
+    steps:
+      - action: utter_greet

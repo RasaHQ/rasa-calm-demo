@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rasa SocketIO Tester</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        #user-input { width: 70%; padding: 5px; }
+        #send-button { padding: 5px 10px; }
+        .you-message { color: blue; }
+        .bot-message { color: green; }
+        .system-message { color: #999; }
+        .flex-container { display: flex; flex-direction: column; gap: 20px; margin-top: 20px; }
+        .flex-row { display: flex; gap: 20px; }
+        .flex-item { flex: 1; border: 1px solid #ddd; overflow-y: scroll; padding: 10px; max-height: 200px; }
+        .input-container { display: flex; gap: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Rasa SocketIO Tester</h1>
+    <div class="flex-container">
+        <div id="chat" class="flex-item"></div>
+        <div class="input-container">
+            <input type="text" id="user-input" placeholder="Type your message...">
+            <button id="send-button">Send</button>
+        </div>
+        <div class="flex-row">
+            <div class="flex-item">
+                <h2>Tracker State:</h2>
+                <div id="tracker-state"></div>
+            </div>
+            <div class="flex-item">
+                <h2>Events:</h2>
+                <div id="events"></div>
+            </div>
+        </div>
+        <div class="flex-row">
+            <div class="flex-item">
+                <h2>Slots:</h2>
+                <div id="slots"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const socket = io('http://localhost:5005');  // Adjust the URL if your Rasa server is running on a different address
+        const chatDiv = document.getElementById('chat');
+        const userInput = document.getElementById('user-input');
+        const sendButton = document.getElementById('send-button');
+        const trackerStateDiv = document.getElementById('tracker-state');
+        const eventsDiv = document.getElementById('events');
+        const slotsDiv = document.getElementById('slots');
+
+        socket.on('connect', () => {
+            console.log('Connected to Rasa server');
+            appendMessage('System', 'Connected to Rasa server');
+        });
+
+        socket.on('bot_uttered', (message) => {
+            console.log('Bot message received');
+            appendMessage('Bot', message.text);
+        });
+
+        socket.on('tracker_state', (state) => {
+            console.log('Tracker state received');
+            trackerStateDiv.innerHTML = '<pre>' + JSON.stringify(state, null, 2) + '</pre>';
+
+            // Display slots as a list
+            const slots = state.slots;
+            let slotsHtml = '<ul>';
+            for (const [key, value] of Object.entries(slots)) {
+                if (value != null) {
+                    slotsHtml += `<li>${key}: ${value}</li>`;
+                }
+            }
+            slotsHtml += '</ul>';
+            slotsDiv.innerHTML = slotsHtml;
+        });
+
+        
+        socket.on('rasa_events', (events) => {
+            console.log('New events received');
+            appendMessage('System', events.length + ' new events received');
+            eventsDiv.innerHTML = '<pre>' + JSON.stringify(events, null, 2) + '</pre>';
+
+            // display events in chat
+            events.forEach(event => {
+                if (['flow_started', 'flow_completed'].includes(event.event)) {
+                    appendMessage('System', `${event.event} ${event.flow_id}`);
+                }
+            });
+        });
+
+        sendButton.addEventListener('click', sendMessage);
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        function sendMessage() {
+            const message = userInput.value.trim();
+            if (message) {
+                appendMessage('You', message);
+                socket.emit('user_uttered', { message: message });
+                userInput.value = '';
+            }
+        }
+
+        function appendMessage(sender, text) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = sender.toLowerCase() + '-message';
+            messageDiv.textContent = `${sender}: ${text}`;
+            chatDiv.appendChild(messageDiv);
+            chatDiv.scrollTop = chatDiv.scrollHeight;
+        }
+    </script>
+</body>
+</html>
