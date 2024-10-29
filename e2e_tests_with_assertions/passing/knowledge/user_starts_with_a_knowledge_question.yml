@@ -5,3 +5,6 @@ test_cases:
         assertions:
           - generative_response_is_grounded:
               threshold: 0.75
+          - slot_was_set:
+                - name: route_session_to_calm
+                  value: True
