@@ -8,3 +8,4 @@ test_cases:
           - slot_was_set:
                 - name: route_session_to_calm
                   value: True
+          - action_executed: action_trigger_search
