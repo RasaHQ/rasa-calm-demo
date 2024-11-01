@@ -6,6 +6,7 @@ test_cases:
           - slot_was_set:
             - name: route_session_to_calm
               value: True
+          - flow_started: check_balance
           - bot_uttered:
               utter_name: utter_current_balance
           - bot_uttered:
