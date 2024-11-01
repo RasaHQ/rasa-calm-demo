@@ -3,10 +3,10 @@ test_cases:
     steps:
       - user: Show my balance
         assertions:
+          - slot_was_set:
+            - name: route_session_to_calm
+              value: True
           - bot_uttered:
               utter_name: utter_current_balance
           - bot_uttered:
               utter_name: utter_can_do_something_else
-          - slot_was_set:
-                - name: route_session_to_calm
-                  value: True
