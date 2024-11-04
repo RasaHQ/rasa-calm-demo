@@ -1,0 +1,13 @@
+test_cases:
+  - test_case: user_says_something_intriguing
+    steps:
+      - user: I just had the most wonderful startup idea.
+        assertions:
+          - bot_uttered:
+              utter_name: utter_intriguing
+          - generative_response_is_relevant:
+              utter_name: utter_intriguing
+              threshold: 0.70
+          - generative_response_is_grounded:
+              utter_name: utter_intriguing
+              threshold: 0.90

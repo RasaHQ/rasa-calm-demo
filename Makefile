@@ -75,19 +75,31 @@ actions:
 	poetry run rasa run actions
 
 test-passing: .EXPORT_ALL_VARIABLES
-	poetry run rasa test e2e e2e_tests/passing
+	poetry run rasa test e2e e2e_tests/passing --e2e-results
 
 test-flaky: .EXPORT_ALL_VARIABLES
-	poetry run rasa test e2e e2e_tests/flaky
+	poetry run rasa test e2e e2e_tests/flaky --e2e-results
 
 test-failing: .EXPORT_ALL_VARIABLES
-	poetry run rasa test e2e e2e_tests/failing
+	poetry run rasa test e2e e2e_tests/failing --e2e-results
 
 test-multistep: .EXPORT_ALL_VARIABLES
-	poetry run rasa test e2e e2e_tests/multistep
+	poetry run rasa test e2e e2e_tests/multistep --e2e-results
 
 test-one: .EXPORT_ALL_VARIABLES
 	poetry run rasa test e2e $(target) --debug
 
 stop-duckling:
 	docker stop duckling_container
+
+test-passing-assertions: .EXPORT_ALL_VARIABLES
+	poetry run rasa test e2e e2e_tests_with_assertions/passing --e2e-results
+
+test-flaky-assertions: .EXPORT_ALL_VARIABLES
+	poetry run rasa test e2e e2e_tests_with_assertions/flaky --e2e-results
+
+test-failing-assertions: .EXPORT_ALL_VARIABLES
+	poetry run rasa test e2e e2e_tests_with_assertions/failing --e2e-results
+
+make test-passing-stub-custom-actions: .EXPORT_ALL_VARIABLES
+	poetry run rasa test e2e e2e_tests_with_stub_custom_actions/passing --e2e-results

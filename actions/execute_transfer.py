@@ -1,9 +1,13 @@
+import re
 from typing import Any, Dict
 from datetime import datetime
 from rasa_sdk import Action, Tracker
 from rasa_sdk.events import SlotSet
 from rasa_sdk.executor import CollectingDispatcher
 from actions.db import get_account, write_account, add_transaction, Transaction
+
+
+AMOUNT_OF_MONEY_REGEX = re.compile(r"\d*[.,]*\d+")
 
 
 class ExecuteTransfer(Action):
@@ -25,7 +29,7 @@ class ExecuteTransfer(Action):
         if recipient == "Jack":
             return [SlotSet("transfer_money_transfer_successful", False)]
 
-        amount_of_money_value = float(amount_of_money.replace("$", "").replace("USD", "").strip())
+        amount_of_money_value = float(re.findall(AMOUNT_OF_MONEY_REGEX, amount_of_money)[0])
         account.funds -= amount_of_money_value
         new_transaction = \
             Transaction(datetime=datetime.now().isoformat(), recipient=recipient,

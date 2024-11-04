@@ -9,7 +9,7 @@ This demo showcases a chatbot built with Rasa's LLM-native approach: [CALM](http
 > CALM's current stage of development.
 
 > [!NOTE]
-> This demo bot is currently compatible with `3.9.3`.
+> This demo bot is currently compatible with `3.10.1`.
 
 ## Terms of Use
 
@@ -244,8 +244,8 @@ and run end-to-end tests.
 > please refer our documentation [here](https://rasa.com/docs/rasa-pro/installation/python/installation).
 
 > [!NOTE]
-> If you want to check out the state of the demo bot compatible with Rasa 3.8.8, please check out the branch
-> [3.8.x](https://github.com/RasaHQ/rasa-calm-demo/tree/3.8.x).
+> If you want to check out the state of the demo bot compatible with Rasa 3.9, please check out the branch
+> [3.9.x](https://github.com/RasaHQ/rasa-calm-demo/tree/3.9.x).
 
 Prerequisites:
 - rasa pro license
@@ -370,7 +370,7 @@ rasa inspect --debug
 rasa shell --debug
 ```
 
-### Running e2e test
+### Running e2e tests
 
 The demo bot comes with a set of e2e tests, categorized into two primary groups: 
 **failing**, and **passing**. These tests are organized not per individual flow but 
@@ -445,3 +445,38 @@ or
 ```commandline
 run rasa test e2e e2e_tests/multistep
 ```
+
+#### E2E tests with assertions
+To enable the feature, please set the environment variable `RASA_PRO_BETA_E2E_ASSERTIONS` to true in your testing environment.
+
+`export RASA_PRO_BETA_E2E_ASSERTIONS=true`
+
+To run **all the tests**:
+
+```commandline
+rasa test e2e e2e_tests_with_assertions
+```
+
+------
+
+To run **passing/failing/flaky** tests:
+```commandline
+rasa test e2e e2e_tests_with_assertions/passing
+```
+```commandline
+rasa test e2e e2e_tests_with_assertions/failing
+```
+```commandline
+rasa test e2e e2e_tests_with_assertions/flaky
+```
+
+------
+
+To run a **single test** , provide the path to a 
+target test:
+
+```commandline
+rasa test e2e e2e_tests_with_assertions/tests/path/to/a/target/test.yml
+```
+
+------

@@ -1,0 +1,63 @@
+fixtures:
+  - route_to_calm:
+      - route_session_to_calm: True
+
+metadata:
+- duplicate_message_1:
+    turn_idx: 1
+- duplicate_message_2:
+    turn_idx: 2
+- duplicate_message_3:
+    turn_idx: 3
+
+test_cases:
+  - test_case: user_is_referred_to_human_after_3_portfolio_check_auth_fails
+    fixtures:
+      - route_to_calm
+    steps:
+      - user: I want to check my portfolio
+        assertions:
+          - bot_uttered:
+              utter_name: utter_ask_user_name
+      - user: John
+        metadata: duplicate_message_1
+        assertions:
+          - bot_uttered:
+              utter_name: utter_ask_user_password
+      - user: "1234"
+        metadata: duplicate_message_1
+        assertions:
+          - bot_uttered: 
+              utter_name: utter_authentication_failed
+          - slot_was_set: 
+            - name: login_failed_attempts
+              value: 1
+          - bot_uttered:
+              utter_name: utter_ask_user_name
+      - user: John
+        metadata: duplicate_message_2
+        assertions:
+          - bot_uttered:
+              utter_name: utter_ask_user_password
+      - user: "1234"
+        metadata: duplicate_message_2
+        assertions:
+          - bot_uttered: 
+              utter_name: utter_authentication_failed
+          - slot_was_set: 
+            - name: login_failed_attempts
+              value: 2
+          - bot_uttered:
+              utter_name: utter_ask_user_name
+      - user: John
+        metadata: duplicate_message_3
+        assertions:
+          - bot_uttered:
+              utter_name: utter_ask_user_password
+      - user: "1234"
+        metadata: duplicate_message_3
+        assertions:
+          - slot_was_set: 
+            - name: login_failed_attempts
+              value: 3
+          - flow_started: pattern_human_handoff
