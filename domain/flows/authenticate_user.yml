@@ -20,6 +20,11 @@ slots:
     mappings:
       - type: custom
         action: action_authenticate_user
+  another_slot:
+    type: text
+    mappings:
+      - type: custom
+        action: action_custom_slot
 
 responses:
   utter_authentication_failed:
@@ -35,3 +40,4 @@ responses:
 
 actions:
   - action_authenticate_user
+  - action_custom_slot
