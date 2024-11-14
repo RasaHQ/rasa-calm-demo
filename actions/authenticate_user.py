@@ -1,7 +1,9 @@
 from rasa_sdk import Action, Tracker
 from rasa_sdk.events import SlotSet
 from rasa_sdk.executor import CollectingDispatcher
+import logging
 
+logger = logging.getLogger(__name__)
 
 class ActionAuthenticateUser(Action):
 
@@ -10,6 +12,7 @@ class ActionAuthenticateUser(Action):
 
     def run(self, dispatcher: CollectingDispatcher, tracker: Tracker,
             domain: dict) -> list:
+        logger.info("Executing action_authenticate_user")
         # Retrieve the user credentials from slots
         user_name = tracker.get_slot("user_name")
         user_password = tracker.get_slot("user_password")

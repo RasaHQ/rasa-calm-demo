@@ -1,0 +1,17 @@
+================================= short test summary info =================================
+FAILED e2e_tests/failing/potential_bugs/user_tries_to_use_abstract_values.yml::user tries to use abstract values
+FAILED e2e_tests/failing/skip_question/user_tries_to_skip_a_question_and_then_cancels_the_flow_hard.yml::user tries to skip a question and then cancels the flow (hard)
+FAILED e2e_tests/failing/skip_question/user_tries_to_skip_a_question_multiple_times_hard.yml::user tries to skip a question multiple times (hard)
+FAILED e2e_tests/failing/skip_question/user_tries_to_skip_a_question_once_hard.yml::user tries to skip a question once (hard)
+FAILED e2e_tests/flaky/disambiguation/user_sends_short_noun_only_message.yml::user sends short noun only message
+FAILED e2e_tests/flaky/happy_path/user_sets_up_recurrent_payment.yml::user wants to set up a new recurrent payment, but specifies the type incompletely, example 3
+FAILED e2e_tests/flaky/happy_path/user_wants_to_register_to_vote.yml::Register to vote for non-California resident (should not trigger)
+FAILED e2e_tests/flaky/invalid_path/user_tries_to_set_up_recurrent_payment_with_invalid_values.yml::user wants to set up an invalid payment type and the assistant re-asks in a loop until a valid value is given
+FAILED e2e_tests/flaky/negations/users_says_they_dont_want_one_option_among_three.yml::user says they don't want one option among three
+FAILED e2e_tests/flaky/negations/users_says_they_dont_want_two_options.yml::user says they don't want two options
+FAILED e2e_tests/flaky/skip_questions/user_tries_to_skip_a_question_multiple_times_easy.yml::user tries to skip a question multiple times (easy)
+FAILED e2e_tests/multistep/happy_path/user_sets_up_recurrent_payment.yml::user wants to set up a new recurrent payment without stating which type
+FAILED e2e_tests/multistep/invalid_path/check_portfolio_not_found.yml::Authenticate and check portfolio with invalid value twice
+FAILED e2e_tests/passing/happy_path/user_sets_up_recurrent_payment.yml::user wants to set up a new recurrent payment without stating which type
+FAILED e2e_tests/passing/invalid_path/check_portfolio_not_found.yml::Authenticate and check portfolio with invalid value twice
+=========================== 15 failed, 160 passed ============================
