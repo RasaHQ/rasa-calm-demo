@@ -142,3 +142,5 @@ models/
 prompts/
 tests/
 qdrant_storage/
+
+logs/
