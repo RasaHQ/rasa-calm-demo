@@ -94,7 +94,7 @@ jobs:
           --header 'content-type: application/json'
 
       - name: Persist model
-        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
+        uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 #v4.4.3
         with:
           name: trained-model
           path: models/${{steps.upload_model.outputs.model}}.tar.gz
@@ -149,7 +149,7 @@ jobs:
       run: |
         make install
 
-    - uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a
+    - uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 #v4.1.8
       with:
         name: trained-model
         path: models/
@@ -189,7 +189,7 @@ jobs:
 
     - name: Save test-passing results
       if: failure()
-      uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
+      uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 #v4.4.3
       with:
         name: test-passing-results
         path: tests/
@@ -217,7 +217,7 @@ jobs:
 
     - name: Save test-failing results
       if: failure() && steps.run-e2e-failing-tests.outcome == 'failure'
-      uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
+      uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 #v4.4.3
       with:
         name: test-failing-results
         path: tests/*passed.yml
@@ -276,7 +276,7 @@ jobs:
       run: |
         make install
 
-    - uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a
+    - uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 #v4.1.8
       with:
         name: trained-model
         path: models/
@@ -316,7 +316,7 @@ jobs:
 
     - name: Save test-passing-assertions results
       if: failure()
-      uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
+      uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 #v4.4.3
       with:
         name: test-passing-assertions-results
         path: tests/
@@ -344,7 +344,7 @@ jobs:
 
     - name: Save test-failing-assertions results
       if: failure() && steps.run-e2e-failing-tests-with-assertions.outcome == 'failure'
-      uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
+      uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 #v4.4.3
       with:
         name: test-failing-assertions-results
         path: tests/*passed.yml
@@ -403,7 +403,7 @@ jobs:
       run: |
         make install
 
-    - uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a
+    - uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 #v4.1.8
       with:
         name: trained-model
         path: models/
@@ -435,7 +435,7 @@ jobs:
 
     - name: Save test-stub-custom-actions-passing results
       if: failure()
-      uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
+      uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 #v4.4.3
       with:
         name: test-stub-custom-actions-passing-results
         path: tests/
