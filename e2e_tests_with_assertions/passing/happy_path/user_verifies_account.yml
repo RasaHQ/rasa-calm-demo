@@ -36,6 +36,15 @@ test_cases:
                 value: true
           - bot_uttered:
               utter_name: utter_verify_account_success
+          - slot_was_set:
+              - name: verify_account_email
+                value: null
+              - name: verify_account_confirmation
+                value: null
+              - name: verify_account_sufficient_california_income
+                value: null
+          - slot_was_not_set:
+            - name: based_in_california
 
   - test_case: Verify account for California resident with insufficient income
     steps:
@@ -66,6 +75,15 @@ test_cases:
                 value: false
           - bot_uttered:
               utter_name: utter_ca_income_insufficient
+          - slot_was_set:
+              - name: verify_account_email
+                value: null
+              - name: verify_account_confirmation
+                value: null
+              - name: verify_account_sufficient_california_income
+                value: null
+          - slot_was_not_set:
+            - name: based_in_california
           - bot_uttered:
               utter_name: utter_can_do_something_else
 
@@ -108,5 +126,14 @@ test_cases:
                 value: true
           - bot_uttered:
                 utter_name: utter_verify_account_success
+          - slot_was_set:
+              - name: verify_account_email
+                value: null
+              - name: verify_account_confirmation
+                value: null
+              - name: verify_account_sufficient_california_income
+                value: null
+          - slot_was_not_set:
+            - name: based_in_california
           - bot_uttered:
               utter_name: utter_can_do_something_else

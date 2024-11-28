@@ -48,6 +48,21 @@ test_cases:
                   value: 1234 5678 9012 3456
             - bot_uttered:
                 utter_name: utter_execute_payment
+            - flow_completed:
+                flow_id: order_pizza
+            - slot_was_set:
+                - name: pizza
+                  value: null
+                - name: num_pizza
+                  value: null
+                - name: address
+                  value: null
+                - name: card_details
+                  value: null
+                - name: payment_option
+                  value: null
+            - slot_was_not_set:
+                - name: confirmation_order
 
   - test_case: user_orders_pizza_stating_which_type_and_pays_with_points
     steps:
@@ -117,4 +132,21 @@ test_cases:
                 utter_name: utter_execute_payment
             - flow_completed:
                 flow_id: order_pizza
+            - slot_was_set:
+                - name: pizza
+                  value: null
+                - name: num_pizza
+                  value: null
+                - name: address
+                  value: null
+                - name: card_details
+                  value: null
+                - name: payment_option
+                  value: null
+                - name: user_name
+                  value: null
+                - name: user_password
+                  value: null
+            - slot_was_not_set:
+                - name: confirmation_order
 
