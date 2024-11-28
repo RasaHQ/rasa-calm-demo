@@ -8,6 +8,7 @@ flows:
           confidence_threshold: 0.9
     persisted_slots:
       - based_in_california
+      - based_in_the_us
     steps:
       - collect: verify_account_email
         ask_before_filling: true
@@ -16,6 +17,8 @@ flows:
         next:
           - if: slots.based_in_california
             then:
+              - set_slots:
+                 - based_in_the_us: true
               - collect: verify_account_sufficient_california_income
                 ask_before_filling: true
                 next:

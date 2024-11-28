@@ -50,6 +50,7 @@ test_cases:
                 utter_name: utter_execute_payment
             - flow_completed:
                 flow_id: order_pizza
+            # verify slot reset
             - slot_was_set:
                 - name: pizza
                   value: null
@@ -61,6 +62,7 @@ test_cases:
                   value: null
                 - name: payment_option
                   value: null
+            # verify slot persistence
             - slot_was_not_set:
                 - name: confirmation_order
 
@@ -132,6 +134,7 @@ test_cases:
                 utter_name: utter_execute_payment
             - flow_completed:
                 flow_id: order_pizza
+            # verify slot reset
             - slot_was_set:
                 - name: pizza
                   value: null
@@ -147,6 +150,7 @@ test_cases:
                   value: null
                 - name: user_password
                   value: null
+            # verify slot persistence
             - slot_was_not_set:
                 - name: confirmation_order
 
