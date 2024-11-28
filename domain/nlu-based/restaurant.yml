@@ -49,6 +49,15 @@ slots:
     mappings:
     - type: from_entity
       entity: time
+  special_requests:
+    type: text
+    shared_for_coexistence: true
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: restaurant_form
+            requested_slot: special_requests
+          # - active_flow: add_contact
 
 actions:
   - action_list_restaurants
@@ -67,6 +76,7 @@ forms:
         - restaurant_name
         - num_people
         - restaurant_time
+        - special_requests
 
 responses:
   utter_restaurant_form_submit:
@@ -90,3 +100,9 @@ responses:
     - text: I'm handing over to a human now. I'm sorry, I could not help.
   utter_cannot_handle_other_city:
     - text: I'm sorry, but I can only book a restaurant in Berlin or Amsterdam.
+
+  utter_ask_restaurant_form_special_requests:
+    - text: Any special requests?
+
+  utter_ask_special_requests:
+    - text: Any special requests?
