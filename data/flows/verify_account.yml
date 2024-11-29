@@ -6,15 +6,19 @@ flows:
       - intent:
           name: verify_account
           confidence_threshold: 0.9
+    persisted_slots:
+      - based_in_california
+      - based_in_the_us
     steps:
       - collect: verify_account_email
         ask_before_filling: true
       - collect: based_in_california
         ask_before_filling: false
-        reset_after_flow_ends: false
         next:
           - if: slots.based_in_california
             then:
+              - set_slots:
+                 - based_in_the_us: true
               - collect: verify_account_sufficient_california_income
                 ask_before_filling: true
                 next:

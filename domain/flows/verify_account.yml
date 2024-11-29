@@ -13,6 +13,11 @@ slots:
     shared_for_coexistence: True
     mappings:
       - type: from_llm
+  based_in_the_us:
+    type: bool
+    shared_for_coexistence: True
+    mappings:
+      - type: from_llm
   verify_account_sufficient_california_income:
     type: bool
     mappings:
