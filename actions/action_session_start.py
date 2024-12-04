@@ -17,7 +17,7 @@ class ActionSessionStart(Action):
         logger.info(f"🤙 action_session_start's metadata: {metadata}")
 
         # set appropriate slots
-        if metadata:
+        if isinstance(metadata, dict):
             return [
                 SlotSet("user_phone", metadata.get("user_phone")),
                 SlotSet("bot_phone", metadata.get("bot_phone")),
