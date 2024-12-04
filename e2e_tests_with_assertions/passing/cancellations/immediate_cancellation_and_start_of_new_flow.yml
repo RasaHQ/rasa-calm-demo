@@ -3,9 +3,6 @@ test_cases:
     steps:
       - user: I want to send money
         assertions:
-        - slot_was_set:
-            - name: route_session_to_calm
-              value: True
         - bot_uttered:
             utter_name: utter_ask_transfer_money_recipient
       - user: ah, one moment stop that. I want to see my transfers first

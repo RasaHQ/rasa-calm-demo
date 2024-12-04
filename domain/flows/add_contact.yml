@@ -1,8 +1,5 @@
 version: "3.1"
 
-intents:
-  - add_contact
-
 actions:
   - add_contact
 

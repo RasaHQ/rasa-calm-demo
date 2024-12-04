@@ -1,8 +1,5 @@
 version: "3.1"
 
-intents:
-  - remove_contact
-
 actions:
   - remove_contact
   - action_ask_remove_contact_handle

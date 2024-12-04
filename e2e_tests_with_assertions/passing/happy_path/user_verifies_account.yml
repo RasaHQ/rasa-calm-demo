@@ -11,9 +11,6 @@ test_cases:
     steps:
       - user: I want to verify my account
         assertions:
-          - slot_was_set:
-              - name: route_session_to_calm
-                value: true
           - bot_uttered:
               utter_name: utter_ask_verify_account_email
       - user: example@mail.com
@@ -41,9 +38,6 @@ test_cases:
     steps:
       - user: I want to verify my account
         assertions:
-          - slot_was_set:
-              - name: route_session_to_calm
-                value: true
           - bot_uttered:
               utter_name: utter_ask_verify_account_email
       - user: example@mail.com
@@ -73,9 +67,6 @@ test_cases:
     steps:
       - user: I want to verify my account
         assertions:
-          - slot_was_set:
-              - name: route_session_to_calm
-                value: true
           - bot_uttered:
               utter_name: utter_ask_verify_account_email
       - user: example@mail.com

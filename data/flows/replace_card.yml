@@ -2,10 +2,6 @@ flows:
   replace_card:
     description: the user needs to replace their card
     name: replace_card
-    nlu_trigger:
-      - intent:
-          name: replace_card
-          confidence_threshold: 0.9
     steps:
       - collect: confirm_correct_card
         ask_before_filling: true

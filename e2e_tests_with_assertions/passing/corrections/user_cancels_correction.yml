@@ -4,8 +4,6 @@ test_cases:
       - user: send John 50
         assertions:
           - slot_was_set:
-              - name: route_session_to_calm
-                value: True
               - name: transfer_money_amount_of_money
                 value: "50"
               - name: transfer_money_recipient

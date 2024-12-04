@@ -1,15 +1,8 @@
 version: "3.1"
 
-intents:
-  - ask_help
-
 slots:
   return_value:
     type: any
-    mappings:
-      - type: from_llm
-  route_session_to_calm:
-    type: bool
     mappings:
       - type: from_llm
 

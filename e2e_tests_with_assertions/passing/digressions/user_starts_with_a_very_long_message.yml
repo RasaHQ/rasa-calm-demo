@@ -6,7 +6,5 @@ test_cases:
           - slot_was_set:
               - name: transfer_money_recipient
                 value: Steven
-              - name: route_session_to_calm
-                value: True
           - bot_uttered:
               utter_name: utter_ask_transfer_money_amount_of_money

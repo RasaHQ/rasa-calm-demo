@@ -3,9 +3,6 @@ test_cases:
     steps:
       - user: I want to send 5000$ to Martin
         assertions:
-            - slot_was_set:
-                - name: route_session_to_calm
-                  value: True
             - bot_uttered:
                 utter_name: utter_transfer_money_insufficient_funds
             - bot_uttered:

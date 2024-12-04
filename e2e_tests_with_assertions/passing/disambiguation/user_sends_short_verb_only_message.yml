@@ -1,11 +1,5 @@
-fixtures:
-  - route_to_calm:
-      - route_session_to_calm: True
-
 test_cases:
   - test_case: user sends short verb only message
-    fixtures:
-      - route_to_calm
     steps:
       - user: add
         assertions:

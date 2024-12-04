@@ -51,7 +51,6 @@ flows:
     name: pattern completed
     steps:
       - action: utter_can_do_something_else
-      - action: action_reset_routing
 
   pattern_clarification:
     description: Conversation repair flow for handling ambiguous requests that could match multiple flows
