@@ -28,8 +28,9 @@ pipeline:
 - name: NLUCommandAdapter
 - name: SingleStepLLMCommandGenerator
   llm:
-    model: gpt-4
+    provider: openai
     timeout: 7
+    model: gpt-4o
     temperature: 0.0
     top_p: 0.0
 
