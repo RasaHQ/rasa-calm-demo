@@ -17,7 +17,7 @@ env:
 jobs:
   train-model-and-run-tests:
     name: Train model
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Checkout git repository 🕝
