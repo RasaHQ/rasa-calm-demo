@@ -17,7 +17,7 @@ env:
 jobs:
   train-model:
     name: Train model
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Checkout git repository 🕝
@@ -101,7 +101,7 @@ jobs:
 
   run_e2e_tests:
     name: Run e2e tests
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs: [train-model]
 
     steps:
@@ -228,7 +228,7 @@ jobs:
 
   run_e2e_tests_with_assertions:
     name: Run e2e tests with assertions
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs: [train-model]
 
     steps:
@@ -355,7 +355,7 @@ jobs:
 
   run_e2e_tests_with_stub_custom_actions:
     name: Run e2e tests with stub custom actions
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs: [train-model]
 
     steps:
