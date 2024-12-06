@@ -19,6 +19,9 @@ rasa-test: .EXPORT_ALL_VARIABLES
 rasa-run: .EXPORT_ALL_VARIABLES
 	rasa inspect --debug
 
+rasa-run-voice: .EXPORT_ALL_VARIABLES
+	rasa inspect --voice --debug
+
 rasa-train: .EXPORT_ALL_VARIABLES
 	rasa train -c config/config.yml -d domain --data data
 
