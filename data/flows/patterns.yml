@@ -37,7 +37,7 @@ flows:
       - id: decide_cancel_step
         noop: true
         next:
-          - if: context.canceled_name = "transfer money"
+          - if: context.canceled_name = "transfer_money"
             then: inform_user
           - else: cancel_flow # skips the inform step
       - id: inform_user

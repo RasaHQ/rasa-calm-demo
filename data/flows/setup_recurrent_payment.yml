@@ -16,9 +16,9 @@ flows:
         description: the start date of the payment
       - collect: recurrent_payment_end_date
         description: the end date of the payment
-        rejections:
-          - if: slots.recurrent_payment_end_date < slots.recurrent_payment_start_date
-            utter: utter_invalid_recurrent_payment_end_date
+#        rejections:
+#          - if: slots.recurrent_payment_end_date < slots.recurrent_payment_start_date
+#            utter: utter_invalid_recurrent_payment_end_date
       - collect: recurrent_payment_confirmation
         description: accepts True or False
         ask_before_filling: true

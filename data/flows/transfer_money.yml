@@ -16,7 +16,8 @@ flows:
               - set_slots:
                   - transfer_money_amount_of_money: null
                   - transfer_money_has_sufficient_funds: null
-                next: ask_amount
+                next: END
+#                next: ask_amount
           - else: transfer_money_final_confirmation
       - id: transfer_money_final_confirmation
         collect: transfer_money_final_confirmation

@@ -18,7 +18,8 @@ flows:
         - if: not slots.is_user_logged_in
           then:
             - action: utter_authentication_failed
-              next: ask_user_credentials
+              next: END
+#              next: ask_user_credentials
         - else:
             - action: utter_authentication_successful
               next: END
