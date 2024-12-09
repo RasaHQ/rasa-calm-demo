@@ -12,8 +12,6 @@ responses:
     - text: Bye
   utter_noworries:
     - text: You're welcome :)
-  utter_ask_rephrase:
-    - text: I didn't quite understand that. Can you rephrase?
   utter_default:
     - text: I didn't quite understand that. Could you rephrase?
   utter_greet:

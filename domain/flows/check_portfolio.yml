@@ -15,8 +15,7 @@ slots:
       - type: custom
         action: action_check_portfolio_exists
   portfolio_options:
-    type: list
-    initial_value: []
+    type: text
     mappings:
       - type: custom
         action: action_show_portfolio
