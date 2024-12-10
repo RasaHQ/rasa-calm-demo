@@ -13,5 +13,8 @@ class TransactionSearch(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker, domain: Dict[str, Any]):
         transactions = get_transactions(tracker.sender_id)
-        transactions_list = "\n".join([t.stringify() for t in transactions])
+        transactions_list = "\n".join([
+            f"<speak>{t.amount} from {t.sender} to {t.recipient} at <say-as interpret-as='date'>{t.datetime[:10]}</say-as></speak>"
+            for t in transactions
+        ])
         return [SlotSet("transactions_list", transactions_list)]
