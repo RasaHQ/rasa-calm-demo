@@ -16,7 +16,7 @@
 # https://rasa.com/docs/rasa/custom-actions
 
 action_endpoint:
-  url: "http://localhost:5055/webhook"
+    actions_module: "actions"
 
 # comment out this whole section to speed up the bot and disable rephrasing
 # all together
