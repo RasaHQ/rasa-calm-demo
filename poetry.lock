@@ -5415,13 +5415,13 @@ fire = "*"
 
 [[package]]
 name = "rasa-pro"
-version = "3.11.0rc2"
+version = "3.11.2"
 description = "State-of-the-art open-core Conversational AI framework for Enterprises that natively leverages generative AI for effortless assistant development."
 optional = false
 python-versions = "<3.12,>=3.9"
 files = [
-    {file = "rasa_pro-3.11.0rc2-py3-none-any.whl", hash = "sha256:1fd60213a2691fe47b652334d3b63767e1946a4d77e2ffc77d7d548481ece24c"},
-    {file = "rasa_pro-3.11.0rc2.tar.gz", hash = "sha256:124c7d4135f549b831c3c7338bc6a51ace573b4e58b9d3a1f9b1498c410de97c"},
+    {file = "rasa_pro-3.11.2-py3-none-any.whl", hash = "sha256:25775c1cc8612933447344e8277ca0988125313e29cb60a6c1b7331c807f6ad4"},
+    {file = "rasa_pro-3.11.2.tar.gz", hash = "sha256:1135f490ad973172e23eab085408fc8b6447b3bccfde6e32232c9df71d07b076"},
 ]
 
 [package.dependencies]
@@ -5501,7 +5501,7 @@ pyyaml = ">=6.0"
 qdrant-client = ">=1.9.0,<2.0.0"
 questionary = ">=1.10.0,<2.1.0"
 randomname = ">=0.2.1,<0.3.0"
-rasa-sdk = "3.11.0rc1"
+rasa-sdk = "3.11.0"
 redis = ">=4.6.0,<6.0"
 regex = ">=2022.10.31,<2022.11"
 requests = ">=2.31.0,<2.32.0"
@@ -5558,13 +5558,13 @@ transformers = ["sentencepiece[sentencepiece] (>=0.1.99,<0.2.0)", "transformers 
 
 [[package]]
 name = "rasa-sdk"
-version = "3.11.0rc1"
+version = "3.11.0"
 description = "Open source machine learning framework to automate text- and voice-based conversations: NLU, dialogue management, connect to Slack, Facebook, and more - Create chatbots and voice assistants"
 optional = false
 python-versions = "<3.13,>3.8"
 files = [
-    {file = "rasa_sdk-3.11.0rc1-py3-none-any.whl", hash = "sha256:922e876996dfb0619809bdf8d5e4a2597f060b1320ff9680d19e6661e8fa162c"},
-    {file = "rasa_sdk-3.11.0rc1.tar.gz", hash = "sha256:3cb6e9ed2fbd6765861b9e2906436b5781fd0b9af743ca9cb4b9cbfe5cc17231"},
+    {file = "rasa_sdk-3.11.0-py3-none-any.whl", hash = "sha256:5240b2cd6cd24038029ad9c27f4c8b631f0941b73c34d85828ff9c14e80c0f92"},
+    {file = "rasa_sdk-3.11.0.tar.gz", hash = "sha256:e793c0f57fd23568a7a9eb17e87e9d6fddcaaee7d024776ba34d3174002d9fa0"},
 ]
 
 [package.dependencies]
@@ -8231,4 +8231,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<3.11"
-content-hash = "75c6ab5024139132f451ddfa236ab0c8872ae1eee471e2e8feccc81cc0d0a5de"
+content-hash = "afa30faf0b9be5c1e6a27362a532e55a837a9bf2f368e5e2912d2adcb2c68d17"
