@@ -36,6 +36,18 @@ test_cases:
                 value: true
           - bot_uttered:
               utter_name: utter_verify_account_success
+          # verify slot reset
+          - slot_was_set:
+              - name: verify_account_email
+                value: null
+              - name: verify_account_confirmation
+                value: null
+              - name: verify_account_sufficient_california_income
+                value: null
+          # verify slot persistence
+          - slot_was_not_set:
+            - name: based_in_california
+            - name: based_in_the_us
 
   - test_case: Verify account for California resident with insufficient income
     steps:
@@ -57,6 +69,8 @@ test_cases:
           - slot_was_set:
               - name: based_in_california
                 value: true
+              - name: based_in_the_us
+                value: true
           - bot_uttered:
               utter_name: utter_ask_verify_account_sufficient_california_income
       - user: "no"
@@ -66,6 +80,18 @@ test_cases:
                 value: false
           - bot_uttered:
               utter_name: utter_ca_income_insufficient
+          # verify slot reset
+          - slot_was_set:
+              - name: verify_account_email
+                value: null
+              - name: verify_account_confirmation
+                value: null
+              - name: verify_account_sufficient_california_income
+                value: null
+          # verify slot persistence
+          - slot_was_not_set:
+            - name: based_in_california
+            - name: based_in_the_us
           - bot_uttered:
               utter_name: utter_can_do_something_else
 
@@ -90,6 +116,8 @@ test_cases:
             - slot_was_set:
                 - name: based_in_california
                   value: true
+                - name: based_in_the_us
+                  value: true
             - bot_uttered:
                 utter_name: utter_ask_verify_account_sufficient_california_income
       - user: "yes"
@@ -108,5 +136,17 @@ test_cases:
                 value: true
           - bot_uttered:
                 utter_name: utter_verify_account_success
+          # verify slot reset
+          - slot_was_set:
+              - name: verify_account_email
+                value: null
+              - name: verify_account_confirmation
+                value: null
+              - name: verify_account_sufficient_california_income
+                value: null
+          # verify slot persistence
+          - slot_was_not_set:
+            - name: based_in_california
+            - name: based_in_the_us
           - bot_uttered:
               utter_name: utter_can_do_something_else
