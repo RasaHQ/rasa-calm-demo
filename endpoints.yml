@@ -72,3 +72,19 @@ vector_store:
   port: 6334
   content_payload_key: page_content
   metadata_payload_key: metadata
+
+model_groups:
+  - id: openai-direct-gpt-4
+    models:
+      - provider: openai
+        model: gpt-4
+        timeout: 7
+        temperature: 0.0
+        top_p: 0.0
+  - id: openai-direct-gpt-3.5-turbo
+    models:
+      - provider: openai
+        model: gpt-3.5-turbo-0125
+        timeout: 7
+        temperature: 0.0
+        top_p: 0.0
