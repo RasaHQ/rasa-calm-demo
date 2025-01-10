@@ -2,12 +2,6 @@ recipe: default.v1
 language: en
 pipeline:
 - name: SingleStepLLMCommandGenerator
-  llm:
-    provider: rasa
-    model: rasa/cmd_gen_codellama_13b_calm_demo
-    api_base: "https://tutorial-llm.rasa.ai"
-  flow_retrieval:
-    active: false
 
 policies:
 - name: FlowPolicy
