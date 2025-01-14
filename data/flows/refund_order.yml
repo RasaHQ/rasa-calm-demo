@@ -1,0 +1,22 @@
+flows:
+  request_refund:
+    description: Help user request a refund for their order
+    steps:
+      # Increase silence timeout for order lookup
+      - set_slots:
+          - silence_timeout: 30
+      
+      # Collect order ID with validation
+      - collect: order_id 
+        description: A valid order ID is 4-6 digits
+        rejections:
+          - if: 'not (slots.order_id matches "^\d{4,6}$")'
+            utter: utter_invalid_order_id
+      
+      # Reset to normal timeout
+      - set_slots:
+          - silence_timeout: 7
+      
+      # Process refund
+      - action: action_process_refund_request
+      - action: utter_refund_confirmation
