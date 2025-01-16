@@ -1,0 +1,29 @@
+test_cases:
+- test_case: user is based in california and wants to register to vote
+  steps:
+  - user: I would like to verify my account.
+    commands:
+    - StartFlow(verify_account)
+  - utter: utter_ask_verify_account_email
+  - user: sam@microsoft.com
+    commands:
+    - SetSlot(verify_account_email, sam@microsoft.com)
+  - utter: utter_ask_based_in_california
+  - user: yes
+    commands:
+    - SetSlot(based_in_california, True)
+  - utter: utter_ask_verify_account_sufficient_california_income
+  - user: yes
+    commands:
+    - SetSlot(verify_account_sufficient_california_income, True)
+  - utter: utter_ask_verify_account_confirmation
+  - user: yes
+    commands:
+    - SetSlot(verify_account_confirmation, True)
+  - utter: utter_verify_account_success
+  - utter: utter_can_do_something_else
+  - user: I would like to register to vote in california.
+    commands:
+    - StartFlow(register_to_vote_in_california)
+  - utter: utter_register_to_vote_in_california
+  - utter: utter_can_do_something_else

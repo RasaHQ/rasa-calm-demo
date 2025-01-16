@@ -1,0 +1,15 @@
+test_cases:
+- test_case: user answers and also asks a question
+  steps:
+  - user: I want to send 50$ to Justin
+    commands:
+    - StartFlow(transfer_money)
+    - SetSlot(transfer_money_recipient, Justin)
+    - SetSlot(transfer_money_amount_of_money, 50)
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: yes, and btw are there any fees associated with the sending?
+    commands:
+    - SetSlot(transfer_money_final_confirmation, True)
+    - SearchAndReply()
+  - utter: placeholder_generated_answer
+  - utter: utter_transfer_complete

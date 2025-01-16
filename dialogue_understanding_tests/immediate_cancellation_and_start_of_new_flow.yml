@@ -1,0 +1,19 @@
+test_cases:
+- test_case: user immediately cancels and starts new flow
+  steps:
+  - user: I want to send money
+    commands:
+    - StartFlow(transfer_money)
+  - utter: utter_ask_transfer_money_recipient
+  - user: ah, one moment stop that. I want to see my transfers first
+    commands:
+    - CancelFlow()
+    - StartFlow(transaction_search)
+  - utter: utter_flow_cancelled_rasa
+  - utter: utter_transactions
+  - utter: utter_can_do_something_else
+  - user: okay, send money to Jill
+    commands:
+    - StartFlow(transfer_money)
+    - SetSlot(transfer_money_recipient, Jill)
+  - utter: utter_ask_transfer_money_amount_of_money

@@ -1,0 +1,25 @@
+test_cases:
+- test_case: user transfers money mentioning two slots upfront
+  steps:
+  - user: I want to send 40 bucks to Ty
+    commands:
+    - StartFlow(transfer_money)
+    - SetSlot(transfer_money_recipient, Ty)
+    - SetSlot(transfer_money_amount_of_money, 40)
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: yes
+    commands:
+    - SetSlot(transfer_money_final_confirmation, True)
+  - utter: utter_transfer_complete
+- test_case: user transfers money mentioning two slots upfront eg 2
+  steps:
+  - user: I want to send 413$ to Maria
+    commands:
+    - StartFlow(transfer_money)
+    - SetSlot(transfer_money_recipient, Maria)
+    - SetSlot(transfer_money_amount_of_money, 413)
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: yes
+    commands:
+    - SetSlot(transfer_money_final_confirmation, True)
+  - utter: utter_transfer_complete

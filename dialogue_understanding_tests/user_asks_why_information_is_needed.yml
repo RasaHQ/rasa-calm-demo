@@ -1,0 +1,24 @@
+test_cases:
+- test_case: user asks why information is needed
+  steps:
+  - user: I want to verify my account
+    commands:
+    - StartFlow(verify_account)
+  - utter: utter_ask_verify_account_email
+  - user: It's a.tweep@twitter.com
+    commands:
+    - SetSlot(verify_account_email, a.tweep@twitter.com)
+  - utter: utter_ask_based_in_california
+  - user: Why do you need to know this?
+    commands:
+    - ChitChat()
+  - utter: utter_california_compliance
+  - utter: utter_ask_based_in_california
+  - user: No
+    commands:
+    - SetSlot(based_in_california, False)
+  - utter: utter_ask_verify_account_confirmation
+  - user: Yes
+    commands:
+    - SetSlot(verify_account_confirmation, True)
+  - utter: utter_verify_account_success

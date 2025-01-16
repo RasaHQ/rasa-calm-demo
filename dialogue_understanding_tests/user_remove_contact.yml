@@ -1,0 +1,15 @@
+test_cases:
+- test_case: user removes a contact
+  steps:
+  - user: Remove contact
+    commands:
+    - StartFlow(remove_contact)
+  - utter: utter_ask_remove_contact_handle
+  - user: '@MaryLu'
+    commands:
+    - SetSlot(remove_contact_handle, @MaryLu)
+  - utter: utter_ask_remove_contact_confirmation
+  - user: Yes
+    commands:
+    - SetSlot(remove_contact_confirmation, Yes)
+  - utter: utter_remove_contact_success

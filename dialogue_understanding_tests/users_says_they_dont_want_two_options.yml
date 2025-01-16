@@ -1,0 +1,11 @@
+test_cases:
+- test_case: user says they don't want one options
+  steps:
+  - user: contact
+    commands:
+    - Clarify(list_contacts, remove_contact)
+  - utter: utter_clarification_options_rasa
+  - user: not remove
+    commands:
+    - StartFlow(list_contacts)
+  - utter: utter_list_contacts

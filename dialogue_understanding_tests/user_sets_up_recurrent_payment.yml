@@ -1,0 +1,83 @@
+test_cases:
+- test_case: user wants to set up a new recurrent payment without stating which type
+  steps:
+  - user: I want to set up a new recurrent payment
+    commands:
+    - StartFlow(setup_recurrent_payment)
+  - utter: utter_ask_recurrent_payment_type
+  - user: direct debit
+    commands:
+    - SetSlot(recurrent_payment_type, direct debit)
+  - utter: utter_ask_recipient
+  - user: Jane Doe
+    commands:
+    - SetSlot(recurrent_payment_recipient, Jane Doe)
+  - utter: utter_ask_recurrent_payment_amount_of_money
+  - user: 100 euros
+    commands:
+    - SetSlot(recurrent_payment_amount_of_money, 100)
+    - StartFlow(setup_recurrent_payment)
+  - utter: utter_ask_recurrent_payment_frequency
+  - user: monthly
+    commands:
+    - SetSlot(recurrent_payment_frequency, monthly)
+  - utter: utter_ask_recurrent_payment_start_date
+  - user: Jan 1st, 2050
+    commands:
+    - SetSlot(recurrent_payment_start_date, Jan 1st, 2050)
+  - utter: utter_ask_recurrent_payment_end_date
+  - user: Jan 1st, 2051
+    commands:
+    - SetSlot(recurrent_payment_end_date, 2051-01-01)
+  - utter: utter_ask_recurrent_payment_confirmation
+  - user: Yes
+    commands:
+    - SetSlot(recurrent_payment_confirmation, True)
+  - utter: utter_payment_complete
+- test_case: user wants to set up a new recurrent payment, stating first which type of payment
+  steps:
+  - user: I want to set up a new standing order payment.
+    commands:
+    - StartFlow(setup_recurrent_payment)
+    - SetSlot(recurrent_payment_type, standing order)
+  - utter: utter_ask_recipient
+- test_case: user wants to set up a new recurrent payment, but specifies the type incompletely
+  steps:
+  - user: I want to set up a new recurrent payment
+    commands:
+    - StartFlow(setup_recurrent_payment)
+  - utter: utter_ask_recurrent_payment_type
+  - user: direct
+    commands:
+    - SetSlot(recurrent_payment_type, direct debit)
+  - utter: utter_ask_recipient
+- test_case: user wants to set up a new recurrent payment, but specifies the type incompletely, example 2
+  steps:
+  - user: I want to set up a new recurrent payment
+    commands:
+    - StartFlow(setup_recurrent_payment)
+  - utter: utter_ask_recurrent_payment_type
+  - user: d debit
+    commands:
+    - SetSlot(recurrent_payment_type, direct debit)
+  - utter: utter_ask_recipient
+- test_case: user wants to set up a new recurrent payment, but specifies over specifies the type
+  steps:
+  - user: I want to set up a new recurrent payment
+    commands:
+    - StartFlow(setup_recurrent_payment)
+  - utter: utter_ask_recurrent_payment_type
+  - user: direct debit transfer payment
+    commands:
+    - SetSlot(recurrent_payment_type, direct debit)
+  - utter: utter_ask_recipient
+- test_case: user wants to set up a new recurrent payment, but specifies the type with spelling mistakes
+  steps:
+  - user: I want to set up a new recurrent payment
+    commands:
+    - StartFlow(setup_recurrent_payment)
+  - utter: utter_ask_recurrent_payment_type
+  - user: direct debt
+    commands:
+    - SetSlot(recurrent_payment_type, direct debit)
+  - utter: utter_ask_recipient

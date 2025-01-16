@@ -1,0 +1,12 @@
+test_cases:
+- test_case: user says they don't want one option
+  steps:
+  - user: cash
+    commands:
+    - Clarify(check_balance, transfer_money)
+  - utter: utter_clarification_options_rasa
+  - user: not transfer
+    commands:
+    - StartFlow(check_balance)
+  - utter: utter_current_balance
+

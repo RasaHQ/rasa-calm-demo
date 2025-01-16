@@ -1,0 +1,29 @@
+test_cases:
+- test_case: user resets a slot by value
+  steps:
+  - user: I want to send some money to John
+    commands:
+    - StartFlow(transfer_money)
+    - SetSlot(transfer_money_recipient, John)
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: '50'
+    commands:
+    - SetSlot(transfer_money_amount_of_money, 50)
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: I want to change the recipient
+    commands:
+    - SetSlot(transfer_money_recipient, None)
+  - utter: utter_ask_confirm_slot_correction
+  - user: /SetSlots(confirm_slot_correction=true)
+    commands:
+    - SetSlot(confirm_slot_correction, true)
+  - utter: utter_corrected_previous_input
+  - utter: utter_ask_transfer_money_recipient
+  - user: Eliza
+    commands:
+    - SetSlot(transfer_money_recipient, Eliza)
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: yes
+    commands:
+    - SetSlot(transfer_money_final_confirmation, True)
+  - utter: utter_transfer_complete

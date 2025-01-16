@@ -1,0 +1,18 @@
+test_cases:
+- test_case: validation too little money
+  steps:
+  - user: I want to send 5000$ to Martin
+    commands:
+    - StartFlow(transfer_money)
+    - SetSlot(transfer_money_recipient, Martin)
+    - SetSlot(transfer_money_amount_of_money, 5000)
+  - utter: utter_transfer_money_insufficient_funds
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: Oh, I thought I had more, then do 3000$ for now
+    commands:
+    - SetSlot(transfer_money_amount_of_money, 3000)
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: yes
+    commands:
+    - SetSlot(transfer_money_final_confirmation, True)
+  - utter: utter_transfer_complete

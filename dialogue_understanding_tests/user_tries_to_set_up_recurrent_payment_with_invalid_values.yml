@@ -1,0 +1,48 @@
+test_cases:
+- test_case: user wants to set up a new recurrent payment and inserts an invalid frequency value
+  steps:
+  - user: I want to set up a new standing order payment.
+    commands:
+    - StartFlow(setup_recurrent_payment)
+    - SetSlot(recurrent_payment_type, standing order)
+  - utter: utter_ask_recipient
+  - user: Jane Doe
+    commands:
+    - SetSlot(recurrent_payment_recipient, Jane Doe)
+  - utter: utter_ask_recurrent_payment_amount_of_money
+  - user: 20 pounds
+    commands:
+    - SetSlot(recurrent_payment_amount_of_money, 20)
+  - utter: utter_ask_recurrent_payment_frequency
+  - user: weekly
+    commands:
+    - SetSlot(recurrent_payment_frequency, weekly)
+    - StartFlow(setup_recurrent_payment)
+  - utter: utter_categorical_slot_rejection
+  - utter: utter_ask_recurrent_payment_frequency
+- test_case: user wants to set up a new recurrent payment and gives an invalid start date (precedes current timestamp)
+  steps:
+  - user: i want to set up a new direct debit payment
+    commands:
+    - StartFlow(setup_recurrent_payment)
+    - SetSlot(recurrent_payment_type, direct debit)
+  - utter: utter_ask_recipient
+  - user: Jane Doe
+    commands:
+    - SetSlot(recurrent_payment_recipient, Jane Doe)
+  - utter: utter_ask_recurrent_payment_amount_of_money
+  - user: 20 pounds
+    commands:
+    - SetSlot(recurrent_payment_amount_of_money, 20)
+  - utter: utter_ask_recurrent_payment_frequency
+  - user: monthly
+    commands:
+    - SetSlot(recurrent_payment_frequency, monthly)
+    - SetSlot(recurrent_payment_start_date, None)
+  - utter: utter_ask_recurrent_payment_start_date
+  - user: 01/10/20
+    commands:
+    - SetSlot(recurrent_payment_start_date, 01/10/20)
+    - StartFlow(setup_recurrent_payment)
+  - utter: utter_invalid_date
+  - utter: utter_ask_recurrent_payment_start_date

@@ -1,0 +1,24 @@
+test_cases:
+- test_case: user asks for repetition of previous action
+  steps:
+  - user: send 50 USD to John
+    commands:
+    - StartFlow(transfer_money)
+    - SetSlot(transfer_money_recipient, John)
+    - SetSlot(transfer_money_amount_of_money, 50)
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: yes
+    commands:
+    - SetSlot(transfer_money_final_confirmation, True)
+  - utter: utter_transfer_complete
+  - utter: utter_can_do_something_else
+  - user: now do it again
+    commands:
+    - StartFlow(transfer_money)
+    - SetSlot(transfer_money_recipient, John)
+    - SetSlot(transfer_money_amount_of_money, 50)
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: yes
+    commands:
+    - SetSlot(transfer_money_final_confirmation, True)
+  - utter: utter_transfer_complete

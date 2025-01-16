@@ -1,0 +1,11 @@
+test_cases:
+- test_case: Replace card when user does not confirm the correct card
+  steps:
+  - user: I need to replace my card
+    commands:
+    - StartFlow(replace_card)
+  - utter: utter_ask_confirm_correct_card
+  - user: no
+    commands:
+    - SetSlot(confirm_correct_card, False)
+  - utter: utter_relevant_card_not_linked

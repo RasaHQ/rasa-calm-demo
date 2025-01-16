@@ -1,0 +1,12 @@
+test_cases:
+- test_case: user_asks_for_vacancies_no_department_entity_extracted
+  steps:
+  - user: I would like to apply for a job at your establishment.
+    commands:
+    - StartFlow(job_vacancies)
+  - utter: utter_ask_department
+  - user: I would like a role in the Supplies department.
+    commands:
+    - SetSlot(department, Supplies)
+  - utter: utter_ask_rephrase
+  - utter: utter_ask_department
