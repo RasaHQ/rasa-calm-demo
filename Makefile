@@ -101,5 +101,20 @@ test-flaky-assertions: .EXPORT_ALL_VARIABLES
 test-failing-assertions: .EXPORT_ALL_VARIABLES
 	poetry run rasa test e2e e2e_tests_with_assertions/failing --e2e-results
 
-make test-passing-stub-custom-actions: .EXPORT_ALL_VARIABLES
+test-passing-stub-custom-actions: .EXPORT_ALL_VARIABLES
 	poetry run rasa test e2e e2e_tests_with_stub_custom_actions/passing --e2e-results
+
+set-otel-resource-attributes: ## Set OTEL_RESOURCE_ATTRIBUTES with rasa version and git info
+	. scripts/set-otel-resource-attributes.sh
+
+run-otel-collector: ## Run OTEL collector, which would recieve traces and metrics, and export them to OTEL monitoring backend
+	docker compose -f otel-docker-compose.yml run --remove-orphans --build --name otel-collector -d -P otel-collector
+
+print-otel-collector-logs: ## Print OTEL collector logs on console
+	docker logs otel-collector
+
+otel-collector-health-check: ## Conduct health check on OTEL collector (requires curl and jq tools)
+	curl -sf http://localhost:13133/health/status | jq '.status' | grep 'Server available'
+
+stop-otel-collector: ## Stop OTEL collector
+	docker compose -f otel-docker-compose.yml down otel-collector -v --remove-orphans --rmi all

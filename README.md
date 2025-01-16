@@ -480,3 +480,20 @@ rasa test e2e e2e_tests_with_assertions/tests/path/to/a/target/test.yml
 ```
 
 ------
+
+### Enable `Open Telemetry` tracing and metrics
+1. Uncomment (and update if required) the `tracing` and `metrics` blocks in the
+[`endpoints.yml`](./endpoints.yml) file.
+2. _If_ intending to export traces and metrics to monitoring backend `Honeycomb` cloud for visualisation, then set API key `HONEYCOMB_API_KEY`.
+    - If intending to send to a different monitoring backend, then update [`otel-collector-config.yml`](./otel-collector-config.yml) and [`otel-docker-compose.yml`](./otel-docker-compose.yml) files accordingly, and set required API key(s) if required.
+3. To enable mapping traces or metrics to corresponding `rasa-pro` version, `rasa-calm-demo` git repository branch and commit hash, set `OTEL_RESOURCE_ATTRIBUTES`
+via `` `make set-otel-resource-attributes` `` (note the backticks in the command. Those are to be included, and _not_ to be omitted).
+    - If intending to set other attributes also, such as git tag etc, then set `OTEL_RESOURCE_ATTRIBUTES` 
+    manually: `export OTEL_RESOURCE_ATTRIBUTES=key1=value,key2=value2,key-n=value-n`
+4. Start OTEL collector as a `docker` container (named `otel-collector`): `make run-otel-collector`
+    - **Optional**: A health check on the collector can be performed via `make otel-collector-health-check` (Note: `curl` and `jq` utilities required for this)
+5. Train and use Rasa bot assistant.
+6. View traces and metrics: Now generated traces and metrics would be visible in:
+    - `Honeycomb`'s web UI (or other chosen monitoring backend, if using a different one).
+    - Also in `otel-collector`'s console logs. To troubleshoot in case traces or metrics do not appear on the monitoring backend, start by checking these logs via:
+        - `make print-otel-collector-logs`

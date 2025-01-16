@@ -58,12 +58,19 @@ action_endpoint:
 nlg:
   type: rephrase
 
-#tracing:
-#  type: jaeger
+# Run OTEL collector (via `otel-docker-compose.yml`), and uncomment this section, to send traces to it.
+# tracing:
+#  type: otlp
+#  endpoint: localhost:4317
 #  host: localhost
-#  port: 6831
 #  service_name: rasa
-#  sync_export: ~
+
+# Run OTEL collector (via `otel-docker-compose.yml`), and uncomment this section, to send metrics to it.
+# metrics:
+#  type: otlp
+#  endpoint: localhost:4317
+#  host: localhost
+#  service_name: rasa
 
 vector_store:
   type: qdrant
