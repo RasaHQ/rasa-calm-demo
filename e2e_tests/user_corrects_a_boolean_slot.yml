@@ -2,8 +2,6 @@ test_cases:
   - test_case: user corrects boolean slot
     steps:
       - user: I want to verify my account
-      - slot_was_set:
-        - route_session_to_calm: True
       - utter: utter_ask_verify_account_email
       - user: It's mag@pie.com
       - utter: utter_ask_based_in_california

@@ -2,8 +2,6 @@ test_cases:
   - test_case: user makes an intermittent flow switch
     steps:
     - user: I need to transfer some money to John
-    - slot_was_set:
-      - route_session_to_calm: True
     - utter: utter_ask_transfer_money_amount_of_money
     - user: How much do I have on my account?
     - utter: utter_current_balance

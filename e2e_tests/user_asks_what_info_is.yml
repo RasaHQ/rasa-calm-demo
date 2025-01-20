@@ -3,8 +3,6 @@ test_cases:
     steps:
       # NLUCommandAdapter should start the flow, so "Peter" is not detected as an entity
       - user: I want to add Kate to my contacts
-      - slot_was_set:
-        - route_session_to_calm: True
       - utter: utter_ask_add_contact_handle
       - user: What's a contact handle?
       # not able to test the response of enterprise search

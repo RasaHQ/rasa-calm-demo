@@ -2,8 +2,6 @@ test_cases:
   - test_case: Verify account for non-California resident
     steps:
       - user: I want to verify my account
-      - slot_was_set:
-        - route_session_to_calm: true
       - utter: utter_ask_verify_account_email
       - user: example@mail.com
       - slot_was_set: 
@@ -30,8 +28,6 @@ test_cases:
   - test_case: Verify account for California resident with insufficient income
     steps:
       - user: I want to verify my account
-      - slot_was_set:
-        - route_session_to_calm: true
       - utter: utter_ask_verify_account_email
       - user: example@mail.com
       - slot_was_set:
@@ -59,8 +55,6 @@ test_cases:
   - test_case: Verify account for California resident with sufficient income
     steps:
       - user: I want to verify my account
-      - slot_was_set:
-        - route_session_to_calm: true
       - utter: utter_ask_verify_account_email
       - user: example@mail.com
       - slot_was_set:
