@@ -1,8 +1,0 @@
-# This requires a few changes in how empty user step messages are handled by the E2ETestRunner.
-#test_cases:
-#  - test_case: user sends empty message
-#    steps:
-#      - user: "     "
-#        assertions:
-#          - bot_uttered:
-#              utter_name: utter_user_input_empty_error_rasa

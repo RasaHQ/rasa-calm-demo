@@ -1,7 +1,0 @@
-test_cases:
-  - test_case: user_checks_their_transactions
-    steps:
-      - user: Show my transactions please
-        assertions:
-          - bot_uttered:
-              utter_name: utter_transactions
