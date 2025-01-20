@@ -51,28 +51,16 @@ run: .EXPORT_ALL_VARIABLES run-duckling
 	poetry run rasa inspect --debug
 
 train: .EXPORT_ALL_VARIABLES
-	poetry run rasa train -c config/config.yml -d domain --data data
-
-train-multistep: .EXPORT_ALL_VARIABLES
-	poetry run rasa train -c config/multistep-config.yml -d domain --data data
-
-train-qdrant: .EXPORT_ALL_VARIABLES
-	poetry run rasa train -c config/qdrant-config.yml -d domain --data data
+	poetry run rasa train -c config.yml -d domain --data data
 
 actions:
 	poetry run rasa run actions
 
-test-passing: .EXPORT_ALL_VARIABLES
-	poetry run rasa test e2e e2e_tests/passing --e2e-results
+e2e-tests: .EXPORT_ALL_VARIABLES
+	poetry run rasa test e2e e2e_tests --e2e-results
 
-test-flaky: .EXPORT_ALL_VARIABLES
-	poetry run rasa test e2e e2e_tests/flaky --e2e-results
-
-test-failing: .EXPORT_ALL_VARIABLES
-	poetry run rasa test e2e e2e_tests/failing --e2e-results
-
-test-multistep: .EXPORT_ALL_VARIABLES
-	poetry run rasa test e2e e2e_tests/multistep --e2e-results
+du-tests: .EXPORT_ALL_VARIABLES
+	poetry run rasa test du dialogue_understanding_tests
 
 test-one: .EXPORT_ALL_VARIABLES
 	poetry run rasa test e2e $(target) --debug
@@ -80,14 +68,3 @@ test-one: .EXPORT_ALL_VARIABLES
 stop-duckling:
 	docker stop duckling_container
 
-test-passing-assertions: .EXPORT_ALL_VARIABLES
-	poetry run rasa test e2e e2e_tests_with_assertions/passing --e2e-results
-
-test-flaky-assertions: .EXPORT_ALL_VARIABLES
-	poetry run rasa test e2e e2e_tests_with_assertions/flaky --e2e-results
-
-test-failing-assertions: .EXPORT_ALL_VARIABLES
-	poetry run rasa test e2e e2e_tests_with_assertions/failing --e2e-results
-
-make test-passing-stub-custom-actions: .EXPORT_ALL_VARIABLES
-	poetry run rasa test e2e e2e_tests_with_stub_custom_actions/passing --e2e-results
