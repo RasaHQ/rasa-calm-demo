@@ -1,0 +1,27 @@
+test_cases:
+- test_case: user corrects boolean slot
+  steps:
+  - user: I want to verify my account
+    commands:
+    - start verify_account
+  - utter: utter_ask_verify_account_email
+  - user: It's mag@pie.com
+    commands:
+    - set verify_account_email mag@pie.com
+  - utter: utter_ask_based_in_california
+  - user: yes
+    commands:
+    - set based_in_california True
+  - utter: utter_ask_verify_account_sufficient_california_income
+  - user: yes
+    commands:
+    - set verify_account_sufficient_california_income True
+  - utter: utter_ask_verify_account_confirmation
+  - user: Actually my income is not that high
+    commands:
+    - set verify_account_sufficient_california_income False
+  - utter: utter_ask_verify_account_sufficient_california_income
+  - user: no
+    commands:
+    - set verify_account_sufficient_california_income False
+  - utter: utter_ca_income_insufficient

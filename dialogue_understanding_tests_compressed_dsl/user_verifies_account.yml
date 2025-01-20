@@ -1,0 +1,61 @@
+test_cases:
+- test_case: Verify account for non-California resident
+  steps:
+  - user: I want to verify my account
+    commands:
+    - start verify_account
+  - utter: utter_ask_verify_account_email
+  - user: example@mail.com
+    commands:
+    - set verify_account_email example@mail.com
+  - utter: utter_ask_based_in_california
+  - user: no
+    commands:
+    - set based_in_california False
+  - utter: utter_ask_verify_account_confirmation
+  - user: yes
+    commands:
+    - set verify_account_confirmation True
+  - utter: utter_verify_account_success
+- test_case: Verify account for California resident with insufficient income
+  steps:
+  - user: I want to verify my account
+    commands:
+    - start verify_account
+  - utter: utter_ask_verify_account_email
+  - user: example@mail.com
+    commands:
+    - set verify_account_email example@mail.com
+  - utter: utter_ask_based_in_california
+  - user: yes
+    commands:
+    - set based_in_california True
+  - utter: utter_ask_verify_account_sufficient_california_income
+  - user: no
+    commands:
+    - set verify_account_sufficient_california_income False
+  - utter: utter_ca_income_insufficient
+  - utter: utter_can_do_something_else
+- test_case: Verify account for California resident with sufficient income
+  steps:
+  - user: I want to verify my account
+    commands:
+    - start verify_account
+  - utter: utter_ask_verify_account_email
+  - user: example@mail.com
+    commands:
+    - set verify_account_email example@mail.com
+  - utter: utter_ask_based_in_california
+  - user: yes
+    commands:
+    - set based_in_california True
+  - utter: utter_ask_verify_account_sufficient_california_income
+  - user: yes
+    commands:
+    - set verify_account_sufficient_california_income True
+  - utter: utter_ask_verify_account_confirmation
+  - user: yes
+    commands:
+    - set verify_account_confirmation True
+  - utter: utter_verify_account_success
+  - utter: utter_can_do_something_else

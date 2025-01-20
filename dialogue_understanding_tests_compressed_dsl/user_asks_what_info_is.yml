@@ -1,0 +1,24 @@
+test_cases:
+- test_case: user asks what requested information is
+  steps:
+  - user: I want to add Kate to my contacts
+    commands:
+    - start add_contact
+  - utter: utter_ask_add_contact_handle
+  - user: What's a contact handle?
+    commands:
+    - search
+  - utter: placeholder_generated_answer
+  - utter: utter_ask_add_contact_handle
+  - user: Ah okay she sent it to me, it's @KatePurry
+    commands:
+    - set add_contact_handle @KatePurry
+  - utter: utter_ask_add_contact_name
+  - user: Kate
+    commands:
+    - set add_contact_name Kate
+  - utter: utter_ask_add_contact_confirmation
+  - user: yes
+    commands:
+    - set add_contact_confirmation True
+  - utter: utter_contact_added

@@ -1,0 +1,26 @@
+test_cases:
+- test_case: user tries to skip a question multiple times (hard)
+  steps:
+  - user: send money to John
+    commands:
+    - start transfer_money
+    - set transfer_money_recipient John
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: i don't want to answer this for now
+    commands:
+    - skip
+  - utter: utter_skip_question_answer
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: i don't want to answer this
+    commands:
+    - skip
+  - utter: utter_skip_question_answer
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: okay 50
+    commands:
+    - set transfer_money_amount_of_money 50
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: yes
+    commands:
+    - set transfer_money_final_confirmation true
+  - utter: utter_transfer_complete

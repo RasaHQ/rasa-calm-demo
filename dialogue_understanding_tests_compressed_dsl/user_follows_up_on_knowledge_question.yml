@@ -1,0 +1,13 @@
+test_cases:
+- test_case: user follows up on a knowledge question
+  steps:
+  - user: Are transfers on free with this service?
+    commands:
+    - search
+  - utter: placeholder_generated_answer
+  - utter: utter_can_do_something_else
+  - user: How about international ones?
+    commands:
+    - search
+  - utter: placeholder_generated_answer
+  - utter: utter_can_do_something_else

@@ -1,0 +1,15 @@
+test_cases:
+- test_case: default cancellation pattern overridden no confirmation
+  steps:
+  - user: I would like to add a new contact
+    commands:
+    - start add_contact
+  - utter: utter_ask_add_contact_handle
+  - user: '@max'
+    commands:
+    - set add_contact_handle @max
+  - utter: utter_ask_add_contact_name
+  - user: Actually, cancel that please.
+    commands:
+    - cancel
+  - utter: utter_can_do_something_else

@@ -1,0 +1,12 @@
+fixtures:
+- california_resident:
+  - based_in_california: true
+test_cases:
+- test_case: Register to vote for California resident
+  steps:
+  - user: I want to register to vote
+    commands:
+    - start register_to_vote_in_california
+  - utter: utter_register_to_vote_in_california
+  fixtures:
+  - california_resident

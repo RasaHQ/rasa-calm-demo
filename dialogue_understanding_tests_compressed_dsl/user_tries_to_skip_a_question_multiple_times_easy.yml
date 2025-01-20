@@ -1,0 +1,56 @@
+test_cases:
+- test_case: user tries to skip a question multiple times (easy)
+  steps:
+  - user: send money to John
+    commands:
+    - start transfer_money
+    - set transfer_money_recipient John
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: skip this question
+    commands:
+    - skip
+  - utter: utter_skip_question_answer
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: skip this step
+    commands:
+    - skip
+  - utter: utter_skip_question_answer
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: go to next question
+    commands:
+    - skip
+  - utter: utter_skip_question_answer
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: go to next step
+    commands:
+    - skip
+  - utter: utter_skip_question_answer
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: skip this
+    commands:
+    - skip
+  - utter: utter_skip_question_answer
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: next one
+    commands:
+    - skip
+  - utter: utter_skip_question_answer
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: skip
+    commands:
+    - skip
+  - utter: utter_skip_question_answer
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: next
+    commands:
+    - skip
+  - utter: utter_skip_question_answer
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: okay 50
+    commands:
+    - set transfer_money_amount_of_money 50
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: yes
+    commands:
+    - set transfer_money_final_confirmation true
+  - utter: utter_transfer_complete

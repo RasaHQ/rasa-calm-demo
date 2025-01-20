@@ -1,0 +1,23 @@
+test_cases:
+- test_case: user tries to use abstract values
+  steps:
+  - user: send money
+    commands:
+    - start transfer_money
+  - utter: utter_ask_transfer_money_recipient
+  - user: to a good friend
+    commands:
+    - set transfer_money_recipient None
+  - utter: utter_ask_transfer_money_recipient
+  - user: okay, to Mary
+    commands:
+    - set transfer_money_recipient Mary
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: '50'
+    commands:
+    - set transfer_money_amount_of_money 50
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: yes
+    commands:
+    - set confirm_slot_correction True
+  - utter: utter_transfer_complete

@@ -1,0 +1,62 @@
+test_cases:
+- test_case: user_orders_pizza_stating_which_type_and_pays_with_card
+  steps:
+  - user: I would like to order a diavola pizza.
+    commands:
+    - start order_pizza
+    - set pizza diavola
+  - utter: utter_ask_num_pizza
+  - user: 2 please
+    commands:
+    - set num_pizza 2
+  - utter: utter_ask_address
+  - user: 30 Pine Road
+    commands:
+    - set address 30 Pine Road
+  - utter: utter_confirm
+  - user: /SetSlots(confirmation_order=True)
+    commands:
+    - set confirmation_order True
+  - utter: utter_ask_payment_option
+  - user: credit card
+    commands:
+    - set payment_option card
+  - utter: utter_ask_card_details
+  - user: 1234 5678 9012 3456
+    commands:
+    - set card_details 1234 5678 9012 3456
+  - utter: utter_execute_payment
+
+- test_case: user_orders_pizza_stating_which_type_and_pays_with_points
+  steps:
+  - user: I would like to order a diavola pizza.
+    commands:
+    - start order_pizza
+    - set pizza diavola
+  - utter: utter_ask_num_pizza
+  - user: 1 please
+    commands:
+    - set num_pizza 1
+  - utter: utter_ask_address
+  - user: 40 Elm Street
+    commands:
+    - set address 40 Elm Street
+  - utter: utter_confirm
+  - user: /SetSlots(confirmation_order=True)
+    commands:
+    - set confirmation_order True
+  - utter: utter_ask_payment_option
+  - user: loyalty points
+    commands:
+    - set payment_option membership_points
+  - utter: utter_ask_user_name
+  - user: janedoe
+    commands:
+    - set user_name janedoe
+  - utter: utter_ask_user_password
+  - user: r@nd0m
+    commands:
+    - set user_password r@nd0m
+  - utter: utter_authentication_successful
+  - bot: You have 150 points in your membership account. That's enough to get a free pizza!
+  - utter: utter_execute_payment

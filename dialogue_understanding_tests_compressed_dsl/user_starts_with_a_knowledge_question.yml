@@ -1,0 +1,8 @@
+test_cases:
+- test_case: user starts with a knowledge question
+  steps:
+  - user: Are transfers on free with this service?
+    commands:
+    - cancel
+  - utter: placeholder_generated_answer
+  - utter: utter_can_do_something_else

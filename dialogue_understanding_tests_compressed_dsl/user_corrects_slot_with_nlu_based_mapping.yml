@@ -1,0 +1,170 @@
+test_cases:
+- test_case: user_orders_pizza_stating_which_type_and_corrects_quantity_later
+  steps:
+  - user: I would like to order a diavola pizza.
+    commands:
+    - start order_pizza
+    - set pizza diavola
+  - utter: utter_ask_num_pizza
+  - user: 1 please
+    commands:
+    - set num_pizza 1
+  - utter: utter_ask_address
+  - user: 30 Pine Road
+    commands:
+    - set address 30 Pine Road
+  - utter: utter_confirm
+  - user: /SetSlots(confirmation_order=True)
+    commands:
+    - set confirmation_order True
+  - utter: utter_ask_payment_option
+  - user: actually can i get 2 pizzas instead
+    commands:
+    - set num_pizza 2
+  - utter: utter_ask_confirm_slot_correction
+  - user: /SetSlots(confirm_slot_correction=true)
+    commands:
+    - set confirm_slot_correction true
+  - utter: utter_corrected_previous_input
+  - utter: utter_confirm
+  - user: /SetSlots(confirmation_order=True)
+    commands:
+    - set confirmation_order True
+  - utter: utter_ask_payment_option
+
+- test_case: user_orders_pizza_stating_which_type_and_corrects_pizza_type_later
+  steps:
+  - user: I would like to order a diavola pizza.
+    commands:
+    - start order_pizza
+    - set pizza diavola
+  - utter: utter_ask_num_pizza
+  - user: 1 please
+    commands:
+    - set num_pizza 1
+  - utter: utter_ask_address
+  - user: 30 Pine Road
+    commands:
+    - set address 30 Pine Road
+  - utter: utter_confirm
+  - user: /SetSlots(confirmation_order=True)
+    commands:
+    - set confirmation_order True
+  - utter: utter_ask_payment_option
+  - user: actually can i get a margherita instead
+    commands:
+    - set pizza margherita
+  - utter: utter_ask_confirm_slot_correction
+  - user: /SetSlots(confirm_slot_correction=true)
+    commands:
+    - set confirm_slot_correction true
+  - utter: utter_corrected_previous_input
+  - utter: utter_confirm
+  - user: /SetSlots(confirmation_order=True)
+    commands:
+    - set confirmation_order True
+  - utter: utter_ask_payment_option
+
+- test_case: user_orders_pizza_stating_which_type_and_corrects_address_later
+  steps:
+  - user: I would like to order a diavola pizza.
+    commands:
+    - start order_pizza
+    - set pizza diavola
+  - utter: utter_ask_num_pizza
+  - user: 1 please
+    commands:
+    - set num_pizza 1
+  - utter: utter_ask_address
+  - user: 31 Pine Road
+    commands:
+    - set address 31 Pine Road
+  - utter: utter_confirm
+  - user: /SetSlots(confirmation_order=True)
+    commands:
+    - set confirmation_order True
+  - utter: utter_ask_payment_option
+  - user: wait, i meant to say the pizza should be delivered to 13 Pine Road.
+    commands:
+    - start correct_address
+  - bot: I'm sorry about that. Let's correct your address. Please confirm your new address?
+  - utter: utter_ask_address
+  - user: 13 Pine Road
+    commands:
+    - set address 13 Pine Road
+  - utter: utter_confirm
+  - user: /SetSlots(confirmation_order=True)
+    commands:
+    - set confirmation_order True
+  - utter: utter_flow_continue_interrupted
+  - utter: utter_ask_payment_option
+
+- test_case: user_orders_pizza_stating_which_type_and_corrects_payment_option_later
+  steps:
+  - user: I would like to order a diavola pizza.
+    commands:
+    - start order_pizza
+    - set pizza diavola
+  - utter: utter_ask_num_pizza
+  - user: 1 please
+    commands:
+    - set num_pizza 1
+  - utter: utter_ask_address
+  - user: 30 Pine Road
+    commands:
+    - set address 30 Pine Road
+  - utter: utter_confirm
+  - user: /SetSlots(confirmation_order=True)
+    commands:
+    - set confirmation_order True
+  - utter: utter_ask_payment_option
+  - user: loyalty points
+    commands:
+    - set payment_option membership_points
+  - utter: utter_ask_user_name
+  - user: actually can i pay with a credit card
+    commands:
+    - set payment_option card
+  - utter: utter_ask_confirm_slot_correction
+  - user: /SetSlots(confirm_slot_correction=true)
+    commands:
+    - set confirm_slot_correction true
+  - utter: utter_corrected_previous_input
+  - utter: utter_ask_card_details
+
+- test_case: user_orders_pizza_stating_which_type_and_corrects_order_details_later
+  steps:
+  - user: I would like to order a diavola pizza.
+    commands:
+    - start order_pizza
+    - set pizza diavola
+  - utter: utter_ask_num_pizza
+  - user: 1 please
+    commands:
+    - set num_pizza 1
+  - utter: utter_ask_address
+  - user: 30 Pine Road
+    commands:
+    - set address 30 Pine Road
+  - utter: utter_confirm
+  - user: /SetSlots(confirmation_order=True)
+    commands:
+    - set confirmation_order True
+  - utter: utter_ask_payment_option
+  - user: actually, i made a mistake and need to update my delivery address first.
+    commands:
+    - start correct_order
+  - bot: I'm sorry about that. Let's correct your order. What would you like to change?
+  - user: /SetSlots(address=null)
+    commands:
+    - set address None
+  - utter: utter_ask_address
+  - user: 3 Pine Road
+    commands:
+    - set address 3 Pine Road
+  - utter: utter_confirm
+  - user: /SetSlots(confirmation_order=True)
+    commands:
+    - set confirmation_order True
+  - utter: utter_flow_continue_interrupted
+  - utter: utter_ask_payment_option

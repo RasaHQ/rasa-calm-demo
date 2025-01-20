@@ -1,0 +1,11 @@
+test_cases:
+- test_case: user says they don't want one options
+  steps:
+  - user: contact
+    commands:
+    - clarify list_contacts remove_contact
+  - utter: utter_clarification_options_rasa
+  - user: not remove
+    commands:
+    - start list_contacts
+  - utter: utter_list_contacts
