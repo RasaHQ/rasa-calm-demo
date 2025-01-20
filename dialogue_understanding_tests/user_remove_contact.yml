@@ -4,7 +4,7 @@ test_cases:
   - user: Remove contact
     commands:
     - StartFlow(remove_contact)
-  - utter: utter_ask_remove_contact_handle
+  - bot: "What's the handle of the user you want to remove?"
   - user: '@MaryLu'
     commands:
     - SetSlot(remove_contact_handle, @MaryLu)

@@ -17,6 +17,7 @@ intents:
 entities:
   - pizza_type
   - department
+  - number
 
 slots:
   pizza:
