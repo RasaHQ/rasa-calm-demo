@@ -1,6 +1,6 @@
 fixtures:
 - california_resident:
-  - based_in_california: true
+  - based_in_california: True
 test_cases:
 - test_case: Register to vote for California resident
   steps:

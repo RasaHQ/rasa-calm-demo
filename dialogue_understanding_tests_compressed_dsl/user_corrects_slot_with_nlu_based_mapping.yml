@@ -22,9 +22,9 @@ test_cases:
     commands:
     - set num_pizza 2
   - utter: utter_ask_confirm_slot_correction
-  - user: /SetSlots(confirm_slot_correction=true)
+  - user: /SetSlots(confirm_slot_correction=True)
     commands:
-    - set confirm_slot_correction true
+    - set confirm_slot_correction True
   - utter: utter_corrected_previous_input
   - utter: utter_confirm
   - user: /SetSlots(confirmation_order=True)
@@ -55,9 +55,9 @@ test_cases:
     commands:
     - set pizza margherita
   - utter: utter_ask_confirm_slot_correction
-  - user: /SetSlots(confirm_slot_correction=true)
+  - user: /SetSlots(confirm_slot_correction=True)
     commands:
-    - set confirm_slot_correction true
+    - set confirm_slot_correction True
   - utter: utter_corrected_previous_input
   - utter: utter_confirm
   - user: /SetSlots(confirmation_order=True)
@@ -126,9 +126,9 @@ test_cases:
     commands:
     - set payment_option card
   - utter: utter_ask_confirm_slot_correction
-  - user: /SetSlots(confirm_slot_correction=true)
+  - user: /SetSlots(confirm_slot_correction=True)
     commands:
-    - set confirm_slot_correction true
+    - set confirm_slot_correction True
   - utter: utter_corrected_previous_input
   - utter: utter_ask_card_details
 

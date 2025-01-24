@@ -14,9 +14,9 @@ test_cases:
     commands:
     - set transfer_money_recipient None
   - utter: utter_ask_confirm_slot_correction
-  - user: /SetSlots(confirm_slot_correction=true)
+  - user: /SetSlots(confirm_slot_correction=True)
     commands:
-    - set confirm_slot_correction true
+    - set confirm_slot_correction True
   - utter: utter_corrected_previous_input
   - utter: utter_ask_transfer_money_recipient
   - user: Eliza

@@ -22,5 +22,5 @@ test_cases:
   - utter: utter_ask_transfer_money_final_confirmation
   - user: yes
     commands:
-    - SetSlot(transfer_money_final_confirmation, true)
+    - SetSlot(transfer_money_final_confirmation, True)
   - utter: utter_transfer_complete

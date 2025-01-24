@@ -13,9 +13,9 @@ test_cases:
     commands:
     - SetSlot(transfer_money_recipient, Jimmy)
   - utter: utter_ask_confirm_slot_correction
-  - user: /SetSlots(confirm_slot_correction=true)
+  - user: /SetSlots(confirm_slot_correction=True)
     commands:
-    - SetSlot(confirm_slot_correction, true)
+    - SetSlot(confirm_slot_correction, True)
   - utter: utter_corrected_previous_input
   - utter: utter_ask_transfer_money_amount_of_money
   - user: 50$

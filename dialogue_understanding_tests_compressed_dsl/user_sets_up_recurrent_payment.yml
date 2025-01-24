@@ -16,7 +16,6 @@ test_cases:
   - user: 100 euros
     commands:
     - set recurrent_payment_amount_of_money 100
-    - start setup_recurrent_payment
   - utter: utter_ask_recurrent_payment_frequency
   - user: monthly
     commands:
@@ -34,6 +33,7 @@ test_cases:
     commands:
     - set recurrent_payment_confirmation True
   - utter: utter_payment_complete
+
 - test_case: user wants to set up a new recurrent payment, stating first which type of payment
   steps:
   - user: I want to set up a new standing order payment.
@@ -41,6 +41,7 @@ test_cases:
     - start setup_recurrent_payment
     - set recurrent_payment_type standing order
   - utter: utter_ask_recipient
+
 - test_case: user wants to set up a new recurrent payment, but specifies the type incompletely
   steps:
   - user: I want to set up a new recurrent payment
@@ -51,6 +52,7 @@ test_cases:
     commands:
     - set recurrent_payment_type direct debit
   - utter: utter_ask_recipient
+
 - test_case: user wants to set up a new recurrent payment, but specifies the type incompletely, example 2
   steps:
   - user: I want to set up a new recurrent payment
@@ -61,6 +63,7 @@ test_cases:
     commands:
     - set recurrent_payment_type direct debit
   - utter: utter_ask_recipient
+
 - test_case: user wants to set up a new recurrent payment, but specifies over specifies the type
   steps:
   - user: I want to set up a new recurrent payment
@@ -71,6 +74,7 @@ test_cases:
     commands:
     - set recurrent_payment_type direct debit
   - utter: utter_ask_recipient
+
 - test_case: user wants to set up a new recurrent payment, but specifies the type with spelling mistakes
   steps:
   - user: I want to set up a new recurrent payment

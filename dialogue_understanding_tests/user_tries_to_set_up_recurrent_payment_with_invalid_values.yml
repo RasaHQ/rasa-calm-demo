@@ -17,9 +17,9 @@ test_cases:
   - user: weekly
     commands:
     - SetSlot(recurrent_payment_frequency, weekly)
-    - StartFlow(setup_recurrent_payment)
   - utter: utter_categorical_slot_rejection
   - utter: utter_ask_recurrent_payment_frequency
+
 - test_case: user wants to set up a new recurrent payment and gives an invalid start date (precedes current timestamp)
   steps:
   - user: i want to set up a new direct debit payment
@@ -38,7 +38,6 @@ test_cases:
   - user: monthly
     commands:
     - SetSlot(recurrent_payment_frequency, monthly)
-    - SetSlot(recurrent_payment_start_date, None)
   - utter: utter_ask_recurrent_payment_start_date
   - user: 01/10/20
     commands:
