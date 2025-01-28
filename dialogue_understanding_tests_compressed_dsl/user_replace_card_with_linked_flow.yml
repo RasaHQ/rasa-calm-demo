@@ -53,7 +53,7 @@ test_cases:
     - set replacement_reason damaged
   - utter: utter_will_cancel_and_send_new
   - utter: utter_new_card_has_been_ordered
-    
+
 - test_case: Replace card with unknown replacement reason
   steps:
   - user: I need to replace my card
