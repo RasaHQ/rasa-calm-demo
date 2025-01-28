@@ -42,6 +42,5 @@ test_cases:
   - user: 01/10/20
     commands:
     - set recurrent_payment_start_date 01/10/20
-    - start setup_recurrent_payment
   - utter: utter_invalid_date
   - utter: utter_ask_recurrent_payment_start_date

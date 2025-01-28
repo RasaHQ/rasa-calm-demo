@@ -14,6 +14,7 @@ test_cases:
     commands:
     - set transfer_money_final_confirmation True
   - utter: utter_transfer_complete
+
 - test_case: user transfers money mentioning money slot upfront
   steps:
   - user: I want to send 50 dollars

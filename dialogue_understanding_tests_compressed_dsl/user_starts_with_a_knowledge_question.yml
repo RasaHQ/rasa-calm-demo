@@ -3,6 +3,6 @@ test_cases:
   steps:
   - user: Are transfers on free with this service?
     commands:
-    - cancel
+    - search
   - utter: placeholder_generated_answer
   - utter: utter_can_do_something_else
