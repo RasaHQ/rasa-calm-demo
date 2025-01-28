@@ -16,7 +16,6 @@ test_cases:
   - user: Ah, scratch that, I meant 110$
     commands:
     - set transfer_money_amount_of_money 110
-    - set transfer_money_final_confirmation True
   - utter: utter_ask_confirm_slot_correction
   - user: /SetSlots(confirm_slot_correction=True)
     commands:

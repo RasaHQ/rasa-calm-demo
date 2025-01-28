@@ -1,0 +1,7 @@
+test_cases:
+- test_case: users adds a card
+  steps:
+  - user: /add_card
+    commands:
+    - start add_card
+  - utter: utter_card_added

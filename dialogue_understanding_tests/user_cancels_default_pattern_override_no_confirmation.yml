@@ -1,7 +1,7 @@
 test_cases:
 - test_case: default cancellation pattern overridden no confirmation
   steps:
-  - user: I would like to add a new contact
+  - user: /add_contact
     commands:
     - StartFlow(add_contact)
   - utter: utter_ask_add_contact_handle

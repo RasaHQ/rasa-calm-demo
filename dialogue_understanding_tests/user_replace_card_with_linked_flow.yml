@@ -17,6 +17,7 @@ test_cases:
     commands:
     - SetSlot(was_card_used_fraudulently, True)
   - utter: utter_report_fraud
+
 - test_case: Replace lost card which was not used fraudulently
   steps:
   - user: I need to replace my card
@@ -36,6 +37,7 @@ test_cases:
     - SetSlot(was_card_used_fraudulently, False)
   - utter: utter_will_cancel_and_send_new
   - utter: utter_new_card_has_been_ordered
+
 - test_case: Replace damaged card
   steps:
   - user: I need to replace my card
@@ -51,6 +53,7 @@ test_cases:
     - SetSlot(replacement_reason, damaged)
   - utter: utter_will_cancel_and_send_new
   - utter: utter_new_card_has_been_ordered
+
 - test_case: Replace card with unknown replacement reason
   steps:
   - user: I need to replace my card

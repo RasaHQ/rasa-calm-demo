@@ -1,7 +1,7 @@
 test_cases:
 - test_case: user adds a contact to their list
   steps:
-  - user: I want to add someone to my contact list
+  - user: /add_contact
     commands:
     - start add_contact
   - utter: utter_ask_add_contact_handle
