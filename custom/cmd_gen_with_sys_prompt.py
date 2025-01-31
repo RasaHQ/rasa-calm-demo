@@ -204,9 +204,18 @@ class CustomLLMCommandGenerator(SingleStepLLMCommandGenerator):
         Raises:
             ProviderClientAPIException if an error during API call.
         """
+        end_system_message = \
+        """You are given the conversation transcript.
+        The user and assistant's messages are available under the 'user' and 'assistant' role. 
+        After every user message, you are also given the actions executed by the system.
+        Focus on the provided conversation transcript and create an action list with one
+        action per line in response to the user's last message in the transcript.
+        
+        Your action list:"""
         llm = llm_factory(self.config.get(LLM_CONFIG_KEY), DEFAULT_LLM_CONFIG)
         try:
-            transcript_messages = [{"role": "system", "content": prompt}] + transcript_messages
+            transcript_messages = [{"role": "system", "content": prompt}] + transcript_messages + \
+                                  [{"role": "system", "content": end_system_message}]
             log_llm(
                 logger=structlogger,
                 log_module="SingleStepLLMCommandGenerator",
