@@ -7,28 +7,28 @@ number_of_passed_user_utterances: 328
 number_of_failed_user_utterances: 14
 command_metrics:
   start flow:
-    tp: 94
-    fp: 4
-    fn: 3
-    precision: 0.9591836734693877
-    recall: 0.9690721649484536
-    f1_score: 0.964102564102564
+    tp: 95
+    fp: 3
+    fn: 2
+    precision: 0.9693877551020408
+    recall: 0.979381443298969
+    f1_score: 0.9743589743589743
     total_count: 97
   set slot:
-    tp: 245
-    fp: 1
-    fn: 11
-    precision: 0.9959349593495935
-    recall: 0.95703125
-    f1_score: 0.9760956175298804
+    tp: 246
+    fp: 2
+    fn: 10
+    precision: 0.9919354838709677
+    recall: 0.9609375
+    f1_score: 0.9761904761904763
     total_count: 256
   cancel flow:
     tp: 11
-    fp: 2
+    fp: 1
     fn: 0
-    precision: 0.8461538461538461
+    precision: 0.9166666666666666
     recall: 1.0
-    f1_score: 0.9166666666666666
+    f1_score: 0.9565217391304348
     total_count: 11
   skip question:
     tp: 19
@@ -48,11 +48,11 @@ command_metrics:
     total_count: 6
   chitchat:
     tp: 3
-    fp: 2
+    fp: 3
     fn: 0
-    precision: 0.6
+    precision: 0.5
     recall: 1.0
-    f1_score: 0.7499999999999999
+    f1_score: 0.6666666666666666
     total_count: 3
   clarify:
     tp: 0
@@ -71,6 +71,7 @@ names_of_passed_tests:
 - dialogue_understanding_tests_compressed_dsl/user_adds_contact_to_their_list.yml::user adds a contact to their list
 - dialogue_understanding_tests_compressed_dsl/user_answers_and_also_asks_a_question.yml::user answers and also asks a question
 - dialogue_understanding_tests_compressed_dsl/user_asks_for_a_moment_to_think.yml::user asks for a moment to think
+- dialogue_understanding_tests_compressed_dsl/user_asks_for_repition_of_previous_action.yml::user asks for repetition of previous action
 - dialogue_understanding_tests_compressed_dsl/user_asks_for_vacancies_no_department_entity_extracted.yml::user_asks_for_vacancies_no_department_entity_extracted
 - dialogue_understanding_tests_compressed_dsl/user_asks_why_information_is_needed.yml::user asks why information is needed
 - dialogue_understanding_tests_compressed_dsl/user_cancels_correction.yml::user cancels correction
@@ -88,7 +89,6 @@ names_of_passed_tests:
 - dialogue_understanding_tests_compressed_dsl/user_corrects_mentioning_old_value_first.yml::correction mentioning old value first
 - dialogue_understanding_tests_compressed_dsl/user_corrects_mentioning_old_value_last.yml::correction mentioning old value last
 - dialogue_understanding_tests_compressed_dsl/user_corrects_recipient_in_the_next_message.yml::user corrects recipient in the next message
-- dialogue_understanding_tests_compressed_dsl/user_corrects_recipient_late.yml::user corrects recipient late
 - dialogue_understanding_tests_compressed_dsl/user_corrects_slot_with_nlu_based_mapping.yml::user_orders_pizza_stating_which_type_and_corrects_quantity_later
 - dialogue_understanding_tests_compressed_dsl/user_corrects_slot_with_nlu_based_mapping.yml::user_orders_pizza_stating_which_type_and_corrects_pizza_type_later
 - dialogue_understanding_tests_compressed_dsl/user_corrects_slot_with_nlu_based_mapping.yml::user_orders_pizza_stating_which_type_and_corrects_address_later
@@ -107,6 +107,7 @@ names_of_passed_tests:
 - dialogue_understanding_tests_compressed_dsl/user_replace_card_with_linked_flow.yml::Replace lost card which was used fraudulently
 - dialogue_understanding_tests_compressed_dsl/user_replace_card_with_linked_flow.yml::Replace lost card which was not used fraudulently
 - dialogue_understanding_tests_compressed_dsl/user_replace_card_with_linked_flow.yml::Replace damaged card
+- dialogue_understanding_tests_compressed_dsl/user_resets_a_slot_by_slot_name.yml::user resets a slot by value
 - dialogue_understanding_tests_compressed_dsl/user_resets_a_slot_by_value.yml::user resets a slot by value
 - dialogue_understanding_tests_compressed_dsl/user_sets_up_recurrent_payment.yml::user wants to set up a new recurrent payment, stating first which type of payment
 - dialogue_understanding_tests_compressed_dsl/user_sets_up_recurrent_payment.yml::user wants to set up a new recurrent payment, but specifies the type incompletely
@@ -120,7 +121,6 @@ names_of_passed_tests:
 - dialogue_understanding_tests_compressed_dsl/user_transfer_money_mentioning_one_slot_upfront.yml::user transfers money mentioning money slot upfront
 - dialogue_understanding_tests_compressed_dsl/user_transfer_money_mentioning_two_slots_upfront.yml::user transfers money mentioning two slots upfront
 - dialogue_understanding_tests_compressed_dsl/user_transfer_money_mentioning_two_slots_upfront.yml::user transfers money mentioning two slots upfront eg 2
-- dialogue_understanding_tests_compressed_dsl/user_tries_to_set_up_recurrent_payment_with_invalid_values.yml::user wants to set up a new recurrent payment and inserts an invalid frequency value
 - dialogue_understanding_tests_compressed_dsl/user_tries_to_set_up_recurrent_payment_with_invalid_values.yml::user wants to set up a new recurrent payment and gives an invalid start date (precedes current timestamp)
 - dialogue_understanding_tests_compressed_dsl/user_tries_to_skip_a_question_and_then_cancels_the_flow_easy.yml::user tries to skip a question and then cancels the flow (easy)
 - dialogue_understanding_tests_compressed_dsl/user_tries_to_skip_a_question_and_then_cancels_the_flow_hard.yml::user tries to skip a question and then cancels the flow (hard)
@@ -138,15 +138,15 @@ names_of_passed_tests:
 - dialogue_understanding_tests_compressed_dsl/validation_too_little_money.yml::validation too little money
 names_of_failed_tests:
 - dialogue_understanding_tests_compressed_dsl/check_portfolio_not_found.yml::Authenticate and check portfolio with invalid value twice
-- dialogue_understanding_tests_compressed_dsl/user_asks_for_repition_of_previous_action.yml::user asks for repetition of previous action
 - dialogue_understanding_tests_compressed_dsl/user_asks_to_start_10_transfers.yml::user asks to start 10 transfers
 - dialogue_understanding_tests_compressed_dsl/user_asks_what_info_is.yml::user asks what requested information is
 - dialogue_understanding_tests_compressed_dsl/user_corrects_a_branching_slot.yml::user corrects a branching slot
+- dialogue_understanding_tests_compressed_dsl/user_corrects_recipient_late.yml::user corrects recipient late
 - dialogue_understanding_tests_compressed_dsl/user_replace_card_with_linked_flow.yml::Replace card with unknown replacement reason
-- dialogue_understanding_tests_compressed_dsl/user_resets_a_slot_by_slot_name.yml::user resets a slot by value
 - dialogue_understanding_tests_compressed_dsl/user_sets_up_recurrent_payment.yml::user wants to set up a new recurrent payment without stating which type
 - dialogue_understanding_tests_compressed_dsl/user_starts_with_a_very_long_message.yml::user starts with a very long message
 - dialogue_understanding_tests_compressed_dsl/user_tries_to_register_to_vote_in_california.yml::user is based in california and wants to register to vote
+- dialogue_understanding_tests_compressed_dsl/user_tries_to_set_up_recurrent_payment_with_invalid_values.yml::user wants to set up a new recurrent payment and inserts an invalid frequency value
 - dialogue_understanding_tests_compressed_dsl/user_tries_to_use_abstract_values.yml::user tries to use abstract values
 - dialogue_understanding_tests_compressed_dsl/users_says_they_dont_want_one_option.yml::user says they don't want one option
 - dialogue_understanding_tests_compressed_dsl/users_says_they_dont_want_two_options.yml::user says they don't want one options
@@ -169,16 +169,6 @@ failed_test_steps:
   pass_status: false
   expected_commands:
   - set portfolio_type loan
-  predicted_commands: []
-- file: dialogue_understanding_tests_compressed_dsl/user_asks_for_repition_of_previous_action.yml
-  test_case: user asks for repetition of previous action
-  failed_user_utterance: now do it again
-  error_line: 15
-  pass_status: false
-  expected_commands:
-  - start transfer_money
-  - set transfer_money_recipient John
-  - set transfer_money_amount_of_money 50
   predicted_commands: []
 - file: dialogue_understanding_tests_compressed_dsl/user_asks_to_start_10_transfers.yml
   test_case: user asks to start 10 transfers
@@ -215,6 +205,17 @@ failed_test_steps:
     commands:
     - cancel
     - start verify_account
+- file: dialogue_understanding_tests_compressed_dsl/user_corrects_recipient_late.yml
+  test_case: user corrects recipient late
+  failed_user_utterance: 50 USD
+  error_line: 12
+  pass_status: false
+  expected_commands:
+  - set transfer_money_amount_of_money 50
+  predicted_commands:
+  - component: SingleStepLLMCommandGenerator
+    commands:
+    - set transfer_money_amount_of_money 50 USD
 - file: dialogue_understanding_tests_compressed_dsl/user_replace_card_with_linked_flow.yml
   test_case: Replace card with unknown replacement reason
   failed_user_utterance: some other reason
@@ -226,18 +227,6 @@ failed_test_steps:
   - component: SingleStepLLMCommandGenerator
     commands:
     - chat
-- file: dialogue_understanding_tests_compressed_dsl/user_resets_a_slot_by_slot_name.yml
-  test_case: user resets a slot by value
-  failed_user_utterance: I want to change the recipient
-  error_line: 13
-  pass_status: false
-  expected_commands:
-  - set transfer_money_recipient None
-  predicted_commands:
-  - component: SingleStepLLMCommandGenerator
-    commands:
-    - start transfer_money
-    - cancel
 - file: dialogue_understanding_tests_compressed_dsl/user_sets_up_recurrent_payment.yml
   test_case: user wants to set up a new recurrent payment without stating which type
   failed_user_utterance: Jan 1st, 2051
@@ -272,6 +261,17 @@ failed_test_steps:
   - component: NLUCommandAdapter
     commands:
     - start order_pizza
+- file: dialogue_understanding_tests_compressed_dsl/user_tries_to_set_up_recurrent_payment_with_invalid_values.yml
+  test_case: user wants to set up a new recurrent payment and inserts an invalid frequency value
+  failed_user_utterance: weekly
+  error_line: 17
+  pass_status: false
+  expected_commands:
+  - set recurrent_payment_frequency weekly
+  predicted_commands:
+  - component: SingleStepLLMCommandGenerator
+    commands:
+    - chat
 - file: dialogue_understanding_tests_compressed_dsl/user_tries_to_use_abstract_values.yml
   test_case: user tries to use abstract values
   failed_user_utterance: to a good friend
