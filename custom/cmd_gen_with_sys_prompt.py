@@ -206,8 +206,7 @@ class CustomLLMCommandGenerator(SingleStepLLMCommandGenerator):
         """
         end_system_message = \
         """You are given the conversation transcript.
-        The user and assistant's messages are available under the 'user' and 'assistant' role. 
-        After every user message, you are also given the actions executed by the system.
+        The user and assistant's messages are available under the 'user' and 'assistant' role.
         Focus on the provided conversation transcript and create an action list with one
         action per line in response to the user's last message in the transcript.
         
