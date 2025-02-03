@@ -1,26 +1,26 @@
 accuracy:
-  test_cases: 0.8837209302325582
-  user_utterances: 0.9649122807017544
-number_of_passed_tests: 76
-number_of_failed_tests: 10
-number_of_passed_user_utterances: 330
-number_of_failed_user_utterances: 12
+  test_cases: 0.8604651162790697
+  user_utterances: 0.9619883040935673
+number_of_passed_tests: 74
+number_of_failed_tests: 12
+number_of_passed_user_utterances: 329
+number_of_failed_user_utterances: 13
 command_metrics:
   start flow:
-    tp: 94
+    tp: 95
     fp: 2
-    fn: 3
-    precision: 0.9791666666666666
-    recall: 0.9690721649484536
-    f1_score: 0.9740932642487047
+    fn: 2
+    precision: 0.979381443298969
+    recall: 0.979381443298969
+    f1_score: 0.979381443298969
     total_count: 97
   set slot:
-    tp: 249
-    fp: 6
-    fn: 7
-    precision: 0.9764705882352941
-    recall: 0.97265625
-    f1_score: 0.974559686888454
+    tp: 247
+    fp: 8
+    fn: 9
+    precision: 0.9686274509803922
+    recall: 0.96484375
+    f1_score: 0.9667318982387475
     total_count: 256
   cancel flow:
     tp: 11
@@ -56,7 +56,7 @@ command_metrics:
     total_count: 19
   clarify:
     tp: 0
-    fp: 3
+    fp: 2
     fn: 2
     precision: 0.0
     recall: 0.0
@@ -93,7 +93,6 @@ names_of_passed_tests:
 - dialogue_understanding_tests_compressed_dsl/user_corrects_slot_with_nlu_based_mapping.yml::user_orders_pizza_stating_which_type_and_corrects_quantity_later
 - dialogue_understanding_tests_compressed_dsl/user_corrects_slot_with_nlu_based_mapping.yml::user_orders_pizza_stating_which_type_and_corrects_pizza_type_later
 - dialogue_understanding_tests_compressed_dsl/user_corrects_slot_with_nlu_based_mapping.yml::user_orders_pizza_stating_which_type_and_corrects_address_later
-- dialogue_understanding_tests_compressed_dsl/user_corrects_slot_with_nlu_based_mapping.yml::user_orders_pizza_stating_which_type_and_corrects_payment_option_later
 - dialogue_understanding_tests_compressed_dsl/user_corrects_slot_with_nlu_based_mapping.yml::user_orders_pizza_stating_which_type_and_corrects_order_details_later
 - dialogue_understanding_tests_compressed_dsl/user_corrects_string_slot.yml::user corrects string slot
 - dialogue_understanding_tests_compressed_dsl/user_corrects_twice_in_row.yml::user corrects a value twice in a row while being asked for confirmation
@@ -133,7 +132,6 @@ names_of_passed_tests:
 - dialogue_understanding_tests_compressed_dsl/user_tries_to_skip_a_question_once_easy.yml::user tries to skip a question once (easy)
 - dialogue_understanding_tests_compressed_dsl/user_tries_to_skip_a_question_once_hard.yml::user tries to skip a question once (hard)
 - dialogue_understanding_tests_compressed_dsl/user_tries_to_skip_a_question_once_medium.yml::user tries to skip a question once (medium)
-- dialogue_understanding_tests_compressed_dsl/user_tries_to_use_abstract_values.yml::user tries to use abstract values
 - dialogue_understanding_tests_compressed_dsl/user_verifies_account.yml::Verify account for non-California resident
 - dialogue_understanding_tests_compressed_dsl/user_verifies_account.yml::Verify account for California resident with insufficient income
 - dialogue_understanding_tests_compressed_dsl/user_verifies_account.yml::Verify account for California resident with sufficient income
@@ -144,10 +142,12 @@ names_of_failed_tests:
 - dialogue_understanding_tests_compressed_dsl/user_asks_what_info_is.yml::user asks what requested information is
 - dialogue_understanding_tests_compressed_dsl/user_corrects_a_branching_slot.yml::user corrects a branching slot
 - dialogue_understanding_tests_compressed_dsl/user_corrects_recipient_late.yml::user corrects recipient late
+- dialogue_understanding_tests_compressed_dsl/user_corrects_slot_with_nlu_based_mapping.yml::user_orders_pizza_stating_which_type_and_corrects_payment_option_later
 - dialogue_understanding_tests_compressed_dsl/user_replace_card_with_linked_flow.yml::Replace card with unknown replacement reason
 - dialogue_understanding_tests_compressed_dsl/user_starts_with_a_very_long_message.yml::user starts with a very long message
 - dialogue_understanding_tests_compressed_dsl/user_tries_to_register_to_vote_in_california.yml::user is based in california and wants to register to vote
 - dialogue_understanding_tests_compressed_dsl/user_tries_to_set_up_recurrent_payment_with_invalid_values.yml::user wants to set up a new recurrent payment and inserts an invalid frequency value
+- dialogue_understanding_tests_compressed_dsl/user_tries_to_use_abstract_values.yml::user tries to use abstract values
 - dialogue_understanding_tests_compressed_dsl/users_says_they_dont_want_one_option.yml::user says they don't want one option
 - dialogue_understanding_tests_compressed_dsl/users_says_they_dont_want_two_options.yml::user says they don't want one options
 failed_test_steps:
@@ -206,6 +206,17 @@ failed_test_steps:
   - component: SingleStepLLMCommandGenerator
     commands:
     - set transfer_money_amount_of_money 50 USD
+- file: dialogue_understanding_tests_compressed_dsl/user_corrects_slot_with_nlu_based_mapping.yml
+  test_case: user_orders_pizza_stating_which_type_and_corrects_payment_option_later
+  failed_user_utterance: loyalty points
+  error_line: 121
+  pass_status: false
+  expected_commands:
+  - set payment_option membership_points
+  predicted_commands:
+  - component: SingleStepLLMCommandGenerator
+    commands:
+    - set payment_option INVALID
 - file: dialogue_understanding_tests_compressed_dsl/user_replace_card_with_linked_flow.yml
   test_case: Replace card with unknown replacement reason
   failed_user_utterance: some other reason
@@ -251,6 +262,17 @@ failed_test_steps:
   - component: SingleStepLLMCommandGenerator
     commands:
     - set recurrent_payment_frequency INVALID
+- file: dialogue_understanding_tests_compressed_dsl/user_tries_to_use_abstract_values.yml
+  test_case: user tries to use abstract values
+  failed_user_utterance: to a good friend
+  error_line: 8
+  pass_status: false
+  expected_commands:
+  - set transfer_money_recipient None
+  predicted_commands:
+  - component: SingleStepLLMCommandGenerator
+    commands:
+    - set transfer_money_recipient a good friend
 - file: dialogue_understanding_tests_compressed_dsl/users_says_they_dont_want_one_option.yml
   test_case: user says they don't want one option
   failed_user_utterance: cash
@@ -273,14 +295,3 @@ failed_test_steps:
   - component: SingleStepLLMCommandGenerator
     commands:
     - clarify add_contact list_contacts remove_contact
-- file: dialogue_understanding_tests_compressed_dsl/users_says_they_dont_want_two_options.yml
-  test_case: user says they don't want one options
-  failed_user_utterance: not remove
-  error_line: 8
-  pass_status: false
-  expected_commands:
-  - start list_contacts
-  predicted_commands:
-  - component: SingleStepLLMCommandGenerator
-    commands:
-    - clarify add_contact list_contacts
