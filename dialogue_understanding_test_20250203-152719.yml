@@ -1,0 +1,643 @@
+accuracy:
+  test_cases: 0.6511627906976745
+  user_utterances: 0.8797653958944281
+number_of_passed_tests: 56
+number_of_failed_tests: 30
+number_of_passed_user_utterances: 300
+number_of_failed_user_utterances: 41
+command_metrics:
+  start flow:
+    tp: 96
+    fp: 10
+    fn: 3
+    precision: 0.9056603773584906
+    recall: 0.9696969696969697
+    f1_score: 0.9365853658536586
+    total_count: 99
+  set slot:
+    tp: 249
+    fp: 7
+    fn: 7
+    precision: 0.97265625
+    recall: 0.97265625
+    f1_score: 0.97265625
+    total_count: 256
+  cancel flow:
+    tp: 10
+    fp: 28
+    fn: 0
+    precision: 0.2631578947368421
+    recall: 1.0
+    f1_score: 0.4166666666666667
+    total_count: 10
+  chitchat:
+    tp: 3
+    fp: 14
+    fn: 0
+    precision: 0.17647058823529413
+    recall: 1.0
+    f1_score: 0.3
+    total_count: 3
+  clarify:
+    tp: 0
+    fp: 3
+    fn: 2
+    precision: 0.0
+    recall: 0.0
+    f1_score: 0.0
+    total_count: 2
+  knowledge:
+    tp: 5
+    fp: 0
+    fn: 1
+    precision: 1.0
+    recall: 0.8333333333333334
+    f1_score: 0.9090909090909091
+    total_count: 6
+  skip question:
+    tp: 5
+    fp: 0
+    fn: 14
+    precision: 1.0
+    recall: 0.2631578947368421
+    f1_score: 0.4166666666666667
+    total_count: 19
+names_of_passed_tests:
+- dialogue_understanding_tests/cancellations/cancellation_respects_scope.yml::cancellation respects scope
+- dialogue_understanding_tests/cancellations/immediate_cancellation_and_start_of_new_flow.yml::user immediately cancels and starts new flow
+- dialogue_understanding_tests/cancellations/user_cancels_default_pattern_override_no_confirmation.yml::default cancellation pattern overridden no confirmation
+- dialogue_understanding_tests/cancellations/user_cancels_during_a_correction.yml::user cancels during a correction
+- dialogue_understanding_tests/cancellations/user_changes_mind_on_a_whim.yml::user changes mind based on new info
+- dialogue_understanding_tests/chitchat/user_asks_why_information_is_needed.yml::user asks why information is needed
+- dialogue_understanding_tests/corrections/user_cancels_correction.yml::user cancels correction
+- dialogue_understanding_tests/corrections/user_corrects_mentioning_old_value_last.yml::correction mentioning old value last
+- dialogue_understanding_tests/corrections/user_corrects_recipient_in_the_next_message.yml::user corrects recipient in the next message
+- dialogue_understanding_tests/corrections/user_corrects_slot_with_nlu_based_mapping.yml::user_orders_pizza_stating_which_type_and_corrects_quantity_later
+- dialogue_understanding_tests/corrections/user_corrects_slot_with_nlu_based_mapping.yml::user_orders_pizza_stating_which_type_and_corrects_pizza_type_later
+- dialogue_understanding_tests/corrections/user_corrects_slot_with_nlu_based_mapping.yml::user_orders_pizza_stating_which_type_and_corrects_address_later
+- dialogue_understanding_tests/corrections/user_corrects_slot_with_nlu_based_mapping.yml::user_orders_pizza_stating_which_type_and_corrects_order_details_later
+- dialogue_understanding_tests/corrections/user_corrects_string_slot.yml::user corrects string slot
+- dialogue_understanding_tests/happy_path/user_adds_card.yml::users adds a card
+- dialogue_understanding_tests/happy_path/user_adds_contact_to_their_list.yml::user adds a contact to their list
+- dialogue_understanding_tests/happy_path/user_asks_for_repition_of_previous_action.yml::user asks for repetition of previous action
+- dialogue_understanding_tests/happy_path/user_checks_balance.yml::user checks their balance and doesn't ask for anything else
+- dialogue_understanding_tests/happy_path/user_checks_balance_then_transactions.yml::user checks their balance and then about transactions
+- dialogue_understanding_tests/happy_path/user_checks_portfolio.yml::Authenticate and check mutual funds portfolio with options found
+- dialogue_understanding_tests/happy_path/user_checks_portfolio_mentioning_type_upfront.yml::Authenticate and check bonds portfolio not found
+- dialogue_understanding_tests/happy_path/user_checks_their_transactions.yml::user checks their transactions
+- dialogue_understanding_tests/happy_path/user_fills_resetting_slot.yml::user fills resetting slot (account_email) and non-resetting slot (based_in_california).
+- dialogue_understanding_tests/happy_path/user_orders_pizza.yml::user_orders_pizza_stating_which_type_and_pays_with_card
+- dialogue_understanding_tests/happy_path/user_orders_pizza.yml::user_orders_pizza_stating_which_type_and_pays_with_points
+- dialogue_understanding_tests/happy_path/user_remove_contact.yml::user removes a contact
+- dialogue_understanding_tests/happy_path/user_remove_contact_from_list.yml::user removes a contact using contact list
+- dialogue_understanding_tests/happy_path/user_replace_card_with_linked_flow.yml::Replace lost card which was used fraudulently
+- dialogue_understanding_tests/happy_path/user_replace_card_with_linked_flow.yml::Replace lost card which was not used fraudulently
+- dialogue_understanding_tests/happy_path/user_replace_card_with_linked_flow.yml::Replace damaged card
+- dialogue_understanding_tests/happy_path/user_sets_up_recurrent_payment.yml::user wants to set up a new recurrent payment without stating which type
+- dialogue_understanding_tests/happy_path/user_sets_up_recurrent_payment.yml::user wants to set up a new recurrent payment, stating first which type of payment
+- dialogue_understanding_tests/happy_path/user_sets_up_recurrent_payment.yml::user wants to set up a new recurrent payment, but specifies the type incompletely
+- dialogue_understanding_tests/happy_path/user_sets_up_recurrent_payment.yml::user wants to set up a new recurrent payment, but specifies the type incompletely, example 2
+- dialogue_understanding_tests/happy_path/user_sets_up_recurrent_payment.yml::user wants to set up a new recurrent payment, but specifies over specifies the type
+- dialogue_understanding_tests/happy_path/user_sets_up_recurrent_payment.yml::user wants to set up a new recurrent payment, but specifies the type with spelling mistakes
+- dialogue_understanding_tests/happy_path/user_transfer_money.yml::user transfers money
+- dialogue_understanding_tests/happy_path/user_transfer_money_mentioning_one_slot_upfront.yml::user transfers money mentioning one slot upfront
+- dialogue_understanding_tests/happy_path/user_transfer_money_mentioning_one_slot_upfront.yml::user transfers money mentioning money slot upfront
+- dialogue_understanding_tests/happy_path/user_transfer_money_mentioning_two_slots_upfront.yml::user transfers money mentioning two slots upfront
+- dialogue_understanding_tests/happy_path/user_transfer_money_mentioning_two_slots_upfront.yml::user transfers money mentioning two slots upfront eg 2
+- dialogue_understanding_tests/happy_path/user_tries_to_set_up_recurrent_payment_with_invalid_values.yml::user wants to set up a new recurrent payment and inserts an invalid frequency value
+- dialogue_understanding_tests/happy_path/user_verifies_account.yml::Verify account for non-California resident
+- dialogue_understanding_tests/happy_path/user_verifies_account.yml::Verify account for California resident with insufficient income
+- dialogue_understanding_tests/happy_path/user_verifies_account.yml::Verify account for California resident with sufficient income
+- dialogue_understanding_tests/happy_path/user_wants_to_register_to_vote.yml::Register to vote for California resident
+- dialogue_understanding_tests/happy_path/validation_too_little_money.yml::validation too little money
+- dialogue_understanding_tests/knowledge_base/knowledge_question_during_flow.yml::user asks a knowledge question during flow
+- dialogue_understanding_tests/knowledge_base/user_answers_and_also_asks_a_question.yml::user answers and also asks a question
+- dialogue_understanding_tests/knowledge_base/user_follows_up_on_knowledge_question.yml::user follows up on a knowledge question
+- dialogue_understanding_tests/knowledge_base/user_starts_with_a_knowledge_question.yml::user starts with a knowledge question
+- dialogue_understanding_tests/multi_flow/user_starts_multiple_flows.yml::user starts multiple flows
+- dialogue_understanding_tests/skip_questions/user_tries_to_skip_a_question_and_then_cancels_the_flow_easy.yml::user tries to skip a question and then cancels the flow (easy)
+- dialogue_understanding_tests/skip_questions/user_tries_to_skip_a_question_once_easy.yml::user tries to skip a question once (easy)
+- dialogue_understanding_tests/system/user_asks_to_start_10_transfers.yml::user asks to start 10 transfers
+- dialogue_understanding_tests/user_asks_for_vacancies_no_department_entity_extracted.yml::user_asks_for_vacancies_no_department_entity_extracted
+names_of_failed_tests:
+- dialogue_understanding_tests/cancellations/user_changes_mind_based_on_new_info.yml::user changes mind based on new info
+- dialogue_understanding_tests/check_portfolio_not_found.yml::Authenticate and check portfolio with invalid value twice
+- dialogue_understanding_tests/chitchat/user_asks_for_a_moment_to_think.yml::user asks for a moment to think
+- dialogue_understanding_tests/clarifications/users_says_they_dont_want_one_option.yml::user says they don't want one option
+- dialogue_understanding_tests/clarifications/users_says_they_dont_want_two_options.yml::user says they don't want one options
+- dialogue_understanding_tests/corrections/user_corrects_a_boolean_slot.yml::user corrects boolean slot
+- dialogue_understanding_tests/corrections/user_corrects_a_branching_slot.yml::user corrects a branching slot
+- dialogue_understanding_tests/corrections/user_corrects_amount_of_money_in_the_next_message.yml::user corrects amount of money in the next message
+- dialogue_understanding_tests/corrections/user_corrects_mentioning_old_value_first.yml::correction mentioning old value first
+- dialogue_understanding_tests/corrections/user_corrects_recipient_late.yml::user corrects recipient late
+- dialogue_understanding_tests/corrections/user_corrects_slot_with_nlu_based_mapping.yml::user_orders_pizza_stating_which_type_and_corrects_payment_option_later
+- dialogue_understanding_tests/corrections/user_corrects_twice_in_row.yml::user corrects a value twice in a row while being asked for confirmation
+- dialogue_understanding_tests/corrections/user_resets_a_slot_by_slot_name.yml::user resets a slot by value
+- dialogue_understanding_tests/corrections/user_resets_a_slot_by_value.yml::user resets a slot by value
+- dialogue_understanding_tests/digressions/intermittent_flow_switch.yml::user makes an intermittent flow switch
+- dialogue_understanding_tests/happy_path/user_replace_card_incorrect_card.yml::Replace card when user does not confirm the correct card
+- dialogue_understanding_tests/happy_path/user_replace_card_with_linked_flow.yml::Replace card with unknown replacement reason
+- dialogue_understanding_tests/happy_path/user_tries_to_register_to_vote_in_california.yml::user is based in california and wants to register to vote
+- dialogue_understanding_tests/happy_path/user_tries_to_set_up_recurrent_payment_with_invalid_values.yml::user wants to set up a new recurrent payment and gives an invalid start date (precedes current timestamp)
+- dialogue_understanding_tests/happy_path/user_tries_to_use_abstract_values.yml::user tries to use abstract values
+- dialogue_understanding_tests/knowledge_base/user_asks_what_info_is.yml::user asks what requested information is
+- dialogue_understanding_tests/skip_questions/user_tries_to_skip_a_question_and_then_cancels_the_flow_hard.yml::user tries to skip a question and then cancels the flow (hard)
+- dialogue_understanding_tests/skip_questions/user_tries_to_skip_a_question_and_then_cancels_the_flow_medium.yml::user tries to skip a question and then cancels the flow (medium)
+- dialogue_understanding_tests/skip_questions/user_tries_to_skip_a_question_multiple_times_easy.yml::user tries to skip a question multiple times (easy)
+- dialogue_understanding_tests/skip_questions/user_tries_to_skip_a_question_multiple_times_hard.yml::user tries to skip a question multiple times (hard)
+- dialogue_understanding_tests/skip_questions/user_tries_to_skip_a_question_multiple_times_medium.yml::user tries to skip a question multiple times (easy)
+- dialogue_understanding_tests/skip_questions/user_tries_to_skip_a_question_once_hard.yml::user tries to skip a question once (hard)
+- dialogue_understanding_tests/skip_questions/user_tries_to_skip_a_question_once_medium.yml::user tries to skip a question once (medium)
+- dialogue_understanding_tests/system/user_starts_with_a_very_long_message.yml::user starts with a very long message
+- dialogue_understanding_tests/user_refuses_to_provide_information.yml::user refuses to provide information
+failed_test_steps:
+- file: dialogue_understanding_tests/cancellations/user_changes_mind_based_on_new_info.yml
+  test_case: user changes mind based on new info
+  failed_user_utterance: Ah one moment, show transactions.
+  error_line: 9
+  pass_status: false
+  expected_commands:
+  - StartFlow(transaction_search)
+  predicted_commands:
+  - component: SingleStepLLMCommandGenerator
+    commands:
+    - StartFlow(transaction_search)
+    - CancelFlow()
+- file: dialogue_understanding_tests/cancellations/user_changes_mind_based_on_new_info.yml
+  test_case: user changes mind based on new info
+  failed_user_utterance: Ah never mind, I already sent the money earlier
+  error_line: 15
+  pass_status: false
+  expected_commands:
+  - CancelFlow()
+  predicted_commands:
+  - component: SingleStepLLMCommandGenerator
+    commands:
+    - ChitChat()
+    - CancelFlow()
+- file: dialogue_understanding_tests/check_portfolio_not_found.yml
+  test_case: Authenticate and check portfolio with invalid value twice
+  failed_user_utterance: loan
+  error_line: 17
+  pass_status: false
+  expected_commands:
+  - SetSlot(portfolio_type, loan)
+  predicted_commands:
+  - component: SingleStepLLMCommandGenerator
+    commands:
+    - SetSlot(user_name, Max)
+    - StartFlow(check_portfolio)
+    - SetSlot(user_password, 1234)
+    - CancelFlow()
+- file: dialogue_understanding_tests/check_portfolio_not_found.yml
+  test_case: Authenticate and check portfolio with invalid value twice
+  failed_user_utterance: loan
+  error_line: 22
+  pass_status: false
+  expected_commands:
+  - SetSlot(portfolio_type, loan)
+  predicted_commands: []
+- file: dialogue_understanding_tests/chitchat/user_asks_for_a_moment_to_think.yml
+  test_case: user asks for a moment to think
+  failed_user_utterance: one moment
+  error_line: 9
+  pass_status: false
+  expected_commands:
+  - ChitChat()
+  predicted_commands:
+  - component: SingleStepLLMCommandGenerator
+    commands:
+    - ChitChat()
+    - CancelFlow()
+- file: dialogue_understanding_tests/clarifications/users_says_they_dont_want_one_option.yml
+  test_case: user says they don't want one option
+  failed_user_utterance: cash
+  error_line: 4
+  pass_status: false
+  expected_commands:
+  - Clarify(check_balance, transfer_money)
+  predicted_commands:
+  - component: SingleStepLLMCommandGenerator
+    commands:
+    - Clarify(check_balance, transaction_search, transfer_money)
+- file: dialogue_understanding_tests/clarifications/users_says_they_dont_want_two_options.yml
+  test_case: user says they don't want one options
+  failed_user_utterance: contact
+  error_line: 4
+  pass_status: false
+  expected_commands:
+  - Clarify(list_contacts, remove_contact)
+  predicted_commands:
+  - component: SingleStepLLMCommandGenerator
+    commands:
+    - Clarify(add_contact, list_contacts, remove_contact)
+- file: dialogue_understanding_tests/corrections/user_corrects_a_boolean_slot.yml
+  test_case: user corrects boolean slot
+  failed_user_utterance: Actually my income is not that high
+  error_line: 20
+  pass_status: false
+  expected_commands:
+  - SetSlot(verify_account_sufficient_california_income, False)
+  predicted_commands:
+  - component: SingleStepLLMCommandGenerator
+    commands:
+    - SetSlot(verify_account_sufficient_california_income, False)
+    - CancelFlow()
+- file: dialogue_understanding_tests/corrections/user_corrects_a_branching_slot.yml
+  test_case: user corrects a branching slot
+  failed_user_utterance: sorry, I need to correct the previous input
+  error_line: 16
+  pass_status: false
+  expected_commands:
+  - SetSlot(based_in_california, None)
+  predicted_commands:
+  - component: SingleStepLLMCommandGenerator
+    commands:
+    - CancelFlow()
+    - StartFlow(verify_account)
+- file: dialogue_understanding_tests/corrections/user_corrects_amount_of_money_in_the_next_message.yml
+  test_case: user corrects amount of money in the next message
+  failed_user_utterance: Ah, scratch that, I meant 110$
+  error_line: 16
+  pass_status: false
+  expected_commands:
+  - SetSlot(transfer_money_amount_of_money, 110)
+  predicted_commands:
+  - component: SingleStepLLMCommandGenerator
+    commands:
+    - SetSlot(transfer_money_amount_of_money, 110)
+    - SetSlot(transfer_money_final_confirmation, None)
+- file: dialogue_understanding_tests/corrections/user_corrects_mentioning_old_value_first.yml
+  test_case: correction mentioning old value first
+  failed_user_utterance: Ah, not 50, I meant 55
+  error_line: 16
+  pass_status: false
+  expected_commands:
+  - SetSlot(transfer_money_amount_of_money, 55)
+  predicted_commands:
+  - component: SingleStepLLMCommandGenerator
+    commands:
+    - SetSlot(transfer_money_amount_of_money, 55)
+    - SetSlot(transfer_money_final_confirmation, None)
+- file: dialogue_understanding_tests/corrections/user_corrects_recipient_late.yml
+  test_case: user corrects recipient late
+  failed_user_utterance: Oh wait, I want to send it to James!
+  error_line: 16
+  pass_status: false
+  expected_commands:
+  - SetSlot(transfer_money_recipient, James)
+  predicted_commands:
+  - component: SingleStepLLMCommandGenerator
+    commands:
+    - CancelFlow()
+    - StartFlow(transfer_money)
+    - SetSlot(transfer_money_recipient, James)
+- file: dialogue_understanding_tests/corrections/user_corrects_slot_with_nlu_based_mapping.yml
+  test_case: user_orders_pizza_stating_which_type_and_corrects_payment_option_later
+  failed_user_utterance: actually can i pay with a credit card
+  error_line: 125
+  pass_status: false
+  expected_commands:
+  - SetSlot(payment_option, card)
+  predicted_commands:
+  - component: SingleStepLLMCommandGenerator
+    commands:
+    - StartFlow(order_pizza)
+    - CancelFlow()
+    - SetSlot(payment_option, card)
+- file: dialogue_understanding_tests/corrections/user_corrects_twice_in_row.yml
+  test_case: user corrects a value twice in a row while being asked for confirmation
+  failed_user_utterance: damn, should be Alex
+  error_line: 13
+  pass_status: false
+  expected_commands:
+  - SetSlot(transfer_money_recipient, Alex)
+  predicted_commands:
+  - component: SingleStepLLMCommandGenerator
+    commands:
+    - SetSlot(confirm_slot_correction, True)
+    - SetSlot(transfer_money_recipient, Alex)
+    - CancelFlow()
+    - StartFlow(transfer_money)
+- file: dialogue_understanding_tests/corrections/user_resets_a_slot_by_slot_name.yml
+  test_case: user resets a slot by value
+  failed_user_utterance: I want to change the recipient
+  error_line: 13
+  pass_status: false
+  expected_commands:
+  - SetSlot(transfer_money_recipient, None)
+  predicted_commands:
+  - component: SingleStepLLMCommandGenerator
+    commands:
+    - CancelFlow()
+    - StartFlow(transfer_money)
+- file: dialogue_understanding_tests/corrections/user_resets_a_slot_by_value.yml
+  test_case: user resets a slot by value
+  failed_user_utterance: Sorry, I didn't mean John
+  error_line: 9
+  pass_status: false
+  expected_commands:
+  - SetSlot(transfer_money_recipient, None)
+  - StartFlow(transfer_money)
+  predicted_commands:
+  - component: SingleStepLLMCommandGenerator
+    commands:
+    - SetSlot(transfer_money_recipient, None)
+    - CancelFlow()
+    - StartFlow(transfer_money)
+- file: dialogue_understanding_tests/digressions/intermittent_flow_switch.yml
+  test_case: user makes an intermittent flow switch
+  failed_user_utterance: How much do I have on my account?
+  error_line: 9
+  pass_status: false
+  expected_commands:
+  - StartFlow(check_balance)
+  predicted_commands:
+  - component: SingleStepLLMCommandGenerator
+    commands:
+    - StartFlow(check_balance)
+    - CancelFlow()
+- file: dialogue_understanding_tests/happy_path/user_replace_card_incorrect_card.yml
+  test_case: Replace card when user does not confirm the correct card
+  failed_user_utterance: no
+  error_line: 8
+  pass_status: false
+  expected_commands:
+  - SetSlot(confirm_correct_card, False)
+  predicted_commands:
+  - component: SingleStepLLMCommandGenerator
+    commands:
+    - StartFlow(replace_card)
+    - SetSlot(confirm_correct_card, False)
+    - CancelFlow()
+- file: dialogue_understanding_tests/happy_path/user_replace_card_with_linked_flow.yml
+  test_case: Replace card with unknown replacement reason
+  failed_user_utterance: some other reason
+  error_line: 67
+  pass_status: false
+  expected_commands:
+  - SetSlot(replacement_reason, some other reason)
+  predicted_commands:
+  - component: SingleStepLLMCommandGenerator
+    commands:
+    - StartFlow(replace_card)
+    - SetSlot(confirm_correct_card, True)
+    - CancelFlow()
+- file: dialogue_understanding_tests/happy_path/user_tries_to_register_to_vote_in_california.yml
+  test_case: user is based in california and wants to register to vote
+  failed_user_utterance: I would like to register to vote in california.
+  error_line: 25
+  pass_status: false
+  expected_commands:
+  - StartFlow(register_to_vote_in_california)
+  predicted_commands:
+  - component: NLUCommandAdapter
+    commands:
+    - StartFlow(order_pizza)
+- file: dialogue_understanding_tests/happy_path/user_tries_to_set_up_recurrent_payment_with_invalid_values.yml
+  test_case: user wants to set up a new recurrent payment and gives an invalid start date (precedes current timestamp)
+  failed_user_utterance: 01/10/20
+  error_line: 42
+  pass_status: false
+  expected_commands:
+  - SetSlot(recurrent_payment_start_date, 01/10/20)
+  - StartFlow(setup_recurrent_payment)
+  predicted_commands:
+  - component: SingleStepLLMCommandGenerator
+    commands:
+    - SetSlot(recurrent_payment_start_date, 01/10/20)
+- file: dialogue_understanding_tests/happy_path/user_tries_to_use_abstract_values.yml
+  test_case: user tries to use abstract values
+  failed_user_utterance: to a good friend
+  error_line: 8
+  pass_status: false
+  expected_commands:
+  - SetSlot(transfer_money_recipient, None)
+  predicted_commands:
+  - component: SingleStepLLMCommandGenerator
+    commands:
+    - SetSlot(transfer_money_recipient, a good friend)
+- file: dialogue_understanding_tests/knowledge_base/user_asks_what_info_is.yml
+  test_case: user asks what requested information is
+  failed_user_utterance: What's a contact handle?
+  error_line: 8
+  pass_status: false
+  expected_commands:
+  - SearchAndReply()
+  predicted_commands:
+  - component: SingleStepLLMCommandGenerator
+    commands:
+    - ChitChat()
+- file: dialogue_understanding_tests/skip_questions/user_tries_to_skip_a_question_and_then_cancels_the_flow_hard.yml
+  test_case: user tries to skip a question and then cancels the flow (hard)
+  failed_user_utterance: i don't want to answer this
+  error_line: 9
+  pass_status: false
+  expected_commands:
+  - SkipQuestion()
+  predicted_commands:
+  - component: SingleStepLLMCommandGenerator
+    commands:
+    - ChitChat()
+    - CancelFlow()
+- file: dialogue_understanding_tests/skip_questions/user_tries_to_skip_a_question_and_then_cancels_the_flow_medium.yml
+  test_case: user tries to skip a question and then cancels the flow (medium)
+  failed_user_utterance: ask me something else
+  error_line: 9
+  pass_status: false
+  expected_commands:
+  - SkipQuestion()
+  predicted_commands:
+  - component: SingleStepLLMCommandGenerator
+    commands:
+    - ChitChat()
+    - CancelFlow()
+- file: dialogue_understanding_tests/skip_questions/user_tries_to_skip_a_question_and_then_cancels_the_flow_medium.yml
+  test_case: user tries to skip a question and then cancels the flow (medium)
+  failed_user_utterance: one moment, stop that
+  error_line: 14
+  pass_status: false
+  expected_commands:
+  - CancelFlow()
+  predicted_commands:
+  - component: SingleStepLLMCommandGenerator
+    commands:
+    - ChitChat()
+    - CancelFlow()
+- file: dialogue_understanding_tests/skip_questions/user_tries_to_skip_a_question_multiple_times_easy.yml
+  test_case: user tries to skip a question multiple times (easy)
+  failed_user_utterance: skip this step
+  error_line: 14
+  pass_status: false
+  expected_commands:
+  - SkipQuestion()
+  predicted_commands:
+  - component: SingleStepLLMCommandGenerator
+    commands:
+    - CancelFlow()
+- file: dialogue_understanding_tests/skip_questions/user_tries_to_skip_a_question_multiple_times_easy.yml
+  test_case: user tries to skip a question multiple times (easy)
+  failed_user_utterance: go to next step
+  error_line: 24
+  pass_status: false
+  expected_commands:
+  - SkipQuestion()
+  predicted_commands:
+  - component: SingleStepLLMCommandGenerator
+    commands:
+    - CancelFlow()
+- file: dialogue_understanding_tests/skip_questions/user_tries_to_skip_a_question_multiple_times_easy.yml
+  test_case: user tries to skip a question multiple times (easy)
+  failed_user_utterance: skip this
+  error_line: 29
+  pass_status: false
+  expected_commands:
+  - SkipQuestion()
+  predicted_commands:
+  - component: SingleStepLLMCommandGenerator
+    commands:
+    - CancelFlow()
+- file: dialogue_understanding_tests/skip_questions/user_tries_to_skip_a_question_multiple_times_easy.yml
+  test_case: user tries to skip a question multiple times (easy)
+  failed_user_utterance: next one
+  error_line: 34
+  pass_status: false
+  expected_commands:
+  - SkipQuestion()
+  predicted_commands:
+  - component: SingleStepLLMCommandGenerator
+    commands:
+    - ChitChat()
+    - CancelFlow()
+- file: dialogue_understanding_tests/skip_questions/user_tries_to_skip_a_question_multiple_times_easy.yml
+  test_case: user tries to skip a question multiple times (easy)
+  failed_user_utterance: skip
+  error_line: 39
+  pass_status: false
+  expected_commands:
+  - SkipQuestion()
+  predicted_commands:
+  - component: SingleStepLLMCommandGenerator
+    commands:
+    - ChitChat()
+    - CancelFlow()
+- file: dialogue_understanding_tests/skip_questions/user_tries_to_skip_a_question_multiple_times_hard.yml
+  test_case: user tries to skip a question multiple times (hard)
+  failed_user_utterance: i don't want to answer this for now
+  error_line: 9
+  pass_status: false
+  expected_commands:
+  - SkipQuestion()
+  predicted_commands:
+  - component: SingleStepLLMCommandGenerator
+    commands:
+    - ChitChat()
+    - CancelFlow()
+- file: dialogue_understanding_tests/skip_questions/user_tries_to_skip_a_question_multiple_times_hard.yml
+  test_case: user tries to skip a question multiple times (hard)
+  failed_user_utterance: i don't want to answer this
+  error_line: 14
+  pass_status: false
+  expected_commands:
+  - SkipQuestion()
+  predicted_commands:
+  - component: SingleStepLLMCommandGenerator
+    commands:
+    - ChitChat()
+    - CancelFlow()
+- file: dialogue_understanding_tests/skip_questions/user_tries_to_skip_a_question_multiple_times_medium.yml
+  test_case: user tries to skip a question multiple times (easy)
+  failed_user_utterance: ask me something else
+  error_line: 9
+  pass_status: false
+  expected_commands:
+  - SkipQuestion()
+  predicted_commands:
+  - component: SingleStepLLMCommandGenerator
+    commands:
+    - ChitChat()
+    - CancelFlow()
+- file: dialogue_understanding_tests/skip_questions/user_tries_to_skip_a_question_multiple_times_medium.yml
+  test_case: user tries to skip a question multiple times (easy)
+  failed_user_utterance: proceed to the next one
+  error_line: 14
+  pass_status: false
+  expected_commands:
+  - SkipQuestion()
+  predicted_commands:
+  - component: SingleStepLLMCommandGenerator
+    commands:
+    - Clarify(check_balance, list_contacts, transaction_search)
+    - CancelFlow()
+- file: dialogue_understanding_tests/skip_questions/user_tries_to_skip_a_question_multiple_times_medium.yml
+  test_case: user tries to skip a question multiple times (easy)
+  failed_user_utterance: i want to answer next question first
+  error_line: 19
+  pass_status: false
+  expected_commands:
+  - SkipQuestion()
+  predicted_commands:
+  - component: SingleStepLLMCommandGenerator
+    commands:
+    - ChitChat()
+    - CancelFlow()
+- file: dialogue_understanding_tests/skip_questions/user_tries_to_skip_a_question_once_hard.yml
+  test_case: user tries to skip a question once (hard)
+  failed_user_utterance: i don't want to answer this
+  error_line: 9
+  pass_status: false
+  expected_commands:
+  - SkipQuestion()
+  predicted_commands:
+  - component: SingleStepLLMCommandGenerator
+    commands:
+    - ChitChat()
+    - CancelFlow()
+- file: dialogue_understanding_tests/skip_questions/user_tries_to_skip_a_question_once_medium.yml
+  test_case: user tries to skip a question once (medium)
+  failed_user_utterance: ask me something else
+  error_line: 9
+  pass_status: false
+  expected_commands:
+  - SkipQuestion()
+  predicted_commands:
+  - component: SingleStepLLMCommandGenerator
+    commands:
+    - ChitChat()
+    - CancelFlow()
+- file: dialogue_understanding_tests/system/user_starts_with_a_very_long_message.yml
+  test_case: user starts with a very long message
+  failed_user_utterance: What's up dawg, my homie Steven got my back yesterday when we were out for drinks and my phone was out of batt, let me settle up with him.
+  error_line: 4
+  pass_status: false
+  expected_commands:
+  - StartFlow(transfer_money)
+  - SetSlot(transfer_money_recipient, Steven)
+  predicted_commands:
+  - component: NLUCommandAdapter
+    commands:
+    - StartFlow(correct_address)
+- file: dialogue_understanding_tests/user_refuses_to_provide_information.yml
+  test_case: user refuses to provide information
+  failed_user_utterance: Why is that your business?
+  error_line: 16
+  pass_status: false
+  expected_commands:
+  - ChitChat()
+  predicted_commands:
+  - component: SingleStepLLMCommandGenerator
+    commands:
+    - ChitChat()
+    - CancelFlow()
+- file: dialogue_understanding_tests/user_refuses_to_provide_information.yml
+  test_case: user refuses to provide information
+  failed_user_utterance: never mind then!!
+  error_line: 21
+  pass_status: false
+  expected_commands:
+  - CancelFlow()
+  predicted_commands:
+  - component: SingleStepLLMCommandGenerator
+    commands:
+    - ChitChat()
+    - CancelFlow()
