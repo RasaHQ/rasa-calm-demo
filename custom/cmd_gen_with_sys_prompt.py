@@ -213,8 +213,13 @@ class CustomLLMCommandGenerator(SingleStepLLMCommandGenerator):
         Your action list:"""
         llm = llm_factory(self.config.get(LLM_CONFIG_KEY), DEFAULT_LLM_CONFIG)
         try:
-            transcript_messages = [{"role": "system", "content": prompt}] + transcript_messages + \
-                                  [{"role": "system", "content": end_system_message}]
+            transcript_messages = [
+                                      {"role": "system", "content": prompt}] + transcript_messages \
+                                  + \
+                                  [
+                                    # {"role": "system", "content": end_system_message},
+                                   {"role": "assistant", "content": "Actions:"}
+                                   ]
             log_llm(
                 logger=structlogger,
                 log_module="SingleStepLLMCommandGenerator",
