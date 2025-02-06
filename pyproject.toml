@@ -19,9 +19,10 @@ priority = "supplemental"
 python = ">=3.9,<3.11"
 
 [tool.poetry.dependencies.rasa-pro]
-version = "3.11.2"
-allow-prereleases = true
-extras = ["mlflow"]
+git = "https://github.com/RasaHQ/rasa-private.git"
+rev = "main"
+# allow-prereleases = true
+# extras = ["mlflow"]
 
 [tool.poetry.group.dev.dependencies]
 toml = "^0.10.2"
