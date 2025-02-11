@@ -5241,8 +5241,8 @@ transformers = ["sentencepiece[sentencepiece] (>=0.1.99,<0.2.0)", "transformers 
 [package.source]
 type = "git"
 url = "https://github.com/RasaHQ/rasa-private.git"
-reference = "main"
-resolved_reference = "2ac5151937c9ac294110e01a3928d5b9afddccb2"
+reference = "ENG-1663-latency-prompt-usage"
+resolved_reference = "b964bbc2f22f4b6c2f250c0463337a92fcfc25ca"
 
 [[package]]
 name = "rasa-sdk"
@@ -7869,4 +7869,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<3.11"
-content-hash = "dee918938d7344e14b4e3c2bdf60ad96bdfbf6f44ca0982b19a6b13681a034ab"
+content-hash = "fea558d6718e1a3d5cdcd25cec12c433b1ddaff41bde043d297e39570ef8e543"

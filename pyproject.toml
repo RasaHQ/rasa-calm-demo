@@ -20,7 +20,7 @@ python = ">=3.9,<3.11"
 
 [tool.poetry.dependencies.rasa-pro]
 git = "https://github.com/RasaHQ/rasa-private.git"
-rev = "main"
+rev = "ENG-1663-latency-prompt-usage"
 # allow-prereleases = true
 # extras = ["mlflow"]
 
