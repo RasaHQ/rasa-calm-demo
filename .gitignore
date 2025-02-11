@@ -136,7 +136,6 @@ dmypy.json
 
 # Rasa
 .rasa/
-models/
 .config/
 .keras/
 prompts/

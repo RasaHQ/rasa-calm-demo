@@ -1,0 +1,38 @@
+x-environment: &environment
+  RASA_PRO_LICENSE: ${RASA_PRO_LICENSE}
+  OPENAI_API_KEY: ${OPENAI_API_KEY}
+  CARTESIA_API_KEY: ${CARTESIA_API_KEY}
+  DEEPGRAM_API_KEY: ${DEEPGRAM_API_KEY}
+
+services:
+  rasa-pro:
+    image: rasa-private:main-02
+    volumes:
+      - ".:/app"
+      - "./configs/config.yml:/app/config.yml"
+    entrypoint: ""
+    command: rasa run --inspect
+    ports:
+      - "5005:5005"
+    environment:
+      <<: *environment
+    depends_on:
+      action-server:
+        condition: service_started
+    healthcheck:
+      test: curl localhost:5005 || exit 1
+      interval: 10s
+      retries: 10
+      start_period: 15s
+      timeout: 10s
+
+  action-server:
+    image: rasa-private:main-02
+    volumes:
+      - ".:/app"
+    entrypoint: ""
+    command: rasa run actions -p 5055
+    ports:
+      - "5055:5055"
+    environment:
+      <<: *environment
