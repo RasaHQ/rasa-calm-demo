@@ -20,7 +20,7 @@ python = ">=3.9,<3.11"
 
 [tool.poetry.dependencies.rasa-pro]
 git = "https://github.com/RasaHQ/rasa-private.git"
-rev = "d7c1747"
+rev = "main"
 # allow-prereleases = true
 # extras = ["mlflow"]
 

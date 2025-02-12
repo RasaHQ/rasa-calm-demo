@@ -5241,8 +5241,8 @@ transformers = ["sentencepiece[sentencepiece] (>=0.1.99,<0.2.0)", "transformers 
 [package.source]
 type = "git"
 url = "https://github.com/RasaHQ/rasa-private.git"
-reference = "d7c1747"
-resolved_reference = "d7c174763bd4acc501129cf6ec0ddb8371d66a3a"
+reference = "main"
+resolved_reference = "88e2a385a4c4e2fc4d9cb83665414361402876ca"
 
 [[package]]
 name = "rasa-sdk"
@@ -7869,4 +7869,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<3.11"
-content-hash = "12e118a8360e603f7ec0537339ef03fb7675da501ce27ba7e601f7bd04237aeb"
+content-hash = "dee918938d7344e14b4e3c2bdf60ad96bdfbf6f44ca0982b19a6b13681a034ab"
