@@ -6,10 +6,10 @@ x-environment: &environment
 
 services:
   rasa-pro:
-    image: rasa-private:main-02
+    image: rasa/rasa-pro:3.12.0.dev9
     volumes:
       - ".:/app"
-      - "./configs/config.yml:/app/config.yml"
+      - "./config/config.yml:/app/config.yml"
     entrypoint: ""
     command: rasa run --inspect
     ports:
@@ -27,7 +27,7 @@ services:
       timeout: 10s
 
   action-server:
-    image: rasa-private:main-02
+    image: rasa/rasa-pro:3.12.0.dev9
     volumes:
       - ".:/app"
     entrypoint: ""
