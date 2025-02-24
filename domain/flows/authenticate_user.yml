@@ -4,8 +4,7 @@ slots:
   is_user_logged_in:
     type: bool
     mappings:
-      - type: custom
-        action: action_authenticate_user
+      - type: controlled
   user_name:
     type: text
     mappings:
@@ -18,8 +17,7 @@ slots:
     type: float
     initial_value: 0.0
     mappings:
-      - type: custom
-        action: action_authenticate_user
+      - type: controlled
 
 responses:
   utter_authentication_failed:

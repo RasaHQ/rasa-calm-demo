@@ -12,14 +12,12 @@ slots:
   portfolio_exists:
     type: bool
     mappings:
-      - type: custom
-        action: action_check_portfolio_exists
+      - type: controlled
   portfolio_options:
     type: list
     initial_value: []
     mappings:
-      - type: custom
-        action: action_show_portfolio
+      - type: controlled
 
 responses:
   utter_portfolio_not_found:
