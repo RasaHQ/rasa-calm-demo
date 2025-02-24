@@ -42,8 +42,7 @@ slots:
   setup_recurrent_payment_successful:
     type: bool
     mappings:
-    - type: custom
-      action: action_execute_recurrent_payment
+    - type: controlled
 
 responses:
   utter_ask_recurrent_payment_type:

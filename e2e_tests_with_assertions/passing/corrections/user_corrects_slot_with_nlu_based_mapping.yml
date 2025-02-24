@@ -297,7 +297,7 @@ test_cases:
         assertions:
             - slot_was_set:
                 - name: address
-                  value: 13 Pine Road
+                  value: oh I gave my work address, i actually want it delivered to my home at 13 Pine Road
             - bot_uttered:
                 utter_name: utter_corrected_previous_input
             - bot_uttered:

@@ -59,8 +59,7 @@ slots:
   membership_points:
     type: float
     mappings:
-      - type: custom
-        action: action_check_points
+      - type: controlled
   payment_option:
     type: categorical
     values:
@@ -75,7 +74,7 @@ slots:
   correct_order:
     type: bool
     mappings:
-        - type: custom
+        - type: controlled
   department:
     type: text
     mappings:
