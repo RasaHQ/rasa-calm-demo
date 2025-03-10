@@ -35,7 +35,7 @@ jobs:
 
       - name: Load Poetry Cached Libraries ⬇
         id: cache-poetry
-        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
+        uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57
         with:
           path: .venv
           key: ${{ runner.os }}-poetry-${{ env.POETRY_VERSION }}-${{ env.DEFAULT_PYTHON_VERSION }}-${{ hashFiles('**/poetry.lock') }}
@@ -120,7 +120,7 @@ jobs:
 
     - name: Load Poetry Cached Libraries ⬇
       id: cache-poetry
-      uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
+      uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57
       with:
         path: .venv
         key: ${{ runner.os }}-poetry-${{ env.POETRY_VERSION }}-${{ env.DEFAULT_PYTHON_VERSION }}-${{ hashFiles('**/poetry.lock') }}
@@ -156,7 +156,7 @@ jobs:
 
     - name: Init LLM Cache
       id: cache-llm
-      uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
+      uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57
       with:
         path: .rasa
         key: rasa-llm-cache
@@ -247,7 +247,7 @@ jobs:
 
     - name: Load Poetry Cached Libraries ⬇
       id: cache-poetry
-      uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
+      uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57
       with:
         path: .venv
         key: ${{ runner.os }}-poetry-${{ env.POETRY_VERSION }}-${{ env.DEFAULT_PYTHON_VERSION }}-${{ hashFiles('**/poetry.lock') }}
@@ -283,7 +283,7 @@ jobs:
 
     - name: Init LLM Cache
       id: cache-llm
-      uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
+      uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57
       with:
         path: .rasa
         key: rasa-llm-cache
@@ -374,7 +374,7 @@ jobs:
 
     - name: Load Poetry Cached Libraries ⬇
       id: cache-poetry
-      uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
+      uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57
       with:
         path: .venv
         key: ${{ runner.os }}-poetry-${{ env.POETRY_VERSION }}-${{ env.DEFAULT_PYTHON_VERSION }}-${{ hashFiles('**/poetry.lock') }}
@@ -410,7 +410,7 @@ jobs:
 
     - name: Init LLM Cache
       id: cache-llm
-      uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
+      uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57
       with:
         path: .rasa
         key: rasa-llm-cache

@@ -16,12 +16,11 @@ url = "https://europe-west3-python.pkg.dev/rasa-releases/rasa-pro-python/simple"
 priority = "supplemental"
 
 [tool.poetry.dependencies]
-python = ">=3.9,<3.11"
+python = ">=3.9,<3.12"
 
 [tool.poetry.dependencies.rasa-pro]
-version = "3.11.2"
+version = "3.12.0rc1"
 allow-prereleases = true
-extras = ["mlflow"]
 
 [tool.poetry.group.dev.dependencies]
 toml = "^0.10.2"
