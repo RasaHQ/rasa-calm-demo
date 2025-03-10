@@ -9,7 +9,6 @@ slots:
     type: text
     mappings:
       - type: custom
-        action: transaction_search
 
 responses:
   utter_transactions:

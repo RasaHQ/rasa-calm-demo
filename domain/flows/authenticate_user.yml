@@ -5,7 +5,6 @@ slots:
     type: bool
     mappings:
       - type: custom
-        action: action_authenticate_user
   user_name:
     type: text
     mappings:

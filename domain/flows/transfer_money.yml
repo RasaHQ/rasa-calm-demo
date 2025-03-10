@@ -9,12 +9,10 @@ slots:
     type: bool
     mappings:
       - type: custom
-        action: execute_transfer
   transfer_money_has_sufficient_funds:
     type: bool
     mappings:
       - type: custom
-        action: check_transfer_funds
   transfer_money_recipient:
     type: text
     mappings:
