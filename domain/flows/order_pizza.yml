@@ -71,10 +71,6 @@ slots:
     type: text
     mappings:
       - type: from_llm
-  correct_order:
-    type: bool
-    mappings:
-        - type: controlled
   department:
     type: text
     mappings:
@@ -121,6 +117,4 @@ responses:
 actions:
   - action_ask_confirmation_order
   - action_check_points
-  - action_ask_correct_order
   - action_show_vacancies
-  - action_correct_address
