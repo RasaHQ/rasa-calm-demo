@@ -82,7 +82,7 @@ test_cases:
       - user: /SetSlots(confirmation_order=True)
       - utter: utter_ask_payment_option
       - user: actually, i made a mistake and need to update my delivery address first.
-      - bot: Would you like to change the address?
+      - utter: utter_ask_confirm_slot_correction
       - user: /SetSlots(confirm_slot_correction=true)
       - utter: utter_corrected_previous_input
       - utter: utter_ask_address
