@@ -10,11 +10,11 @@ slots:
   hotel_name:
     type: text
     mappings:
-      - type: custom
+      - type: controlled
   hotel_average_rating:
     type: float
     mappings:
-      - type: custom
+      - type: controlled
 
 responses:
   utter_hotel_inform_rating:

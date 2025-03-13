@@ -12,8 +12,7 @@ slots:
     type: float
     initial_value: 0.0
     mappings:
-      - type: custom
-        action: action_increase_clarification_count
+      - type: controlled
 
 
 responses:
