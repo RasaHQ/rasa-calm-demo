@@ -1,0 +1,253 @@
+test_cases:
+  - test_case: user orders a gift
+    steps:
+      - user: I want to order a gift
+      - utter: utter_ask_gift_name
+      - user: a book
+      - slot_was_set:
+          - gift_name: a book
+      - utter: utter_ask_gift_price
+      - user: 500 euros
+      - slot_was_set:
+          - gift_price: 500.0
+      - utter: utter_ask_gift_recipient
+      - user: Bart
+      - slot_was_set:
+          - gift_recipient: Bart
+      - utter: utter_ask_order_gift_confirmation
+      - user: yes
+      - slot_was_set:
+          - order_gift_confirmation: true
+      - utter: utter_gift_ordered
+
+  - test_case: user orders a gift with invalid recipient1
+    steps:
+      - user: I want to order a gift
+      - utter: utter_ask_gift_name
+      - user: a book
+      - slot_was_set:
+          - gift_name: a book
+      - utter: utter_ask_gift_price
+      - user: 500 euros
+      - slot_was_set:
+          - gift_price: 500.0
+      - utter: utter_ask_gift_recipient
+      - user: idiot
+      - slot_was_set:
+          - gift_recipient: idiot
+      - utter: utter_gift_recipient_invalid
+      - utter: utter_ask_gift_recipient
+      - user: Bart
+      - utter: utter_ask_confirm_slot_correction
+      - user: /SetSlots(confirm_slot_correction=true)
+      - slot_was_set:
+          - gift_recipient: Bart
+      - utter: utter_ask_order_gift_confirmation
+      - user: yes
+      - slot_was_set:
+          - order_gift_confirmation: true
+      - utter: utter_gift_ordered
+
+  - test_case: user orders a gift with invalid recipient2
+    steps:
+      - user: I want to order a gift for idiot
+      - slot_was_set:
+          - gift_recipient: idiot
+      - utter: utter_gift_recipient_invalid
+      - utter: utter_ask_gift_recipient
+      - user: Bart
+      - slot_was_set:
+          - gift_recipient: Bart
+      - utter: utter_ask_gift_name
+      - user: a book
+      - slot_was_set:
+          - gift_name: a book
+      - utter: utter_ask_gift_price
+      - user: 500 euros
+      - slot_was_set:
+          - gift_price: 500.0
+      - utter: utter_ask_order_gift_confirmation
+      - user: yes
+      - slot_was_set:
+          - order_gift_confirmation: true
+      - utter: utter_gift_ordered
+  
+  - test_case: user orders a gift with invalid recipient3
+    steps:
+      - user: I want to order a gift
+      - utter: utter_ask_gift_name
+      - user: a purse for idiot
+      - slot_was_set:
+          - gift_name: purse
+          - gift_recipient: idiot
+      - utter: utter_gift_recipient_invalid
+      - utter: utter_ask_gift_recipient
+      - user: Bart
+      - slot_was_set:
+          - gift_recipient: Bart
+      - utter: utter_ask_gift_price
+      - user: 500 euros
+      - slot_was_set:
+          - gift_price: 500.0
+      - utter: utter_ask_order_gift_confirmation
+      - user: yes
+      - slot_was_set:
+          - order_gift_confirmation: true
+      - utter: utter_gift_ordered
+  
+  - test_case: user orders a gift with invalid price1
+    steps:
+      - user: I want to order a gift
+      - utter: utter_ask_gift_name
+      - user: a book
+      - slot_was_set:
+          - gift_name: a book
+      - utter: utter_ask_gift_price
+      - user: 50 euros
+      - slot_was_set:
+          - gift_price: 50.0
+      - utter: utter_gift_price_invalid
+      - utter: utter_ask_gift_price
+      - user: 500 euros
+      - utter: utter_ask_confirm_slot_correction
+      - user: /SetSlots(confirm_slot_correction=true)
+      - slot_was_set:
+          - gift_price: 500.0
+      - utter: utter_ask_gift_recipient
+      - user: Bart
+      - slot_was_set:
+          - gift_recipient: Bart
+      - utter: utter_ask_order_gift_confirmation
+      - user: yes
+      - slot_was_set:
+          - order_gift_confirmation: true
+      - utter: utter_gift_ordered
+
+  - test_case: user orders a gift with invalid price2
+    steps:
+      - user: I want to order a gift worth 50 euros
+      - slot_was_set:
+          - gift_price: 50.0
+      - utter: utter_gift_price_invalid
+      - utter: utter_ask_gift_price
+      - user: 500 euros
+      - slot_was_set:
+          - gift_price: 500.0
+      - utter: utter_ask_gift_name
+      - user: a book
+      - slot_was_set:
+          - gift_name: a book
+      - utter: utter_ask_gift_recipient
+      - user: Bart
+      - slot_was_set:
+          - gift_recipient: Bart
+      - utter: utter_ask_order_gift_confirmation
+      - user: yes
+      - slot_was_set:
+          - order_gift_confirmation: true
+      - utter: utter_gift_ordered
+
+  - test_case: user orders a gift with invalid price3
+    steps:
+      - user: I want to order a gift
+      - utter: utter_ask_gift_name
+      - user: a book worth 50 euros
+      - slot_was_set:
+          - gift_name: book
+          - gift_price: 50.0
+      - utter: utter_gift_price_invalid
+      - utter: utter_ask_gift_price
+      - user: 500 euros
+      - slot_was_set:
+          - gift_price: 500.0
+      - utter: utter_ask_gift_recipient
+      - user: Bart
+      - slot_was_set:
+          - gift_recipient: Bart
+      - utter: utter_ask_order_gift_confirmation
+      - user: yes
+      - slot_was_set:
+          - order_gift_confirmation: true
+      - utter: utter_gift_ordered
+
+  - test_case: user orders a gift with invalid name and price1
+    steps:
+      - user: I want to order a gift
+      - utter: utter_ask_gift_name
+      - user: a book
+      - slot_was_set:
+          - gift_name: a book
+      - utter: utter_ask_gift_price
+      - user: 50 euros
+      - slot_was_set:
+          - gift_price: 50.0
+      - utter: utter_gift_price_invalid
+      - utter: utter_ask_gift_price
+      - user: 500 euros
+      - utter: utter_ask_confirm_slot_correction
+      - user: /SetSlots(confirm_slot_correction=true)
+      - slot_was_set:
+          - gift_price: 500.0
+      - utter: utter_ask_gift_recipient
+      - user: idiot
+      - slot_was_set:
+          - gift_recipient: idiot
+      - utter: utter_gift_recipient_invalid
+      - utter: utter_ask_gift_recipient
+      - user: Bart
+      - slot_was_set:
+          - gift_recipient: Bart
+      - utter: utter_ask_order_gift_confirmation
+      - user: yes
+      - slot_was_set:
+          - order_gift_confirmation: true
+      - utter: utter_gift_ordered
+
+  - test_case: user orders a gift with invalid name and price2
+    steps:
+      - user: I want to order a gift worth 50 euros for idiot
+      - slot_was_set:
+          - gift_price: 50.0
+          - gift_recipient: idiot
+      - utter: utter_gift_recipient_invalid
+      - utter: utter_ask_gift_recipient
+      - user: Bart
+      - slot_was_set:
+          - gift_recipient: Bart
+      - utter: utter_gift_price_invalid
+      - utter: utter_ask_gift_price
+      - user: 500 euros
+      - slot_was_set:
+          - gift_price: 500.0
+      - utter: utter_ask_gift_name
+      - user: a book
+      - slot_was_set:
+          - gift_name: a book      
+      - utter: utter_ask_order_gift_confirmation
+      - user: yes
+      - slot_was_set:
+          - order_gift_confirmation: true
+      - utter: utter_gift_ordered
+
+  - test_case: user orders a gift with invalid name and price3
+    steps:
+      - user: I want to order a gift 
+      - utter: utter_ask_gift_name
+      - user: a book worth 50 euros for idiot
+      - slot_was_set:
+          - gift_name: a book
+          - gift_price: 50.0
+          - gift_recipient: idiot
+      - utter: utter_gift_recipient_invalid
+      - utter: utter_ask_gift_recipient
+      - user: Bart
+      - slot_was_set:
+          - gift_recipient: Bart
+      - utter: utter_gift_price_invalid
+      - utter: utter_ask_gift_price
+      - user: 500 euros    
+      - utter: utter_ask_order_gift_confirmation
+      - user: yes
+      - slot_was_set:
+          - order_gift_confirmation: true
+      - utter: utter_gift_ordered
