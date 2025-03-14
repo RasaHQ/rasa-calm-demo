@@ -3,9 +3,9 @@ test_cases:
     steps:
       - user: I want to order a gift
       - utter: utter_ask_gift_name
-      - user: a book
+      - user: jewelries
       - slot_was_set:
-          - gift_name: a book
+          - gift_name: jewelries
       - utter: utter_ask_gift_price
       - user: 500 euros
       - slot_was_set:
@@ -24,17 +24,17 @@ test_cases:
     steps:
       - user: I want to order a gift
       - utter: utter_ask_gift_name
-      - user: a book
+      - user: jewelries
       - slot_was_set:
-          - gift_name: a book
+          - gift_name: jewelries
       - utter: utter_ask_gift_price
       - user: 500 euros
       - slot_was_set:
           - gift_price: 500.0
       - utter: utter_ask_gift_recipient
-      - user: idiot
+      - user: me
       - slot_was_set:
-          - gift_recipient: idiot
+          - gift_recipient: me
       - utter: utter_gift_recipient_invalid
       - utter: utter_ask_gift_recipient
       - user: Bart
@@ -50,18 +50,18 @@ test_cases:
 
   - test_case: user orders a gift with invalid recipient2
     steps:
-      - user: I want to order a gift for idiot
+      - user: I want to order a gift for me
       - slot_was_set:
-          - gift_recipient: idiot
+          - gift_recipient: me
       - utter: utter_gift_recipient_invalid
       - utter: utter_ask_gift_recipient
       - user: Bart
       - slot_was_set:
           - gift_recipient: Bart
       - utter: utter_ask_gift_name
-      - user: a book
+      - user: jewelries
       - slot_was_set:
-          - gift_name: a book
+          - gift_name: jewelries
       - utter: utter_ask_gift_price
       - user: 500 euros
       - slot_was_set:
@@ -76,10 +76,10 @@ test_cases:
     steps:
       - user: I want to order a gift
       - utter: utter_ask_gift_name
-      - user: a purse for idiot
+      - user: a purse for me
       - slot_was_set:
           - gift_name: purse
-          - gift_recipient: idiot
+          - gift_recipient: me
       - utter: utter_gift_recipient_invalid
       - utter: utter_ask_gift_recipient
       - user: Bart
@@ -99,9 +99,9 @@ test_cases:
     steps:
       - user: I want to order a gift
       - utter: utter_ask_gift_name
-      - user: a book
+      - user: jewelries
       - slot_was_set:
-          - gift_name: a book
+          - gift_name: jewelries
       - utter: utter_ask_gift_price
       - user: 50 euros
       - slot_was_set:
@@ -134,9 +134,9 @@ test_cases:
       - slot_was_set:
           - gift_price: 500.0
       - utter: utter_ask_gift_name
-      - user: a book
+      - user: jewelries
       - slot_was_set:
-          - gift_name: a book
+          - gift_name: jewelries
       - utter: utter_ask_gift_recipient
       - user: Bart
       - slot_was_set:
@@ -151,9 +151,9 @@ test_cases:
     steps:
       - user: I want to order a gift
       - utter: utter_ask_gift_name
-      - user: a book worth 50 euros
+      - user: jewelries worth 50 euros
       - slot_was_set:
-          - gift_name: book
+          - gift_name: jewelries
           - gift_price: 50.0
       - utter: utter_gift_price_invalid
       - utter: utter_ask_gift_price
@@ -174,9 +174,9 @@ test_cases:
     steps:
       - user: I want to order a gift
       - utter: utter_ask_gift_name
-      - user: a book
+      - user: jewelries
       - slot_was_set:
-          - gift_name: a book
+          - gift_name: jewelries
       - utter: utter_ask_gift_price
       - user: 50 euros
       - slot_was_set:
@@ -189,9 +189,9 @@ test_cases:
       - slot_was_set:
           - gift_price: 500.0
       - utter: utter_ask_gift_recipient
-      - user: idiot
+      - user: me
       - slot_was_set:
-          - gift_recipient: idiot
+          - gift_recipient: me
       - utter: utter_gift_recipient_invalid
       - utter: utter_ask_gift_recipient
       - user: Bart
@@ -205,10 +205,10 @@ test_cases:
 
   - test_case: user orders a gift with invalid name and price2
     steps:
-      - user: I want to order a gift worth 50 euros for idiot
+      - user: I want to order a gift worth 50 euros for me
       - slot_was_set:
           - gift_price: 50.0
-          - gift_recipient: idiot
+          - gift_recipient: me
       - utter: utter_gift_recipient_invalid
       - utter: utter_ask_gift_recipient
       - user: Bart
@@ -220,9 +220,9 @@ test_cases:
       - slot_was_set:
           - gift_price: 500.0
       - utter: utter_ask_gift_name
-      - user: a book
+      - user: jewelries
       - slot_was_set:
-          - gift_name: a book      
+          - gift_name: jewelries      
       - utter: utter_ask_order_gift_confirmation
       - user: yes
       - slot_was_set:
@@ -233,11 +233,11 @@ test_cases:
     steps:
       - user: I want to order a gift 
       - utter: utter_ask_gift_name
-      - user: a book worth 50 euros for idiot
+      - user: jewelries worth 50 euros for me
       - slot_was_set:
-          - gift_name: a book
+          - gift_name: jewelries
           - gift_price: 50.0
-          - gift_recipient: idiot
+          - gift_recipient: me
       - utter: utter_gift_recipient_invalid
       - utter: utter_ask_gift_recipient
       - user: Bart
@@ -246,6 +246,54 @@ test_cases:
       - utter: utter_gift_price_invalid
       - utter: utter_ask_gift_price
       - user: 500 euros    
+      - utter: utter_ask_order_gift_confirmation
+      - user: yes
+      - slot_was_set:
+          - order_gift_confirmation: true
+      - utter: utter_gift_ordered
+
+  - test_case: user orders a gift but make valid corrections
+    steps:
+      - user: I want to order jewelries worth 500 euros for Bart
+      - slot_was_set:
+          - gift_name: jewelries
+          - gift_price: 500.0
+          - gift_recipient: Bart
+      - utter: utter_ask_order_gift_confirmation
+      - user: a bag for Tom instead
+      - utter: utter_ask_confirm_slot_correction
+      - user: /SetSlots(confirm_slot_correction=true)
+      - utter: utter_corrected_previous_input
+      - slot_was_set:
+          - gift_name: bag
+          - gift_recipient: Tom
+      - utter: utter_ask_order_gift_confirmation
+      - user: yes
+      - slot_was_set:
+          - order_gift_confirmation: true
+      - utter: utter_gift_ordered
+
+  - test_case: user orders a gift but make invalid corrections
+    steps:
+      - user: I want to order jewelries worth 500 euros for Bart
+      - slot_was_set:
+          - gift_name: jewelries
+          - gift_price: 500.0
+          - gift_recipient: Bart
+      - utter: utter_ask_order_gift_confirmation
+      - user: a bag for me instead
+      - utter: utter_ask_confirm_slot_correction
+      - user: /SetSlots(confirm_slot_correction=true)
+      - utter: utter_corrected_previous_input
+      - slot_was_set:
+          - gift_name: bag
+          - gift_recipient: me
+      - utter: utter_gift_recipient_invalid
+      - utter: utter_ask_gift_recipient
+      - user: Tom
+      - slot_was_set:
+          - gift_recipient: Tom
+      - utter: utter_corrected_previous_input
       - utter: utter_ask_order_gift_confirmation
       - user: yes
       - slot_was_set:

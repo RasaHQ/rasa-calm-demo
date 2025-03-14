@@ -1,0 +1,516 @@
+test_cases:
+  - test_case: user orders a gift
+    steps:
+      - user: I want to order a gift
+        assertions:
+        - bot_uttered:
+            utter_name: utter_ask_gift_name
+      - user: jewelries
+        assertions:
+        - slot_was_set:
+            - name: gift_name
+              value: jewelries
+        - bot_uttered:
+            utter_name: utter_ask_gift_price
+      - user: 500 euros
+        assertions:
+        - slot_was_set:
+            - name: gift_price
+              value: 500.0
+        - bot_uttered:
+            utter_name: utter_ask_gift_recipient
+      - user: Bart
+        assertions:
+        - slot_was_set:
+            - name: gift_recipient
+              value: Bart
+        - bot_uttered:
+            utter_name: utter_ask_order_gift_confirmation
+      - user: yes
+        assertions:
+        - slot_was_set:
+            - name: order_gift_confirmation
+              value: true
+        - bot_uttered:
+            utter_name: utter_gift_ordered
+
+  - test_case: user orders a gift with invalid recipient1
+    steps:
+      - user: I want to order a gift
+        assertions:
+        - bot_uttered:
+            utter_name: utter_ask_gift_name
+      - user: jewelries
+        assertions:
+        - slot_was_set:
+            - name: gift_name
+              value: jewelries
+        - bot_uttered:
+            utter_name: utter_ask_gift_price
+      - user: 500 euros
+        assertions:
+        - slot_was_set:
+            - name: gift_price
+              value: 500.0
+        - bot_uttered:
+            utter_name: utter_ask_gift_recipient
+      - user: me
+        assertions:
+        - slot_was_set:
+            - name: gift_recipient
+              value: me
+        - bot_uttered:
+            utter_name: utter_gift_recipient_invalid
+        - bot_uttered:
+            utter_name: utter_ask_gift_recipient
+      - user: Bart
+        assertions:
+        - bot_uttered:
+            utter_name: utter_ask_confirm_slot_correction
+      - user: /SetSlots(confirm_slot_correction=true)
+        assertions:
+        - slot_was_set:
+            - name: gift_recipient
+              value: Bart
+        - bot_uttered:
+            utter_name: utter_ask_order_gift_confirmation
+      - user: yes
+        assertions:
+        - slot_was_set:
+            - name: order_gift_confirmation
+              value: true
+        - bot_uttered:
+            utter_name: utter_gift_ordered
+
+  - test_case: user orders a gift with invalid recipient2
+    steps:
+      - user: I want to order a gift for me
+        assertions:
+        - slot_was_set:
+            - name: gift_recipient
+              value: me
+        - bot_uttered:
+            utter_name: utter_gift_recipient_invalid
+        - bot_uttered:
+            utter_name: utter_ask_gift_recipient
+      - user: Bart
+        assertions:
+        - slot_was_set:
+            - name: gift_recipient
+              value: Bart
+        - bot_uttered:
+            utter_name: utter_ask_gift_name
+      - user: jewelries
+        assertions:
+        - slot_was_set:
+            - name: gift_name
+              value: jewelries
+        - bot_uttered:
+            utter_name: utter_ask_gift_price
+      - user: 500 euros
+        assertions:
+        - slot_was_set:
+            - name: gift_price
+              value: 500.0
+        - bot_uttered:
+            utter_name: utter_ask_order_gift_confirmation
+      - user: yes
+        assertions:
+        - slot_was_set:
+            - name: order_gift_confirmation
+              value: true
+        - bot_uttered:
+            utter_name: utter_gift_ordered
+
+  - test_case: user orders a gift with invalid recipient3
+    steps:
+      - user: I want to order a gift
+        assertions:
+        - bot_uttered:
+            utter_name: utter_ask_gift_name
+      - user: a purse for me
+        assertions:
+        - slot_was_set:
+          - name: gift_name
+            value: purse
+          - name: gift_recipient
+            value: me
+        - bot_uttered:
+            utter_name: utter_gift_recipient_invalid
+        - bot_uttered:
+            utter_name: utter_ask_gift_recipient
+      - user: Bart
+        assertions:
+        - slot_was_set:
+            - name: gift_recipient
+              value: Bart
+        - bot_uttered:
+            utter_name: utter_ask_gift_price
+      - user: 500 euros
+        assertions:
+        - slot_was_set:
+            - name: gift_price
+              value: 500.0
+        - bot_uttered:
+            utter_name: utter_ask_order_gift_confirmation
+      - user: yes
+        assertions:
+        - slot_was_set:
+            - name: order_gift_confirmation
+              value: true
+        - bot_uttered:
+            utter_name: utter_gift_ordered
+
+  - test_case: user orders a gift with invalid price1
+    steps:
+      - user: I want to order a gift
+        assertions:
+        - bot_uttered:
+            utter_name: utter_ask_gift_name
+      - user: jewelries
+        assertions:
+        - slot_was_set:
+            - name: gift_name
+              value: jewelries
+        - bot_uttered:
+            utter_name: utter_ask_gift_price
+      - user: 50 euros
+        assertions:
+        - slot_was_set:
+            - name: gift_price
+              value: 50.0
+        - bot_uttered:
+            utter_name: utter_gift_price_invalid
+        - bot_uttered:
+            utter_name: utter_ask_gift_price
+      - user: 500 euros
+        assertions:
+        - bot_uttered:
+            utter_name: utter_ask_confirm_slot_correction
+      - user: /SetSlots(confirm_slot_correction=true)
+        assertions:
+        - slot_was_set:
+            - name: gift_price
+              value: 500.0
+        - bot_uttered:
+            utter_name: utter_ask_gift_recipient
+      - user: Bart
+        assertions:
+        - slot_was_set:
+            - name: gift_recipient
+              value: Bart
+        - bot_uttered:
+            utter_name: utter_ask_order_gift_confirmation
+      - user: yes
+        assertions:
+        - slot_was_set:
+            - name: order_gift_confirmation
+              value: true
+        - bot_uttered:
+            utter_name: utter_gift_ordered
+
+  - test_case: user orders a gift with invalid price2
+    steps:
+      - user: I want to order a gift worth 50 euros
+        assertions:
+        - slot_was_set:
+            - name: gift_price
+              value: 50.0
+        - bot_uttered:
+            utter_name: utter_gift_price_invalid
+        - bot_uttered:
+            utter_name: utter_ask_gift_price
+      - user: 500 euros
+        assertions:
+        - slot_was_set:
+            - name: gift_price
+              value: 500.0
+        - bot_uttered:
+            utter_name: utter_ask_gift_name
+      - user: jewelries
+        assertions:
+        - slot_was_set:
+            - name: gift_name
+              value: jewelries
+        - bot_uttered:
+            utter_name: utter_ask_gift_recipient
+      - user: Bart
+        assertions:
+        - slot_was_set:
+            - name: gift_recipient
+              value: Bart
+        - bot_uttered:
+            utter_name: utter_ask_order_gift_confirmation
+      - user: yes
+        assertions:
+        - slot_was_set:
+            - name: order_gift_confirmation
+              value: true
+        - bot_uttered:
+            utter_name: utter_gift_ordered
+
+  - test_case: user orders a gift with invalid price3
+    steps:
+      - user: I want to order a gift
+        assertions:
+        - bot_uttered:
+            utter_name: utter_ask_gift_name
+      - user: jewelries worth 50 euros
+        assertions:
+        - slot_was_set:
+            - name: gift_name
+              value: jewelries
+            - name: gift_price
+              value: 50.0
+        - bot_uttered:
+            utter_name: utter_gift_price_invalid
+        - bot_uttered:
+            utter_name: utter_ask_gift_price
+      - user: 500 euros
+        assertions:
+        - slot_was_set:
+            - name: gift_price
+              value: 500.0
+        - bot_uttered:
+            utter_name: utter_ask_gift_recipient
+      - user: Bart
+        assertions:
+        - slot_was_set:
+            - name: gift_recipient
+              value: Bart
+        - bot_uttered:
+            utter_name: utter_ask_order_gift_confirmation
+      - user: yes
+        assertions:
+        - slot_was_set:
+            - name: order_gift_confirmation
+              value: true
+        - bot_uttered:
+            utter_name: utter_gift_ordered
+
+  - test_case: user orders a gift with invalid name and price1
+    steps:
+      - user: I want to order a gift
+        assertions:
+        - bot_uttered:
+            utter_name: utter_ask_gift_name
+      - user: jewelries
+        assertions:
+        - slot_was_set:
+            - name: gift_name
+              value: jewelries
+        - bot_uttered:
+            utter_name: utter_ask_gift_price
+      - user: 50 euros
+        assertions:
+        - slot_was_set:
+            - name: gift_price
+              value: 50.0
+        - bot_uttered:
+            utter_name: utter_gift_price_invalid
+        - bot_uttered:
+            utter_name: utter_ask_gift_price
+      - user: 500 euros
+        assertions:
+        - bot_uttered:
+            utter_name: utter_ask_confirm_slot_correction
+      - user: /SetSlots(confirm_slot_correction=true)
+        assertions:
+          - slot_was_set:
+              - name: gift_price
+                value: 500.0
+          - bot_uttered:
+              utter_name: utter_ask_gift_recipient
+      - user: me
+        assertions:
+        - slot_was_set:
+            - name: gift_recipient
+              value: me
+        - bot_uttered:
+            utter_name: utter_gift_recipient_invalid
+        - bot_uttered:
+            utter_name: utter_ask_gift_recipient
+      - user: Bart
+        assertions:
+        - slot_was_set:
+            - name: gift_recipient
+              value: Bart
+        - bot_uttered:
+            utter_name: utter_ask_order_gift_confirmation
+      - user: yes
+        assertions:
+        - slot_was_set:
+            - name: order_gift_confirmation
+              value: true
+        - bot_uttered:
+            utter_name: utter_gift_ordered
+
+  - test_case: user orders a gift with invalid name and price2
+    steps:
+      - user: I want to order a gift worth 50 euros for me
+        assertions:
+        - slot_was_set:
+            - name: gift_price
+              value: 50.0
+            - name: gift_recipient
+              value: me
+        - bot_uttered:
+            utter_name: utter_gift_recipient_invalid
+        - bot_uttered:
+            utter_name: utter_ask_gift_recipient
+      - user: Bart
+        assertions:
+        - slot_was_set:
+            - name: gift_recipient
+              value: Bart
+        - bot_uttered:
+            utter_name: utter_gift_price_invalid
+        - bot_uttered:
+            utter_name: utter_ask_gift_price
+      - user: 500 euros
+        assertions:
+        - slot_was_set:
+            - name: gift_price
+              value: 500.0
+        - bot_uttered:
+            utter_name: utter_ask_gift_name
+      - user: jewelries
+        assertions:
+        - slot_was_set:
+            - name: gift_name
+              value: jewelries      
+        - bot_uttered:
+            utter_name: utter_ask_order_gift_confirmation
+      - user: yes
+        assertions:
+        - slot_was_set:
+            - name: order_gift_confirmation
+              value: true
+        - bot_uttered:
+            utter_name: utter_gift_ordered
+
+  - test_case: user orders a gift with invalid name and price3
+    steps:
+      - user: I want to order a gift 
+        assertions:
+        - bot_uttered:
+            utter_name: utter_ask_gift_name
+      - user: jewelries worth 50 euros for me
+        assertions:
+        - slot_was_set:
+            - name: gift_name
+              value: jewelries
+            - name: gift_price
+              value: 50.0
+            - name: gift_recipient
+              value: me
+        - bot_uttered:
+            utter_name: utter_gift_recipient_invalid
+        - bot_uttered:
+            utter_name: utter_ask_gift_recipient
+      - user: Bart
+        assertions:
+        - slot_was_set:
+            - name: gift_recipient
+              value: Bart
+        - bot_uttered:
+            utter_name: utter_gift_price_invalid
+        - bot_uttered:
+            utter_name: utter_ask_gift_price
+      - user: 500 euros
+        assertions:
+        - slot_was_set:
+            - name: gift_price
+              value: 500.0
+        - bot_uttered:
+            utter_name: utter_ask_order_gift_confirmation
+      - user: yes
+        assertions:
+        - slot_was_set:
+            - name: order_gift_confirmation
+              value: true
+        - bot_uttered:
+            utter_name: utter_gift_ordered
+
+  - test_case: user orders a gift but make valid corrections
+    steps:
+      - user: I want to order jewelries worth 500 euros for Bart
+        assertions:
+        - slot_was_set:
+            - name: gift_name
+              value: jewelries
+            - name: gift_price
+              value: 500.0
+            - name: gift_recipient
+              value: Bart
+        - bot_uttered:
+            utter_name: utter_ask_order_gift_confirmation
+      - user: a bag for Tom instead
+        assertions:
+        - bot_uttered:
+            utter_name: utter_ask_confirm_slot_correction
+      - user: /SetSlots(confirm_slot_correction=true)
+        assertions:
+        - bot_uttered:
+            utter_name: utter_corrected_previous_input
+        - slot_was_set:
+            - name: gift_name
+              value: bag
+            - name: gift_recipient
+              value: Tom
+        - bot_uttered:
+            utter_name: utter_ask_order_gift_confirmation
+      - user: yes
+        assertions:
+        - slot_was_set:
+            - name: order_gift_confirmation
+              value: true
+        - bot_uttered:
+            utter_name: utter_gift_ordered
+
+  - test_case: user orders a gift but make invalid corrections
+    steps:
+      - user: I want to order jewelries worth 500 euros for Bart
+        assertions:
+        - slot_was_set:
+            - name: gift_name
+              value: jewelries
+            - name: gift_price
+              value: 500.0
+            - name: gift_recipient
+              value: Bart
+        - bot_uttered:
+            utter_name: utter_ask_order_gift_confirmation
+      - user: a bag for me instead
+        assertions:
+        - bot_uttered:
+            utter_name: utter_ask_confirm_slot_correction
+      - user: /SetSlots(confirm_slot_correction=true)
+        assertions:
+        - bot_uttered:
+            utter_name: utter_corrected_previous_input
+        - slot_was_set:
+            - name: gift_name
+              value: bag
+            - name: gift_recipient
+              value: me
+        - bot_uttered:
+            utter_name: utter_gift_recipient_invalid
+        - bot_uttered:
+            utter_name: utter_ask_gift_recipient
+      - user: Tom
+        assertions:
+        - slot_was_set:
+            - name: gift_recipient
+              value: Tom
+        - bot_uttered:
+            utter_name: utter_corrected_previous_input
+        - bot_uttered:
+            utter_name: utter_ask_order_gift_confirmation
+      - user: yes
+        assertions:
+        - slot_was_set:
+            - name: order_gift_confirmation
+              value: true
+        - bot_uttered:
+            utter_name: utter_gift_ordered
