@@ -105,7 +105,7 @@ test-passing-stub-custom-actions: .EXPORT_ALL_VARIABLES
 	poetry run rasa test e2e e2e_tests_with_stub_custom_actions/passing --e2e-results
 
 test-repeat-command: .EXPORT_ALL_VARIABLES
-	poetry run rasa test e2e e2e_tests/repeat/user_says_repeat_message.yml --e2e-results
+	poetry run rasa test e2e e2e_tests/repeat --e2e-results
 
 set-otel-resource-attributes: ## Set OTEL_RESOURCE_ATTRIBUTES with rasa version and git info
 	. scripts/set-otel-resource-attributes.sh
