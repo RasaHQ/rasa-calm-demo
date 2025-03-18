@@ -1,0 +1,313 @@
+test_cases:
+  - test_case: user_is_asked_for_confirmation_on_digression_and_returns_to_original_flow
+    steps:
+      - user: I want to book a doctor appointment
+        assertions:
+          - flow_started: book_doctor_appointment
+          - bot_uttered:
+                utter_name: utter_ask_doctor_name
+      - user: can i check my contacts list first?
+        assertions:
+          - flow_started: pattern_handle_digressions
+          - bot_uttered:
+                utter_name: utter_ask_continue_previous_flow
+      - user: /SetSlots(continue_previous_flow=True)
+        assertions:
+          - action_executed: action_block_digression
+          - bot_uttered:
+              utter_name: utter_block_digressions
+          - bot_uttered:
+                utter_name: utter_ask_doctor_name
+
+  - test_case: user_is_asked_for_confirmation_on_digression_and_chooses_to_digress
+    steps:
+      - user: I want to book a doctor appointment
+        assertions:
+          - flow_started: book_doctor_appointment
+          - bot_uttered:
+              utter_name: utter_ask_doctor_name
+      - user: can i check my contacts list first?
+        assertions:
+          - flow_started: pattern_handle_digressions
+          - bot_uttered:
+              utter_name: utter_ask_continue_previous_flow
+      - user: /SetSlots(continue_previous_flow=False)
+        assertions:
+          - action_executed: action_continue_digression
+          - bot_uttered:
+              utter_name: utter_continue_interruption
+          - flow_started: list_contacts
+          - bot_uttered:
+                utter_name: utter_list_contacts
+          - bot_uttered:
+                utter_name: utter_flow_continue_interrupted
+          # original flow is resumed
+          - bot_uttered:
+                utter_name: utter_ask_doctor_name
+
+  - test_case: user_tries_to_digress_once_but_is_blocked
+    steps:
+      - user: When can I schedule a doctor appointment?
+        assertions:
+            - flow_started: find_available_appointments
+            - bot_uttered:
+                utter_name: utter_ask_appointment_time
+      - user: can I order a pizza first?
+        assertions:
+          - flow_started: pattern_handle_digressions
+          - action_executed: action_block_digression
+          - bot_uttered:
+              utter_name: utter_block_digressions
+          - bot_uttered:
+              utter_name: utter_ask_appointment_time
+      - user: Wed 9:30am
+        assertions:
+          - slot_was_set:
+              - name: appointment_time
+          - action_executed: action_check_appointment_availability
+          - bot_uttered:
+              utter_name: utter_doctor_appointment_booked
+          - bot_uttered:
+              utter_name: utter_flow_continue_interrupted
+          - flow_started: order_pizza
+
+  - test_case: user_tries_to_digress_multiple_times_to_the_same_flow_but_is_blocked
+    steps:
+      - user: When can I schedule a doctor appointment?
+        assertions:
+          - flow_started: find_available_appointments
+          - bot_uttered:
+              utter_name: utter_ask_appointment_time
+      - user: can I order a pizza first?
+        assertions:
+          - flow_started: pattern_handle_digressions
+          - action_executed: action_block_digression
+          - bot_uttered:
+              utter_name: utter_block_digressions
+          - bot_uttered:
+              utter_name: utter_ask_appointment_time
+      - user: I am really hungry though, need to order pizza
+        assertions:
+          - flow_started: pattern_handle_digressions
+          - action_executed: action_block_digression
+          - bot_uttered:
+              utter_name: utter_block_digressions
+          - bot_uttered:
+              utter_name: utter_ask_appointment_time
+      - user: Thu 4pm
+        assertions:
+          - slot_was_set:
+              - name: appointment_time
+          - action_executed: action_check_appointment_availability
+          - bot_uttered:
+              utter_name: utter_doctor_appointment_booked
+          - bot_uttered:
+              utter_name: utter_flow_continue_interrupted
+          - flow_started: order_pizza
+
+  - test_case: user_tries_to_digress_multiple_times_to_different_flows_but_is_blocked
+    steps:
+      - user: When can I schedule a doctor appointment?
+        assertions:
+          - flow_started: find_available_appointments
+          - bot_uttered:
+              utter_name: utter_ask_appointment_time
+      - user: can I order a pizza first?
+        assertions:
+          - flow_started: pattern_handle_digressions
+          - action_executed: action_block_digression
+          - bot_uttered:
+              utter_name: utter_block_digressions
+          - bot_uttered:
+              utter_name: utter_ask_appointment_time
+      - user: check contacts list first
+        assertions:
+          - flow_started: pattern_handle_digressions
+          - action_executed: action_block_digression
+          - bot_uttered:
+              utter_name: utter_block_digressions
+          - bot_uttered:
+              utter_name: utter_ask_appointment_time
+      - user: Thu 4:30pm
+        assertions:
+          - slot_was_set:
+              - name: appointment_time
+          - action_executed: action_check_appointment_availability
+          - bot_uttered:
+              utter_name: utter_doctor_appointment_booked
+          - flow_started: pattern_clarification
+          - bot_uttered:
+              utter_name: utter_clarification_options_rasa
+      - user: list my contacts please
+        assertions:
+          - flow_started: list_contacts
+          - bot_uttered:
+              utter_name: utter_list_contacts
+          - bot_uttered:
+              utter_name: utter_flow_continue_interrupted
+          - flow_started: order_pizza
+
+  - test_case: user_tries_to_digress_multiple_times_to_different_flows_but_is_blocked_then_cancels_resuming_of_digressions
+    steps:
+      - user: When can I schedule a doctor appointment?
+        assertions:
+          - flow_started: find_available_appointments
+          - bot_uttered:
+              utter_name: utter_ask_appointment_time
+      - user: can I order a pizza first?
+        assertions:
+          - flow_started: pattern_handle_digressions
+          - action_executed: action_block_digression
+          - bot_uttered:
+              utter_name: utter_block_digressions
+          - bot_uttered:
+              utter_name: utter_ask_appointment_time
+      - user: check contacts list first
+        assertions:
+          - flow_started: pattern_handle_digressions
+          - action_executed: action_block_digression
+          - bot_uttered:
+              utter_name: utter_block_digressions
+          - bot_uttered:
+              utter_name: utter_ask_appointment_time
+      - user: Thu 4:30pm
+        assertions:
+          - slot_was_set:
+              - name: appointment_time
+          - action_executed: action_check_appointment_availability
+          - bot_uttered:
+              utter_name: utter_doctor_appointment_booked
+          - flow_started: pattern_clarification
+          - bot_uttered:
+              utter_name: utter_clarification_options_rasa
+      - user: I don't want to continue with any of the options.
+        assertions:
+            - action_executed: action_cancel_flow
+            - bot_uttered:
+                utter_name: utter_can_do_something_else
+
+  - test_case: user_tries_to_digress_in_linked_flow
+    steps:
+      - user: I want to book a doctor appointment
+        assertions:
+          - flow_started: book_doctor_appointment
+          - bot_uttered:
+              utter_name: utter_ask_doctor_name
+      - user: can i check my contacts list first?
+        assertions:
+          - flow_started: pattern_handle_digressions
+          - bot_uttered:
+              utter_name: utter_ask_continue_previous_flow
+      - user: /SetSlots(continue_previous_flow=True)
+        assertions:
+          - action_executed: action_block_digression
+          - bot_uttered:
+              utter_name: utter_block_digressions
+          - bot_uttered:
+              utter_name: utter_ask_doctor_name
+      - user: Mark
+        assertions:
+          - slot_was_set:
+              - name: doctor_name
+                value: Mark
+          - bot_uttered:
+              utter_name: utter_ask_doctor_office_name
+      - user: Hackney office
+        assertions:
+            - slot_was_set:
+                - name: doctor_office_name
+                  value: Hackney office
+            - flow_started: pattern_clarification
+            - bot_uttered:
+                utter_name: utter_clarification_options_rasa
+      - user: check available appointment times
+        assertions:
+            - flow_started: find_available_appointments
+            - bot_uttered:
+                utter_name: utter_ask_appointment_time
+      - user: can I order a pizza first?
+        assertions:
+          - flow_started: pattern_handle_digressions
+          - action_executed: action_block_digression
+          - bot_uttered:
+              utter_name: utter_block_digressions
+          - bot_uttered:
+              utter_name: utter_ask_appointment_time
+      - user: Wed 9:30am
+        assertions:
+          - slot_was_set:
+              - name: appointment_time
+          - action_executed: action_check_appointment_availability
+          - bot_uttered:
+              utter_name: utter_doctor_appointment_booked
+          - flow_started: pattern_clarification
+          - bot_uttered:
+              utter_name: utter_clarification_options_rasa
+      - user: order pizza first
+        assertions:
+          - flow_started: order_pizza
+
+  - test_case: user_tries_to_digress_called_flow
+    steps:
+      - user: need to replace my card
+        assertions:
+          - flow_started: replace_card
+          - bot_uttered:
+              utter_name: utter_ask_confirm_correct_card
+      - user: i want to transfer money first
+        assertions:
+          - flow_started: pattern_handle_digressions
+          - action_executed: action_block_digression
+          - bot_uttered:
+              utter_name: utter_block_digressions
+          - bot_uttered:
+              utter_name: utter_ask_confirm_correct_card
+      - user: Yes, that's the correct card
+        assertions:
+          - slot_was_set:
+              - name: confirm_correct_card
+          - bot_uttered:
+              utter_name: utter_ask_replacement_reason
+      - user: can i transfer my money first to another account
+        assertions:
+          - flow_started: pattern_handle_digressions
+          - bot_uttered:
+              utter_name: utter_ask_continue_previous_flow
+      - user: /SetSlots(continue_previous_flow=True)
+        assertions:
+          - action_executed: action_block_digression
+          - bot_uttered:
+              utter_name: utter_block_digressions
+          - bot_uttered:
+              utter_name: utter_ask_replacement_reason
+      - user: I lost my card
+        assertions:
+          - slot_was_set:
+              - name: replacement_reason
+          - bot_uttered:
+              utter_name: utter_ask_was_card_used_fraudulently
+      - user: Need to check my transactions first.
+        assertions:
+          - flow_started: pattern_handle_digressions
+          - bot_uttered:
+              utter_name: utter_block_digressions
+          - bot_uttered:
+              utter_name: utter_ask_was_card_used_fraudulently
+      - user: Yes, there were fraudulent transactions.
+        assertions:
+          - slot_was_set:
+              - name: was_card_used_fraudulently
+          - bot_uttered:
+              utter_name: utter_report_fraud
+          - flow_started: pattern_clarification
+          - bot_uttered:
+              utter_name: utter_clarification_options_rasa
+      - user: transfer money to another account
+        assertions:
+          - flow_started: transfer_money
+
+
+
+
+
+

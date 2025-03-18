@@ -5,10 +5,12 @@ flows:
     name: replace eligible card
     steps:
       - collect: replacement_reason
+        ask_confirm_digressions: true
         next:
           - if: slots.replacement_reason = "lost"
             then:
               - collect: was_card_used_fraudulently
+                block_digressions: true
                 ask_before_filling: true
                 next:
                   - if: slots.was_card_used_fraudulently
