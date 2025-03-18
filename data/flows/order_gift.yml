@@ -1,0 +1,21 @@
+flows:
+  order_gift:
+    name: order a gift
+    description: order a gift for someone
+    steps:
+      - collect: gift_name
+        description: the name of the gift
+      - collect: gift_price
+        description: the price of the gift
+      - collect: gift_recipient
+        description: the name of the person receiving the gift
+      - collect: order_gift_confirmation
+        ask_before_filling: true
+        next:
+          - if: not slots.order_gift_confirmation
+            then:
+              - action: utter_order_gift_cancelled
+                next: END
+          - else: order_gift
+      - id: order_gift
+        action: utter_gift_ordered
