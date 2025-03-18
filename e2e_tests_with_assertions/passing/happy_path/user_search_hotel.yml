@@ -60,3 +60,6 @@ test_cases:
                 value: 8.5
           - bot_uttered:
               utter_name: utter_hotel_inform_rating
+          - generative_response_is_relevant:
+              threshold: 0.80
+              utter_source: ContextualResponseRephraser
