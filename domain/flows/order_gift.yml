@@ -28,11 +28,11 @@ slots:
 
 responses:
   utter_ask_order_gift_confirmation:
-    - text: Do you want to buy a {gift_name} worth {gift_price} for {gift_recipient}?
+    - text: Do you want to buy a {gift_name} worth {gift_price} euros for {gift_recipient}?
       buttons:
-        - payload: yes
+        - payload: /SetSlots(order_gift_confirmation=True)
           title: "Yes"
-        - payload: no
+        - payload: /SetSlots(order_gift_confirmation=False)
           title: "No, cancel"
   utter_ask_gift_name:
     - text: What gift do you want to order?
@@ -47,4 +47,4 @@ responses:
   utter_gift_recipient_invalid:
     - text: Sorry, the recipient you gave for the gift is invalid. Please choose another name.
   utter_gift_price_invalid:
-    - text: Sorry, there's a minimum order of 100. Please choose another price.
+    - text: Sorry, there's a minimum order of 100 euros. Please choose another price.

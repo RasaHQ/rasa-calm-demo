@@ -26,7 +26,7 @@ test_cases:
               value: Bart
         - bot_uttered:
             utter_name: utter_ask_order_gift_confirmation
-      - user: yes
+      - user: /SetSlots(order_gift_confirmation=True)
         assertions:
         - slot_was_set:
             - name: order_gift_confirmation
@@ -74,7 +74,7 @@ test_cases:
               value: Bart
         - bot_uttered:
             utter_name: utter_ask_order_gift_confirmation
-      - user: yes
+      - user: /SetSlots(order_gift_confirmation=True)
         assertions:
         - slot_was_set:
             - name: order_gift_confirmation
@@ -114,7 +114,7 @@ test_cases:
               value: 500.0
         - bot_uttered:
             utter_name: utter_ask_order_gift_confirmation
-      - user: yes
+      - user: /SetSlots(order_gift_confirmation=True)
         assertions:
         - slot_was_set:
             - name: order_gift_confirmation
@@ -153,7 +153,7 @@ test_cases:
               value: 500.0
         - bot_uttered:
             utter_name: utter_ask_order_gift_confirmation
-      - user: yes
+      - user: /SetSlots(order_gift_confirmation=True)
         assertions:
         - slot_was_set:
             - name: order_gift_confirmation
@@ -201,7 +201,7 @@ test_cases:
               value: Bart
         - bot_uttered:
             utter_name: utter_ask_order_gift_confirmation
-      - user: yes
+      - user: /SetSlots(order_gift_confirmation=True)
         assertions:
         - slot_was_set:
             - name: order_gift_confirmation
@@ -241,7 +241,7 @@ test_cases:
               value: Bart
         - bot_uttered:
             utter_name: utter_ask_order_gift_confirmation
-      - user: yes
+      - user: /SetSlots(order_gift_confirmation=True)
         assertions:
         - slot_was_set:
             - name: order_gift_confirmation
@@ -280,7 +280,7 @@ test_cases:
               value: Bart
         - bot_uttered:
             utter_name: utter_ask_order_gift_confirmation
-      - user: yes
+      - user: /SetSlots(order_gift_confirmation=True)
         assertions:
         - slot_was_set:
             - name: order_gift_confirmation
@@ -337,7 +337,7 @@ test_cases:
               value: Bart
         - bot_uttered:
             utter_name: utter_ask_order_gift_confirmation
-      - user: yes
+      - user: /SetSlots(order_gift_confirmation=True)
         assertions:
         - slot_was_set:
             - name: order_gift_confirmation
@@ -381,7 +381,7 @@ test_cases:
               value: jewelries      
         - bot_uttered:
             utter_name: utter_ask_order_gift_confirmation
-      - user: yes
+      - user: /SetSlots(order_gift_confirmation=True)
         assertions:
         - slot_was_set:
             - name: order_gift_confirmation
@@ -424,7 +424,7 @@ test_cases:
               value: 500.0
         - bot_uttered:
             utter_name: utter_ask_order_gift_confirmation
-      - user: yes
+      - user: /SetSlots(order_gift_confirmation=True)
         assertions:
         - slot_was_set:
             - name: order_gift_confirmation
@@ -460,7 +460,7 @@ test_cases:
               value: Tom
         - bot_uttered:
             utter_name: utter_ask_order_gift_confirmation
-      - user: yes
+      - user: /SetSlots(order_gift_confirmation=True)
         assertions:
         - slot_was_set:
             - name: order_gift_confirmation
@@ -507,7 +507,7 @@ test_cases:
             utter_name: utter_corrected_previous_input
         - bot_uttered:
             utter_name: utter_ask_order_gift_confirmation
-      - user: yes
+      - user: /SetSlots(order_gift_confirmation=True)
         assertions:
         - slot_was_set:
             - name: order_gift_confirmation

@@ -15,7 +15,7 @@ test_cases:
       - slot_was_set:
           - gift_recipient: Bart
       - utter: utter_ask_order_gift_confirmation
-      - user: yes
+      - user: /SetSlots(order_gift_confirmation=True)
       - slot_was_set:
           - order_gift_confirmation: true
       - utter: utter_gift_ordered
@@ -43,7 +43,7 @@ test_cases:
       - slot_was_set:
           - gift_recipient: Bart
       - utter: utter_ask_order_gift_confirmation
-      - user: yes
+      - user: /SetSlots(order_gift_confirmation=True)
       - slot_was_set:
           - order_gift_confirmation: true
       - utter: utter_gift_ordered
@@ -67,7 +67,7 @@ test_cases:
       - slot_was_set:
           - gift_price: 500.0
       - utter: utter_ask_order_gift_confirmation
-      - user: yes
+      - user: /SetSlots(order_gift_confirmation=True)
       - slot_was_set:
           - order_gift_confirmation: true
       - utter: utter_gift_ordered
@@ -90,7 +90,7 @@ test_cases:
       - slot_was_set:
           - gift_price: 500.0
       - utter: utter_ask_order_gift_confirmation
-      - user: yes
+      - user: /SetSlots(order_gift_confirmation=True)
       - slot_was_set:
           - order_gift_confirmation: true
       - utter: utter_gift_ordered
@@ -118,7 +118,7 @@ test_cases:
       - slot_was_set:
           - gift_recipient: Bart
       - utter: utter_ask_order_gift_confirmation
-      - user: yes
+      - user: /SetSlots(order_gift_confirmation=True)
       - slot_was_set:
           - order_gift_confirmation: true
       - utter: utter_gift_ordered
@@ -142,7 +142,7 @@ test_cases:
       - slot_was_set:
           - gift_recipient: Bart
       - utter: utter_ask_order_gift_confirmation
-      - user: yes
+      - user: /SetSlots(order_gift_confirmation=True)
       - slot_was_set:
           - order_gift_confirmation: true
       - utter: utter_gift_ordered
@@ -165,7 +165,7 @@ test_cases:
       - slot_was_set:
           - gift_recipient: Bart
       - utter: utter_ask_order_gift_confirmation
-      - user: yes
+      - user: /SetSlots(order_gift_confirmation=True)
       - slot_was_set:
           - order_gift_confirmation: true
       - utter: utter_gift_ordered
@@ -198,7 +198,7 @@ test_cases:
       - slot_was_set:
           - gift_recipient: Bart
       - utter: utter_ask_order_gift_confirmation
-      - user: yes
+      - user: /SetSlots(order_gift_confirmation=True)
       - slot_was_set:
           - order_gift_confirmation: true
       - utter: utter_gift_ordered
@@ -224,7 +224,7 @@ test_cases:
       - slot_was_set:
           - gift_name: jewelries      
       - utter: utter_ask_order_gift_confirmation
-      - user: yes
+      - user: /SetSlots(order_gift_confirmation=True)
       - slot_was_set:
           - order_gift_confirmation: true
       - utter: utter_gift_ordered
@@ -247,7 +247,7 @@ test_cases:
       - utter: utter_ask_gift_price
       - user: 500 euros    
       - utter: utter_ask_order_gift_confirmation
-      - user: yes
+      - user: /SetSlots(order_gift_confirmation=True)
       - slot_was_set:
           - order_gift_confirmation: true
       - utter: utter_gift_ordered
@@ -268,7 +268,7 @@ test_cases:
           - gift_name: bag
           - gift_recipient: Tom
       - utter: utter_ask_order_gift_confirmation
-      - user: yes
+      - user: /SetSlots(order_gift_confirmation=True)
       - slot_was_set:
           - order_gift_confirmation: true
       - utter: utter_gift_ordered
@@ -295,7 +295,7 @@ test_cases:
           - gift_recipient: Tom
       - utter: utter_corrected_previous_input
       - utter: utter_ask_order_gift_confirmation
-      - user: yes
+      - user: /SetSlots(order_gift_confirmation=True)
       - slot_was_set:
           - order_gift_confirmation: true
       - utter: utter_gift_ordered
