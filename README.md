@@ -497,3 +497,10 @@ via `` `make set-otel-resource-attributes` `` (note the backticks in the command
     - `Honeycomb`'s web UI (or other chosen monitoring backend, if using a different one).
     - Also in `otel-collector`'s console logs. To troubleshoot in case traces or metrics do not appear on the monitoring backend, start by checking these logs via:
         - `make print-otel-collector-logs`
+
+#### E2E tests for Repeat Command
+To enable the feature, please set the environment variable `RASA_PRO_BETA_REPEAT_COMMAND` to true in your testing environment.
+
+```
+make test-repeat-command
+```
