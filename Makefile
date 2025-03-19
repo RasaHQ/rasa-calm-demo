@@ -75,7 +75,7 @@ actions:
 	poetry run rasa run actions
 
 test-passing: .EXPORT_ALL_VARIABLES
-	poetry run rasa test e2e e2e_tests/passing --e2e-results
+	poetry run rasa test e2e e2e_tests/passing --e2e-results --debug
 
 test-flaky: .EXPORT_ALL_VARIABLES
 	poetry run rasa test e2e e2e_tests/flaky --e2e-results
@@ -93,7 +93,7 @@ stop-duckling:
 	docker stop duckling_container
 
 test-passing-assertions: .EXPORT_ALL_VARIABLES
-	poetry run rasa test e2e e2e_tests_with_assertions/passing --e2e-results
+	poetry run rasa test e2e e2e_tests_with_assertions/passing --e2e-results --debug
 
 test-flaky-assertions: .EXPORT_ALL_VARIABLES
 	poetry run rasa test e2e e2e_tests_with_assertions/flaky --e2e-results
