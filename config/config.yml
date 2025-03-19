@@ -26,7 +26,7 @@ pipeline:
   timezone: "Europe/Berlin"
   timeout: 3
 - name: NLUCommandAdapter
-- name: SingleStepLLMCommandGenerator
+- name: CompactLLMCommandGenerator
   llm:
     model_group: openai-direct-gpt-4
 
