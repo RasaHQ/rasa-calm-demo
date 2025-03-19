@@ -19,7 +19,7 @@ priority = "supplemental"
 python = ">=3.9,<3.12"
 
 [tool.poetry.dependencies.rasa-pro]
-version = "3.12.0rc2"
+version = "3.12.0"
 allow-prereleases = true
 
 [tool.poetry.group.dev.dependencies]
