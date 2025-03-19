@@ -2782,13 +2782,13 @@ langchain-core = ">=0.2.10,<0.3.0"
 
 [[package]]
 name = "langcodes"
-version = "3.4.0"
+version = "3.5.0"
 description = "Tools for labeling human languages with IETF language tags"
 optional = false
-python-versions = ">=3.8"
+python-versions = ">=3.9"
 files = [
-    {file = "langcodes-3.4.0-py3-none-any.whl", hash = "sha256:10a4cc078b8e8937d8485d3352312a0a89a3125190db9f2bb2074250eef654e9"},
-    {file = "langcodes-3.4.0.tar.gz", hash = "sha256:ae5a77d1a01d0d1e91854a671890892b7ce9abb601ab7327fc5c874f899e1979"},
+    {file = "langcodes-3.5.0-py3-none-any.whl", hash = "sha256:853c69d1a35e0e13da2f427bb68fb2fa4a8f4fb899e0c62ad8df8d073dcfed33"},
+    {file = "langcodes-3.5.0.tar.gz", hash = "sha256:1eef8168d07e51e131a2497ffecad4b663f6208e7c3ae3b8dc15c51734a6f801"},
 ]
 
 [package.dependencies]
@@ -5156,13 +5156,13 @@ fire = "*"
 
 [[package]]
 name = "rasa-pro"
-version = "3.12.0rc1"
+version = "3.12.0rc2"
 description = "State-of-the-art open-core Conversational AI framework for Enterprises that natively leverages generative AI for effortless assistant development."
 optional = false
 python-versions = "<3.12,>=3.9"
 files = [
-    {file = "rasa_pro-3.12.0rc1-py3-none-any.whl", hash = "sha256:8c2586c6301663321c947c8384ab37ce9105bab7c38e682db8298fadb2b2bde4"},
-    {file = "rasa_pro-3.12.0rc1.tar.gz", hash = "sha256:fdd9aa37d5507847579a443072052ba01faf775c1b10ff01ea332a72cd04f145"},
+    {file = "rasa_pro-3.12.0rc2-py3-none-any.whl", hash = "sha256:331cef52d6a59e9cb20927fb4b9a65374648e431f3cf25ba92cb35881cfda77d"},
+    {file = "rasa_pro-3.12.0rc2.tar.gz", hash = "sha256:2b99af864d76550893cd46b009da8a9b1a81dbc01bb458ef70c54fe28686cb7e"},
 ]
 
 [package.dependencies]
@@ -5203,6 +5203,7 @@ jsonschema = ">=4.22"
 keras = "2.14.0"
 langchain = ">=0.2.0,<0.3.0"
 langchain-community = ">=0.2.0,<0.3.0"
+langcodes = ">=3.5.0,<4.0.0"
 litellm = ">=1.52.6,<1.53.0"
 matplotlib = ">=3.7,<3.8"
 mattermostwrapper = ">=2.2,<2.3"
@@ -7921,4 +7922,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<3.12"
-content-hash = "0a6638e8457b0a7f0d21f47a4c6e182ce700201aa383b6736e65d80494589163"
+content-hash = "037549d4f1b375a1fee9b8a00e056ae9d642ad3fbbc6cedf036cc3d822471a05"
