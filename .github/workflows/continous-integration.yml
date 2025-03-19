@@ -161,14 +161,14 @@ jobs:
         path: .rasa
         key: rasa-llm-cache
 
-    - name: Run action server
-      env:
-        OPENAI_API_KEY: ${{secrets.OPENAI_API_KEY}}
-        RASA_PRO_LICENSE: ${{secrets.RASA_PRO_LICENSE}}
-        RASA_DUCKLING_HTTP_URL: ${{secrets.DUCKLING_URL}}
-        RASA_PRO_BETA_INTENTLESS: true
-      run: |
-        make actions &
+    # - name: Run action server
+    #   env:
+    #     OPENAI_API_KEY: ${{secrets.OPENAI_API_KEY}}
+    #     RASA_PRO_LICENSE: ${{secrets.RASA_PRO_LICENSE}}
+    #     RASA_DUCKLING_HTTP_URL: ${{secrets.DUCKLING_URL}}
+    #     RASA_PRO_BETA_INTENTLESS: true
+    #   run: |
+    #     make actions &
 
     - name: Run duckling server
       run: |
@@ -288,14 +288,14 @@ jobs:
         path: .rasa
         key: rasa-llm-cache
 
-    - name: Run action server
-      env:
-        OPENAI_API_KEY: ${{secrets.OPENAI_API_KEY}}
-        RASA_PRO_LICENSE: ${{secrets.RASA_PRO_LICENSE}}
-        RASA_DUCKLING_HTTP_URL: ${{secrets.DUCKLING_URL}}
-        RASA_PRO_BETA_INTENTLESS: true
-      run: |
-        make actions &
+    # - name: Run action server
+    #   env:
+    #     OPENAI_API_KEY: ${{secrets.OPENAI_API_KEY}}
+    #     RASA_PRO_LICENSE: ${{secrets.RASA_PRO_LICENSE}}
+    #     RASA_DUCKLING_HTTP_URL: ${{secrets.DUCKLING_URL}}
+    #     RASA_PRO_BETA_INTENTLESS: true
+    #   run: |
+    #     make actions &
 
     - name: Run duckling server
       run: |
