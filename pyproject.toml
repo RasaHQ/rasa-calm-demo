@@ -19,9 +19,7 @@ priority = "supplemental"
 python = ">=3.9,<3.12"
 
 [tool.poetry.dependencies.rasa-pro]
-version = "3.11.5"
-allow-prereleases = true
-extras = ["mlflow"]
+version = "3.12.rc3"
 
 [tool.poetry.group.dev.dependencies]
 toml = "^0.10.2"
