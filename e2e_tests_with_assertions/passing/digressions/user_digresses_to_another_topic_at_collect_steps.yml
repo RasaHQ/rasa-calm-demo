@@ -52,7 +52,7 @@ test_cases:
             - flow_started: find_available_appointments
             - bot_uttered:
                 utter_name: utter_ask_appointment_time
-      - user: can I order a pizza first?
+      - user: order pizza
         assertions:
           - flow_started: pattern_handle_digressions
           - action_executed: action_block_digression
@@ -78,7 +78,7 @@ test_cases:
           - flow_started: find_available_appointments
           - bot_uttered:
               utter_name: utter_ask_appointment_time
-      - user: can I order a pizza first?
+      - user: order pizza
         assertions:
           - flow_started: pattern_handle_digressions
           - action_executed: action_block_digression
@@ -86,7 +86,7 @@ test_cases:
               utter_name: utter_block_digressions
           - bot_uttered:
               utter_name: utter_ask_appointment_time
-      - user: I am really hungry though, need to order pizza
+      - user: I am really hungry though, need to order pizza first
         assertions:
           - flow_started: pattern_handle_digressions
           - action_executed: action_block_digression
@@ -112,7 +112,7 @@ test_cases:
           - flow_started: find_available_appointments
           - bot_uttered:
               utter_name: utter_ask_appointment_time
-      - user: can I order a pizza first?
+      - user: order pizza
         assertions:
           - flow_started: pattern_handle_digressions
           - action_executed: action_block_digression
@@ -154,7 +154,7 @@ test_cases:
           - flow_started: find_available_appointments
           - bot_uttered:
               utter_name: utter_ask_appointment_time
-      - user: can I order a pizza first?
+      - user: order pizza
         assertions:
           - flow_started: pattern_handle_digressions
           - action_executed: action_block_digression
