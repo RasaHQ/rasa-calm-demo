@@ -9,7 +9,7 @@ This demo showcases a chatbot built with Rasa's LLM-native approach: [CALM](http
 > CALM's current stage of development.
 
 > [!NOTE]
-> This demo bot is currently compatible with `3.12.0`.
+> This demo bot is currently compatible with `3.12.1`.
 
 ## Terms of Use
 
