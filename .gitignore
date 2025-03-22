@@ -145,3 +145,4 @@ qdrant_storage/
 
 # mlflow
 mlruns/
+certs/

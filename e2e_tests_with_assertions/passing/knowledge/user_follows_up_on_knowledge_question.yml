@@ -5,7 +5,9 @@ test_cases:
         assertions:
           - generative_response_is_grounded:
               threshold: 0.90
+              utter_source: EnterpriseSearchPolicy
       - user: How about international ones?
         assertions:
           - generative_response_is_relevant:
               threshold: 0.75
+              utter_source: EnterpriseSearchPolicy

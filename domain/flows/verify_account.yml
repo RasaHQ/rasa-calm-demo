@@ -51,20 +51,14 @@ responses:
   utter_ca_income_insufficient:
     - text: Unfortunately, we cannot increase your transfer limits under these circumstances.
   utter_ask_verify_account_confirmation:
-    - condition:
-        - type: slot
-          name: based_in_california
-          value: true
+    - condition: slots.based_in_california is true
       text: Your email address is {verify_account_email} and you are based in California with a yearly income exceeding 100,000$, correct?
       buttons:
         - payload: "yes"
           title: "Yes"
         - payload: "no"
           title: "No, cancel"
-    - condition:
-        - type: slot
-          name: based_in_california
-          value: false
+    - condition: not slots.based_in_california
       text: Your email address is {verify_account_email} and you are not based in California, correct?
       buttons:
         - payload: "yes"
