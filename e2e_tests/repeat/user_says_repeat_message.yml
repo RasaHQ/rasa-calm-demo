@@ -1,0 +1,9 @@
+test_cases:
+  - test_case: user says repeat message
+    steps:
+      - user: Show my balance
+      - utter: utter_current_balance
+      - utter: utter_can_do_something_else
+      - user: can you repeat that?
+      - utter: utter_current_balance
+      - utter: utter_can_do_something_else
