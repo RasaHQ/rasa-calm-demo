@@ -1,0 +1,32 @@
+flows:
+  book_doctor_appointment:
+    description: book an appointment at doctor's office
+    name: book a doctor appointment
+    steps:
+      - collect: doctor_name
+        description: a name of the doctor
+        ask_confirm_digressions:
+          - list_contacts
+          - add_contact
+      - collect: doctor_office_name
+        description: a name of the doctor's office
+        ask_confirm_digressions: true
+      - link: find_available_appointments
+
+  find_available_appointments:
+    description: find available appointments on the doctor's schedule
+    name: find available appointments
+    steps:
+      - collect: appointment_time
+        description: the time of the appointment
+        block_digressions: true
+      - action: action_check_appointment_availability
+        next:
+          - if: slots.appointment_available
+            then:
+              - action: utter_doctor_appointment_booked
+                next: END
+          - else: available_appointments_not_found
+      - id: available_appointments_not_found
+        action: utter_no_appointments_available
+        next: END

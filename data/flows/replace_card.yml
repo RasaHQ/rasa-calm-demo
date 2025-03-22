@@ -8,6 +8,9 @@ flows:
           confidence_threshold: 0.9
     steps:
       - collect: confirm_correct_card
+        block_digressions:
+          - order_pizza
+          - transfer_money
         ask_before_filling: true
         next:
           - if: slots.confirm_correct_card

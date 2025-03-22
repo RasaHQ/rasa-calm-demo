@@ -1,0 +1,39 @@
+version: "3.1"
+
+slots:
+  doctor_office_name:
+    type: text
+    mappings:
+    - type: from_llm
+  doctor_name:
+    type: text
+    mappings:
+      - type: from_llm
+  appointment_time:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: time
+  appointment_available:
+    type: bool
+    mappings:
+      - type: controlled
+  available_appointments:
+    type: list
+    mappings:
+      - type: controlled
+
+responses:
+  utter_ask_doctor_name:
+    - text: What is the name of the doctor you want to book an appointment with?
+  utter_ask_doctor_office_name:
+    - text: What is the name of the doctor's office?
+  utter_ask_appointment_time:
+    - text: What date and time would you like to book the appointment?
+  utter_doctor_appointment_booked:
+    - text: Booked your doctor appointment on {appointment_time}.
+  utter_no_appointments_available:
+    - text: Sorry, the time slot you requested is not available. Please indicate another time from the available slots {available_appointments}.
+
+actions:
+  - action_check_appointment_availability

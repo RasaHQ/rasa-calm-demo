@@ -8,8 +8,7 @@ slots:
   transactions_list:
     type: text
     mappings:
-      - type: custom
-        action: transaction_search
+      - type: controlled
 
 responses:
   utter_transactions:

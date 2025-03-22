@@ -37,8 +37,6 @@ responses:
     - text: Haha, that's a good one! 😄
   utter_curious:
     - text: Now I'm curious
-  utter_intriguing:
-    - text: That's quite intriguing! Can you elaborate?
   utter_understand_private:
     - text: I understand if you'd rather not share that. Let's move on.
   utter_cannot_answer:

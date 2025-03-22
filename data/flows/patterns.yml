@@ -71,3 +71,4 @@ flows:
                 - else: clarify_options
       - id: clarify_options
         action: utter_clarification_options_rasa
+      - action: action_listen
