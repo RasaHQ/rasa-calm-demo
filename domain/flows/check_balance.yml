@@ -4,8 +4,7 @@ slots:
   current_balance:
     type: float
     mappings:
-      - type: custom
-        action: check_balance
+      - type: controlled
 
 actions:
   - check_balance

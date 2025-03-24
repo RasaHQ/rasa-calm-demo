@@ -3,11 +3,8 @@ test_cases:
     steps:
       - user: I just had the most wonderful startup idea.
         assertions:
-          - bot_uttered:
-              utter_name: utter_intriguing
+          - flow_started: pattern_chitchat
+          - action_executed: action_trigger_chitchat
           - generative_response_is_relevant:
-              utter_name: utter_intriguing
+              utter_source: IntentlessPolicy
               threshold: 0.70
-          - generative_response_is_grounded:
-              utter_name: utter_intriguing
-              threshold: 0.90

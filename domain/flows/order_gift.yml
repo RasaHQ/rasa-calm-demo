@@ -1,0 +1,50 @@
+version: "3.1"
+
+slots:
+  order_gift_confirmation:
+    type: bool
+    mappings:
+    - type: from_llm
+  gift_recipient:
+    type: text
+    mappings:
+    - type: from_llm
+    validation:
+      rejections:
+        - if: slots.gift_recipient == "me"
+          utter: utter_gift_recipient_invalid
+  gift_name:
+    type: text
+    mappings:
+      - type: from_llm
+  gift_price:
+    type: float
+    mappings:
+      - type: from_llm
+    validation:
+      rejections:
+        - if: slots.gift_price < 100
+          utter: utter_gift_price_invalid
+
+responses:
+  utter_ask_order_gift_confirmation:
+    - text: Do you want to buy a {gift_name} worth {gift_price} euros for {gift_recipient}?
+      buttons:
+        - payload: /SetSlots(order_gift_confirmation=True)
+          title: "Yes"
+        - payload: /SetSlots(order_gift_confirmation=False)
+          title: "No, cancel"
+  utter_ask_gift_name:
+    - text: What gift do you want to order?
+  utter_ask_gift_price:
+    - text: What's the price of the gift?
+  utter_ask_gift_recipient:
+    - text: What's the name of the person receiving the gift?
+  utter_order_gift_cancelled:
+    - text: Okay, I am cancelling this gift order.
+  utter_gift_ordered:
+    - text: Gift ordered successfully.
+  utter_gift_recipient_invalid:
+    - text: Sorry, the recipient you gave for the gift is invalid. Please choose another name.
+  utter_gift_price_invalid:
+    - text: Sorry, there's a minimum order of 100 euros. Please choose another price.

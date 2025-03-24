@@ -27,10 +27,14 @@ slots:
     type: any
     mappings:
     - type: from_llm
+    - type: from_entity
+      entity: time  # shared entity defined in restaurant.yml domain file
   recurrent_payment_end_date:
     type: any
     mappings:
     - type: from_llm
+    - type: from_entity
+      entity: time
   recurrent_payment_confirmation:
     type: bool
     mappings:
@@ -38,8 +42,7 @@ slots:
   setup_recurrent_payment_successful:
     type: bool
     mappings:
-    - type: custom
-      action: action_execute_recurrent_payment
+    - type: controlled
 
 responses:
   utter_ask_recurrent_payment_type:
