@@ -12,7 +12,7 @@ concurrency:
 
 env:
   DEFAULT_PYTHON_VERSION: '3.9'
-  POETRY_VERSION: 1.8.2
+  POETRY_VERSION: 2.1.2
 
 jobs:
   train-model:
@@ -29,7 +29,7 @@ jobs:
           python-version: ${{ env.DEFAULT_PYTHON_VERSION }}
 
       - name: Install poetry 🦄
-        uses: Gr1N/setup-poetry@15821dc8a61bc630db542ae4baf6a7c19a994844
+        uses: Gr1N/setup-poetry@48b0f77c8c1b1b19cb962f0f00dff7b4be8f81ec #v9
         with:
           poetry-version: ${{ env.POETRY_VERSION }}
 
@@ -115,7 +115,7 @@ jobs:
         python-version: ${{ env.DEFAULT_PYTHON_VERSION }}
 
     - name: Install poetry 🦄
-      uses: Gr1N/setup-poetry@15821dc8a61bc630db542ae4baf6a7c19a994844
+      uses: Gr1N/setup-poetry@48b0f77c8c1b1b19cb962f0f00dff7b4be8f81ec #v9
       with:
         poetry-version: ${{ env.POETRY_VERSION }}
 
@@ -245,7 +245,7 @@ jobs:
         python-version: ${{ env.DEFAULT_PYTHON_VERSION }}
 
     - name: Install poetry 🦄
-      uses: Gr1N/setup-poetry@15821dc8a61bc630db542ae4baf6a7c19a994844
+      uses: Gr1N/setup-poetry@48b0f77c8c1b1b19cb962f0f00dff7b4be8f81ec #v9
       with:
         poetry-version: ${{ env.POETRY_VERSION }}
 
@@ -372,7 +372,7 @@ jobs:
         python-version: ${{ env.DEFAULT_PYTHON_VERSION }}
 
     - name: Install poetry 🦄
-      uses: Gr1N/setup-poetry@15821dc8a61bc630db542ae4baf6a7c19a994844
+      uses: Gr1N/setup-poetry@48b0f77c8c1b1b19cb962f0f00dff7b4be8f81ec #v9
       with:
         poetry-version: ${{ env.POETRY_VERSION }}
 

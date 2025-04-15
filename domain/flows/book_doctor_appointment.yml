@@ -22,6 +22,18 @@ slots:
     type: list
     mappings:
       - type: controlled
+  feedback:
+    type: text
+    mappings:
+      - type: from_llm
+      - type: from_text
+        not_intent:
+          - goodbye
+          - greet
+          - list_restaurants
+          - hotel_search
+  appointment_reason:
+    type: text
 
 responses:
   utter_ask_doctor_name:
@@ -34,6 +46,12 @@ responses:
     - text: Booked your doctor appointment on {appointment_time}.
   utter_no_appointments_available:
     - text: Sorry, the time slot you requested is not available. Please indicate another time from the available slots {available_appointments}.
+  utter_ask_feedback:
+    - text: How was your experience with the appointment booking process?
+  utter_thank_you:
+    - text: Thank you for your feedback. Have a great day!
+  utter_ask_appointment_reason:
+    - text: What is the reason for your appointment?
 
 actions:
   - action_check_appointment_availability
