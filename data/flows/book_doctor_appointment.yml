@@ -5,13 +5,12 @@ flows:
     steps:
       - collect: doctor_name
         description: a name of the doctor
-        ask_confirm_digressions:
-          - list_contacts
-          - add_contact
       - collect: doctor_office_name
-        description: a name of the doctor's office
-        ask_confirm_digressions: true
-      - link: find_available_appointments
+        description: the doctor's office name
+      - collect: appointment_reason
+        description: a medical reason for the appointment
+        force_slot_filling: true
+      - call: find_available_appointments
 
   find_available_appointments:
     description: find available appointments on the doctor's schedule
@@ -19,14 +18,22 @@ flows:
     steps:
       - collect: appointment_time
         description: the time of the appointment
-        block_digressions: true
+        force_slot_filling: true
       - action: action_check_appointment_availability
         next:
           - if: slots.appointment_available
             then:
               - action: utter_doctor_appointment_booked
-                next: END
+                next: feedback_request
           - else: available_appointments_not_found
       - id: available_appointments_not_found
         action: utter_no_appointments_available
+        next: END
+      - id: feedback_request
+        collect: feedback
+        force_slot_filling: true
+        ask_before_filling: true
+        next: thank_you
+      - id: thank_you
+        action: utter_thank_you
         next: END
