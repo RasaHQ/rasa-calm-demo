@@ -1,0 +1,84 @@
+flows:
+  schedule_interviews:
+    description: This flow lets users schedule interviews for relevant candidates based a given job of users' choice
+    steps:
+      - collect: schedule_interview_job_index
+        id: ask_schedule_interview_job_index
+        description: >
+          The index of the job for which the user wants to schedule an interview.
+          The value must be an integer and must be more or equal to 0 and less than the number of jobs found.
+          Keep in mind that humans start counting from 1, but computers start counting from 0.
+          Example: 1
+      - action: action_get_job_details
+        id: get_job_details
+        next:
+          - if: not slots.job_id
+            then:
+              - action: utter_no_job_found
+              - set_slots:
+                - job_title: null
+                next: ask_schedule_interview_job_index
+          - else: found_job
+      - action: utter_found_job
+        id: found_job
+      - collect: search_filter_criteria
+        id: ask_search_filter_criteria
+        description: "Filter criteria to search for candidates. Should be a dict object with key-value pairs.
+            Supported keys: 'radius_in_km', 'radius_in_miles', 'city', 'min_star'
+            Example: {'radius_in_km': '10', 'city': 'New York', 'min_star': '4'}"
+      - collect: number_of_candidates_to_interview_with
+        id: ask_number_of_candidates_to_interview_with
+        description: "the number of candidates that want to schedule interview with them"
+      - action: action_get_candidate_ids
+      - collect: selected_candidates_positions
+        description: "List of candidates to select for the interview. Should be a list of Integers of positions from original list. Example: [1, 2, 4]"
+      - action: action_get_interviewer_timezone
+      - collect: weeks_until_interview
+        id: ask_weeks_until_interview
+        description: "The number of weeks from now that the user is interested to schedule the interview"
+      - collect: interview_weekday_time
+        description: "Availability of the recruiter for the job interview in the form of list time slots which consist of weekdays, start slot time and end slot time. Example: [('Monday', '10:00', '12:00'), ('Thursday','11:30', '12:30')]"
+
+      - action: action_calculate_interviewer_availability
+        next:
+          - if: slots.corrected_interviewer_availability_within_timezone != slots.interviewer_availability_within_timezone
+            then:
+              - collect: interviewer_availability_confirmation
+                next:
+                - if: not slots.interviewer_availability_confirmation
+                  then:
+                    - set_slots:
+                        - weeks_until_interview: null
+                      next: ask_weeks_until_interview
+                - else: ask_interview_duration
+          - else: ask_interview_duration
+      - collect: interview_duration
+        id: ask_interview_duration
+        description: 'Expected interview duration, in minutes. Example: 30'
+        next:
+          # Value of "Other" variable used in the code is defined in app/constants.py.
+          # Please keep those values in sync
+          - if: slots.interview_duration = "Other"
+            then: ask_custom_interview_duration
+          - else: get_email_template
+      - collect: custom_interview_duration
+        id: ask_custom_interview_duration
+        description: 'Expected interview duration, in minutes. Example: 30'
+      - action: action_get_email_template
+        id: get_email_template
+      - collect: interview_type
+        description: "The interview types to select for the interview. The list contains 14 interview types."
+      - action: action_build_self_schedule_confirmation_message
+      - collect: final_self_schedule_confirmation
+        ask_before_filling: true
+        id: ask_final_self_schedule_confirmation
+        next:
+          - if: slots.final_self_schedule_confirmation = "yes"
+            then:
+              - action: action_schedule_interview
+                next: action_reset_slots_id
+          - else: utter_self_scheduling_cancelled_id
+      - action: utter_self_scheduling_cancelled
+        id: utter_self_scheduling_cancelled_id
+      - action: action_reset_slots
+        id: action_reset_slots_id

@@ -1,0 +1,30 @@
+fixtures:
+- california_resident:
+  - based_in_california: true
+  - route_session_to_calm: true
+- route_to_calm:
+  - route_session_to_calm: true
+metadata:
+- german_hotel_search:
+    hotel_name: Steigenberger Hotel
+    hotel_average_rating: 3
+- uk_hotel_search:
+    hotel_name: Britannia International Hotel
+    hotel_average_rating: 4
+- updated_rating:
+    hotel_average_rating: 8.5
+stub_custom_actions: {}
+test_cases:
+- test_case: user follows up on a knowledge question
+  steps:
+  - user: Are transfers on free with this service?
+      # not able to test the response of enterprise search
+      # - utter: utter_free_transfers
+  - user: How about international ones?
+      # not able to test the response of enterprise search
+      # - utter: utter_domestic_transfers_only
+- test_case: user starts with a knowledge question
+  steps:
+  - user: Are transfers on free with this service?
+      # not able to test the response of enterprise search
+      # - utter: utter_free_transfers

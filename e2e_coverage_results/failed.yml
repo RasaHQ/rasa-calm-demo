@@ -1,0 +1,1255 @@
+fixtures:
+- california_resident:
+  - based_in_california: true
+  - route_session_to_calm: true
+- route_to_calm:
+  - route_session_to_calm: true
+metadata:
+- german_hotel_search:
+    hotel_name: Steigenberger Hotel
+    hotel_average_rating: 3
+- uk_hotel_search:
+    hotel_name: Britannia International Hotel
+    hotel_average_rating: 4
+- updated_rating:
+    hotel_average_rating: 8.5
+stub_custom_actions: {}
+test_cases:
+- test_case: cancellation respects scope
+  steps:
+  - user: send money to John
+  - slot_was_set:
+    - route_session_to_calm: true
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: cancel
+  - utter: utter_flow_cancelled_rasa
+      # recipient should be empty now
+  - utter: utter_can_do_something_else
+  - user: send money
+  - utter: utter_ask_transfer_money_recipient
+- test_case: user immediately cancels and starts new flow
+  steps:
+  - user: I want to send money
+  - slot_was_set:
+    - route_session_to_calm: true
+  - utter: utter_ask_transfer_money_recipient
+  - user: ah, one moment stop that. I want to see my transfers first
+  - utter: utter_flow_cancelled_rasa
+  - utter: utter_transactions
+  - utter: utter_can_do_something_else
+  - user: okay, send money to Jill
+  - utter: utter_ask_transfer_money_amount_of_money
+- test_case: default cancellation pattern overridden no confirmation
+  steps:
+  - user: I would like to add a new contact
+  - slot_was_set:
+    - route_session_to_calm: true
+  - utter: utter_ask_add_contact_handle
+  - user: "@max"
+  - utter: utter_ask_add_contact_name
+  - user: Actually, cancel that please.
+  - utter: utter_can_do_something_else
+- test_case: user cancels during a correction
+  steps:
+  - user: I want to send money to Joe
+  - slot_was_set:
+    - route_session_to_calm: true
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: oh sorry I meant John
+  - utter: utter_ask_confirm_slot_correction
+  - user: never mind, cancel the transfer
+  - utter: utter_flow_cancelled_rasa
+  - utter: utter_can_do_something_else
+- test_case: user changes mind based on new info
+  steps:
+  - user: Send some money to Joe
+  - slot_was_set:
+    - route_session_to_calm: true
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: Ah one moment, show transactions.
+  - utter: utter_transactions
+  - utter: utter_flow_continue_interrupted
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: Ah never mind, I already sent the money earlier
+  - utter: utter_flow_cancelled_rasa
+- test_case: user changes mind based on new info
+  steps:
+  - user: I want to send money
+  - slot_was_set:
+    - route_session_to_calm: true
+  - utter: utter_ask_transfer_money_recipient
+  - user: stop
+  - utter: utter_flow_cancelled_rasa
+- test_case: user greets
+  steps:
+  - user: Hi, there
+  - utter: utter_greet
+- test_case: user says goodbye
+  steps:
+  - user: I want to send 10 bucks to Spencer
+  - slot_was_set:
+    - route_session_to_calm: true
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: "Yes"
+  - utter: utter_transfer_complete
+  - utter: utter_can_do_something_else
+  - user: Bye then
+  - utter: utter_goodbye
+- test_case: user cancels correction
+  steps:
+  - user: send John 50
+  - slot_was_set:
+    - route_session_to_calm: true
+  - slot_was_set:
+    - transfer_money_amount_of_money: "50"
+  - slot_was_set:
+    - transfer_money_recipient: John
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: Ah wait I think I actually owe him 60
+  - utter: utter_ask_confirm_slot_correction
+  - user: /SetSlots(confirm_slot_correction=false)
+  - utter: utter_not_corrected_previous_input
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: "Yes"
+  - bot: Successfully transferred 50 to John.
+- test_case: user corrects boolean slot
+  steps:
+  - user: I want to verify my account
+  - slot_was_set:
+    - route_session_to_calm: true
+  - utter: utter_ask_verify_account_email
+  - user: It's mag@pie.com
+  - utter: utter_ask_based_in_california
+  - user: "yes"
+  - utter: utter_ask_verify_account_sufficient_california_income
+  - user: "yes"
+  - utter: utter_ask_verify_account_confirmation
+  - user: Actually my income is not that high
+  - utter: utter_ask_verify_account_sufficient_california_income
+  - user: "no"
+  - utter: utter_ca_income_insufficient
+- test_case: user corrects a branching slot
+  steps:
+  - user: I want to verify my account
+  - slot_was_set:
+    - route_session_to_calm: true
+  - utter: utter_ask_verify_account_email
+  - user: It's birdie@example.com
+  - utter: utter_ask_based_in_california
+  - user: "yes"
+  - utter: utter_ask_verify_account_sufficient_california_income
+  - user: sorry, I need to correct the previous input
+  - utter: utter_ask_confirm_slot_correction
+  - user: /SetSlots(confirm_slot_correction=true)
+  - utter: utter_corrected_previous_input
+  - slot_was_set:
+    - based_in_california
+  - utter: utter_ask_based_in_california
+  - user: "no"
+  - utter: utter_ask_verify_account_confirmation
+  - user: "yes"
+  - utter: utter_verify_account_success
+  - utter: utter_can_do_something_else
+- test_case: user corrects value of a number slot
+  steps:
+  - user: I want to book a table
+  - slot_was_set:
+    - route_session_to_calm: false
+  - utter: utter_ask_restaurant_form_city
+  - user: /inform{"location":"amsterdam"}
+    # we use action_ask_restaurant_form_cuisine for the collect step
+  - user: /inform{"cuisine":"Japanese"}
+    # we use action_ask_restaurant_form_restaurant_name for the collect step
+  - user: /inform{"restaurant_name":"Yamazato Restaurant"}
+  - utter: utter_ask_restaurant_form_num_people
+  - user: "4"
+  - utter: utter_ask_restaurant_form_restaurant_time
+  - user: sorry, we are 6 people
+  - utter: utter_ask_restaurant_form_restaurant_time
+  - user: tomorrow at 7pm
+  - utter: utter_restaurant_form_submit
+  - utter: utter_restaurant_available
+- test_case: user corrects amount of money in the next message
+  steps:
+  - user: I want to transfer money
+  - slot_was_set:
+    - route_session_to_calm: true
+  - utter: utter_ask_transfer_money_recipient
+  - user: John
+  - slot_was_set:
+    - transfer_money_recipient: John
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: 100 USD
+  - slot_was_set:
+    - transfer_money_amount_of_money: "100"
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: Ah, scratch that, I meant 110$
+  - utter: utter_ask_confirm_slot_correction
+  - user: /SetSlots(confirm_slot_correction=true)
+  - slot_was_set:
+    - transfer_money_amount_of_money: "110"
+  - utter: utter_corrected_previous_input
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: "yes"
+  - utter: utter_transfer_complete
+- test_case: correction mentioning old value first
+  steps:
+  - user: I want to transfer money
+  - slot_was_set:
+    - route_session_to_calm: true
+  - utter: utter_ask_transfer_money_recipient
+  - user: John
+  - slot_was_set:
+    - transfer_money_recipient: John
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: "50"
+  - slot_was_set:
+    - transfer_money_amount_of_money: "50"
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: Ah, not 50, I meant 55
+  - utter: utter_ask_confirm_slot_correction
+  - user: /SetSlots(confirm_slot_correction=true)
+  - slot_was_set:
+    - transfer_money_amount_of_money: "55"
+  - utter: utter_corrected_previous_input
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: "yes"
+  - utter: utter_transfer_complete
+- test_case: correction mentioning old value last
+  steps:
+  - user: I want to transfer money
+  - slot_was_set:
+    - route_session_to_calm: true
+  - utter: utter_ask_transfer_money_recipient
+  - user: John
+  - slot_was_set:
+    - transfer_money_recipient: John
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: Sorry, I meant to say Jimmy, not John
+  - utter: utter_ask_confirm_slot_correction
+  - user: /SetSlots(confirm_slot_correction=true)
+  - slot_was_set:
+    - transfer_money_recipient: Jimmy
+  - utter: utter_corrected_previous_input
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: 50$
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: "yes"
+  - utter: utter_transfer_complete
+- test_case: user corrects recipient in the next message
+  steps:
+  - user: I want to transfer money
+  - slot_was_set:
+    - route_session_to_calm: true
+  - utter: utter_ask_transfer_money_recipient
+  - user: John
+  - slot_was_set:
+    - transfer_money_recipient: John
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: Sorry, I meant to say Joe
+  - utter: utter_ask_confirm_slot_correction
+  - user: /SetSlots(confirm_slot_correction=true)
+  - slot_was_set:
+    - transfer_money_recipient: Joe
+  - utter: utter_corrected_previous_input
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: "50"
+  - slot_was_set:
+    - transfer_money_amount_of_money: "50"
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: "yes"
+  - utter: utter_transfer_complete
+- test_case: user corrects recipient late
+  steps:
+  - user: I want to transfer money
+  - slot_was_set:
+    - route_session_to_calm: true
+  - utter: utter_ask_transfer_money_recipient
+  - user: John
+  - slot_was_set:
+    - transfer_money_recipient: John
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: 50 USD
+  - slot_was_set:
+    - transfer_money_amount_of_money: "50"
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: Oh wait, I want to send it to James!
+  - utter: utter_ask_confirm_slot_correction
+  - user: /SetSlots(confirm_slot_correction=true)
+  - slot_was_set:
+    - transfer_money_recipient: James
+  - utter: utter_corrected_previous_input
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: "yes"
+  - utter: utter_transfer_complete
+- test_case: user_orders_pizza_stating_which_type_and_corrects_quantity_later
+  steps:
+  - user: I would like to order a diavola pizza.
+  - utter: utter_ask_num_pizza
+  - user: 1 please
+  - utter: utter_ask_address
+  - user: 30 Pine Road
+  - utter: utter_confirm
+  - user: /SetSlots(confirmation_order=True)
+  - utter: utter_ask_payment_option
+  - user: actually can i get 2 pizzas instead
+  - utter: utter_ask_confirm_slot_correction
+  - user: /SetSlots(confirm_slot_correction=true)
+  - utter: utter_corrected_previous_input
+  - utter: utter_confirm
+  - user: /SetSlots(confirmation_order=True)
+  - utter: utter_ask_payment_option
+
+- test_case: user_orders_pizza_stating_which_type_and_corrects_pizza_type_later
+  steps:
+  - user: I would like to order a diavola pizza.
+  - utter: utter_ask_num_pizza
+  - user: 1 please
+  - utter: utter_ask_address
+  - user: 30 Pine Road
+  - utter: utter_confirm
+  - user: /SetSlots(confirmation_order=True)
+  - utter: utter_ask_payment_option
+  - user: actually can i get a margherita instead
+  - utter: utter_ask_confirm_slot_correction
+  - user: /SetSlots(confirm_slot_correction=true)
+  - utter: utter_corrected_previous_input
+  - utter: utter_confirm
+  - user: /SetSlots(confirmation_order=True)
+  - utter: utter_ask_payment_option
+
+- test_case: user_orders_pizza_stating_which_type_and_corrects_address_later
+  steps:
+  - user: I would like to order a diavola pizza.
+  - utter: utter_ask_num_pizza
+  - user: 1 please
+  - utter: utter_ask_address
+  - user: 31 Pine Road
+  - utter: utter_confirm
+  - user: /SetSlots(confirmation_order=True)
+  - utter: utter_ask_payment_option
+  - user: wait, i meant to say the pizza should be delivered to 13 Pine Road.
+  - bot: "I'm sorry about that. Let's correct your address. Please confirm your new address?"
+  - utter: utter_ask_address
+  - user: 13 Pine Road
+  - utter: utter_confirm
+  - user: /SetSlots(confirmation_order=True)
+  - utter: utter_flow_continue_interrupted
+  - utter: utter_ask_payment_option
+
+- test_case: user_orders_pizza_stating_which_type_and_corrects_payment_option_later
+  steps:
+  - user: I would like to order a diavola pizza.
+  - utter: utter_ask_num_pizza
+  - user: 1 please
+  - utter: utter_ask_address
+  - user: 30 Pine Road
+  - utter: utter_confirm
+  - user: /SetSlots(confirmation_order=True)
+  - utter: utter_ask_payment_option
+  - user: loyalty points
+  - utter: utter_ask_user_name
+  - user: actually can i pay with a credit card
+  - utter: utter_ask_confirm_slot_correction
+  - user: /SetSlots(confirm_slot_correction=true)
+  - utter: utter_corrected_previous_input
+  - utter: utter_ask_card_details
+
+- test_case: user_orders_pizza_stating_which_type_and_corrects_order_details_later
+  steps:
+  - user: I would like to order a diavola pizza.
+  - utter: utter_ask_num_pizza
+  - user: 1 please
+  - utter: utter_ask_address
+  - user: 30 Pine Road
+  - utter: utter_confirm
+  - user: /SetSlots(confirmation_order=True)
+  - utter: utter_ask_payment_option
+  - user: actually, i made a mistake and need to update my delivery address first.
+  - bot: "I'm sorry about that. Let's correct your order. What would you like to change?"
+        # TODO: ideal place to assert planned buttons feature in e2e testing
+  - user: /SetSlots(address=null)
+  - utter: utter_ask_address
+  - user: 3 Pine Road
+  - utter: utter_confirm
+  - user: /SetSlots(confirmation_order=True)
+  - utter: utter_flow_continue_interrupted
+  - utter: utter_ask_payment_option
+- test_case: user corrects string slot
+  steps:
+  - user: I want to add Peter to my contacts
+  - slot_was_set:
+    - route_session_to_calm: true
+  - utter: utter_ask_add_contact_handle
+  - user: It's @PeterPark
+  - slot_was_set:
+    - add_contact_handle: "@PeterPark"
+  - utter: utter_ask_add_contact_name
+  - user: Peter
+  - slot_was_set:
+    - add_contact_name: "Peter"
+  - utter: utter_ask_add_contact_confirmation
+  - user: Ah, please use Spidey as the name
+  - utter: utter_ask_confirm_slot_correction
+  - user: /SetSlots(confirm_slot_correction=true)
+  - utter: utter_corrected_previous_input
+  - utter: utter_ask_add_contact_confirmation
+  - user: "yes"
+  - utter: utter_contact_added
+- test_case: user corrects a value twice in a row while being asked for confirmation
+  steps:
+  - user: I want to send money to Joe
+  - slot_was_set:
+    - route_session_to_calm: true
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: oh sorry I meant John
+  - utter: utter_ask_confirm_slot_correction
+  - user: damn, should be Alex
+  - utter: utter_ask_confirm_slot_correction
+  - user: /SetSlots(confirm_slot_correction=true)
+  - slot_was_set:
+    - transfer_money_recipient: Alex
+  - utter: utter_corrected_previous_input
+  - utter: utter_ask_transfer_money_amount_of_money
+- test_case: user resets a slot by value
+  steps:
+  - user: I want to send some money to John
+  - slot_was_set:
+    - route_session_to_calm: true
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: "50"
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: I want to change the recipient
+  - utter: utter_ask_confirm_slot_correction
+  - user: /SetSlots(confirm_slot_correction=true)
+  - utter: utter_corrected_previous_input
+  - utter: utter_ask_transfer_money_recipient
+  - user: Eliza
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: "yes"
+  - utter: utter_transfer_complete
+- test_case: user resets a slot by value
+  steps:
+  - user: I want to send some money to John
+  - slot_was_set:
+    - route_session_to_calm: true
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: Sorry, I didn't mean John
+  - utter: utter_ask_confirm_slot_correction
+  - user: /SetSlots(confirm_slot_correction=true)
+  - utter: utter_corrected_previous_input
+  - utter: utter_ask_transfer_money_recipient
+  - user: to Joe
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: "50"
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: "yes"
+  - utter: utter_transfer_complete
+- test_case: user makes an intermittent flow switch
+  steps:
+  - user: I need to transfer some money to John
+  - slot_was_set:
+    - route_session_to_calm: true
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: How much do I have on my account?
+  - utter: utter_current_balance
+  - utter: utter_flow_continue_interrupted
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: ah, great, I owe him $500
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: "yes"
+  - utter: utter_transfer_complete
+  - utter: utter_can_do_something_else
+- test_case: user answers and also asks a question
+  steps:
+  - user: I want to send 50$ to Justin
+  - slot_was_set:
+    - route_session_to_calm: true
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: yes, and btw are there any fees associated with the sending?
+      # not able to test the response of enterprise search
+      # - utter: utter_free_transfers
+  - utter: utter_transfer_complete
+- test_case: user asks for a moment to think
+  steps:
+  - user: I want to send money to Yizhi
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: one moment
+  - utter: utter_take_your_time
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: "100"
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: "Yes"
+  - utter: utter_transfer_complete
+- test_case: user asks what requested information is
+  steps:
+  - user: I want to add Kate to my contacts
+  - slot_was_set:
+    - route_session_to_calm: true
+  - utter: utter_ask_add_contact_handle
+  - user: What's a contact handle?
+      # not able to test the response of enterprise search
+      # - utter: utter_contact_handle_info
+  - utter: utter_ask_add_contact_handle
+  - user: Ah okay she sent it to me, it's @KatePurry
+  - utter: utter_ask_add_contact_name
+  - user: Kate
+  - slot_was_set:
+    - add_contact_name: "Kate"
+  - utter: utter_ask_add_contact_confirmation
+  - user: "yes"
+  - utter: utter_contact_added
+- test_case: user asks why information is needed
+  steps:
+  - user: I want to verify my account
+  - slot_was_set:
+    - route_session_to_calm: true
+  - utter: utter_ask_verify_account_email
+  - user: It's a.tweep@twitter.com
+  - utter: utter_ask_based_in_california
+  - user: Why do you need to know this?
+  - utter: utter_california_compliance
+  - utter: utter_ask_based_in_california
+  - user: "No"
+  - utter: utter_ask_verify_account_confirmation
+  - user: "Yes"
+  - utter: utter_verify_account_success
+- test_case: user refuses to provide information
+  steps:
+  - user: I want to verify my account
+  - slot_was_set:
+    - route_session_to_calm: true
+  - utter: utter_ask_verify_account_email
+  - user: It's thomas@x.com
+  - utter: utter_ask_based_in_california
+  - user: "Yes"
+  - utter: utter_ask_verify_account_sufficient_california_income
+  - user: Why is that your business?
+  - utter: utter_california_compliance
+  - utter: utter_ask_verify_account_sufficient_california_income
+  - user: never mind then!!
+  - utter: utter_can_do_something_else
+- test_case: user starts multiple flows
+  steps:
+  - user: Show my transactions and send money
+  - slot_was_set:
+    - route_session_to_calm: true
+  - utter: utter_transactions
+  - utter: utter_ask_transfer_money_recipient
+- test_case: user starts with a very long message
+  steps:
+  - user: What's up dawg, my homie Steven got my back yesterday when we were out for drinks and my phone was out of batt, let me settle up with him.
+  - slot_was_set:
+    - transfer_money_recipient: Steven
+  - slot_was_set:
+    - route_session_to_calm: true
+  - utter: utter_ask_transfer_money_amount_of_money
+- test_case: validation too little money
+  steps:
+  - user: I want to send 5000$ to Martin
+  - slot_was_set:
+    - route_session_to_calm: true
+  - utter: utter_transfer_money_insufficient_funds
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: Oh, I thought I had more, then do 3000$ for now
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: "yes"
+  - utter: utter_transfer_complete
+- test_case: user is based in california and wants to register to vote
+  steps:
+  - user: I would like to verify my account.
+  - utter: utter_ask_verify_account_email
+  - user: sam@microsoft.com
+  - utter: utter_ask_based_in_california
+  - user: "yes"
+  - utter: utter_ask_verify_account_sufficient_california_income
+  - user: "yes"
+  - utter: utter_ask_verify_account_confirmation
+  - user: "yes"
+  - utter: utter_verify_account_success
+  - utter: utter_can_do_something_else
+  - user: I would like to register to vote in california.
+  - utter: utter_register_to_vote_in_california
+  - utter: utter_can_do_something_else
+- test_case: user adds a contact to their list
+  steps:
+  - user: I want to add someone to my contact list
+  - utter: utter_ask_add_contact_handle
+  - user: it's @barts
+  - slot_was_set:
+    - add_contact_handle: "@barts"
+  - utter: utter_ask_add_contact_name
+  - user: just Bart
+  - slot_was_set:
+    - add_contact_name: Bart
+  - utter: utter_ask_add_contact_confirmation
+- test_case: user books a restaurant
+  steps:
+  - user: book a restaurant
+  - slot_was_set:
+    - route_session_to_calm: false
+  - utter: utter_ask_restaurant_form_city
+  - user: /inform{"location":"amsterdam"}
+    # we use action_ask_restaurant_form_cuisine for the collect step
+  - user: /inform{"cuisine":"Thai"}
+    # we use action_ask_restaurant_form_restaurant_name for the collect step
+  - user: /inform{"restaurant_name":"Thai Spice"}
+  - utter: utter_ask_restaurant_form_num_people
+  - user: "3"
+  - utter: utter_ask_restaurant_form_restaurant_time
+  - user: Next Wednesday at 6pm
+  - utter: utter_restaurant_form_submit
+  - utter: utter_restaurant_available
+- test_case: user books a restaurant with an alternative time
+  steps:
+  - user: I want to book a table for 3 people for tomorrow
+  - utter: utter_ask_restaurant_form_city
+  - user: /inform{"location":"berlin"}
+    # we use action_ask_restaurant_form_cuisine for the collect step
+  - user: /inform{"cuisine":"Japanese"}
+    # we use action_ask_restaurant_form_restaurant_name for the collect step
+  - user: Ah, wait. John just texted me, we need to move the date to Wednesday, 6pm.
+  - slot_was_set:
+    - restaurant_time
+  - user: /inform{"restaurant_name":"Sakura Sushi House"}
+  - utter: utter_restaurant_form_submit
+  - utter: utter_restaurant_available
+- test_case: user books restaurant with fixed date
+  steps:
+  - user: I want to book a table for two 7pm tonight
+  - user: /inform{"location":"berlin"}
+    # we use action_ask_restaurant_form_cuisine for the collect step
+  - user: /inform{"cuisine":"French"}
+    # we use action_ask_restaurant_form_restaurant_name for the collect step
+  - user: /inform{"restaurant_name":"Le Gourmet"}
+  - utter: utter_restaurant_form_submit
+  - utter: utter_restaurant_available
+- test_case: user checks their balance and doesn't ask for anything else
+  steps:
+  - user: Show my balance
+  - utter: utter_current_balance
+  - utter: utter_can_do_something_else
+- test_case: user checks their balance and then about transactions
+  steps:
+  - user: Show my balance
+  - utter: utter_current_balance
+  - utter: utter_can_do_something_else
+  - user: Show my transactions please
+  - utter: utter_transactions
+- test_case: Authenticate and check mutual funds portfolio with options found
+  steps:
+  - user: I want to check my portfolio
+  - utter: utter_ask_user_name
+  - user: Max
+  - utter: utter_ask_user_password
+  - user: "1234"
+  - utter: utter_authentication_successful
+  - utter: utter_ask_portfolio_type
+  - user: /SetSlots(portfolio_type=mutual_funds)
+  - slot_was_set:
+    - portfolio_type: mutual_funds
+  - slot_was_set:
+    - portfolio_exists: true
+  - slot_was_set:
+    - portfolio_options
+  - utter: utter_portfolio_options_found
+- test_case: Authenticate and check bonds portfolio not found
+  steps:
+  - user: I want to check my bonds portfolio
+  - slot_was_set:
+    - portfolio_type: bonds
+  - utter: utter_ask_user_name
+  - user: Max
+  - utter: utter_ask_user_password
+  - user: "1234"
+  - utter: utter_authentication_successful
+  - slot_was_set:
+    - portfolio_exists: true
+  - slot_was_set:
+    - portfolio_options
+  - utter: utter_portfolio_options_found
+- test_case: user checks their transactions
+  steps:
+  - user: Show my transactions please
+  - utter: utter_transactions
+- test_case: user fills resetting slot (account_email) and non-resetting slot (based_in_california).
+  steps:
+  - user: I would like to confirm my account
+  - utter: utter_ask_verify_account_email
+  - user: gos@hawk.com
+  - slot_was_set:
+    - verify_account_email: gos@hawk.com
+  - utter: utter_ask_based_in_california
+  - user: "no"
+  - utter: utter_ask_verify_account_confirmation
+  - user: "yes"
+  - utter: utter_verify_account_success
+      # Check that the slot was reset at the end of the flow
+  - slot_was_set:
+    - verify_account_email: null
+  - slot_was_set:
+    - verify_account_confirmation: null
+  - slot_was_not_set:
+    - based_in_california
+  - utter: utter_can_do_something_else
+- test_case: user_orders_pizza_stating_which_type_and_pays_with_card
+  steps:
+  - user: I would like to order a diavola pizza.
+  - utter: utter_ask_num_pizza
+  - user: 2 please
+  - utter: utter_ask_address
+  - user: 30 Pine Road
+  - utter: utter_confirm
+  - user: /SetSlots(confirmation_order=True)
+  - utter: utter_ask_payment_option
+  - user: credit card
+  - utter: utter_ask_card_details
+  - user: 1234 5678 9012 3456
+  - utter: utter_execute_payment
+
+- test_case: user_orders_pizza_stating_which_type_and_pays_with_points
+  steps:
+  - user: I would like to order a diavola pizza.
+  - utter: utter_ask_num_pizza
+  - user: 1 please
+  - utter: utter_ask_address
+  - user: 40 Elm Street
+  - utter: utter_confirm
+  - user: /SetSlots(confirmation_order=True)
+  - utter: utter_ask_payment_option
+  - user: loyalty points
+  - utter: utter_ask_user_name
+  - user: janedoe
+  - utter: utter_ask_user_password
+  - user: r@nd0m
+  - utter: utter_authentication_successful
+  - bot: "You have 150 points in your membership account. That's enough to get a free pizza!"
+  - utter: utter_execute_payment
+
+- test_case: user removes a contact
+  steps:
+  - user: Remove contact
+      # we use action_ask_remove_contact_handle for the collect step
+  - user: "@MaryLu"
+  - slot_was_set:
+    - remove_contact_handle: "@MaryLu"
+  - utter: utter_ask_remove_contact_confirmation
+  - user: "Yes"
+  - utter: utter_remove_contact_success
+- test_case: user removes a contact using contact list
+  steps:
+  - user: Please show my contacts
+  - utter: utter_list_contacts
+  - utter: utter_can_do_something_else
+      # The NLUCommandAdapter predicts the StartFlow(remove_contact) so the contact handle is not yet detected
+  - user: Remove contact @MaryLu
+      # we use action_ask_remove_contact_handle for the collect step
+  - user: "@MaryLu"
+  - slot_was_set:
+    - remove_contact_handle: "@MaryLu"
+  - utter: utter_ask_remove_contact_confirmation
+  - user: "yes"
+  - utter: utter_remove_contact_success
+- test_case: Replace card when user does not confirm the correct card
+  steps:
+  - user: I need to replace my card
+  - utter: utter_ask_confirm_correct_card
+  - user: "no"
+  - slot_was_set:
+    - confirm_correct_card: false
+  - utter: utter_relevant_card_not_linked
+- test_case: Replace lost card which was used fraudulently
+  steps:
+  - user: I need to replace my card
+  - utter: utter_ask_confirm_correct_card
+  - user: "yes"
+  - slot_was_set:
+    - confirm_correct_card: true
+  - utter: utter_ask_replacement_reason
+  - user: I lost my card
+  - slot_was_set:
+    - replacement_reason: "lost"
+  - utter: utter_ask_was_card_used_fraudulently
+  - user: "yes"
+  - slot_was_set:
+    - was_card_used_fraudulently: true
+  - utter: utter_report_fraud
+
+- test_case: Replace lost card which was not used fraudulently
+  steps:
+  - user: I need to replace my card
+  - utter: utter_ask_confirm_correct_card
+  - user: "yes"
+  - slot_was_set:
+    - confirm_correct_card: true
+  - utter: utter_ask_replacement_reason
+  - user: I lost my card
+  - slot_was_set:
+    - replacement_reason: lost
+  - utter: utter_ask_was_card_used_fraudulently
+  - user: "no"
+  - slot_was_set:
+    - was_card_used_fraudulently: false
+  - utter: utter_will_cancel_and_send_new
+  - utter: utter_new_card_has_been_ordered
+
+- test_case: Replace damaged card
+  steps:
+  - user: I need to replace my card
+  - utter: utter_ask_confirm_correct_card
+  - user: "yes"
+  - slot_was_set:
+    - confirm_correct_card: true
+  - utter: utter_ask_replacement_reason
+  - user: My card is damaged
+  - slot_was_set:
+    - replacement_reason: damaged
+  - utter: utter_will_cancel_and_send_new
+  - utter: utter_new_card_has_been_ordered
+
+- test_case: Replace card with unknown replacement reason
+  steps:
+  - user: I need to replace my card
+  - utter: utter_ask_confirm_correct_card
+  - user: "yes"
+  - slot_was_set:
+    - confirm_correct_card: true
+  - utter: utter_ask_replacement_reason
+  - user: some other reason
+  - utter: utter_categorical_slot_rejection
+  - utter: utter_ask_replacement_reason
+  - user: ok, stop then
+  - utter: utter_can_do_something_else
+- test_case: user searches for hotels with no metadata
+  steps:
+  - user: I want to search for hotels
+  - slot_was_set:
+    - hotel_name: "Shadyside Inn"
+  - slot_was_set:
+    - hotel_average_rating: 2
+  - utter: utter_hotel_inform_rating
+- test_case: user searches for hotels with test_case metadata
+  steps:
+  - user: I want to search for hotels
+  - slot_was_set:
+    - hotel_name: "Steigenberger Hotel"
+  - slot_was_set:
+    - hotel_average_rating: 3
+  - utter: utter_hotel_inform_rating
+  metadata: german_hotel_search
+- test_case: user searches for hotels with user step metadata
+  steps:
+  - user: I want to search for hotels
+    metadata: uk_hotel_search
+  - slot_was_set:
+    - hotel_name: "Britannia International Hotel"
+  - slot_was_set:
+    - hotel_average_rating: 4
+  - utter: utter_hotel_inform_rating
+- test_case: user searches for hotels with test_case and user step metadata
+  steps:
+  - user: I want to search for hotels
+    metadata: updated_rating
+  - slot_was_set:
+    - hotel_name: "Steigenberger Hotel"
+  - slot_was_set:
+    - hotel_average_rating: 8.5
+  - utter: utter_hotel_inform_rating
+  metadata: german_hotel_search
+- test_case: user wants to set up a new recurrent payment without stating which type
+  steps:
+  - user: I want to set up a new recurrent payment
+  - utter: utter_ask_recurrent_payment_type
+  - user: direct debit
+  - slot_was_set:
+    - recurrent_payment_type: direct debit
+  - utter: utter_ask_recipient
+  - user: Jane Doe
+  - slot_was_set:
+    - recurrent_payment_recipient: Jane Doe
+  - utter: utter_ask_recurrent_payment_amount_of_money
+  - user: 100 euros
+  - slot_was_set:
+    - recurrent_payment_amount_of_money: 100.0
+  - utter: utter_ask_recurrent_payment_frequency
+  - user: monthly
+  - slot_was_set:
+    - recurrent_payment_frequency: monthly
+  - utter: utter_ask_recurrent_payment_start_date
+  - user: Jan 1st, 2050
+  - slot_was_set:
+    - recurrent_payment_start_date
+  - utter: utter_ask_recurrent_payment_end_date
+  - user: Jan 1st, 2051
+  - slot_was_set:
+    - recurrent_payment_end_date
+  - utter: utter_ask_recurrent_payment_confirmation
+  - user: "Yes"
+  - slot_was_set:
+    - recurrent_payment_confirmation: true
+  - utter: utter_payment_complete
+
+- test_case: user wants to set up a new recurrent payment, stating first which type of payment
+  steps:
+  - user: I want to set up a new standing order payment.
+  - slot_was_set:
+    - recurrent_payment_type: standing order
+  - utter: utter_ask_recipient
+
+- test_case: user wants to set up a new recurrent payment, but specifies the type incompletely
+  steps:
+  - user: I want to set up a new recurrent payment
+  - utter: utter_ask_recurrent_payment_type
+  - user: direct
+  - slot_was_set:
+    - recurrent_payment_type: direct debit
+  - utter: utter_ask_recipient
+
+- test_case: user wants to set up a new recurrent payment, but specifies the type incompletely, example 2
+  steps:
+  - user: I want to set up a new recurrent payment
+  - utter: utter_ask_recurrent_payment_type
+  - user: d debit
+  - slot_was_set:
+    - recurrent_payment_type: direct debit
+  - utter: utter_ask_recipient
+
+- test_case: user wants to set up a new recurrent payment, but specifies over specifies the type
+  steps:
+  - user: I want to set up a new recurrent payment
+  - utter: utter_ask_recurrent_payment_type
+  - user: direct debit transfer payment
+  - slot_was_set:
+    - recurrent_payment_type: direct debit
+  - utter: utter_ask_recipient
+
+- test_case: user wants to set up a new recurrent payment, but specifies the type with spelling mistakes
+  steps:
+  - user: I want to set up a new recurrent payment
+  - utter: utter_ask_recurrent_payment_type
+  - user: direct debt
+  - slot_was_set:
+    - recurrent_payment_type: direct debit
+  - utter: utter_ask_recipient
+- test_case: user transfers money
+  steps:
+  - user: I want to transfer money
+  - utter: utter_ask_transfer_money_recipient
+  - user: to John
+  - slot_was_set:
+    - transfer_money_recipient: John
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: 150$
+  - slot_was_set:
+    - transfer_money_amount_of_money: "150"
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: "yes"
+  - utter: utter_transfer_complete
+- test_case: user transfers money mentioning one slot upfront
+  steps:
+  - user: I want to send some money to Jacqueline
+  - slot_was_set:
+    - transfer_money_recipient: Jacqueline
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: 130 dollars
+  - slot_was_set:
+    - transfer_money_amount_of_money: "130"
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: "yes"
+  - utter: utter_transfer_complete
+
+- test_case: user transfers money mentioning money slot upfront
+  steps:
+  - user: I want to send 50 dollars
+  - slot_was_set:
+    - transfer_money_amount_of_money: "50"
+  - utter: utter_ask_transfer_money_recipient
+  - user: John
+  - slot_was_set:
+    - transfer_money_recipient: John
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: "yes"
+  - utter: utter_transfer_complete
+- test_case: user transfers money mentioning two slots upfront
+  steps:
+  - user: I want to send 40 bucks to Ty
+  - slot_was_set:
+    - transfer_money_amount_of_money: "40"
+  - slot_was_set:
+    - transfer_money_recipient: Ty
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: "yes"
+  - utter: utter_transfer_complete
+
+- test_case: user transfers money mentioning two slots upfront eg 2
+  steps:
+  - user: I want to send 413$ to Maria
+  - slot_was_set:
+    - transfer_money_amount_of_money: "413"
+  - slot_was_set:
+    - transfer_money_recipient: Maria
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: "yes"
+  - utter: utter_transfer_complete
+- test_case: Verify account for non-California resident
+  steps:
+  - user: I want to verify my account
+  - slot_was_set:
+    - route_session_to_calm: true
+  - utter: utter_ask_verify_account_email
+  - user: example@mail.com
+  - slot_was_set:
+    - verify_account_email
+  - utter: utter_ask_based_in_california
+  - user: "no"
+  - slot_was_set:
+    - based_in_california: false
+  - utter: utter_ask_verify_account_confirmation
+  - user: "yes"
+  - slot_was_set:
+    - verify_account_confirmation: true
+  - utter: utter_verify_account_success
+      # verify slot reset
+  - slot_was_set:
+    - verify_account_email: null
+  - slot_was_set:
+    - verify_account_confirmation: null
+  - slot_was_set:
+    - verify_account_sufficient_california_income: null
+  - slot_was_not_set:
+    - based_in_california
+  - slot_was_not_set:
+    - based_in_the_us
+- test_case: Verify account for California resident with insufficient income
+  steps:
+  - user: I want to verify my account
+  - slot_was_set:
+    - route_session_to_calm: true
+  - utter: utter_ask_verify_account_email
+  - user: example@mail.com
+  - slot_was_set:
+    - verify_account_email
+  - utter: utter_ask_based_in_california
+  - user: "yes"
+  - slot_was_set:
+    - based_in_california: true
+  - utter: utter_ask_verify_account_sufficient_california_income
+  - user: "no"
+  - slot_was_set:
+    - verify_account_sufficient_california_income: false
+  - utter: utter_ca_income_insufficient
+      # verify slot reset
+  - slot_was_set:
+    - verify_account_email: null
+  - slot_was_set:
+    - verify_account_confirmation: null
+  - slot_was_set:
+    - verify_account_sufficient_california_income: null
+  - slot_was_not_set:
+    - based_in_california
+  - slot_was_not_set:
+    - based_in_the_us
+  - utter: utter_can_do_something_else
+
+- test_case: Verify account for California resident with sufficient income
+  steps:
+  - user: I want to verify my account
+  - slot_was_set:
+    - route_session_to_calm: true
+  - utter: utter_ask_verify_account_email
+  - user: example@mail.com
+  - slot_was_set:
+    - verify_account_email
+  - utter: utter_ask_based_in_california
+  - user: "yes"
+  - slot_was_set:
+    - based_in_california: true
+  - utter: utter_ask_verify_account_sufficient_california_income
+  - user: "yes"
+  - slot_was_set:
+    - verify_account_sufficient_california_income: true
+  - utter: utter_ask_verify_account_confirmation
+  - user: "yes"
+  - slot_was_set:
+    - verify_account_confirmation: true
+  - utter: utter_verify_account_success
+      # verify slot reset
+  - slot_was_set:
+    - verify_account_email: null
+  - slot_was_set:
+    - verify_account_confirmation: null
+  - slot_was_set:
+    - verify_account_sufficient_california_income: null
+  - slot_was_not_set:
+    - based_in_california
+  - slot_was_not_set:
+    - based_in_the_us
+  - utter: utter_can_do_something_else
+- test_case: Register to vote for California resident
+  steps:
+  - user: I want to register to vote
+  - utter: utter_register_to_vote_in_california
+  fixtures:
+  - california_resident
+- test_case: Authenticate and check portfolio with invalid value twice
+  steps:
+  - user: I want to check my portfolio
+  - utter: utter_ask_user_name
+  - user: Max
+  - utter: utter_ask_user_password
+  - user: "1234"
+  - utter: utter_authentication_successful
+  - utter: utter_ask_portfolio_type
+  - user: loan
+  - utter: utter_categorical_slot_rejection
+  - utter: utter_ask_portfolio_type
+  - user: loan
+  - utter: utter_categorical_slot_rejection
+  - utter: utter_ask_portfolio_type
+  - user: bonds
+  - slot_was_set:
+    - portfolio_type: bonds
+  - slot_was_set:
+    - portfolio_exists: true
+  - slot_was_set:
+    - portfolio_options
+  - utter: utter_portfolio_options_found
+  - utter: utter_can_do_something_else
+- test_case: user_asks_for_vacancies_no_department_entity_extracted
+  steps:
+  - user: I would like to apply for a job at your establishment.
+  - utter: utter_ask_department
+  - user: I would like a role in the Supplies department.
+  - utter: utter_ask_rephrase
+  - utter: utter_ask_department
+- test_case: user wants to set up a new recurrent payment and inserts an invalid frequency value
+  steps:
+  - user: I want to set up a new standing order payment.
+  - slot_was_set:
+    - recurrent_payment_type: standing order
+  - utter: utter_ask_recipient
+  - user: Jane Doe
+  - slot_was_set:
+    - recurrent_payment_recipient: Jane Doe
+  - utter: utter_ask_recurrent_payment_amount_of_money
+  - user: 20 pounds
+  - slot_was_set:
+    - recurrent_payment_amount_of_money: 20.0
+  - utter: utter_ask_recurrent_payment_frequency
+  - user: weekly
+  - utter: utter_categorical_slot_rejection
+  - utter: utter_ask_recurrent_payment_frequency
+
+
+- test_case: user wants to set up a new recurrent payment and gives an invalid start date (precedes current timestamp)
+  steps:
+  - user: i want to set up a new direct debit payment
+  - slot_was_set:
+    - recurrent_payment_type: direct debit
+  - utter: utter_ask_recipient
+  - user: Jane Doe
+  - slot_was_set:
+    - recurrent_payment_recipient: Jane Doe
+  - utter: utter_ask_recurrent_payment_amount_of_money
+  - user: 20 pounds
+  - slot_was_set:
+    - recurrent_payment_amount_of_money: 20.0
+  - utter: utter_ask_recurrent_payment_frequency
+  - user: monthly
+  - slot_was_set:
+    - recurrent_payment_frequency: monthly
+  - utter: utter_ask_recurrent_payment_start_date
+  - user: 01/10/20
+  - utter: utter_invalid_date
+  - slot_was_set:
+    - recurrent_payment_start_date: null
+  - utter: utter_ask_recurrent_payment_start_date
+- test_case: user sends the long message that exceeds 420 characters
+  steps:
+  - user: >-
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed diam eget sem ultrices dignissim.  Suspendisse tincidunt varius feugiat. Quisque vitae leo facilisis, sagittis metus semper, mollis felis. Nulla  eu ultrices quam. Praesent mattis nunc vitae libero laoreet commodo. Pellentesque habitant morbi tristique  senectus et netus et malesuada fames ac turpis egestas. Nam nunc nisl, mollis id dolor nec, scelerisque  lobortis tellus. Mauris consectetur quis nisi non viverra. Maecenas dapibus nam.
+  - utter: utter_user_input_too_long_error_rasa
+  fixtures:
+  - route_to_calm
+- test_case: user asks a knowledge question during flow
+  steps:
+  - user: I want to send some money to Tre
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: btw, are these transfers free of charge?
+      # not able to test the response of enterprise search
+      # - utter: utter_free_transfers
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: great, 50$ then
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: "yes"
+  - utter: utter_transfer_complete
+- test_case: user asks for repetition of previous action
+  steps:
+  - user: send 50 USD to John
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: "yes"
+  - utter: utter_transfer_complete
+  - utter: utter_can_do_something_else
+  - user: now do it again
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: "yes"
+  - utter: utter_transfer_complete
+- test_case: user tries to skip a question and then cancels the flow (easy)
+  steps:
+  - user: send money to John
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: skip this question
+  - utter: utter_skip_question_answer
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: cancel
+  - utter: utter_flow_cancelled_rasa
+  - utter: utter_can_do_something_else
+- test_case: user tries to skip a question and then cancels the flow (medium)
+  steps:
+  - user: send money to John
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: ask me something else
+  - utter: utter_skip_question_answer
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: one moment, stop that
+  - utter: utter_flow_cancelled_rasa
+  - utter: utter_can_do_something_else
+- test_case: user tries to skip a question multiple times (easy)
+  steps:
+  - user: send money to John
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: ask me something else
+  - utter: utter_skip_question_answer
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: proceed to the next one
+  - utter: utter_skip_question_answer
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: i want to answer next question first
+  - utter: utter_skip_question_answer
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: okay 50
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: "yes"
+  - utter: utter_transfer_complete
+- test_case: user tries to skip a question once (easy)
+  steps:
+  - user: send money to John
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: skip this question
+  - utter: utter_skip_question_answer
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: okay 50
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: "yes"
+  - utter: utter_transfer_complete
+- test_case: user tries to skip a question once (medium)
+  steps:
+  - user: send money to John
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: ask me something else
+  - utter: utter_skip_question_answer
+  - utter: utter_ask_transfer_money_amount_of_money
+  - user: okay 50
+  - utter: utter_ask_transfer_money_final_confirmation
+  - user: "yes"
+  - utter: utter_transfer_complete

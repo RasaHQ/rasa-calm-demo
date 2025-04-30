@@ -1,0 +1,334 @@
+version: "3.1"
+prompt: &PT "<task>
+Rephrase the suggested AI response while staying close to the original message and retaining its meaning.
+</task>
+
+<inputs>
+<context>{{history}}</context>
+
+<current_input>{{current_input}}</current_input>
+
+<suggested_response>{{suggested_response}}</suggested_response>
+<inputs>
+
+<instructions>
+1. Review the provided CONTEXT which contains the previous conversation between the user and the AI assistant.
+2. Read the CURRENT INPUT which is the latest message from the user.
+3. Consider the SUGGESTED RESPONSE which is the AI assistant's proposed response.
+4. Rephrase the SUGGESTED RESPONSE while preserving the core meaning and intent of the original response.
+5. Ensure that the rephrased response maintains a helpful, creative, and friendly tone, as the AI assistant is described as having those qualities.
+6. Ensure that the rephrased response IS NOT redundant and repetitive.
+
+NOTE: DO NOT ADD any additional message to the rephrased response other than the SUGGESTED RESPONSE.
+</instructions>"
+
+actions:
+  - action_get_job_details
+  - action_get_candidate_ids
+  - action_schedule_interview
+  - action_calculate_interviewer_availability
+  - action_ask_search_filter_criteria
+  - action_get_interviewer_timezone
+  - action_build_self_schedule_confirmation_message
+  - action_get_email_template
+  - action_reset_slots
+  - action_filter_criteria_city
+  - action_within_city
+  - action_ask_number_of_candidates_to_interview_with
+  - action_ask_interview_duration
+  - action_ask_interview_type
+  - action_ask_weeks_until_interview
+
+  - action_ask_schedule_interview_job_index
+  - validate_schedule_interview_job_index
+
+
+slots:
+  job_title:
+    type: text
+    mappings:
+      - type: from_llm
+  number_of_candidates_to_interview_with:
+    type: float
+    mappings:
+      - type: from_llm
+  location:
+    type: text
+    mappings:
+      - type: custom
+  job_creation_date:
+    type: text
+    mappings:
+      - type: custom
+  job_id:
+    type: text
+    mappings:
+      - type: custom
+  job_state:
+    type: text
+    mappings:
+      - type: custom
+  job_is_valid:
+    type: bool
+    mappings:
+      - type: from_llm
+  job_geo_coordinates:
+    type: any
+    mappings:
+      - type: custom
+  search_filter_criteria:
+    type: text
+    mappings:
+      - type: from_llm
+  retrieved_candidates_ids:
+    type: list
+    mappings:
+      - type: custom
+  retrieved_candidates_names:
+    type: list
+    mappings:
+      - type: custom
+  retrieved_candidates_info:
+    type: text
+    mappings:
+      - type: custom
+  retrieved_candidates_count:
+    type: float
+    mappings:
+      - type: custom
+  selected_candidates_positions:
+    type: text
+    mappings:
+      - type: from_llm
+  weeks_until_interview:
+    type: float
+    mappings:
+      - type: from_llm
+  interview_weekday_time:
+    type: text
+    mappings:
+      - type: from_llm
+  interviewer_availability_utc:
+    type: text
+    mappings:
+      - type: custom
+  interviewer_availability_within_timezone:
+    type: text
+    mappings:
+      - type: custom
+  corrected_interviewer_availability_utc:
+    type: text
+    mappings:
+      - type: custom
+  corrected_interviewer_availability_within_timezone:
+    type: text
+    mappings:
+      - type: custom
+  interviewer_availability_confirmation:
+    type: bool
+    mappings:
+      - type: from_llm
+  interview_duration:
+    type: text
+    mappings:
+      - type: from_llm
+  custom_interview_duration:
+    type: text
+    mappings:
+      - type: from_llm
+  final_self_schedule_confirmation:
+    type: categorical
+    values:
+      - yes
+      - no
+    mappings:
+      - type: from_llm
+  interviewer_timezone:
+    type: text
+    mappings:
+      - type: custom
+  interviewer_id:
+    type: text
+    mappings:
+      - type: custom
+  email_subject:
+    type: text
+    mappings:
+      - type: custom
+  email_body:
+    type: text
+    mappings:
+      - type: custom
+  interview_type:
+    type: text
+    mappings:
+      - type: from_llm
+
+  schedule_interview_found_jobs:
+    type: list
+    mappings:
+      - type: custom
+  schedule_interview_found_job_count:
+    type: text
+    mappings:
+      - type: custom
+    influence_conversation: false
+  schedule_interview_job_index:
+    type: text
+    mappings:
+      - type: from_llm
+    influence_conversation: false
+  schedule_interview_job:
+    type: any
+    mappings:
+      - type: custom
+    influence_conversation: false
+
+
+responses:
+  utter_no_job_found:
+#    - text: "There is no job with this title."
+#    - text: "I'm afraid we don't have a position with that exact title. "
+    - text: "Unfortunately, that job title doesn't match any of our current openings."
+#    - text: "We don’t currently have a role with that title listed."
+#    - text: "I couldn’t find a position with that title in our system."
+#    - text: "That job title doesn't correspond to any of our current vacancies."
+#  utter_not_part_of_hiring_team:
+#    - text: "It seems you are not included in any hiring team at the moment."
+  utter_no_candidates_found:
+#  - text: "There is no candidates matching your selected criteria. Please try another one(s)."
+#  - text: "No candidates match your current criteria. Would you like to adjust your search?"
+    - text: "We haven't found candidates meeting those specific requirements. Shall we modify the search?"
+#  - text: "No candidates matched your selected criteria. Would you like to explore other options?"
+#  - text: "No candidates match the current specifications. Would you like to revise the criteria?"
+#  - text: "No candidates matched your search. Would you like to try different parameters?"
+      metadata:
+        rephrase: True
+        rephrase_prompt: *PT
+  utter_greeting:
+#   - text: "How can I  help you today?"
+#   - text: "Is there anything I can do for you?"
+#   - text: "What can I assist you with today?"
+    - text: "How can I support you today?"
+#    - text: "What support do you need from me today?"
+#    - text: "In what way can I help you right now?"
+#    - text: "What would you like my assistance with today?"
+      metadata:
+        rephrase: True
+        rephrase_prompt: *PT
+  utter_ask_candidate_search_filter_criteria:
+    - text: "Which criteria do you want to use to filter candidates (city, star, radius, etc.)? Please select one of the criteria below or provide your own by typing it."
+      metadata:
+        rephrase: True
+        rephrase_prompt: *PT
+  utter_found_candidates:
+    - text: "I have found the top {retrieved_candidates_count} candidates for the {job_title} role in {location}. \nCandidates:\n{retrieved_candidates_info}"
+#    - text: "I've identified {retrieved_candidates_count} leading candidates for the {location}-based {job_title} position.\nCandidates:\n{retrieved_candidates_info}"
+#    - text: "The top {retrieved_candidates_count} applicants for the {job_title} role in {location} have been selected.\nCandidates:\n{retrieved_candidates_info}"
+#    - text: "I've shortlisted the top {retrieved_candidates_count} candidates for the {job_title} role in {location}. \nCandidates:\n{retrieved_candidates_info}"
+#    - text: "For the {location} {job_title} role, I've identified {retrieved_candidates_count} strong candidates.\nCandidates:\n{retrieved_candidates_info}"
+#    - text: "{retrieved_candidates_count} standout candidates have been found for the {job_title} position in {location}.\nCandidates:\n{retrieved_candidates_info}"
+  utter_ask_selected_candidates_positions:
+    - text: "Would you like to schedule an interview with all the shortlisted candidates? if no, which candidates would you like to select for an interview?"
+      metadata:
+        rephrase: True
+        rephrase_prompt: *PT
+  utter_display_weeks_until_interview_message:
+    - text: "How many weeks from now would you prefer to schedule the interview? Please specify available days and time intervals."
+      #    - text: "How many weeks from now would you like to schedule the interviews? Please specify available days and time slots."
+      #    - text: "Could you provide your availability for interviews in terms of weeks from now, along with specific days and times?"
+      #    - text: "What's your ideal timeframe for scheduling interviews? Please share available weeks, days, and hours."
+      #    - text: "In how many weeks should we aim to hold the interviews? Kindly specify suitable days and time ranges"
+      #    - text: "Please outline your interview availability, including the number of weeks from now, preferred days, and time windows."
+      metadata:
+        rephrase: True
+        rephrase_prompt: *PT
+  utter_ask_interview_weekday_time:
+    - text: "Could you kindly specify your available day and time for an interview?"
+      metadata:
+        rephrase: True
+        rephrase_prompt: *PT
+  utter_ask_interviewer_availability_utc:
+    - text: "When are you available?"
+      metadata:
+        rephrase: True
+        rephrase_prompt: *PT
+  utter_ask_interviewer_availability_confirmation:
+    - text: "According to my understanding you would like the interview scheduled {corrected_interviewer_availability_within_timezone}?"
+      metadata:
+        rephrase: True
+        rephrase_prompt: *PT
+  utter_display_interview_availability:
+    - text: "Provided availability: {interviewer_availability_utc}"
+      metadata:
+        rephrase: True
+        rephrase_prompt: *PT
+  utter_ask_interview_duration_message:
+    - text: "What should the duration of the interview be?"
+      metadata:
+        rephrase: True
+        rephrase_prompt: *PT
+  utter_ask_custom_interview_duration:
+    - text: "Please specify the desired duration of the interview in minutes."
+      metadata:
+        rephrase: True
+        rephrase_prompt: *PT
+  utter_display_interview_duration:
+    - text: "Provided duration: {interview_duration}"
+      metadata:
+        rephrase: True
+        rephrase_prompt: *PT
+  utter_ask_interview_type_message:
+    - text: "Please select the interview type."
+      metadata:
+        rephrase: True
+        rephrase_prompt: *PT
+  utter_ask_final_self_schedule_confirmation:
+    - text: "Does it sound good?"
+      metadata:
+        rephrase: True
+        rephrase_prompt: *PT
+      custom:
+        type: single_choice_payload
+        options:
+          - title: "Yes"
+            payload: "/SetSlots(final_self_schedule_confirmation=yes)"
+          - title: "No"
+            payload: "/SetSlots(final_self_schedule_confirmation=no)"
+  utter_found_job:
+    - text: "I found a {job_title} position in {location}."
+      metadata:
+        rephrase: True
+        rephrase_prompt: *PT
+  utter_self_schedule_change_anything:
+#    - text: "Would you like to change anything?"
+    - text: "Are there any adjustments you'd like to make?"
+#   - text: "Do you want to modify any part of this plan?"
+#    - text: "Is there anything you'd like to revise or update?"
+#    - text: "Are you satisfied with everything, or would you like to make changes?"
+#    - text: "Should we proceed as discussed, or do you want to alter any details?"
+      metadata:
+        rephrase: True
+        rephrase_prompt: *PT
+  # ask_job_title
+  utter_self_scheduling_cancelled:
+    - text: "Interview self-scheduling flow is cancelled."
+      metadata:
+        rephrase: True
+        rephrase_prompt: *PT
+  utter_ask_schedule_interview_jobs_found:
+    - condition:
+        - type: slot
+          name: schedule_interview_found_job_count
+          value: 0
+      text: "It seems you are not included in any hiring team at the moment."
+    - condition:
+        - type: slot
+          name: schedule_interview_found_job_count
+          value: 1
+      text: >
+        Excellent let's do it!
+        I found a single job where you're part of the hiring team! Which one do you want to schedule interviews for?
+    - text: >
+        Excellent let's do it!
+        I found {job_count} jobs where you're part of the hiring team! Which one do you want to schedule interviews for?

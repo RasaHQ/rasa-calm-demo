@@ -1,0 +1,90 @@
+metadata:
+  - x_caller_identity:
+      language: English
+      location: Europe
+      id: "63452dc5a5aed9510e95322f"
+      tenantType: "COMPANY"
+      tenantId: "5ec29a9a42d10456a0930b10"
+      description: null
+      onBehalfOf: null
+      companyId: "5ec29a9a42d10456a0930b10"
+      externalId: "5000000653782528"
+      companyExternalId: "5250000000585472"
+      accountId: null
+      type: "EMPLOYEE"
+      role: "ADMINISTRATOR"
+
+
+stub_custom_actions:
+  action_reset_slots:
+    responses:
+      - text: "All slots have been reset."
+
+  action_ask_schedule_interview_job_index:
+    events:
+      - event: slot
+        name: job_title
+        value: Senior Java Developer
+      - event: slot
+        name: schedule_interview_found_jobs
+        value: [{"name": "Cook", externalId: "5420000060699100"},{"name": "Senior Java Developer", externalId: "5420000060699136"}]
+      - event: slot
+        name: schedule_interview_found_job_count
+        value: 2
+    responses:
+      - text: "Excellent let's do it! \n I found 2 jobs where you're part of the hiring team! Which one do you want to schedule interviews for?"
+  validate_schedule_interview_job_index:
+    events:
+      - event: slot
+        name: job_title
+        value: Senior Java Developer
+      - event: slot
+        name: schedule_interview_job
+        value: {"name": "Senior Java Developer", externalId: "5420000060699136"}
+  action_get_job_details:
+    events:
+      - event: slot
+        name: job_id
+        value: 5420000060699136
+      - event: slot
+        name: job_title
+        value: "Senior Java Developer"
+
+  action_ask_search_filter_criteria:
+    events:
+      - event: slot
+        name: search_filter_criteria
+        value: from_llm  # value comes from llm
+    responses:
+        - text: "Which criteria do you want to use to filter candidates (city, star, radius, etc.)?Please select one of the criteria below or provide your own by typing it."
+
+  action_ask_number_of_candidates_to_interview_with:
+    events:
+      - event: slot
+        name: number_of_candidates_to_interview_with
+        value: 0
+    responses:
+        - text: "There is no candidates matching your selected criteria. Please try another one(s)."
+
+  action_get_candidate_ids:
+    events:
+      - event: slot
+        name: retrieved_candidates_count
+        value: 0
+    responses:
+        - text: "There is no candidates matching your selected criteria. Please try another one(s)."
+
+
+test_cases:
+  - test_case: When no candidates are available for the given search filters
+    steps:
+    - user: "Hi, I would like to schedule an interview"
+    - user: "Senior Java Developer"
+    - slot_was_set:
+      - job_title: "Senior Java Developer"
+    - user: "Hmmm, I think I want the candidates who live in Paris"
+    - bot: "There is no candidates matching your selected criteria. Please try another one(s)."
+    - slot_was_set:
+      # FIXME string value from llm is returned sometimes as `SingleQuotedScalarString` and sometimes as `DoubleQuotedScalarString`
+      # - search_filter_criteria: "{'city': 'Paris'}"
+      - number_of_candidates_to_interview_with: 0

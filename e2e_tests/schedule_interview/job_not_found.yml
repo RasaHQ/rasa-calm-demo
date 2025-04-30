@@ -1,0 +1,54 @@
+metadata:
+  - x_caller_identity:
+      language: English
+      location: Europe
+      id: "63452dc5a5aed9510e95322f"
+      tenantType: "COMPANY"
+      tenantId: "5ec29a9a42d10456a0930b10"
+      description: null
+      onBehalfOf: null
+      companyId: "5ec29a9a42d10456a0930b10"
+      externalId: "5000000653782528"
+      companyExternalId: "5250000000585472"
+      accountId: null
+      type: "EMPLOYEE"
+      role: "ADMINISTRATOR"
+
+stub_custom_actions:
+  action_reset_slots:
+    responses:
+      - text: "All slots have been reset."
+
+  action_ask_schedule_interview_job_index:
+    events:
+      - event: slot
+        name: job_title
+        value: from_llm
+      - event: slot
+        name: schedule_interview_found_jobs
+        value: [{"name": "Cook", externalId: "5420000060699100"},{"name": "Senior Java Developer", externalId: "5420000060699136"}]
+      - event: slot
+        name: schedule_interview_found_job_count
+        value: 2
+    responses:
+      - text: "Excellent let's do it! \n I found 2 jobs where you're part of the hiring team! Which one do you want to schedule interviews for?"
+  validate_schedule_interview_job_index:
+    events:
+      - event: slot
+        name: job_title
+        value: Senior Java Developer
+      - event: slot
+        name: schedule_interview_job
+        value: {"name": "Senior Java Developer", externalId: "5420000060699136"}
+  action_get_job_details:
+    events:
+      - event: slot
+        name: job_id
+        value: null
+
+test_cases:
+  - test_case: When no job is found for a job title, the bot should ask again
+    steps:
+    - user: "Hi, I would like to schedule an interview"
+    - user: "Popcorn Seller"
+    - utter: utter_no_job_found

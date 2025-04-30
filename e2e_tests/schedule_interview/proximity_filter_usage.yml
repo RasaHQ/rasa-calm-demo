@@ -1,0 +1,90 @@
+metadata:
+  - x_caller_identity:
+      language: English
+      location: Europe
+      id: "63452dc5a5aed9510e95322f"
+      tenantType: "COMPANY"
+      tenantId: "5ec29a9a42d10456a0930b10"
+      description: null
+      onBehalfOf: null
+      companyId: "5ec29a9a42d10456a0930b10"
+      externalId: "5000000653782528"
+      companyExternalId: "5250000000585472"
+      accountId: null
+      type: "EMPLOYEE"
+      role: "ADMINISTRATOR"
+
+stub_custom_actions:
+  action_reset_slots:
+    responses:
+      - text: "All slots have been reset."
+
+  action_ask_schedule_interview_job_index:
+    events:
+      - event: slot
+        name: job_title
+        value: from_llm
+      - event: slot
+        name: schedule_interview_found_jobs
+        value: [{"name": "Cook", externalId: "5420000060699100"},{"name": "Senior Java Developer", externalId: "5420000060699136"}]
+      - event: slot
+        name: schedule_interview_found_job_count
+        value: 2
+    responses:
+      - text: "Excellent let's do it! \n I found 2 jobs where you're part of the hiring team! Which one do you want to schedule interviews for?"
+  validate_schedule_interview_job_index:
+    events:
+      - event: slot
+        name: job_title
+        value: Senior Java Developer
+      - event: slot
+        name: schedule_interview_job
+        value: {"name": "Senior Java Developer", externalId: "5420000060699136"}
+  action_get_job_details:
+    events:
+      - event: slot
+        name: job_id
+        value: 5420000060699136
+
+  action_ask_search_filter_criteria:
+    events:
+      - event: slot
+        name: search_filter_criteria
+        value: from_llm  # value comes from llm
+    responses:
+        - text: "Which criteria do you want to use to filter candidates (city, star, radius, etc.)?Please select one of the criteria below or provide your own by typing it."
+
+  action_ask_number_of_candidates_to_interview_with:
+    events:
+      - event: slot
+        name: number_of_candidates_to_interview_with
+        value: from_llm
+    responses:
+        - text: "Your selected criteria was city: Berlin.\n Based on it I found a total of 394 candidates available for interviews. How many candidates would you like to shortlist for an interview for the Data Scientist role?"
+
+  action_get_candidate_ids:
+    events:
+      - event: slot
+        name: retrieved_candidates_count
+        value: 3
+
+
+test_cases:
+  - test_case: Basic happy path for scheduling an interview
+    steps:
+    - user: "Hi, I would like to schedule an interview"
+    - user: "Senior Java Developer"
+    - slot_was_set:
+      - job_title: "Senior Java Developer"
+    - user: "I want people who live at most 40 km from the office"
+    # FIXME string value from llm is returned sometimes as `SingleQuotedScalarString` and sometimes as `DoubleQuotedScalarString`
+    # - slot_was_set:
+    #   - search_filter_criteria: "{'radius_in_km': '40'}"
+    - user: "3"
+    - slot_was_set:
+      - number_of_candidates_to_interview_with: 3.0
+    # FIXME
+    # - utter: utter_found_candidates
+    - slot_was_set:
+      # Only Mary Hab and Robert Lewandowski returned, though there are/is more candidates
+      - retrieved_candidates_count: 3
