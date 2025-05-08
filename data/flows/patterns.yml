@@ -9,17 +9,17 @@ flows:
               - action: action_correct_flow_slot
                 next: END
           - else:
-            - collect: confirm_slot_correction
-              description: boolean value set when the user affirms or denies the correction
-              next:
-                - if: not slots.confirm_slot_correction
-                  then:
-                    - action: utter_not_corrected_previous_input
-                      next: END
-                - else:
-                    - action: action_correct_flow_slot
-                    - action: utter_corrected_previous_input
-                      next: END
+              - collect: confirm_slot_correction
+                description: boolean value set when the user affirms or denies the correction
+                next:
+                  - if: not slots.confirm_slot_correction
+                    then:
+                      - action: utter_not_corrected_previous_input
+                        next: END
+                  - else:
+                      - action: action_correct_flow_slot
+                      - action: utter_corrected_previous_input
+                        next: END
 
   pattern_chitchat:
     description: Handle chitchat using intentless policy
@@ -46,13 +46,6 @@ flows:
       - id: cancel_flow
         action: action_cancel_flow
 
-  pattern_completed:
-    description: all flows have been completed and there is nothing else to be done
-    name: pattern completed
-    steps:
-      - action: utter_can_do_something_else
-      - action: action_reset_routing
-
   pattern_clarification:
     description: Conversation repair flow for handling ambiguous requests that could match multiple flows
     name: pattern clarification
@@ -62,12 +55,12 @@ flows:
           - if: context.names contains "add a contact"
             then:
               - link: add_contact
-          - else: 
-            - action: action_increase_clarification_count
-              next:
-                - if: slots.clarification_count > 2
-                  then:
-                    - link: pattern_human_handoff
-                - else: clarify_options
+          - else:
+              - action: action_increase_clarification_count
+                next:
+                  - if: slots.clarification_count > 2
+                    then:
+                      - link: pattern_human_handoff
+                  - else: clarify_options
       - id: clarify_options
         action: utter_clarification_options_rasa
