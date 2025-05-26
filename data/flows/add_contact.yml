@@ -9,11 +9,10 @@ flows:
     steps:
       - collect: add_contact_handle
         description: a user handle starting with @
-        silence_timeout: 5
       - collect: add_contact_name
         description: a name of a person
         silence_timeout:
-            duration: 8
+            duration: 3
       - collect: add_contact_confirmation
         ask_before_filling: true
         next:
