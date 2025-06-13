@@ -1,0 +1,23 @@
+Flow Name,Coverage,Num Steps,Missing Steps,Line Numbers
+data/flows/add_card.yml::add a card,0.0,1,1,[10-10]
+data/flows/add_contact.yml::add a contact,0.0,8,8,"[10-11, 27-28, 14-21, 31-32, 12-13, 34-35, 19-20, 22-35]"
+data/flows/authenticate_user.yml::authenticate user,66.66666666666666,6,2,"[20-21, 24-24]"
+data/flows/book_doctor_appointment.yml::book a doctor appointment,0.0,4,4,"[6-7, 13-14, 10-12, 8-9]"
+data/flows/book_doctor_appointment.yml::find available appointments,0.0,6,6,"[19-21, 22-28, 32-36, 26-27, 37-39, 29-31]"
+data/flows/check_balance.yml::check your balance,0.0,2,2,"[6-6, 7-7]"
+data/flows/check_portfolio.yml::check portfolio,0.0,15,15,"[9-9, 218-219, 16-31, 26-27, 24-24, 11-13, 30-31, 14-15, 19-20, 14-20, 21-30, 11-13, 29-30, 20-21, 5-10]"
+data/flows/list_contacts.yml::list your contacts,0.0,3,3,"[6-14, 10-11, 13-14]"
+data/flows/order_gift.yml::order a gift,0.0,6,6,"[20-21, 6-7, 8-9, 10-11, 12-19, 17-18]"
+data/flows/order_pizza.yml::order pizza,16.666666666666664,18,15,"[38-41, 24-24, 11-13, 10-14, 14-15, 16-31, 47-47, 48-48, 49-52, 46-46, 58-65, 62-63, 30-31, 20-21, 32-37]"
+data/flows/order_pizza.yml::fill pizza order,75.0,4,1,[46-46]
+data/flows/order_pizza.yml::use membership points,12.5,8,7,"[11-13, 16-31, 14-15, 24-24, 30-31, 58-65, 20-21]"
+data/flows/order_pizza.yml::job vacancies,0.0,2,2,"[70-74, 75-76]"
+data/flows/register_to_vote_in_california.yml::register to vote in california,0.0,1,1,[6-7]
+data/flows/remove_contact.yml::remove a contact,0.0,7,7,"[12-19, 32-33, 17-18, 25-26, 20-33, 29-30, 10-11]"
+data/flows/replace_card.yml::replace_card,0.0,3,3,"[15-16, 18-19, 10-19]"
+data/flows/replace_eligible_card.yml::replace eligible card,0.0,6,6,"[24-25, 7-23, 11-18, 22-23, 26-26, 16-17]"
+data/flows/setup_recurrent_payment.yml::setup recurrent payment,0.0,13,13,"[8-10, 30-38, 47-48, 11-12, 39-46, 6-7, 49-49, 44-45, 50-50, 13-14, 36-37, 21-29, 15-20]"
+data/flows/transaction_search.yml::search transactions,0.0,2,2,"[6-6, 7-7]"
+data/flows/transfer_money.yml::transfer money,0.0,9,9,"[9-11, 32-41, 16-16, 22-31, 29-30, 7-8, 40-41, 12-21, 37-38]"
+data/flows/verify_account.yml::verify account,0.0,7,7,"[37-38, 15-30, 27-28, 40-41, 13-14, 22-29, 31-41]"
+Total,8.40%,131,120,
