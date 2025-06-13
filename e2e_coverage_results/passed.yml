@@ -16,6 +16,9 @@ test_cases:
   - utter: utter_ask_card_details
   - user: 1234 5678 9012 3456
   - utter: utter_execute_payment
+  - utter: utter_ask_user_rating
+  - user: "1"
+  - utter: utter_ask_user_suggestions
 
 - test_case: user_orders_pizza_stating_which_type_and_pays_with_points
   steps:
@@ -35,4 +38,7 @@ test_cases:
   - utter: utter_authentication_successful
   - bot: "You have 150 points in your membership account. That's enough to get a free pizza!"
   - utter: utter_execute_payment
+  - utter: utter_ask_user_rating
+  - user: "4"
+  - utter: utter_thank_user_for_good_review
 
