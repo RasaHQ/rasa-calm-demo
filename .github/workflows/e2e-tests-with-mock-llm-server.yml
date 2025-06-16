@@ -1,0 +1,117 @@
+name: E2E tests with mock LLM server
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  DEFAULT_PYTHON_VERSION: '3.9'
+  POETRY_VERSION: 2.1.2
+
+jobs:
+  e2e-tests-with-mock-llm-server:
+    name: E2E tests with mock LLM server
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout git repository 🕝
+        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c
+
+      - name: Setup Python
+        uses: actions/setup-python@57ded4d7d5e986d7296eab16560982c6dd7c923b
+        with:
+          python-version: ${{ env.DEFAULT_PYTHON_VERSION }}
+
+      - name: Install poetry 🦄
+        uses: Gr1N/setup-poetry@48b0f77c8c1b1b19cb962f0f00dff7b4be8f81ec #v9
+        with:
+          poetry-version: ${{ env.POETRY_VERSION }}
+
+      - name: Load Poetry Cached Libraries ⬇
+        id: cache-poetry
+        uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0
+        with:
+          path: .venv
+          key: ${{ runner.os }}-poetry-${{ env.POETRY_VERSION }}-${{ env.DEFAULT_PYTHON_VERSION }}-${{ hashFiles('**/poetry.lock') }}
+          restore-keys: ${{ runner.os }}-poetry-${{ env.DEFAULT_PYTHON_VERSION }}
+
+      - name: Create virtual environment
+        if: steps.cache-poetry.outputs.cache-hit != 'true'
+        run: python -m venv create .venv
+
+      - name: Set up virtual environment
+        run: poetry config virtualenvs.in-project true
+
+      - name: Install Dependencies 📦
+        run: |
+          make install
+
+      - name: Train model
+        env:
+          RASA_PRO_LICENSE: ${{secrets.RASA_PRO_LICENSE}}
+          MOCK_LLM_SERVER_KEY: dummy-key
+          OPENAI_API_KEY: ${{secrets.OPENAI_API_KEY}} # Required for embeddings components
+          RASA_PRO_BETA_INTENTLESS: true
+          RASA_PRO_BETA_PREDICATES_IN_RESPONSE_CONDITIONS: true
+          RASA_DUCKLING_HTTP_URL: ${{secrets.DUCKLING_URL}}
+        run: |
+            make train-mock-llm-server
+
+      - name: Run action server
+        env:
+            RASA_PRO_LICENSE: ${{secrets.RASA_PRO_LICENSE}}
+            RASA_DUCKLING_HTTP_URL: ${{secrets.DUCKLING_URL}}
+            RASA_PRO_BETA_INTENTLESS: true
+        run: |
+            make actions &
+
+      - name: Run duckling server
+        run: |
+            make run-duckling
+
+      - name: Run mock LLM server
+        run: |
+            make run-mock-llm-server
+
+      - name: Make test results directory
+        run: |
+            mkdir tests
+
+      - name: Run e2e tests
+        id: run-e2e-tests
+        env:
+            MOCK_LLM_SERVER_KEY: dummy-key
+            OPENAI_API_KEY: ${{secrets.OPENAI_API_KEY}} # Required for embeddings components
+            RASA_PRO_LICENSE: ${{secrets.RASA_PRO_LICENSE}}
+            RASA_DUCKLING_HTTP_URL: ${{secrets.DUCKLING_URL}}
+            RASA_PRO_BETA_INTENTLESS: true
+            RASA_PRO_BETA_PREDICATES_IN_RESPONSE_CONDITIONS: true
+        run: |
+            make test-flows-with-mock-llm-server
+
+      - name: Save results
+        if: ${{ always() && steps.run-e2e-tests.conclusion == 'failure' }}
+        uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 #v4.4.3
+        with:
+            name: test-results
+            path: tests/
+
+      - name: Get mock LLM server logs
+        if: ${{ always() && steps.run-e2e-tests.conclusion == 'failure' }}
+        run: docker logs llm-mock-server | tee llm-mock-server-logs.txt
+
+      - name: Save mock LLM server logs
+        if: ${{ always() && steps.run-e2e-tests.conclusion == 'failure' }}
+        uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 #v4.4.3
+        with:
+            name: mock-LLM-server-logs
+            path: llm-mock-server-logs.txt
