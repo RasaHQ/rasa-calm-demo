@@ -22,6 +22,9 @@ rasa-run: .EXPORT_ALL_VARIABLES
 rasa-train: .EXPORT_ALL_VARIABLES
 	rasa train -c config/config.yml -d domain --data data
 
+rasa-train-search-ready: .EXPORT_ALL_VARIABLES
+	rasa train -c config/search-ready-config.yml -d domain --data data
+
 rasa-train-multistep: .EXPORT_ALL_VARIABLES
 	rasa train -c config/multistep-config.yml -d domain --data data
 
@@ -64,6 +67,9 @@ run: .EXPORT_ALL_VARIABLES run-duckling
 
 train: .EXPORT_ALL_VARIABLES
 	poetry run rasa train -c config/config.yml -d domain --data data
+
+train-search-ready: .EXPORT_ALL_VARIABLES
+	poetry run rasa train -c config/search-ready-config.yml -d domain --data data
 
 train-multistep: .EXPORT_ALL_VARIABLES
 	poetry run rasa train -c config/multistep-config.yml -d domain --data data

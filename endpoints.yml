@@ -100,4 +100,4 @@ model_groups:
   - id: openai-direct-gpt-4o
     models:
       - provider: openai
-        model: gpt-4o
+        model: gpt-4o-2024-11-20
