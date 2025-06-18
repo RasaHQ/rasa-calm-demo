@@ -71,3 +71,44 @@ flows:
                 - else: clarify_options
       - id: clarify_options
         action: utter_clarification_options_rasa
+
+  pattern_cannot_handle:
+    description: Conversation repair flow for addressing failed command generation scenarios
+    name: pattern_cannot_handle
+    steps:
+      - noop: true
+        next:
+          # Override the default fallback behavior when no relevant answer to the user
+          # query has been found. The default behavior is to respond with the
+          # `utter_no_relevant_answer_found`.
+          # By default, this code is reachable when EnterpriseSearchPolicy is configured
+          # with the `check_relevancy: true` and the EnterpriseSearchPolicy cannot find
+          # a relevant answer.
+          # This feature is available from 3.13
+          - if: context.reason is "cannot_handle_no_relevant_answer"
+            then:
+              # Default behavior:
+              # - action: utter_no_relevant_answer_found
+
+              # Demonstrate linking to a pattern chitchat (only linkable from patterns).
+              - link: pattern_chitchat
+
+              # Demonstrate linking to a pattern human-handoff
+              # - link: pattern_human_handoff
+
+          # Other, default fallback behavior below:
+
+          # Chitchat fallback
+          - if: context.reason is "cannot_handle_chitchat"
+            then:
+              - action: utter_cannot_handle
+                next: END
+          # Fallback for things that are not supported
+          - if: context.reason is "cannot_handle_not_supported"
+            then:
+              - action: utter_cannot_handle
+                next: END
+          # Default fallback
+          - else:
+              - action: utter_ask_rephrase
+                next: END
