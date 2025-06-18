@@ -102,7 +102,7 @@ flows:
           - if: context.reason is "cannot_handle_chitchat"
             then:
               - action: utter_cannot_handle
-                next: "END"
+                next: END
           # Fallback for things that are not supported
           - if: context.reason is "cannot_handle_not_supported"
             then:
