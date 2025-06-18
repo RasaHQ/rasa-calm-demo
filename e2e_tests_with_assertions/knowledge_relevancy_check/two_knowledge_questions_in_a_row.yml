@@ -4,10 +4,12 @@ test_cases:
       - user: Are transfers on free with this service?
         assertions:
           - flow_started: pattern_search
-          - bot_did_not_utter:
-              utter_name: utter_no_relevant_answer_found
+          - generative_response_is_grounded:
+              threshold: 0.50
+              utter_source: EnterpriseSearchPolicy
       - user: How about international ones?
         assertions:
           - flow_started: pattern_search
-          - bot_did_not_utter:
-              utter_name: utter_no_relevant_answer_found
+          - generative_response_is_grounded:
+              threshold: 0.50
+              utter_source: EnterpriseSearchPolicy
