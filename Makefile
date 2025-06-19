@@ -56,6 +56,9 @@ install:
 run-duckling:
 	docker run --rm --name duckling_container -d -p 8000:8000 rasa/duckling
 
+run-mock-llm-server:
+	docker compose -f llm_mock_server/docker-compose.yml up --wait
+
 test: .EXPORT_ALL_VARIABLES
 	poetry run rasa test e2e e2e_tests
 
@@ -70,6 +73,9 @@ train-multistep: .EXPORT_ALL_VARIABLES
 
 train-qdrant: .EXPORT_ALL_VARIABLES
 	poetry run rasa train -c config/qdrant-config.yml -d domain --data data
+
+train-mock-llm-server: .EXPORT_ALL_VARIABLES
+	poetry run rasa train -c config/config.yml -d domain --data data --endpoints mock-llm-server-endpoints.yml
 
 actions:
 	poetry run rasa run actions
@@ -106,6 +112,9 @@ test-passing-stub-custom-actions: .EXPORT_ALL_VARIABLES
 
 test-repeat-command: .EXPORT_ALL_VARIABLES
 	poetry run rasa test e2e e2e_tests/repeat --e2e-results
+
+test-flows-with-mock-llm-server: .EXPORT_ALL_VARIABLES
+	poetry run rasa test e2e e2e_tests_with_assertions/mock_llm_server --e2e-results --endpoints mock-llm-server-endpoints.yml --debug
 
 set-otel-resource-attributes: ## Set OTEL_RESOURCE_ATTRIBUTES with rasa version and git info
 	. scripts/set-otel-resource-attributes.sh
