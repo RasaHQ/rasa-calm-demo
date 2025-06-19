@@ -9,8 +9,7 @@ test_cases:
         assertions:
           - flow_started: pattern_search
           - flow_started: pattern_cannot_handle
-          - bot_uttered:
-              utter_name: utter_no_relevant_answer_found
+          - flow_started: pattern_chitchat
       - user: lovely, transfer 50$
         assertions:
           - bot_uttered:
