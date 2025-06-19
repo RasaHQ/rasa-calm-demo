@@ -28,22 +28,22 @@ communication:Dict[str, CommunicationItem] = {}
 cache_response = {}
 user_input_cache = {}
 
-def extract_last_user_message(input_body: str) -> Optional[str]:
+def extract_conversation_history_and_last_user_message(input_body: str) -> Optional[str]:
     input_message_hash = hash(input_body)
 
     if input_message_hash in user_input_cache:
         logger.info(f"Return cached output: {user_input_cache[input_message_hash]}")
         return user_input_cache[input_message_hash]
 
-    pattern = r"USER: (.*?)\n\n===\n\n"
+    pattern = r"Here is what happened previously in the conversation:.*USER: (.*?)\n\n===\n\n"
 
     # Example usage:
-    match = re.search(pattern, input_body)
+    match = re.search(pattern, input_body, re.MULTILINE | re.DOTALL)
 
     if match:
-        user_message = match.group(1)
-        user_input_cache[input_message_hash] = user_message
-        return user_message
+        conversation = match.group(1)
+        user_input_cache[input_message_hash] = conversation
+        return conversation
     else:
         return None
 
@@ -64,7 +64,7 @@ async def generic_endpoint(request: Request):
     body_bytes = await request.body()
     body = orjson.loads(body_bytes)
 
-    user_input = extract_last_user_message(body['messages'][0]['content'])
+    user_input = extract_conversation_history_and_last_user_message(body['messages'][0]['content'])
 
     if not user_input:
         logger.info(f"User input not found in: {user_input}")
