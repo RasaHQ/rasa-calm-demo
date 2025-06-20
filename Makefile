@@ -75,7 +75,7 @@ actions:
 	poetry run rasa run actions
 
 test-passing: .EXPORT_ALL_VARIABLES
-	poetry run rasa test e2e e2e_tests/passing --e2e-results
+	poetry run rasa test e2e e2e_tests/passing --e2e-results --coverage-report
 
 test-flaky: .EXPORT_ALL_VARIABLES
 	poetry run rasa test e2e e2e_tests/flaky --e2e-results
