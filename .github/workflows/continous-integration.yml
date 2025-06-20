@@ -164,7 +164,7 @@ jobs:
       run: |
         mkdir tests
 
-    - name: Run e2e tests with assertions (only happy path)
+    - name: Run all e2e tests with assertions
       env:
         OPENAI_API_KEY: ${{secrets.OPENAI_API_KEY}}
         RASA_PRO_LICENSE: ${{secrets.RASA_PRO_LICENSE}}
@@ -172,4 +172,4 @@ jobs:
         RASA_PRO_BETA_INTENTLESS: true
         RASA_PRO_BETA_PREDICATES_IN_RESPONSE_CONDITIONS: true
       run: |
-        make test-happy-path
+        make test
