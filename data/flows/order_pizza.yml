@@ -24,20 +24,19 @@ flows:
       collect: card_details
       next:
           - if: slots.card_details and slots.confirmation_order
-            then: take_payment
+            then: take_payment_including_feedback
           - else: cancel_order
-    - id: take_payment
-      action: utter_execute_payment
-      next: END
     - id: use_membership_points
       call: use_membership_points
       next:
         - if: slots.membership_points and slots.confirmation_order
-          then: take_payment
+          then: take_payment_including_feedback
         - else: cancel_order
     - id: cancel_order
       action: utter_cancel_order
       next: END
+    - id: take_payment_including_feedback
+      link: take_payment_including_feedback
 
   fill_pizza_order:
     name: fill pizza order
@@ -74,3 +73,24 @@ flows:
             - else: END
       - id: show_vacancies
         action: action_show_vacancies
+
+  take_payment_including_feedback:
+    if: False
+    name: ask for feedback on payment process
+    description: ask user for feedback on payment process
+    steps:
+      - action: utter_execute_payment
+      - collect: user_rating
+        description: "User's rating from 1 to 5 as a number"
+        reset_after_flow_ends: False
+        ask_before_filling: True
+        next:
+          - if: slots.user_rating < "3"
+            then: user_suggestions
+          - else: thank_user_for_good_review
+      - id: user_suggestions
+        action: utter_ask_user_suggestions
+        next: END
+      - id: thank_user_for_good_review
+        action: utter_thank_user_for_good_review
+        next: END

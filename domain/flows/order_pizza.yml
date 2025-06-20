@@ -76,6 +76,14 @@ slots:
     mappings:
       - type: from_entity
         entity: department
+  user_suggestions:
+    type: text
+    mappings:
+      - type: from_llm
+  user_rating:
+    type: text
+    mappings:
+      - type: from_llm
 
 responses:
   utter_ask_pizza:
@@ -113,6 +121,15 @@ responses:
 
   utter_ask_department:
     - text: Which department would you like to apply to?
+
+  utter_ask_user_rating:
+    - text: How would you rate the payment process? (1-5)
+
+  utter_ask_user_suggestions:
+    - text: Do you have any suggestions for improving the payment process?
+
+  utter_thank_user_for_good_review:
+    - text: Thank you for your positive feedback!
 
 actions:
   - action_ask_confirmation_order
