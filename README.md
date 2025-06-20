@@ -35,7 +35,8 @@ Each flow comprises a yaml file and an associated
 [actions](https://rasa.com/docs/reference/primitives/actions), 
 [slots](https://rasa.com/docs/reference/primitives/slots), and 
 [bot responses](https://rasa.com/docs/reference/primitives/responses).
-The demo bot also demonstrates enterprise search capabilities, 
+The demo bot also demonstrates 
+[enterprise search](https://rasa.com/docs/reference/config/policies/enterprise-search-policy) capabilities, 
 such as answering questions using the [SQUAD dataset](https://huggingface.co/datasets/rajpurkar/squad). 
 Additionally, the bot supports comprehensive 
 [conversation repair](https://rasa.com/docs/learn/concepts/conversation-patterns/)
@@ -96,8 +97,9 @@ After you cloned the repository, follow these installation steps:
 
 ### Configuration
 
-Check `config/config.yml` to make sure the configuration is appropriate before you train and run the bot.
-There are some alternative configurations available in the config folder. 
+Check `config/config.yml` to make sure the [configuration](https://rasa.com/docs/reference/config/overview)
+is appropriate before you train and run the bot.
+There are some alternative configurations available in the `config` folder. 
 Theses can be used via the appropriate `make` command during training.
 
 ### Training the bot
@@ -116,8 +118,8 @@ The trained model is stored in `models` directory located in the project root.
 ### Starting the assistant
 
 Before interacting with your assistant, start the action server to enable the 
-assistant to perform custom actions located in the `actions` directory. Start the 
-action server with the `make` command:
+assistant to perform [custom actions](https://rasa.com/docs/reference/primitives/custom-actions)
+located in the `actions` directory. Start the action server with the `make` command:
 ```commandline
 make rasa-actions
 ```
@@ -129,12 +131,12 @@ rasa run actions
 Once the action server is started, you have two options to interact with your trained
 assistant:
 
-1. **GUI-based interaction** using rasa inspector:
+1. **GUI-based interaction** using Rasa inspector:
 ```commandline
 rasa inspect --debug
 ```
 
-2. **CLI-based interaction** using rasa shell:
+2. **CLI-based interaction** using Rasa shell:
 ```commandline
 rasa shell --debug
 ```
@@ -173,25 +175,26 @@ rasa test e2e e2e/tests/path/to/a/target/test.yml
 
 ### Using Enterprise Search with Qdrant
 
-5. If using qdrant for extractive search:
-   - Setup a local docker instance of Qdrant
+To use the Enterprise Search capabilities with Qdrant, follow these steps:
+
+1. Setup a local docker instance of Qdrant
+   ```
+   docker pull qdrant/qdrant
+   docker run -p 6333:6333 -p 6334:6334 \
+      -v $(pwd)/qdrant_storage:/qdrant/storage:z \
+      qdrant/qdrant
+   ```
+2. Upload data to Qdrant
+   - In your virtual environment where Rasa Pro is installed, also install these dependencies:
       ```
-      docker pull qdrant/qdrant
-      docker run -p 6333:6333 -p 6334:6334 \
-         -v $(pwd)/qdrant_storage:/qdrant/storage:z \
-         qdrant/qdrant
+      pip install uv
+      uv pip install -r qdrant-requirements.txt
       ```
-   - Upload data to Qdrant
-      - In your virtual environment where Rasa Pro is installed, also install these dependencies:
-         ```
-         pip install uv
-         uv pip install -r qdrant-requirements.txt
-         ```
-      - Ingest documents from SQUAD dataset (modify the script if qdrant isn't running locally!)
-         ```
-         python scripts/load-data-to-qdrant.py
-         ```
-   You can toggle parameter `use_generative_llm` in config.yml to change the behavior. 
+   - Ingest documents from SQUAD dataset (modify the script if qdrant isn't running locally!)
+      ```
+      python scripts/load-data-to-qdrant.py
+      ```
+3. You can toggle parameter `use_generative_llm` in config.yml to change the behavior. 
    The answer is selected from the first search result -> metadata -> `answer` key
 
 #### Custom Information Retriever
@@ -203,7 +206,7 @@ name in the config as follows:
 policies:
 - name: FlowPolicy
 - name: EnterpriseSearchPolicy
-vector_store:
+  vector_store:
    type: "addons.qdrant.Qdrant_Store"
 ```
 
