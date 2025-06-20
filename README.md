@@ -2,13 +2,15 @@
 
 `rasa-calm-demo` is a chatbot built with Rasa's LLM-native approach: [CALM](https://rasa.com/docs/rasa-pro/calm). 
 The bot is used during the QA process of Rasa to test the CALM features and capabilities.
-It is not intended to show best practices for building a production-ready bot!
 
 > [!CAUTION]
 > Please note that the demo bot is an evolving platform. The flows currently 
 > implemented in the demo bot are designed to showcase different features and 
 > capabilities of the CALM bot. The functionality of each flow may vary, reflecting 
 > CALM's current stage of development.
+
+> [!IMPORTANT]
+> `rasa-calm-demo` is not intended to show best practices for building a production-ready bot.
 
 > [!NOTE]
 > This demo bot is currently compatible with `3.13.0a1.dev5`.
@@ -154,7 +156,7 @@ make rasa-test
 ```
 or
 ```commandline
-rasa test e2e e2e_tests_with_assertions
+rasa test e2e e2e_tests/tests_for_default_config
 ```
 
 ------
@@ -162,7 +164,7 @@ rasa test e2e e2e_tests_with_assertions
 To run a **single test** with `make` command, you need to provide the path to a 
 target test in an environment variable `target`:
 ```commandline
-export target=e2e_tests_with_assertions/path/to/a/target/test.yml
+export target=e2e/tests/path/to/a/target/test.yml
 ```
 and then run:
 ```commandline

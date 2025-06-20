@@ -29,7 +29,7 @@ rasa-run: .EXPORT_ALL_VARIABLES
 	rasa inspect --debug
 
 rasa-test: .EXPORT_ALL_VARIABLES
-	rasa test e2e e2e_tests_with_assertions
+	rasa test e2e e2e_tests/tests_for_default_config
 
 rasa-test-one: .EXPORT_ALL_VARIABLES
 	rasa test e2e $(target) --debug
@@ -60,16 +60,13 @@ run: .EXPORT_ALL_VARIABLES run-duckling
 	poetry run rasa inspect --debug
 
 test: .EXPORT_ALL_VARIABLES
-	poetry run rasa test e2e e2e_tests/e2e_tests_with_assertions
+	poetry run rasa test e2e e2e_tests/tests_for_default_config
 
 test-stub-custom-actions: .EXPORT_ALL_VARIABLES
-	poetry run rasa test e2e e2e_tests/e2e_tests_with_stub_custom_actions --e2e-results
+	poetry run rasa test e2e e2e_tests/tests_with_stub_custom_actions --e2e-results
 
 test-one: .EXPORT_ALL_VARIABLES
 	poetry run rasa test e2e $(target) --debug
-
-test-happy-path: .EXPORT_ALL_VARIABLES
-	poetry run rasa test e2e e2e_tests/e2e_tests_with_assertions/happy_path
 
 stop-duckling:
 	docker stop duckling_container
