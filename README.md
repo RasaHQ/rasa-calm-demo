@@ -11,7 +11,7 @@ It is not intended to show best practices for building a production-ready bot!
 > CALM's current stage of development.
 
 > [!NOTE]
-> This demo bot is currently compatible with `3.12.6`.
+> This demo bot is currently compatible with `3.13.0a1.dev5`.
 
 ## Terms of Use
 

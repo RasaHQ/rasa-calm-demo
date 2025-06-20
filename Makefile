@@ -16,6 +16,9 @@ help:
 rasa-train: .EXPORT_ALL_VARIABLES
 	rasa train -c config/config.yml -d domain --data data
 
+rasa-train-search-ready: .EXPORT_ALL_VARIABLES
+	rasa train -c config/search-ready-config.yml -d domain --data data
+
 rasa-train-qdrant: .EXPORT_ALL_VARIABLES
 	rasa train -c config/qdrant-config.yml -d domain --data data
 
@@ -43,6 +46,9 @@ run-duckling:
 
 train: .EXPORT_ALL_VARIABLES
 	poetry run rasa train -c config/config.yml -d domain --data data
+
+train-search-ready: .EXPORT_ALL_VARIABLES
+	poetry run rasa train -c config/search-ready-config.yml -d domain --data data
 
 train-qdrant: .EXPORT_ALL_VARIABLES
 	poetry run rasa train -c config/qdrant-config.yml -d domain --data data
