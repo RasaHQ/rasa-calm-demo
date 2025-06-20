@@ -54,16 +54,16 @@ run: .EXPORT_ALL_VARIABLES run-duckling
 	poetry run rasa inspect --debug
 
 test: .EXPORT_ALL_VARIABLES
-	poetry run rasa test e2e e2e_tests_with_assertions
+	poetry run rasa test e2e e2e_tests/e2e_tests_with_assertions
+
+test-stub-custom-actions: .EXPORT_ALL_VARIABLES
+	poetry run rasa test e2e e2e_tests/e2e_tests_with_stub_custom_actions --e2e-results
 
 test-one: .EXPORT_ALL_VARIABLES
 	poetry run rasa test e2e $(target) --debug
 
+test-happy-path: .EXPORT_ALL_VARIABLES
+	poetry run rasa test e2e e2e_tests/e2e_tests_with_assertions/happy_path
+
 stop-duckling:
 	docker stop duckling_container
-
-test-passing-stub-custom-actions: .EXPORT_ALL_VARIABLES
-	poetry run rasa test e2e e2e_tests_with_stub_custom_actions/passing --e2e-results
-
-test-repeat-command: .EXPORT_ALL_VARIABLES
-	poetry run rasa test e2e e2e_tests/repeat --e2e-results
