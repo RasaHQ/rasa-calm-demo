@@ -154,7 +154,7 @@ make rasa-test
 ```
 or
 ```commandline
-rasa test e2e e2e_tests
+rasa test e2e e2e_tests_with_assertions
 ```
 
 ------
@@ -162,7 +162,7 @@ rasa test e2e e2e_tests
 To run a **single test** with `make` command, you need to provide the path to a 
 target test in an environment variable `target`:
 ```commandline
-export target=e2e_tests/path/to/a/target/test.yml
+export target=e2e_tests_with_assertions/path/to/a/target/test.yml
 ```
 and then run:
 ```commandline
