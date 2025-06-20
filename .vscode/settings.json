@@ -1,4 +1,0 @@
-{
-    "python.formatting.provider": "black",
-    "python.formatting.blackPath": "${workspaceFolder}/.venv/bin/black"
-}

@@ -1,6 +1,0 @@
-test_cases:
-  - test_case: user starts with a knowledge question
-    steps:
-      - user: Are transfers on free with this service?
-      # not able to test the response of enterprise search
-      # - utter: utter_free_transfers

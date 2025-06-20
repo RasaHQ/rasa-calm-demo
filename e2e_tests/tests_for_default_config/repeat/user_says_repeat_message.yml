@@ -1,0 +1,15 @@
+test_cases:
+  - test_case: user says repeat message
+    steps:
+      - user: Show my balance
+        assertions:
+          - bot_uttered:
+              utter_name: utter_current_balance
+          - bot_uttered:
+              utter_name: utter_can_do_something_else
+      - user: can you repeat that?
+        assertions:
+          - bot_uttered:
+              utter_name: utter_current_balance
+          - bot_uttered:
+              utter_name: utter_can_do_something_else
