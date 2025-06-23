@@ -5277,15 +5277,15 @@ fire = "*"
 
 [[package]]
 name = "rasa-pro"
-version = "3.13.0a1.dev5"
+version = "3.13.0a1.dev6"
 description = "State-of-the-art open-core Conversational AI framework for Enterprises that natively leverages generative AI for effortless assistant development."
 optional = false
 python-versions = "<3.12,>=3.9.2"
 groups = ["main"]
 markers = "platform_machine != \"arm64\" and (sys_platform == \"darwin\" or sys_platform == \"linux\") or sys_platform == \"linux\" or sys_platform == \"win32\" or sys_platform != \"linux\" and sys_platform != \"win32\" and sys_platform != \"darwin\" or platform_machine == \"arm64\" and sys_platform != \"linux\" and sys_platform != \"win32\""
 files = [
-    {file = "rasa_pro-3.13.0a1.dev5-py3-none-any.whl", hash = "sha256:af970e3a504fd79e37c719a8e5c208eb4c8cbcdb3a7211382c4e500d7fbf1b64"},
-    {file = "rasa_pro-3.13.0a1.dev5.tar.gz", hash = "sha256:1a326c6a2aa034a688515a826144b1c83a090ef15b15e7171b4548598c71195c"},
+    {file = "rasa_pro-3.13.0a1.dev6-py3-none-any.whl", hash = "sha256:83fd91c0179fd89fb09899153b6252d91e3c65422fca892046212179f43fb510"},
+    {file = "rasa_pro-3.13.0a1.dev6.tar.gz", hash = "sha256:244b9901c0f649b92126442a21e61e830ca9d7babf182bcd3cd7de0448d15542"},
 ]
 
 [package.dependencies]
@@ -7869,4 +7869,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.9.2,<3.12"
-content-hash = "0958ce27f3e06862ab6d4802932f21f6dc97c81774d7e8e346d555cddc98d6c2"
+content-hash = "ee753650aca8a806747553e85951caa48f492eec388595aa450f0e5fe220ab88"

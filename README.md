@@ -13,7 +13,7 @@ The bot is used during the QA process of Rasa to test the CALM features and capa
 > `rasa-calm-demo` is not intended to show best practices for building a production-ready bot.
 
 > [!NOTE]
-> This demo bot is currently compatible with `3.13.0a1.dev5`.
+> This demo bot is currently compatible with `3.13.0a1.dev6`.
 
 ## Terms of Use
 
