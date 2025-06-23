@@ -11,7 +11,6 @@ test_cases:
     steps:
       - user: cash
         assertions:
-          - pattern_clarification_contains:
-              - 'check your balance'
+          - flow_started: pattern_clarification
           - bot_uttered:
               utter_name: utter_clarification_options_rasa

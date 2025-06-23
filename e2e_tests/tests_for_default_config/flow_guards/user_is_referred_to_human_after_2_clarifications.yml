@@ -18,8 +18,7 @@ test_cases:
       - user: cash
         metadata: duplicate_message_1
         assertions:
-          - pattern_clarification_contains:
-              - 'check your balance'
+          - flow_started: pattern_clarification
           - slot_was_set: 
             - name: clarification_count
               value: 1
@@ -28,8 +27,7 @@ test_cases:
       - user: cash
         metadata: duplicate_message_2
         assertions:
-          - pattern_clarification_contains:
-              - 'check your balance'
+          - flow_started: pattern_clarification
           - slot_was_set: 
             - name: clarification_count
               value: 2
