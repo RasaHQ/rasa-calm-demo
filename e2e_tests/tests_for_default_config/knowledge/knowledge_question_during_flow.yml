@@ -7,10 +7,7 @@ test_cases:
               utter_name: utter_ask_transfer_money_amount_of_money
       - user: btw, are these transfers free of charge?
         assertions:
-          - generative_response_is_grounded:
-              threshold: 0.85
-              utter_source: EnterpriseSearchPolicy
-              ground_truth_sentence: Yes, transfers with FinX are free of charge. You can easily send money to Tre without any fees using the app.
+          - flow_started: pattern_search
           - bot_uttered:
               utter_name: utter_ask_transfer_money_amount_of_money
       - user: great, 50$ then

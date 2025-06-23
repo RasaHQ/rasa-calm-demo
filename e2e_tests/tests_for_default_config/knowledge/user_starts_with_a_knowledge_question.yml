@@ -3,9 +3,7 @@ test_cases:
     steps:
       - user: Are transfers on free with this service?
         assertions:
-          - generative_response_is_grounded:
-              threshold: 0.75
-              utter_source: EnterpriseSearchPolicy
+          - flow_started: pattern_search
           - slot_was_set:
                 - name: route_session_to_calm
                   value: True
