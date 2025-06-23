@@ -128,13 +128,13 @@ test_cases:
         assertions:
         - bot_uttered:
             utter_name: utter_ask_gift_name
-      - user: purse for me
+      - user: purse for myself
         assertions:
         - slot_was_set:
           - name: gift_name
             value: purse
           - name: gift_recipient
-            value: me
+            value: myself
         - bot_uttered:
             utter_name: utter_gift_recipient_invalid
         - bot_uttered:

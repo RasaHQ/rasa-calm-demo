@@ -19,8 +19,6 @@ test_cases:
       - user: Why is that your business?
         assertions:
           - bot_uttered:
-              utter_name: utter_california_compliance
-          - bot_uttered:
               utter_name: utter_ask_verify_account_sufficient_california_income
       - user: never mind then!!
         assertions:

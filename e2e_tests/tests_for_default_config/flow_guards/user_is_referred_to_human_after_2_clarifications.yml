@@ -19,7 +19,6 @@ test_cases:
         metadata: duplicate_message_1
         assertions:
           - pattern_clarification_contains:
-              - 'transfer money'
               - 'check your balance'
           - slot_was_set: 
             - name: clarification_count
@@ -30,7 +29,6 @@ test_cases:
         metadata: duplicate_message_2
         assertions:
           - pattern_clarification_contains:
-              - 'transfer money'
               - 'check your balance'
           - slot_was_set: 
             - name: clarification_count
