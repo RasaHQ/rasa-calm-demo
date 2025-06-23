@@ -68,7 +68,7 @@ and run end-to-end tests.
 Prerequisites:
 - Rasa Pro license
 - Python (3.10.12), e.g. using [pyenv](https://github.com/pyenv/pyenv): `pyenv install 3.10.12`
-- Some flows require to set up and run [Duckling](https://github.com/facebook/duckling) server.
+- Set up and run [Duckling](https://github.com/facebook/duckling) server.
   The easiest option is to spin up a docker container using `docker run -p 8000:8000 rasa/duckling`.
   Alternatively, you can use the `make run-duckling` command locally.
   This runs automatically only when you use the `make run` command, before it launches the Inspector app.
@@ -177,7 +177,7 @@ rasa test e2e e2e/tests/path/to/a/target/test.yml
 
 ### Using Enterprise Search with Qdrant
 
-To use the Enterprise Search capabilities with Qdrant, follow these steps:
+To use the Enterprise Search capabilities with [Qdrant](https://qdrant.tech/documentation/), follow these steps:
 
 1. Setup a local docker instance of Qdrant
    ```

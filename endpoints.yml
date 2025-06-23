@@ -87,6 +87,10 @@ model_groups:
     models:
       - provider: openai
         model: gpt-4o-2024-11-20
+  - id: openai-direct-gpt-41-mini
+    models:
+      - provider: openai
+        model: gpt-4.1-mini-2025-04-14
   - id: openai-embeddings
     models:
       - provider: openai
