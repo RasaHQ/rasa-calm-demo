@@ -209,7 +209,7 @@ policies:
 - name: FlowPolicy
 - name: EnterpriseSearchPolicy
   vector_store:
-   type: "addons.qdrant.Qdrant_Store"
+  type: "addons.qdrant.Qdrant_Store"
 ```
 
 This configuration refers to `addons/qdrant.py` file and the class `Qdrant_Store`. 

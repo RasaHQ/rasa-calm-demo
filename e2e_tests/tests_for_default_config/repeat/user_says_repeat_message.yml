@@ -1,15 +1,14 @@
 test_cases:
   - test_case: user says repeat message
     steps:
-      - user: Show my balance
+      - user: I want to add someone to my contact list
         assertions:
           - bot_uttered:
-              utter_name: utter_current_balance
-          - bot_uttered:
-              utter_name: utter_can_do_something_else
+                utter_name: utter_ask_add_contact_handle
+          - slot_was_set:
+                - name: route_session_to_calm
+                  value: True
       - user: can you repeat that?
         assertions:
           - bot_uttered:
-              utter_name: utter_current_balance
-          - bot_uttered:
-              utter_name: utter_can_do_something_else
+                utter_name: utter_ask_add_contact_handle

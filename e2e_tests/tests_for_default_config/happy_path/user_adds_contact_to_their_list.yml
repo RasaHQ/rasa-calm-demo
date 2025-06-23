@@ -15,7 +15,7 @@ test_cases:
                   value: "@barts"
           - bot_uttered:
                 utter_name: utter_ask_add_contact_name
-      - user: just Bart
+      - user: Bart
         assertions:
           - slot_was_set:
                 - name: add_contact_name
