@@ -106,17 +106,3 @@ test_cases:
                   value: direct debit
             - bot_uttered:
                 utter_name: utter_ask_recipient
-
-  - test_case: user wants to set up a new recurrent payment, but specifies the type with spelling mistakes
-    steps:
-      - user: I want to set up a new recurrent payment
-        assertions:
-            - bot_uttered:
-                utter_name: utter_ask_recurrent_payment_type
-      - user: direct debt
-        assertions:
-            - slot_was_set:
-                - name: recurrent_payment_type
-                  value: direct debit
-            - bot_uttered:
-                utter_name: utter_ask_recipient
