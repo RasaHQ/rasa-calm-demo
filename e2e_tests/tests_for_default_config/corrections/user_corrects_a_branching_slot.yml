@@ -3,6 +3,7 @@ metadata:
       turn_idx: 1
   - duplicate_msg_correction_2:
       turn_idx: 2
+
 test_cases:
   - test_case: user_corrects_a_branching_slot
     steps:
@@ -39,7 +40,7 @@ test_cases:
         assertions:
           - bot_uttered:
               utter_name: utter_ask_verify_account_confirmation
-      - user: "yes"
+      - user: /SetSlots(verify_account_confirmation=true)
         metadata: duplicate_msg_correction_2
         assertions:
           - bot_uttered:
