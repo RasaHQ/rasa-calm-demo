@@ -18,6 +18,7 @@ test_cases:
               utter_name: utter_ask_verify_account_sufficient_california_income
       - user: Why is that your business?
         assertions:
+          - flow_started: pattern_search
           - bot_uttered:
               utter_name: utter_ask_verify_account_sufficient_california_income
       - user: never mind then!!
