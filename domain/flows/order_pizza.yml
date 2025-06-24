@@ -81,7 +81,13 @@ slots:
     mappings:
       - type: from_llm
   user_rating:
-    type: text
+    type: categorical
+    values:
+      - "1"
+      - "2"
+      - "3"
+      - "4"
+      - "5"
     mappings:
       - type: from_llm
 
