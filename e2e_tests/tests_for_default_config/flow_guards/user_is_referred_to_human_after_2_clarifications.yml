@@ -1,0 +1,42 @@
+fixtures:
+  - route_to_calm:
+      - route_session_to_calm: True
+
+metadata:
+- duplicate_message_1:
+    turn_idx: 1
+- duplicate_message_2:
+    turn_idx: 2
+- duplicate_message_3:
+    turn_idx: 3
+
+test_cases:
+  - test_case: user_is_referred_to_human_after_2_clarifications
+    fixtures:
+      - route_to_calm
+    steps:
+      - user: cash
+        metadata: duplicate_message_1
+        assertions:
+          - flow_started: pattern_clarification
+          - slot_was_set: 
+            - name: clarification_count
+              value: 1
+          - bot_uttered:
+              utter_name: utter_clarification_options_rasa
+      - user: cash
+        metadata: duplicate_message_2
+        assertions:
+          - flow_started: pattern_clarification
+          - slot_was_set: 
+            - name: clarification_count
+              value: 2
+          - bot_uttered:
+              utter_name: utter_clarification_options_rasa
+      - user: cash
+        metadata: duplicate_message_3
+        assertions:
+          - slot_was_set: 
+            - name: clarification_count
+              value: 3
+          - flow_started: pattern_human_handoff

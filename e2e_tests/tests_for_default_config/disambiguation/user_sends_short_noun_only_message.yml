@@ -1,0 +1,16 @@
+# BUG: WAITING FOR https://rasahq.atlassian.net/browse/ENG-1091
+
+fixtures:
+  - route_to_calm:
+      - route_session_to_calm: True
+
+test_cases:
+  - test_case: user sends short noun only message
+    fixtures:
+      - route_to_calm
+    steps:
+      - user: cash
+        assertions:
+          - flow_started: pattern_clarification
+          - bot_uttered:
+              utter_name: utter_clarification_options_rasa

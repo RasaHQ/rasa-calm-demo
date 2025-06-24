@@ -83,21 +83,15 @@ vector_store:
   metadata_payload_key: metadata
 
 model_groups:
-  - id: openai-direct-gpt-4
-    models:
-      - provider: openai
-        model: gpt-4
-        timeout: 7
-        temperature: 0.0
-        top_p: 0.0
-  - id: openai-direct-gpt-3.5-turbo
-    models:
-      - provider: openai
-        model: gpt-3.5-turbo-0125
-        timeout: 7
-        temperature: 0.0
-        top_p: 0.0
   - id: openai-direct-gpt-4o
     models:
       - provider: openai
         model: gpt-4o-2024-11-20
+  - id: openai-direct-gpt-41-mini
+    models:
+      - provider: openai
+        model: gpt-4.1-mini-2025-04-14
+  - id: openai-embeddings
+    models:
+      - provider: openai
+        model: text-embedding-3-large
