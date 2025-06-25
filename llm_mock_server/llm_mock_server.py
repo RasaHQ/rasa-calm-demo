@@ -70,20 +70,15 @@ def extract_conversation_history_from_input_body(input_body: str) -> Optional[st
         return user_input_cache[input_message_hash]
 
     # Regular expression pattern to match conversation history
-    # Looks for text between "Conversation History" and "\n\n---\n\n"
-    pattern = r"Conversation History(.*?)\n\n---\n\n"
+    # Looks for text between "Conversation History.*USER: (.*?)\n\n---\n\n"
+    pattern = r"Conversation History.*USER: (.*?)\n\n---\n\n"
 
     # Search for the pattern in the input body with multiline and dotall flags
     match = re.search(pattern, input_body, re.MULTILINE | re.DOTALL)
 
     if match:
         # Extract the conversation content from the first capture group
-        conversation_history = match.group(1).strip()
-
-        # As we store the conversation history with the string "\n" instead of
-        # actual newlines, we replace newlines with the string "\n" to maintain
-        # consistency
-        conversation_history = conversation_history.replace("\n", "\\n")
+        conversation_history = match.group(1)
 
         # Cache the result for future use
         user_input_cache[input_message_hash] = conversation_history
