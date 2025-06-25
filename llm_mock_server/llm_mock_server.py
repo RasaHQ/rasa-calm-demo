@@ -78,10 +78,16 @@ def extract_conversation_history_from_input_body(input_body: str) -> Optional[st
 
     if match:
         # Extract the conversation content from the first capture group
-        conversation = match.group(1).strip()
+        conversation_history = match.group(1).strip()
+
+        # As we store the conversation history with the string "\n" instead of
+        # actual newlines, we replace newlines with the string "\n" to maintain
+        # consistency
+        conversation_history = conversation_history.replace("\n", "\\n")
+
         # Cache the result for future use
-        user_input_cache[input_message_hash] = conversation
-        return conversation
+        user_input_cache[input_message_hash] = conversation_history
+        return conversation_history
     else:
         # No conversation history found
         return None
