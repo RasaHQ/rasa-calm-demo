@@ -78,7 +78,7 @@ def extract_conversation_history_from_input_body(input_body: str) -> Optional[st
 
     if match:
         # Extract the conversation content from the first capture group
-        conversation = match.group(1)
+        conversation = match.group(1).strip()
         # Cache the result for future use
         user_input_cache[input_message_hash] = conversation
         return conversation
