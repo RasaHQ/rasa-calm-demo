@@ -35,7 +35,7 @@ def extract_conversation_history_and_last_user_message(input_body: str) -> Optio
         logger.info(f"Return cached output: {user_input_cache[input_message_hash]}")
         return user_input_cache[input_message_hash]
 
-    pattern = r"Here is what happened previously in the conversation:.*USER: (.*?)\n\n===\n\n"
+    pattern = r"Conversation History:.*USER: (.*?)\n\n---\n\n"
 
     # Example usage:
     match = re.search(pattern, input_body, re.MULTILINE | re.DOTALL)
