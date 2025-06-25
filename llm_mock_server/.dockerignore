@@ -1,0 +1,11 @@
+.python-version
+.tool-versions
+.gitignore
+tests/
+*cache*
+.vscode
+*venv*
+.rasa
+models
+README
+.mypy
