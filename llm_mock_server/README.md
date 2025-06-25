@@ -11,12 +11,12 @@ Requests (for example from E2E tests) are routed to relevant endpoint by matchin
 
 ## Current capabilities and how to add new tests
 ### Current capabilities
-Currently, the server can respond with following mock commands (based on old-DSL, as currently it has been used with `SingleStepLLMCommandGenerator`):
-1. `StartFlow(add_contact)`
-2. `SetSlot(add_contact_handle, @barts)`
-3. `SetSlot(add_contact_name, Bart)`
-4. `SetSlot(add_contact_confirmation, True)`
-5. `StartFlow(list_contacts)`
+Currently, the server can respond with following mock commands (using the DSL v2 used by the `CompactLLMCommandGenerator`):
+1. `start flow add_contact`
+2. `set slot add_contact_handle @barts`
+3. `set slot add_contact_name Bart`
+4. `set slot add_contact_confirmation True`
+5. `start flow list_contacts`
 
 ### How to add further requests and responses
 This can be done by updating the `Postman` collection [`collection.json`](./collection.json). Easiest way to do this is:
