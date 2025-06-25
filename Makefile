@@ -66,7 +66,7 @@ run: .EXPORT_ALL_VARIABLES run-duckling
 	poetry run rasa inspect --debug
 
 test: .EXPORT_ALL_VARIABLES
-	poetry run rasa test e2e e2e_tests/tests_for_default_config
+	poetry run rasa test e2e e2e_tests/tests_for_default_config --coverage-report
 
 test-stub-custom-actions: .EXPORT_ALL_VARIABLES
 	poetry run rasa test e2e e2e_tests/tests_with_stub_custom_actions --e2e-results
