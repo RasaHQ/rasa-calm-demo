@@ -70,7 +70,7 @@ def extract_conversation_history_from_input_body(input_body: str) -> Optional[st
         return user_input_cache[input_message_hash]
 
     # Regular expression pattern to match conversation history
-    # Looks for text between "Conversation History.*USER: (.*?)\n\n---\n\n"
+    # Looks for text between "Conversation History" and latest user message ("USER:"), up to "\n\n---\n\n"
     pattern = r"Conversation History.*USER: (.*?)\n\n---\n\n"
 
     # Search for the pattern in the input body with multiline and dotall flags
