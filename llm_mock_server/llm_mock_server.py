@@ -8,39 +8,46 @@ from fastapi import FastAPI, Request, HTTPException
 from pydantic import BaseModel
 import orjson
 
-logging.basicConfig(level=logging.INFO,
-                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-                    )
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+)
 logger = logging.getLogger(__name__)
 
 # Initialize FastAPI application
 app = FastAPI()
+
 
 class RequestResponsePair(BaseModel):
     """
     Represents a single request-response pair from the Postman collection.
     Each pair contains the original request body and the expected response.
     """
+
     request: str
     response: Any
+
 
 class CommunicationItem(BaseModel):
     """
     Represents all communication data for a specific API endpoint.
     Contains multiple request-response pairs, HTTP method, and the full path.
     """
+
     request_response: List[RequestResponsePair]
     method: str
     full_path: str
 
+
 # Stores all endpoint configurations indexed by path
-communication:Dict[str, CommunicationItem] = {}
+communication: Dict[str, CommunicationItem] = {}
 # Caches responses by search string for faster lookup
 cache_response = {}
 # Caches extracted user inputs by hash to avoid re-processing
 user_input_cache = {}
 
-def extract_conversation_history_and_last_user_message(input_body: str) -> Optional[str]:
+
+def extract_conversation_history_from_input_body(input_body: str) -> Optional[str]:
     """
     Extracts conversation history from the input body using regex pattern matching.
 
@@ -79,6 +86,7 @@ def extract_conversation_history_and_last_user_message(input_body: str) -> Optio
         # No conversation history found
         return None
 
+
 # Load the Postman collection
 def load_postman_collection(file_path: str) -> Dict[str, Any]:
     """
@@ -95,7 +103,7 @@ def load_postman_collection(file_path: str) -> Dict[str, Any]:
         json.JSONDecodeError: If the file contains invalid JSON
     """
     try:
-        with open(file_path, 'r') as file:
+        with open(file_path, "r") as file:
             return json.load(file)
     except FileNotFoundError:
         logger.error(f"Collection file not found: {file_path}")
@@ -128,47 +136,58 @@ async def generic_endpoint(request: Request):
     body_bytes = await request.body()
     body = orjson.loads(body_bytes)
 
-    # Extract user input from the conversation history in the request
-    user_input = extract_conversation_history_and_last_user_message(body['messages'][0]['content'])
+    # Extract the conversation history from the input body
+    conversation_history = extract_conversation_history_from_input_body(
+        body["messages"][0]["content"]
+    )
 
-    # If no user input was found, return 404
-    if not user_input:
-        logger.info(f"User input not found in: {user_input}")
-        raise HTTPException(status_code=404, detail="Matching response not found")
+    # If no conversation history was found, return 404
+    if not conversation_history:
+        logger.info(
+            f"Could not extract conversation history from input: {body['messages'][0]['content']}."
+        )
+        raise HTTPException(
+            status_code=404, detail="Conversation history not found in input."
+        )
 
-    # Create a search string by prefixing with "USER: "
-    search_string = f"USER: {user_input}"
-    logger.info(f"Search string: {search_string}")
-
+    logger.info(f"Conversation history: {conversation_history}")
     logger.info(f"Caches_response keys: {cache_response.keys()}")
 
     # Check if we have a cached response for this search string
-    if search_string in cache_response:
-        return cache_response[search_string]
+    if conversation_history in cache_response:
+        return cache_response[conversation_history]
 
     # Get the communication item for this endpoint path
     communication_item = communication.get(request.url.path, None)
 
     # If no communication item found for this path, return 404
     if not communication_item:
-        logger.info(f"2 User input not found in: {user_input}")
-        raise HTTPException(status_code=404, detail="Matching response not found")
+        logger.info(f"No communication item found for path: {request.url.path}.")
+        raise HTTPException(
+            status_code=404, detail="No communication item found for this path."
+        )
 
     # Search through all request-response pairs for this endpoint
     for request_response_pair in communication_item.request_response:
         logger.info(f"request_response_pair.request: {request_response_pair.request}")
 
         # Check if the search string matches any stored request
-        if search_string in request_response_pair.request:
+        if conversation_history in request_response_pair.request:
             # Cache the response for future requests
-            cache_response[search_string] = request_response_pair.response
+            cache_response[conversation_history] = request_response_pair.response
             return request_response_pair.response
 
     # No matching request-response pair found
-    logger.info(f"3 User input not found in: {user_input}")
+    logger.info(
+        f"No matching request-response pair found for search string: {conversation_history}."
+    )
     logger.info(f"caches_response keys: {communication.get(request.url.path, None)}")
     logger.info(f"body: {body}")
-    raise HTTPException(status_code=404, detail="Matching response not found")
+    raise HTTPException(
+        status_code=404,
+        detail="No matching request-response pair found for the provided input.",
+    )
+
 
 def create_endpoints(collection: Dict[str, Any]):
     """
@@ -184,20 +203,20 @@ def create_endpoints(collection: Dict[str, Any]):
     Args:
         collection (Dict[str, Any]): The parsed Postman collection data
     """
-    for item in collection.get('item', []):
+    for item in collection.get("item", []):
         # Only process items that have request data
-        if 'request' in item:
+        if "request" in item:
             # Extract HTTP method and convert to lowercase
-            method = item['request']['method'].lower()
+            method = item["request"]["method"].lower()
 
             # Extract URL path components and join them
-            path = item['request']['url']['path']
-            full_path = '/' + '/'.join(path)
+            path = item["request"]["url"]["path"]
+            full_path = "/" + "/".join(path)
 
             # Create a request-response pair from the Postman data
             request_response_pair = RequestResponsePair(
-                request=item['request']['body']['raw'],
-                response=orjson.loads(item['response'][0]['body'])
+                request=item["request"]["body"]["raw"],
+                response=orjson.loads(item["response"][0]["body"]),
             )
 
             # If we already have data for this path, add to existing list
@@ -208,7 +227,7 @@ def create_endpoints(collection: Dict[str, Any]):
                 communication_item = CommunicationItem(
                     request_response=[request_response_pair],
                     method=method,
-                    full_path=full_path
+                    full_path=full_path,
                 )
                 communication[full_path] = communication_item
 
@@ -220,9 +239,10 @@ def create_endpoints(collection: Dict[str, Any]):
         getattr(app, method)(full_path)(generic_endpoint)
 
     async def collection_endpoint(request: Request):
-        return orjson.dumps(collection).decode('utf-8')
+        return orjson.dumps(collection).decode("utf-8")
 
     app.get("/")(collection_endpoint)
+
 
 def parse_args() -> Namespace:
     """
@@ -233,15 +253,30 @@ def parse_args() -> Namespace:
             - collection: Path to the Postman collection file
             - port: Port number to run the server on
     """
-    parser = argparse.ArgumentParser(description="FastAPI server for Postman collections")
-    parser.add_argument("-c", "--collection", required=True, help="Path to the Postman collection JSON file")
-    parser.add_argument("-p", "--port", type=int, default=8000, help="Port number to run the server on (default: 8000)")
+    parser = argparse.ArgumentParser(
+        description="FastAPI server for Postman collections"
+    )
+    parser.add_argument(
+        "-c",
+        "--collection",
+        required=True,
+        help="Path to the Postman collection JSON file",
+    )
+    parser.add_argument(
+        "-p",
+        "--port",
+        type=int,
+        default=8000,
+        help="Port number to run the server on (default: 8000)",
+    )
 
     return parser.parse_args()
+
 
 @app.get("/")
 async def root():
     return {"message": "Welcome to the Postman Collection Server"}
+
 
 def main():
     """
@@ -258,8 +293,10 @@ def main():
     create_endpoints(postman_collection)
 
     import uvicorn
+
     # Start the FastAPI server
     uvicorn.run(app, host="0.0.0.0", port=args.port)
+
 
 if __name__ == "__main__":
     main()
