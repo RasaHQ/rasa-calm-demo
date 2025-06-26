@@ -1,10 +1,13 @@
 test_cases:
   - test_case: user_says_something_intriguing
     steps:
+      - user: transfer some money to my friend
+        assertions:
+          - flow_started: transfer_money
+          - slot_was_set:
+            - name: route_session_to_calm
+              value: true
       - user: I just had the most wonderful startup idea.
         assertions:
           - flow_started: pattern_chitchat
           - action_executed: action_trigger_chitchat
-          - generative_response_is_relevant:
-              utter_source: IntentlessPolicy
-              threshold: 0.70

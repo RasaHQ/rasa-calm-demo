@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "llm_mock_server"
+version = "0.1.0"
+description = ""
+authors = ["Radovan Zivkovic <r.zivkovic@rasa.com>", "Sanchari Ghosh <s.ghosh@rasa.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.115.6"
+asyncio = "^3.4.3"
+uvicorn = "^0.34.0"
+orjson = "^3.10.15"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+llm-mock-server = "llm_mock_server:main"

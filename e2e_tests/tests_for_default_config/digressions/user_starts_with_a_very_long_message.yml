@@ -1,12 +1,12 @@
 test_cases:
   - test_case: user starts with a very long message
     steps:
-      - user: What's up dawg, my homie Steven got my back yesterday when we were out for drinks and my phone was out of batt, let me settle up with him.
+      - user: What's up dawg, my homie Steven got my back yesterday when we were out for drinks and my phone was out of batt, let me settle up with him and transfer the money I owe him.
         assertions:
           - slot_was_set:
-              - name: transfer_money_recipient
-                value: Steven
               - name: route_session_to_calm
                 value: True
+              - name: transfer_money_recipient
+                value: Steven
           - bot_uttered:
               utter_name: utter_ask_transfer_money_amount_of_money

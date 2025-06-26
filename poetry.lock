@@ -5277,15 +5277,15 @@ fire = "*"
 
 [[package]]
 name = "rasa-pro"
-version = "3.13.0a1.dev6"
+version = "3.13.0rc1"
 description = "State-of-the-art open-core Conversational AI framework for Enterprises that natively leverages generative AI for effortless assistant development."
 optional = false
 python-versions = "<3.12,>=3.9.2"
 groups = ["main"]
 markers = "platform_machine != \"arm64\" and (sys_platform == \"darwin\" or sys_platform == \"linux\") or sys_platform == \"linux\" or sys_platform == \"win32\" or sys_platform != \"linux\" and sys_platform != \"win32\" and sys_platform != \"darwin\" or platform_machine == \"arm64\" and sys_platform != \"linux\" and sys_platform != \"win32\""
 files = [
-    {file = "rasa_pro-3.13.0a1.dev6-py3-none-any.whl", hash = "sha256:83fd91c0179fd89fb09899153b6252d91e3c65422fca892046212179f43fb510"},
-    {file = "rasa_pro-3.13.0a1.dev6.tar.gz", hash = "sha256:244b9901c0f649b92126442a21e61e830ca9d7babf182bcd3cd7de0448d15542"},
+    {file = "rasa_pro-3.13.0rc1-py3-none-any.whl", hash = "sha256:e125c5d0250068665c1f0df8e67a2949f378f57a9510c86a4e90cfac21044802"},
+    {file = "rasa_pro-3.13.0rc1.tar.gz", hash = "sha256:fd75ba243295b743c0068bb2d3681bfa24ded5ca249f6a95903e2754c7ef4019"},
 ]
 
 [package.dependencies]
@@ -5361,7 +5361,7 @@ pyyaml = ">=6.0"
 qdrant-client = ">=1.9.1,<1.10.0"
 questionary = ">=1.10.0,<2.1.0"
 randomname = ">=0.2.1,<0.3.0"
-rasa-sdk = "3.13.0.dev1"
+rasa-sdk = "3.13.0rc1"
 redis = ">=4.6.0,<6.0"
 regex = ">=2024.7.24,<2024.8.0"
 requests = ">=2.32.3,<2.33.0"
@@ -5418,15 +5418,15 @@ transformers = ["sentencepiece[sentencepiece] (>=0.1.99,<0.2.0)", "transformers 
 
 [[package]]
 name = "rasa-sdk"
-version = "3.13.0.dev1"
+version = "3.13.0rc1"
 description = "Open source machine learning framework to automate text- and voice-based conversations: NLU, dialogue management, connect to Slack, Facebook, and more - Create chatbots and voice assistants"
 optional = false
 python-versions = "<3.13,>3.8"
 groups = ["main"]
 markers = "platform_machine != \"arm64\" and (sys_platform == \"darwin\" or sys_platform == \"linux\") or sys_platform == \"linux\" or sys_platform == \"win32\" or sys_platform != \"linux\" and sys_platform != \"win32\" and sys_platform != \"darwin\" or platform_machine == \"arm64\" and sys_platform != \"linux\" and sys_platform != \"win32\""
 files = [
-    {file = "rasa_sdk-3.13.0.dev1-py3-none-any.whl", hash = "sha256:77828efa2d84aa4aa89640b828a08ce80baf1215627252dfbcde9d235c35fa02"},
-    {file = "rasa_sdk-3.13.0.dev1.tar.gz", hash = "sha256:6a8c2c0ddad733a98c6a533863af8359ae4d9b74190a2e096b2610e9c83ca23d"},
+    {file = "rasa_sdk-3.13.0rc1-py3-none-any.whl", hash = "sha256:872c961bb65ef5afb937a06971d4b194995a5e44d951c049bd9489785893c9f5"},
+    {file = "rasa_sdk-3.13.0rc1.tar.gz", hash = "sha256:fcd3d1301e1b962bb3a0256247f649d9f73e885706f89b516aea3f31d8c9e26f"},
 ]
 
 [package.dependencies]
@@ -7869,4 +7869,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.9.2,<3.12"
-content-hash = "ee753650aca8a806747553e85951caa48f492eec388595aa450f0e5fe220ab88"
+content-hash = "d5365562fca6b47b0faf47856f0f002ba675401c8d661c05bf0d21120877fa3e"

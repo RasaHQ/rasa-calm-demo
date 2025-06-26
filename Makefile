@@ -44,6 +44,9 @@ install:
 run-duckling:
 	docker run --rm --name duckling_container -d -p 8000:8000 rasa/duckling
 
+run-mock-llm-server:
+	docker compose -f llm_mock_server/docker-compose.yml up --wait
+
 train: .EXPORT_ALL_VARIABLES
 	poetry run rasa train -c config/config.yml -d domain --data data
 
@@ -53,6 +56,9 @@ train-search-ready: .EXPORT_ALL_VARIABLES
 train-qdrant: .EXPORT_ALL_VARIABLES
 	poetry run rasa train -c config/qdrant-config.yml -d domain --data data
 
+train-mock-llm-server: .EXPORT_ALL_VARIABLES
+	poetry run rasa train -c config/config.yml -d domain --data data --endpoints mock-llm-server-endpoints.yml
+
 actions:
 	poetry run rasa run actions
 
@@ -60,13 +66,16 @@ run: .EXPORT_ALL_VARIABLES run-duckling
 	poetry run rasa inspect --debug
 
 test: .EXPORT_ALL_VARIABLES
-	poetry run rasa test e2e e2e_tests/tests_for_default_config
+	poetry run rasa test e2e e2e_tests/tests_for_default_config --coverage-report
 
 test-stub-custom-actions: .EXPORT_ALL_VARIABLES
 	poetry run rasa test e2e e2e_tests/tests_with_stub_custom_actions --e2e-results
 
 test-one: .EXPORT_ALL_VARIABLES
 	poetry run rasa test e2e $(target) --debug
+
+test-flows-with-mock-llm-server: .EXPORT_ALL_VARIABLES
+	poetry run rasa test e2e e2e_tests/mock_llm_server --e2e-results --endpoints mock-llm-server-endpoints.yml --debug
 
 stop-duckling:
 	docker stop duckling_container
