@@ -180,7 +180,7 @@ async def generic_endpoint(request: Request):
 
     # No matching request-response pair found
     logger.info(
-        f"No matching request-response pair found for search string: {conversation_history}."
+        f"No matching request-response pair found for search string: {conversation_history}"
     )
     logger.info(f"caches_response keys: {communication.get(request.url.path, None)}")
     logger.info(f"body: {body}")
