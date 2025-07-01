@@ -154,62 +154,62 @@ test_cases:
             - slot_was_not_set:
                 - name: confirmation_order
 
-  # - test_case: user_orders_pizza_stating_which_type_and_pays_with_card
-  #   steps:
-  #     - user: I would like to order a diavola pizza.
-  #       assertions:
-  #           - bot_uttered:
-  #               utter_name: utter_ask_num_pizza
-  #     - user: 2 please
-  #       assertions:
-  #           - bot_uttered:
-  #               utter_name: utter_ask_address
-  #     - user: 30 Pine Road
-  #       assertions:
-  #           - bot_uttered:
-  #               utter_name: utter_confirm
-  #     - user: /SetSlots(confirmation_order=True)
-  #       assertions:
-  #           - bot_uttered:
-  #               utter_name: utter_ask_payment_option
-  #     - user: credit card
-  #       assertions:
-  #           - bot_uttered:
-  #               utter_name: utter_ask_card_details
-  #     - user: 1234 5678 9012 3456
-  #       assertions:
-  #           - bot_uttered:
-  #               utter_name: utter_execute_payment
+  - test_case: user_orders_pizza_stating_which_type_and_pays_with_card
+    steps:
+      - user: I would like to order a diavola pizza.
+        assertions:
+            - bot_uttered:
+                utter_name: utter_ask_num_pizza
+      - user: 2 please
+        assertions:
+            - bot_uttered:
+                utter_name: utter_ask_address
+      - user: 30 Pine Road
+        assertions:
+            - bot_uttered:
+                utter_name: utter_confirm
+      - user: /SetSlots(confirmation_order=True)
+        assertions:
+            - bot_uttered:
+                utter_name: utter_ask_payment_option
+      - user: credit card
+        assertions:
+            - bot_uttered:
+                utter_name: utter_ask_card_details
+      - user: 1234 5678 9012 3456
+        assertions:
+            - bot_uttered:
+                utter_name: utter_execute_payment
 
-  # - test_case: user_orders_pizza_stating_which_type_and_pays_with_points
-  #   steps:
-  #     - user: I would like to order a diavola pizza.
-  #       assertions:
-  #           - bot_uttered:
-  #               utter_name: utter_ask_num_pizza
-  #     - user: 1 please
-  #       assertions:
-  #           - bot_uttered:
-  #               utter_name: utter_ask_address
-  #     - user: 40 Elm Street
-  #       assertions:
-  #           - bot_uttered:
-  #               utter_name: utter_confirm
-  #     - user: /SetSlots(confirmation_order=True)
-  #       assertions:
-  #           - bot_uttered:
-  #               utter_name: utter_ask_payment_option
-  #     - user: loyalty points
-  #       assertions:
-  #           - bot_uttered:
-  #               utter_name: utter_ask_user_name
-  #     - user: janedoe
-  #       assertions:
-  #           - bot_uttered:
-  #               utter_name: utter_ask_user_password
-  #     - user: r@nd0m
-  #       assertions:
-  #           - bot_uttered:
-  #               utter_name: utter_authentication_successful
-  #           - bot_uttered:
-  #               utter_name: utter_execute_payment
+  - test_case: user_orders_pizza_stating_which_type_and_pays_with_points
+    steps:
+      - user: I would like to order a diavola pizza.
+        assertions:
+            - bot_uttered:
+                utter_name: utter_ask_num_pizza
+      - user: 1 please
+        assertions:
+            - bot_uttered:
+                utter_name: utter_ask_address
+      - user: 40 Elm Street
+        assertions:
+            - bot_uttered:
+                utter_name: utter_confirm
+      - user: /SetSlots(confirmation_order=True)
+        assertions:
+            - bot_uttered:
+                utter_name: utter_ask_payment_option
+      - user: loyalty points
+        assertions:
+            - bot_uttered:
+                utter_name: utter_ask_user_name
+      - user: janedoe
+        assertions:
+            - bot_uttered:
+                utter_name: utter_ask_user_password
+      - user: r@nd0m
+        assertions:
+            - bot_uttered:
+                utter_name: utter_authentication_successful
+            - bot_uttered:
+                utter_name: utter_execute_payment
