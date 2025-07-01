@@ -101,21 +101,21 @@ test_cases:
                   value: True
             - bot_uttered:
                 utter_name: utter_ask_payment_option
-  #     - user: loyalty points
-  #       assertions:
-  #           - slot_was_set:
-  #               - name: payment_option
-  #                 value: membership_points
-  #           - flow_started: authenticate_user
-  #           - bot_uttered:
-  #               utter_name: utter_ask_user_name
-  #     - user: janedoe
-  #       assertions:
-  #           - slot_was_set:
-  #               - name: user_name
-  #                 value: janedoe
-  #           - bot_uttered:
-  #               utter_name: utter_ask_user_password
+      - user: loyalty points
+        assertions:
+            - slot_was_set:
+                - name: payment_option
+                  value: membership_points
+            - flow_started: authenticate_user
+            - bot_uttered:
+                utter_name: utter_ask_user_name
+      - user: janedoe
+        assertions:
+            - slot_was_set:
+                - name: user_name
+                  value: janedoe
+            - bot_uttered:
+                utter_name: utter_ask_user_password
   #     - user: r@nd0m
   #       assertions:
   #           - slot_was_set:
