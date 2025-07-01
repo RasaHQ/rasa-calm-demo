@@ -116,43 +116,43 @@ test_cases:
                   value: janedoe
             - bot_uttered:
                 utter_name: utter_ask_user_password
-  #     - user: r@nd0m
-  #       assertions:
-  #           - slot_was_set:
-  #               - name: user_password
-  #                 value: r@nd0m
-  #           - bot_uttered:
-  #               utter_name: utter_authentication_successful
-  #           - flow_completed:
-  #                flow_id: authenticate_user
-  #           - action_executed: action_check_points
-  #           - bot_uttered:
-  #                text_matches: "You have 150 points in your membership account. That's enough to get a free pizza!"
-  #           - flow_completed:
-  #              flow_id: use_membership_points
-  #           - bot_uttered:
-  #               utter_name: utter_execute_payment
-  #           - flow_completed:
-  #               flow_id: order_pizza
-  #           # verify slot reset
-  #           - slot_was_set:
-  #               - name: pizza
-  #                 value: null
-  #               - name: num_pizza
-  #                 value: null
-  #               - name: address
-  #                 value: null
-  #               - name: card_details
-  #                 value: null
-  #               - name: payment_option
-  #                 value: null
-  #               - name: user_name
-  #                 value: null
-  #               - name: user_password
-  #                 value: null
-  #           # verify slot persistence
-  #           - slot_was_not_set:
-  #               - name: confirmation_order
+      - user: r@nd0m
+        assertions:
+            - slot_was_set:
+                - name: user_password
+                  value: r@nd0m
+            - bot_uttered:
+                utter_name: utter_authentication_successful
+            - flow_completed:
+                 flow_id: authenticate_user
+            - action_executed: action_check_points
+            - bot_uttered:
+                 text_matches: "You have 150 points in your membership account. That's enough to get a free pizza!"
+            - flow_completed:
+               flow_id: use_membership_points
+            - bot_uttered:
+                utter_name: utter_execute_payment
+            - flow_completed:
+                flow_id: order_pizza
+            # verify slot reset
+            - slot_was_set:
+                - name: pizza
+                  value: null
+                - name: num_pizza
+                  value: null
+                - name: address
+                  value: null
+                - name: card_details
+                  value: null
+                - name: payment_option
+                  value: null
+                - name: user_name
+                  value: null
+                - name: user_password
+                  value: null
+            # verify slot persistence
+            - slot_was_not_set:
+                - name: confirmation_order
 
   # - test_case: user_orders_pizza_stating_which_type_and_pays_with_card
   #   steps:
