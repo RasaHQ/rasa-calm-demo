@@ -1218,7 +1218,7 @@
 			},
 			"response": [
 				{
-					"name": "start_pizza_order",
+					"name": "start_pizza_order (2 pizzas)",
 					"originalRequest": {
 						"method": "POST",
 						"header": [
@@ -1390,6 +1390,199 @@
 				],
 				"body": {
 					"mode": "raw",
+					"raw": "{\n    \"model\": \"gpt-4\",\n    \"messages\": [\n            {\n                \"role\": \"user\",\n                \"content\": \"## Task Description\\nYour task is to analyze the current conversation context and generate a list of actions to start new business processes that we call flows, to extract slots, or respond to small talk and knowledge requests.\\n\\n---\\n\\n## Available Flows and Slots\\nUse the following structured data:\\n```json\\n{\\\"flows\\\":[{\\\"name\\\":\\\"transfer_money\\\",\\\"description\\\":\\\"send money to friends and family\\\",\\\"slots\\\":[{\\\"name\\\":\\\"transfer_money_recipient\\\",\\\"description\\\":\\\"the name of a person\\\"},{\\\"name\\\":\\\"transfer_money_amount_of_money\\\",\\\"description\\\":\\\"the amount of money without any currency designation\\\"}]},{\\\"name\\\":\\\"list_contacts\\\",\\\"description\\\":\\\"show your contact list\\\"},{\\\"name\\\":\\\"add_contact\\\",\\\"description\\\":\\\"add a contact to your contact list\\\",\\\"slots\\\":[{\\\"name\\\":\\\"add_contact_handle\\\",\\\"description\\\":\\\"a user handle starting with @\\\"},{\\\"name\\\":\\\"add_contact_name\\\",\\\"description\\\":\\\"a name of a person\\\"}]},{\\\"name\\\":\\\"remove_contact\\\",\\\"description\\\":\\\"remove a contact from your contact list\\\",\\\"slots\\\":[{\\\"name\\\":\\\"remove_contact_handle\\\",\\\"description\\\":\\\"a contact handle starting with @\\\"}]},{\\\"name\\\":\\\"transaction_search\\\",\\\"description\\\":\\\"lists the last transactions of the user account\\\"},{\\\"name\\\":\\\"check_balance\\\",\\\"description\\\":\\\"check the user's account balance\\\"},{\\\"name\\\":\\\"add_card\\\",\\\"description\\\":\\\"add a card to your account\\\"},{\\\"name\\\":\\\"job_vacancies\\\",\\\"description\\\":\\\"user asks for job vacancies\\\",\\\"slots\\\":[{\\\"name\\\":\\\"department\\\"}]},{\\\"name\\\":\\\"fill_pizza_order\\\",\\\"description\\\":\\\"user is asked to fill out pizza order details\\\",\\\"slots\\\":[{\\\"name\\\":\\\"pizza\\\"},{\\\"name\\\":\\\"num_pizza\\\"},{\\\"name\\\":\\\"address\\\"}]},{\\\"name\\\":\\\"find_available_appointments\\\",\\\"description\\\":\\\"find available appointments on the doctor's schedule\\\",\\\"slots\\\":[{\\\"name\\\":\\\"appointment_time\\\",\\\"description\\\":\\\"the time of the appointment\\\"}]},{\\\"name\\\":\\\"verify_account\\\",\\\"description\\\":\\\"Verify an account for higher transfer limits\\\",\\\"slots\\\":[{\\\"name\\\":\\\"based_in_california\\\",\\\"allowed_values\\\":[True, False]}]},{\\\"name\\\":\\\"order_pizza\\\",\\\"description\\\":\\\"user asks for a pizza\\\",\\\"slots\\\":[{\\\"name\\\":\\\"pizza\\\"},{\\\"name\\\":\\\"num_pizza\\\"},{\\\"name\\\":\\\"address\\\"},{\\\"name\\\":\\\"payment_option\\\",\\\"allowed_values\\\":['card', 'membership_points']},{\\\"name\\\":\\\"card_details\\\"},{\\\"name\\\":\\\"user_name\\\",\\\"description\\\":\\\"The user name of the user.\\\"},{\\\"name\\\":\\\"user_password\\\",\\\"description\\\":\\\"The password of the user.\\\"}]},{\\\"name\\\":\\\"order_gift\\\",\\\"description\\\":\\\"order a gift for someone\\\",\\\"slots\\\":[{\\\"name\\\":\\\"gift_name\\\",\\\"description\\\":\\\"the name of the gift\\\"},{\\\"name\\\":\\\"gift_price\\\",\\\"description\\\":\\\"the price of the gift\\\"},{\\\"name\\\":\\\"gift_recipient\\\",\\\"description\\\":\\\"the name of the person receiving the gift\\\"}]},{\\\"name\\\":\\\"book_doctor_appointment\\\",\\\"description\\\":\\\"book an appointment at doctor's office\\\",\\\"slots\\\":[{\\\"name\\\":\\\"doctor_name\\\",\\\"description\\\":\\\"a name of the doctor\\\"},{\\\"name\\\":\\\"doctor_office_name\\\",\\\"description\\\":\\\"the doctor's office name\\\"},{\\\"name\\\":\\\"appointment_reason\\\",\\\"description\\\":\\\"a medical reason for the appointment\\\"},{\\\"name\\\":\\\"appointment_time\\\",\\\"description\\\":\\\"the time of the appointment\\\"}]},{\\\"name\\\":\\\"replace_card\\\",\\\"description\\\":\\\"the user needs to replace their card\\\",\\\"slots\\\":[{\\\"name\\\":\\\"replacement_reason\\\",\\\"allowed_values\\\":['lost', 'damaged']}]},{\\\"name\\\":\\\"check_portfolio\\\",\\\"description\\\":\\\"Check the user's investment portfolio, including stocks, bonds, and mutual funds.\\\",\\\"slots\\\":[{\\\"name\\\":\\\"user_name\\\",\\\"description\\\":\\\"The user name of the user.\\\"},{\\\"name\\\":\\\"user_password\\\",\\\"description\\\":\\\"The password of the user.\\\"},{\\\"name\\\":\\\"portfolio_type\\\",\\\"description\\\":\\\"The type of portfolio, for example: stocks, bonds or mutual_funds.\\\",\\\"allowed_values\\\":['stocks', 'bonds', 'mutual_funds']}]},{\\\"name\\\":\\\"setup_recurrent_payment\\\",\\\"description\\\":\\\"set up a recurring payment, which can either be a direct debit or a standing order\\\",\\\"slots\\\":[{\\\"name\\\":\\\"recurrent_payment_type\\\",\\\"description\\\":\\\"the type of payment\\\",\\\"allowed_values\\\":['direct debit', 'standing order']},{\\\"name\\\":\\\"recurrent_payment_recipient\\\",\\\"description\\\":\\\"the name of a person\\\"},{\\\"name\\\":\\\"recurrent_payment_amount_of_money\\\",\\\"description\\\":\\\"the amount of money without any currency designation\\\"},{\\\"name\\\":\\\"recurrent_payment_frequency\\\",\\\"description\\\":\\\"the frequency of the payment\\\",\\\"allowed_values\\\":['monthly', 'yearly']}]}]}\\n```\\n\\n---\\n\\n## Available Actions:\\n* `start flow flow_name`: Starting a flow. For example, `start flow transfer_money` or `start flow list_contacts`.\\n* `set slot slot_name slot_value`: Slot setting. For example, `set slot transfer_money_recipient Freddy`. Can be used to correct and change previously set values.\\n* `cancel flow`: Cancelling the current flow.\\n* `disambiguate flows flow_name1 flow_name2 ... flow_name_n`: Disambiguate which flow should be started when user input is ambiguous by listing the potential flows as options. For example, `disambiguate flows list_contacts add_contact remove_contact ...` if the user just wrote \\\"contacts\\\".\\n* `provide info`: Responding to the user's questions by supplying relevant information, such as answering FAQs or explaining services.\\n* `offtopic reply`: Responding to casual or social user messages that are unrelated to any flows, engaging in friendly conversation and addressing off-topic remarks.\\n* `hand over`: Handing over to a human, in case the user seems frustrated or explicitly asks to speak to one.\\n* `repeat message`: Repeating the last bot message.\\n\\n---\\n\\n## General Tips\\n* Do not fill slots with abstract values or placeholders.\\n* For categorical slots try to match the user message with allowed slot values. Use \\\"other\\\" if you cannot match it.\\n* Set the boolean slots based on the user response. Map positive responses to `True`, and negative to `False`.\\n* Extract text slot values exactly as provided by the user. Avoid assumptions, format changes, or partial extractions.\\n* Only use information provided by the user.\\n* Use clarification in ambiguous cases.\\n* Multiple flows can be started. If a user wants to digress into a second flow, you do not need to cancel the current flow.\\n* Do not cancel the flow unless the user explicitly requests it.\\n* Strictly adhere to the provided action format.\\n* Focus on the last message and take it one step at a time.\\n* Use the previous conversation steps only to aid understanding.\\n\\n---\\n\\n## Current State\\n\\nYou are currently not inside any flow.\\n\\n---\\n\\n## Conversation History\\nUSER: I would like to order a diavola pizza.\\nAI: How many pizzas would you like to order?\\nUSER: 1 please\\n\\n---\\n\\n## Task\\nCreate an action list with one action per line in response to the user's last message: \\\"\\\"\\\"1 please\\\"\\\"\\\".\\n\\nYour action list:\"}\n        ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/v1/chat/completions",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1",
+						"chat",
+						"completions"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "start_pizza_order (1 pizza)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{vault:OpenAIKey}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-mock-response-name",
+								"value": "show_contact_list",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"model\": \"gpt-4\",\n    \"messages\": [\n            {\n                \"role\": \"user\",\n                \"content\": \"## Task Description\\nYour task is to analyze the current conversation context and generate a list of actions to start new business processes that we call flows, to extract slots, or respond to small talk and knowledge requests.\\n\\n---\\n\\n## Available Flows and Slots\\nUse the following structured data:\\n```json\\n{\\\"flows\\\":[{\\\"name\\\":\\\"transfer_money\\\",\\\"description\\\":\\\"send money to friends and family\\\",\\\"slots\\\":[{\\\"name\\\":\\\"transfer_money_recipient\\\",\\\"description\\\":\\\"the name of a person\\\"},{\\\"name\\\":\\\"transfer_money_amount_of_money\\\",\\\"description\\\":\\\"the amount of money without any currency designation\\\"}]},{\\\"name\\\":\\\"list_contacts\\\",\\\"description\\\":\\\"show your contact list\\\"},{\\\"name\\\":\\\"add_contact\\\",\\\"description\\\":\\\"add a contact to your contact list\\\",\\\"slots\\\":[{\\\"name\\\":\\\"add_contact_handle\\\",\\\"description\\\":\\\"a user handle starting with @\\\"},{\\\"name\\\":\\\"add_contact_name\\\",\\\"description\\\":\\\"a name of a person\\\"}]},{\\\"name\\\":\\\"remove_contact\\\",\\\"description\\\":\\\"remove a contact from your contact list\\\",\\\"slots\\\":[{\\\"name\\\":\\\"remove_contact_handle\\\",\\\"description\\\":\\\"a contact handle starting with @\\\"}]},{\\\"name\\\":\\\"transaction_search\\\",\\\"description\\\":\\\"lists the last transactions of the user account\\\"},{\\\"name\\\":\\\"check_balance\\\",\\\"description\\\":\\\"check the user's account balance\\\"},{\\\"name\\\":\\\"add_card\\\",\\\"description\\\":\\\"add a card to your account\\\"},{\\\"name\\\":\\\"job_vacancies\\\",\\\"description\\\":\\\"user asks for job vacancies\\\",\\\"slots\\\":[{\\\"name\\\":\\\"department\\\"}]},{\\\"name\\\":\\\"fill_pizza_order\\\",\\\"description\\\":\\\"user is asked to fill out pizza order details\\\",\\\"slots\\\":[{\\\"name\\\":\\\"pizza\\\"},{\\\"name\\\":\\\"num_pizza\\\"},{\\\"name\\\":\\\"address\\\"}]},{\\\"name\\\":\\\"find_available_appointments\\\",\\\"description\\\":\\\"find available appointments on the doctor's schedule\\\",\\\"slots\\\":[{\\\"name\\\":\\\"appointment_time\\\",\\\"description\\\":\\\"the time of the appointment\\\"}]},{\\\"name\\\":\\\"verify_account\\\",\\\"description\\\":\\\"Verify an account for higher transfer limits\\\",\\\"slots\\\":[{\\\"name\\\":\\\"based_in_california\\\",\\\"allowed_values\\\":[True, False]}]},{\\\"name\\\":\\\"order_pizza\\\",\\\"description\\\":\\\"user asks for a pizza\\\",\\\"slots\\\":[{\\\"name\\\":\\\"pizza\\\"},{\\\"name\\\":\\\"num_pizza\\\"},{\\\"name\\\":\\\"address\\\"},{\\\"name\\\":\\\"payment_option\\\",\\\"allowed_values\\\":['card', 'membership_points']},{\\\"name\\\":\\\"card_details\\\"},{\\\"name\\\":\\\"user_name\\\",\\\"description\\\":\\\"The user name of the user.\\\"},{\\\"name\\\":\\\"user_password\\\",\\\"description\\\":\\\"The password of the user.\\\"}]},{\\\"name\\\":\\\"order_gift\\\",\\\"description\\\":\\\"order a gift for someone\\\",\\\"slots\\\":[{\\\"name\\\":\\\"gift_name\\\",\\\"description\\\":\\\"the name of the gift\\\"},{\\\"name\\\":\\\"gift_price\\\",\\\"description\\\":\\\"the price of the gift\\\"},{\\\"name\\\":\\\"gift_recipient\\\",\\\"description\\\":\\\"the name of the person receiving the gift\\\"}]},{\\\"name\\\":\\\"book_doctor_appointment\\\",\\\"description\\\":\\\"book an appointment at doctor's office\\\",\\\"slots\\\":[{\\\"name\\\":\\\"doctor_name\\\",\\\"description\\\":\\\"a name of the doctor\\\"},{\\\"name\\\":\\\"doctor_office_name\\\",\\\"description\\\":\\\"the doctor's office name\\\"},{\\\"name\\\":\\\"appointment_reason\\\",\\\"description\\\":\\\"a medical reason for the appointment\\\"},{\\\"name\\\":\\\"appointment_time\\\",\\\"description\\\":\\\"the time of the appointment\\\"}]},{\\\"name\\\":\\\"replace_card\\\",\\\"description\\\":\\\"the user needs to replace their card\\\",\\\"slots\\\":[{\\\"name\\\":\\\"replacement_reason\\\",\\\"allowed_values\\\":['lost', 'damaged']}]},{\\\"name\\\":\\\"check_portfolio\\\",\\\"description\\\":\\\"Check the user's investment portfolio, including stocks, bonds, and mutual funds.\\\",\\\"slots\\\":[{\\\"name\\\":\\\"user_name\\\",\\\"description\\\":\\\"The user name of the user.\\\"},{\\\"name\\\":\\\"user_password\\\",\\\"description\\\":\\\"The password of the user.\\\"},{\\\"name\\\":\\\"portfolio_type\\\",\\\"description\\\":\\\"The type of portfolio, for example: stocks, bonds or mutual_funds.\\\",\\\"allowed_values\\\":['stocks', 'bonds', 'mutual_funds']}]},{\\\"name\\\":\\\"setup_recurrent_payment\\\",\\\"description\\\":\\\"set up a recurring payment, which can either be a direct debit or a standing order\\\",\\\"slots\\\":[{\\\"name\\\":\\\"recurrent_payment_type\\\",\\\"description\\\":\\\"the type of payment\\\",\\\"allowed_values\\\":['direct debit', 'standing order']},{\\\"name\\\":\\\"recurrent_payment_recipient\\\",\\\"description\\\":\\\"the name of a person\\\"},{\\\"name\\\":\\\"recurrent_payment_amount_of_money\\\",\\\"description\\\":\\\"the amount of money without any currency designation\\\"},{\\\"name\\\":\\\"recurrent_payment_frequency\\\",\\\"description\\\":\\\"the frequency of the payment\\\",\\\"allowed_values\\\":['monthly', 'yearly']}]}]}\\n```\\n\\n---\\n\\n## Available Actions:\\n* `start flow flow_name`: Starting a flow. For example, `start flow transfer_money` or `start flow list_contacts`.\\n* `set slot slot_name slot_value`: Slot setting. For example, `set slot transfer_money_recipient Freddy`. Can be used to correct and change previously set values.\\n* `cancel flow`: Cancelling the current flow.\\n* `disambiguate flows flow_name1 flow_name2 ... flow_name_n`: Disambiguate which flow should be started when user input is ambiguous by listing the potential flows as options. For example, `disambiguate flows list_contacts add_contact remove_contact ...` if the user just wrote \\\"contacts\\\".\\n* `provide info`: Responding to the user's questions by supplying relevant information, such as answering FAQs or explaining services.\\n* `offtopic reply`: Responding to casual or social user messages that are unrelated to any flows, engaging in friendly conversation and addressing off-topic remarks.\\n* `hand over`: Handing over to a human, in case the user seems frustrated or explicitly asks to speak to one.\\n* `repeat message`: Repeating the last bot message.\\n\\n---\\n\\n## General Tips\\n* Do not fill slots with abstract values or placeholders.\\n* For categorical slots try to match the user message with allowed slot values. Use \\\"other\\\" if you cannot match it.\\n* Set the boolean slots based on the user response. Map positive responses to `True`, and negative to `False`.\\n* Extract text slot values exactly as provided by the user. Avoid assumptions, format changes, or partial extractions.\\n* Only use information provided by the user.\\n* Use clarification in ambiguous cases.\\n* Multiple flows can be started. If a user wants to digress into a second flow, you do not need to cancel the current flow.\\n* Do not cancel the flow unless the user explicitly requests it.\\n* Strictly adhere to the provided action format.\\n* Focus on the last message and take it one step at a time.\\n* Use the previous conversation steps only to aid understanding.\\n\\n---\\n\\n## Current State\\n\\nYou are currently not inside any flow.\\n\\n---\\n\\n## Conversation History\\nUSER: I would like to order a diavola pizza.\\nAI: How many pizzas would you like to order?\\nUSER: 1 please\\n\\n---\\n\\n## Task\\nCreate an action list with one action per line in response to the user's last message: \\\"\\\"\\\"1 please\\\"\\\"\\\".\\n\\nYour action list:\"}\n        ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v1/chat/completions",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"chat",
+								"completions"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Fri, 17 Jan 2025 11:55:56 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "access-control-expose-headers",
+							"value": "X-Request-ID"
+						},
+						{
+							"key": "openai-organization",
+							"value": "rasa"
+						},
+						{
+							"key": "openai-processing-ms",
+							"value": "978"
+						},
+						{
+							"key": "openai-version",
+							"value": "2020-10-01"
+						},
+						{
+							"key": "x-ratelimit-limit-requests",
+							"value": "10000"
+						},
+						{
+							"key": "x-ratelimit-limit-tokens",
+							"value": "1000000"
+						},
+						{
+							"key": "x-ratelimit-remaining-requests",
+							"value": "9999"
+						},
+						{
+							"key": "x-ratelimit-remaining-tokens",
+							"value": "998613"
+						},
+						{
+							"key": "x-ratelimit-reset-requests",
+							"value": "6ms"
+						},
+						{
+							"key": "x-ratelimit-reset-tokens",
+							"value": "83ms"
+						},
+						{
+							"key": "x-request-id",
+							"value": "req_4b5139cd8ee9025b5505ca428beae3d0"
+						},
+						{
+							"key": "strict-transport-security",
+							"value": "max-age=31536000; includeSubDomains; preload"
+						},
+						{
+							"key": "CF-Cache-Status",
+							"value": "DYNAMIC"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Server",
+							"value": "cloudflare"
+						},
+						{
+							"key": "CF-RAY",
+							"value": "903628b83c923af2-BOM"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "br"
+						},
+						{
+							"key": "alt-svc",
+							"value": "h3=\":443\"; ma=86400"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"chatcmpl-AqfF51bD27Br1ZrtfO4XKQvAXmznI\",\n    \"object\": \"chat.completion\",\n    \"created\": 1737114955,\n    \"model\": \"gpt-4-0613\",\n    \"choices\": [\n        {\n            \"index\": 0,\n            \"message\": {\n                \"role\": \"assistant\",\n                \"content\": \"set slot num_pizza 1, start flow order_pizza\",\n                \"refusal\": null\n            },\n            \"logprobs\": null,\n            \"finish_reason\": \"stop\"\n        }\n    ],\n    \"usage\": {\n        \"prompt_tokens\": 1229,\n        \"completion_tokens\": 6,\n        \"total_tokens\": 1235,\n        \"prompt_tokens_details\": {\n            \"cached_tokens\": 0,\n            \"audio_tokens\": 0\n        },\n        \"completion_tokens_details\": {\n            \"reasoning_tokens\": 0,\n            \"audio_tokens\": 0,\n            \"accepted_prediction_tokens\": 0,\n            \"rejected_prediction_tokens\": 0\n        }\n    },\n    \"service_tier\": \"default\",\n    \"system_fingerprint\": null\n}"
+				}
+			]
+		},
+		{
+			"name": "https://api.openai.com/v1/chat/completions",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{vault:openai-api:token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{vault:OpenAIKey}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "x-mock-response-name",
+						"value": "show_contact_list",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
 					"raw": "{\n    \"model\": \"gpt-4\",\n    \"messages\": [\n            {\n                \"role\": \"user\",\n                \"content\": \"## Task Description\\nYour task is to analyze the current conversation context and generate a list of actions to start new business processes that we call flows, to extract slots, or respond to small talk and knowledge requests.\\n\\n---\\n\\n## Available Flows and Slots\\nUse the following structured data:\\n```json\\n{\\\"flows\\\":[{\\\"name\\\":\\\"transfer_money\\\",\\\"description\\\":\\\"send money to friends and family\\\",\\\"slots\\\":[{\\\"name\\\":\\\"transfer_money_recipient\\\",\\\"description\\\":\\\"the name of a person\\\"},{\\\"name\\\":\\\"transfer_money_amount_of_money\\\",\\\"description\\\":\\\"the amount of money without any currency designation\\\"}]},{\\\"name\\\":\\\"list_contacts\\\",\\\"description\\\":\\\"show your contact list\\\"},{\\\"name\\\":\\\"add_contact\\\",\\\"description\\\":\\\"add a contact to your contact list\\\",\\\"slots\\\":[{\\\"name\\\":\\\"add_contact_handle\\\",\\\"description\\\":\\\"a user handle starting with @\\\"},{\\\"name\\\":\\\"add_contact_name\\\",\\\"description\\\":\\\"a name of a person\\\"}]},{\\\"name\\\":\\\"remove_contact\\\",\\\"description\\\":\\\"remove a contact from your contact list\\\",\\\"slots\\\":[{\\\"name\\\":\\\"remove_contact_handle\\\",\\\"description\\\":\\\"a contact handle starting with @\\\"}]},{\\\"name\\\":\\\"transaction_search\\\",\\\"description\\\":\\\"lists the last transactions of the user account\\\"},{\\\"name\\\":\\\"check_balance\\\",\\\"description\\\":\\\"check the user's account balance\\\"},{\\\"name\\\":\\\"add_card\\\",\\\"description\\\":\\\"add a card to your account\\\"},{\\\"name\\\":\\\"job_vacancies\\\",\\\"description\\\":\\\"user asks for job vacancies\\\",\\\"slots\\\":[{\\\"name\\\":\\\"department\\\"}]},{\\\"name\\\":\\\"fill_pizza_order\\\",\\\"description\\\":\\\"user is asked to fill out pizza order details\\\",\\\"slots\\\":[{\\\"name\\\":\\\"pizza\\\"},{\\\"name\\\":\\\"num_pizza\\\"},{\\\"name\\\":\\\"address\\\"}]},{\\\"name\\\":\\\"find_available_appointments\\\",\\\"description\\\":\\\"find available appointments on the doctor's schedule\\\",\\\"slots\\\":[{\\\"name\\\":\\\"appointment_time\\\",\\\"description\\\":\\\"the time of the appointment\\\"}]},{\\\"name\\\":\\\"verify_account\\\",\\\"description\\\":\\\"Verify an account for higher transfer limits\\\",\\\"slots\\\":[{\\\"name\\\":\\\"based_in_california\\\",\\\"allowed_values\\\":[True, False]}]},{\\\"name\\\":\\\"order_pizza\\\",\\\"description\\\":\\\"user asks for a pizza\\\",\\\"slots\\\":[{\\\"name\\\":\\\"pizza\\\"},{\\\"name\\\":\\\"num_pizza\\\"},{\\\"name\\\":\\\"address\\\"},{\\\"name\\\":\\\"payment_option\\\",\\\"allowed_values\\\":['card', 'membership_points']},{\\\"name\\\":\\\"card_details\\\"},{\\\"name\\\":\\\"user_name\\\",\\\"description\\\":\\\"The user name of the user.\\\"},{\\\"name\\\":\\\"user_password\\\",\\\"description\\\":\\\"The password of the user.\\\"}]},{\\\"name\\\":\\\"order_gift\\\",\\\"description\\\":\\\"order a gift for someone\\\",\\\"slots\\\":[{\\\"name\\\":\\\"gift_name\\\",\\\"description\\\":\\\"the name of the gift\\\"},{\\\"name\\\":\\\"gift_price\\\",\\\"description\\\":\\\"the price of the gift\\\"},{\\\"name\\\":\\\"gift_recipient\\\",\\\"description\\\":\\\"the name of the person receiving the gift\\\"}]},{\\\"name\\\":\\\"book_doctor_appointment\\\",\\\"description\\\":\\\"book an appointment at doctor's office\\\",\\\"slots\\\":[{\\\"name\\\":\\\"doctor_name\\\",\\\"description\\\":\\\"a name of the doctor\\\"},{\\\"name\\\":\\\"doctor_office_name\\\",\\\"description\\\":\\\"the doctor's office name\\\"},{\\\"name\\\":\\\"appointment_reason\\\",\\\"description\\\":\\\"a medical reason for the appointment\\\"},{\\\"name\\\":\\\"appointment_time\\\",\\\"description\\\":\\\"the time of the appointment\\\"}]},{\\\"name\\\":\\\"replace_card\\\",\\\"description\\\":\\\"the user needs to replace their card\\\",\\\"slots\\\":[{\\\"name\\\":\\\"replacement_reason\\\",\\\"allowed_values\\\":['lost', 'damaged']}]},{\\\"name\\\":\\\"check_portfolio\\\",\\\"description\\\":\\\"Check the user's investment portfolio, including stocks, bonds, and mutual funds.\\\",\\\"slots\\\":[{\\\"name\\\":\\\"user_name\\\",\\\"description\\\":\\\"The user name of the user.\\\"},{\\\"name\\\":\\\"user_password\\\",\\\"description\\\":\\\"The password of the user.\\\"},{\\\"name\\\":\\\"portfolio_type\\\",\\\"description\\\":\\\"The type of portfolio, for example: stocks, bonds or mutual_funds.\\\",\\\"allowed_values\\\":['stocks', 'bonds', 'mutual_funds']}]},{\\\"name\\\":\\\"setup_recurrent_payment\\\",\\\"description\\\":\\\"set up a recurring payment, which can either be a direct debit or a standing order\\\",\\\"slots\\\":[{\\\"name\\\":\\\"recurrent_payment_type\\\",\\\"description\\\":\\\"the type of payment\\\",\\\"allowed_values\\\":['direct debit', 'standing order']},{\\\"name\\\":\\\"recurrent_payment_recipient\\\",\\\"description\\\":\\\"the name of a person\\\"},{\\\"name\\\":\\\"recurrent_payment_amount_of_money\\\",\\\"description\\\":\\\"the amount of money without any currency designation\\\"},{\\\"name\\\":\\\"recurrent_payment_frequency\\\",\\\"description\\\":\\\"the frequency of the payment\\\",\\\"allowed_values\\\":['monthly', 'yearly']}]}]}\\n```\\n\\n---\\n\\n## Available Actions:\\n* `start flow flow_name`: Starting a flow. For example, `start flow transfer_money` or `start flow list_contacts`.\\n* `set slot slot_name slot_value`: Slot setting. For example, `set slot transfer_money_recipient Freddy`. Can be used to correct and change previously set values.\\n* `cancel flow`: Cancelling the current flow.\\n* `disambiguate flows flow_name1 flow_name2 ... flow_name_n`: Disambiguate which flow should be started when user input is ambiguous by listing the potential flows as options. For example, `disambiguate flows list_contacts add_contact remove_contact ...` if the user just wrote \\\"contacts\\\".\\n* `provide info`: Responding to the user's questions by supplying relevant information, such as answering FAQs or explaining services.\\n* `offtopic reply`: Responding to casual or social user messages that are unrelated to any flows, engaging in friendly conversation and addressing off-topic remarks.\\n* `hand over`: Handing over to a human, in case the user seems frustrated or explicitly asks to speak to one.\\n* `repeat message`: Repeating the last bot message.\\n\\n---\\n\\n## General Tips\\n* Do not fill slots with abstract values or placeholders.\\n* For categorical slots try to match the user message with allowed slot values. Use \\\"other\\\" if you cannot match it.\\n* Set the boolean slots based on the user response. Map positive responses to `True`, and negative to `False`.\\n* Extract text slot values exactly as provided by the user. Avoid assumptions, format changes, or partial extractions.\\n* Only use information provided by the user.\\n* Use clarification in ambiguous cases.\\n* Multiple flows can be started. If a user wants to digress into a second flow, you do not need to cancel the current flow.\\n* Do not cancel the flow unless the user explicitly requests it.\\n* Strictly adhere to the provided action format.\\n* Focus on the last message and take it one step at a time.\\n* Use the previous conversation steps only to aid understanding.\\n\\n---\\n\\n## Current State\\n\\nYou are currently not inside any flow.\\n\\n---\\n\\n## Conversation History\\nUSER: I would like to order a diavola pizza.\\nAI: How many pizzas would you like to order?\\nUSER: 2 please\\nAI: What is the delivery address?\\nUSER: 30 Pine Road\\n\\n---\\n\\n## Task\\nCreate an action list with one action per line in response to the user's last message: \\\"\\\"\\\"30 Pine Road\\\"\\\"\\\".\\n\\nYour action list:\"}\n        ]\n}",
 					"options": {
 						"raw": {
@@ -1411,7 +1604,7 @@
 			},
 			"response": [
 				{
-					"name": "set_pizza_delivery_address",
+					"name": "set_pizza_delivery_address (30 Pine Road)",
 					"originalRequest": {
 						"method": "POST",
 						"header": [
@@ -1547,6 +1740,199 @@
 					],
 					"cookie": [],
 					"body": "{\n    \"id\": \"chatcmpl-AqfF51bD27Br1ZrtfO4XKQvAXmznI\",\n    \"object\": \"chat.completion\",\n    \"created\": 1737114955,\n    \"model\": \"gpt-4-0613\",\n    \"choices\": [\n        {\n            \"index\": 0,\n            \"message\": {\n                \"role\": \"assistant\",\n                \"content\": \"set slot address '30 Pine Road'\",\n                \"refusal\": null\n            },\n            \"logprobs\": null,\n            \"finish_reason\": \"stop\"\n        }\n    ],\n    \"usage\": {\n        \"prompt_tokens\": 1229,\n        \"completion_tokens\": 6,\n        \"total_tokens\": 1235,\n        \"prompt_tokens_details\": {\n            \"cached_tokens\": 0,\n            \"audio_tokens\": 0\n        },\n        \"completion_tokens_details\": {\n            \"reasoning_tokens\": 0,\n            \"audio_tokens\": 0,\n            \"accepted_prediction_tokens\": 0,\n            \"rejected_prediction_tokens\": 0\n        }\n    },\n    \"service_tier\": \"default\",\n    \"system_fingerprint\": null\n}"
+				}
+			]
+		},
+		{
+			"name": "https://api.openai.com/v1/chat/completions",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{vault:openai-api:token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{vault:OpenAIKey}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "x-mock-response-name",
+						"value": "show_contact_list",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"model\": \"gpt-4\",\n    \"messages\": [\n            {\n                \"role\": \"user\",\n                \"content\": \"## Task Description\\nYour task is to analyze the current conversation context and generate a list of actions to start new business processes that we call flows, to extract slots, or respond to small talk and knowledge requests.\\n\\n---\\n\\n## Available Flows and Slots\\nUse the following structured data:\\n```json\\n{\\\"flows\\\":[{\\\"name\\\":\\\"transfer_money\\\",\\\"description\\\":\\\"send money to friends and family\\\",\\\"slots\\\":[{\\\"name\\\":\\\"transfer_money_recipient\\\",\\\"description\\\":\\\"the name of a person\\\"},{\\\"name\\\":\\\"transfer_money_amount_of_money\\\",\\\"description\\\":\\\"the amount of money without any currency designation\\\"}]},{\\\"name\\\":\\\"list_contacts\\\",\\\"description\\\":\\\"show your contact list\\\"},{\\\"name\\\":\\\"add_contact\\\",\\\"description\\\":\\\"add a contact to your contact list\\\",\\\"slots\\\":[{\\\"name\\\":\\\"add_contact_handle\\\",\\\"description\\\":\\\"a user handle starting with @\\\"},{\\\"name\\\":\\\"add_contact_name\\\",\\\"description\\\":\\\"a name of a person\\\"}]},{\\\"name\\\":\\\"remove_contact\\\",\\\"description\\\":\\\"remove a contact from your contact list\\\",\\\"slots\\\":[{\\\"name\\\":\\\"remove_contact_handle\\\",\\\"description\\\":\\\"a contact handle starting with @\\\"}]},{\\\"name\\\":\\\"transaction_search\\\",\\\"description\\\":\\\"lists the last transactions of the user account\\\"},{\\\"name\\\":\\\"check_balance\\\",\\\"description\\\":\\\"check the user's account balance\\\"},{\\\"name\\\":\\\"add_card\\\",\\\"description\\\":\\\"add a card to your account\\\"},{\\\"name\\\":\\\"job_vacancies\\\",\\\"description\\\":\\\"user asks for job vacancies\\\",\\\"slots\\\":[{\\\"name\\\":\\\"department\\\"}]},{\\\"name\\\":\\\"fill_pizza_order\\\",\\\"description\\\":\\\"user is asked to fill out pizza order details\\\",\\\"slots\\\":[{\\\"name\\\":\\\"pizza\\\"},{\\\"name\\\":\\\"num_pizza\\\"},{\\\"name\\\":\\\"address\\\"}]},{\\\"name\\\":\\\"find_available_appointments\\\",\\\"description\\\":\\\"find available appointments on the doctor's schedule\\\",\\\"slots\\\":[{\\\"name\\\":\\\"appointment_time\\\",\\\"description\\\":\\\"the time of the appointment\\\"}]},{\\\"name\\\":\\\"verify_account\\\",\\\"description\\\":\\\"Verify an account for higher transfer limits\\\",\\\"slots\\\":[{\\\"name\\\":\\\"based_in_california\\\",\\\"allowed_values\\\":[True, False]}]},{\\\"name\\\":\\\"order_pizza\\\",\\\"description\\\":\\\"user asks for a pizza\\\",\\\"slots\\\":[{\\\"name\\\":\\\"pizza\\\"},{\\\"name\\\":\\\"num_pizza\\\"},{\\\"name\\\":\\\"address\\\"},{\\\"name\\\":\\\"payment_option\\\",\\\"allowed_values\\\":['card', 'membership_points']},{\\\"name\\\":\\\"card_details\\\"},{\\\"name\\\":\\\"user_name\\\",\\\"description\\\":\\\"The user name of the user.\\\"},{\\\"name\\\":\\\"user_password\\\",\\\"description\\\":\\\"The password of the user.\\\"}]},{\\\"name\\\":\\\"order_gift\\\",\\\"description\\\":\\\"order a gift for someone\\\",\\\"slots\\\":[{\\\"name\\\":\\\"gift_name\\\",\\\"description\\\":\\\"the name of the gift\\\"},{\\\"name\\\":\\\"gift_price\\\",\\\"description\\\":\\\"the price of the gift\\\"},{\\\"name\\\":\\\"gift_recipient\\\",\\\"description\\\":\\\"the name of the person receiving the gift\\\"}]},{\\\"name\\\":\\\"book_doctor_appointment\\\",\\\"description\\\":\\\"book an appointment at doctor's office\\\",\\\"slots\\\":[{\\\"name\\\":\\\"doctor_name\\\",\\\"description\\\":\\\"a name of the doctor\\\"},{\\\"name\\\":\\\"doctor_office_name\\\",\\\"description\\\":\\\"the doctor's office name\\\"},{\\\"name\\\":\\\"appointment_reason\\\",\\\"description\\\":\\\"a medical reason for the appointment\\\"},{\\\"name\\\":\\\"appointment_time\\\",\\\"description\\\":\\\"the time of the appointment\\\"}]},{\\\"name\\\":\\\"replace_card\\\",\\\"description\\\":\\\"the user needs to replace their card\\\",\\\"slots\\\":[{\\\"name\\\":\\\"replacement_reason\\\",\\\"allowed_values\\\":['lost', 'damaged']}]},{\\\"name\\\":\\\"check_portfolio\\\",\\\"description\\\":\\\"Check the user's investment portfolio, including stocks, bonds, and mutual funds.\\\",\\\"slots\\\":[{\\\"name\\\":\\\"user_name\\\",\\\"description\\\":\\\"The user name of the user.\\\"},{\\\"name\\\":\\\"user_password\\\",\\\"description\\\":\\\"The password of the user.\\\"},{\\\"name\\\":\\\"portfolio_type\\\",\\\"description\\\":\\\"The type of portfolio, for example: stocks, bonds or mutual_funds.\\\",\\\"allowed_values\\\":['stocks', 'bonds', 'mutual_funds']}]},{\\\"name\\\":\\\"setup_recurrent_payment\\\",\\\"description\\\":\\\"set up a recurring payment, which can either be a direct debit or a standing order\\\",\\\"slots\\\":[{\\\"name\\\":\\\"recurrent_payment_type\\\",\\\"description\\\":\\\"the type of payment\\\",\\\"allowed_values\\\":['direct debit', 'standing order']},{\\\"name\\\":\\\"recurrent_payment_recipient\\\",\\\"description\\\":\\\"the name of a person\\\"},{\\\"name\\\":\\\"recurrent_payment_amount_of_money\\\",\\\"description\\\":\\\"the amount of money without any currency designation\\\"},{\\\"name\\\":\\\"recurrent_payment_frequency\\\",\\\"description\\\":\\\"the frequency of the payment\\\",\\\"allowed_values\\\":['monthly', 'yearly']}]}]}\\n```\\n\\n---\\n\\n## Available Actions:\\n* `start flow flow_name`: Starting a flow. For example, `start flow transfer_money` or `start flow list_contacts`.\\n* `set slot slot_name slot_value`: Slot setting. For example, `set slot transfer_money_recipient Freddy`. Can be used to correct and change previously set values.\\n* `cancel flow`: Cancelling the current flow.\\n* `disambiguate flows flow_name1 flow_name2 ... flow_name_n`: Disambiguate which flow should be started when user input is ambiguous by listing the potential flows as options. For example, `disambiguate flows list_contacts add_contact remove_contact ...` if the user just wrote \\\"contacts\\\".\\n* `provide info`: Responding to the user's questions by supplying relevant information, such as answering FAQs or explaining services.\\n* `offtopic reply`: Responding to casual or social user messages that are unrelated to any flows, engaging in friendly conversation and addressing off-topic remarks.\\n* `hand over`: Handing over to a human, in case the user seems frustrated or explicitly asks to speak to one.\\n* `repeat message`: Repeating the last bot message.\\n\\n---\\n\\n## General Tips\\n* Do not fill slots with abstract values or placeholders.\\n* For categorical slots try to match the user message with allowed slot values. Use \\\"other\\\" if you cannot match it.\\n* Set the boolean slots based on the user response. Map positive responses to `True`, and negative to `False`.\\n* Extract text slot values exactly as provided by the user. Avoid assumptions, format changes, or partial extractions.\\n* Only use information provided by the user.\\n* Use clarification in ambiguous cases.\\n* Multiple flows can be started. If a user wants to digress into a second flow, you do not need to cancel the current flow.\\n* Do not cancel the flow unless the user explicitly requests it.\\n* Strictly adhere to the provided action format.\\n* Focus on the last message and take it one step at a time.\\n* Use the previous conversation steps only to aid understanding.\\n\\n---\\n\\n## Current State\\n\\nYou are currently not inside any flow.\\n\\n---\\n\\n## Conversation History\\nUSER: I would like to order a diavola pizza.\\nAI: How many pizzas would you like to order?\\nUSER: 2 please\\nAI: What is the delivery address?\\nUSER: 40 Elm Street\\n\\n---\\n\\n## Task\\nCreate an action list with one action per line in response to the user's last message: \\\"\\\"\\\"40 Elm Street\\\"\\\"\\\".\\n\\nYour action list:\"}\n        ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/v1/chat/completions",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1",
+						"chat",
+						"completions"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "set_pizza_delivery_address (40 Elm Street)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{vault:OpenAIKey}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-mock-response-name",
+								"value": "show_contact_list",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"model\": \"gpt-4\",\n    \"messages\": [\n            {\n                \"role\": \"user\",\n                \"content\": \"## Task Description\\nYour task is to analyze the current conversation context and generate a list of actions to start new business processes that we call flows, to extract slots, or respond to small talk and knowledge requests.\\n\\n---\\n\\n## Available Flows and Slots\\nUse the following structured data:\\n```json\\n{\\\"flows\\\":[{\\\"name\\\":\\\"transfer_money\\\",\\\"description\\\":\\\"send money to friends and family\\\",\\\"slots\\\":[{\\\"name\\\":\\\"transfer_money_recipient\\\",\\\"description\\\":\\\"the name of a person\\\"},{\\\"name\\\":\\\"transfer_money_amount_of_money\\\",\\\"description\\\":\\\"the amount of money without any currency designation\\\"}]},{\\\"name\\\":\\\"list_contacts\\\",\\\"description\\\":\\\"show your contact list\\\"},{\\\"name\\\":\\\"add_contact\\\",\\\"description\\\":\\\"add a contact to your contact list\\\",\\\"slots\\\":[{\\\"name\\\":\\\"add_contact_handle\\\",\\\"description\\\":\\\"a user handle starting with @\\\"},{\\\"name\\\":\\\"add_contact_name\\\",\\\"description\\\":\\\"a name of a person\\\"}]},{\\\"name\\\":\\\"remove_contact\\\",\\\"description\\\":\\\"remove a contact from your contact list\\\",\\\"slots\\\":[{\\\"name\\\":\\\"remove_contact_handle\\\",\\\"description\\\":\\\"a contact handle starting with @\\\"}]},{\\\"name\\\":\\\"transaction_search\\\",\\\"description\\\":\\\"lists the last transactions of the user account\\\"},{\\\"name\\\":\\\"check_balance\\\",\\\"description\\\":\\\"check the user's account balance\\\"},{\\\"name\\\":\\\"add_card\\\",\\\"description\\\":\\\"add a card to your account\\\"},{\\\"name\\\":\\\"job_vacancies\\\",\\\"description\\\":\\\"user asks for job vacancies\\\",\\\"slots\\\":[{\\\"name\\\":\\\"department\\\"}]},{\\\"name\\\":\\\"fill_pizza_order\\\",\\\"description\\\":\\\"user is asked to fill out pizza order details\\\",\\\"slots\\\":[{\\\"name\\\":\\\"pizza\\\"},{\\\"name\\\":\\\"num_pizza\\\"},{\\\"name\\\":\\\"address\\\"}]},{\\\"name\\\":\\\"find_available_appointments\\\",\\\"description\\\":\\\"find available appointments on the doctor's schedule\\\",\\\"slots\\\":[{\\\"name\\\":\\\"appointment_time\\\",\\\"description\\\":\\\"the time of the appointment\\\"}]},{\\\"name\\\":\\\"verify_account\\\",\\\"description\\\":\\\"Verify an account for higher transfer limits\\\",\\\"slots\\\":[{\\\"name\\\":\\\"based_in_california\\\",\\\"allowed_values\\\":[True, False]}]},{\\\"name\\\":\\\"order_pizza\\\",\\\"description\\\":\\\"user asks for a pizza\\\",\\\"slots\\\":[{\\\"name\\\":\\\"pizza\\\"},{\\\"name\\\":\\\"num_pizza\\\"},{\\\"name\\\":\\\"address\\\"},{\\\"name\\\":\\\"payment_option\\\",\\\"allowed_values\\\":['card', 'membership_points']},{\\\"name\\\":\\\"card_details\\\"},{\\\"name\\\":\\\"user_name\\\",\\\"description\\\":\\\"The user name of the user.\\\"},{\\\"name\\\":\\\"user_password\\\",\\\"description\\\":\\\"The password of the user.\\\"}]},{\\\"name\\\":\\\"order_gift\\\",\\\"description\\\":\\\"order a gift for someone\\\",\\\"slots\\\":[{\\\"name\\\":\\\"gift_name\\\",\\\"description\\\":\\\"the name of the gift\\\"},{\\\"name\\\":\\\"gift_price\\\",\\\"description\\\":\\\"the price of the gift\\\"},{\\\"name\\\":\\\"gift_recipient\\\",\\\"description\\\":\\\"the name of the person receiving the gift\\\"}]},{\\\"name\\\":\\\"book_doctor_appointment\\\",\\\"description\\\":\\\"book an appointment at doctor's office\\\",\\\"slots\\\":[{\\\"name\\\":\\\"doctor_name\\\",\\\"description\\\":\\\"a name of the doctor\\\"},{\\\"name\\\":\\\"doctor_office_name\\\",\\\"description\\\":\\\"the doctor's office name\\\"},{\\\"name\\\":\\\"appointment_reason\\\",\\\"description\\\":\\\"a medical reason for the appointment\\\"},{\\\"name\\\":\\\"appointment_time\\\",\\\"description\\\":\\\"the time of the appointment\\\"}]},{\\\"name\\\":\\\"replace_card\\\",\\\"description\\\":\\\"the user needs to replace their card\\\",\\\"slots\\\":[{\\\"name\\\":\\\"replacement_reason\\\",\\\"allowed_values\\\":['lost', 'damaged']}]},{\\\"name\\\":\\\"check_portfolio\\\",\\\"description\\\":\\\"Check the user's investment portfolio, including stocks, bonds, and mutual funds.\\\",\\\"slots\\\":[{\\\"name\\\":\\\"user_name\\\",\\\"description\\\":\\\"The user name of the user.\\\"},{\\\"name\\\":\\\"user_password\\\",\\\"description\\\":\\\"The password of the user.\\\"},{\\\"name\\\":\\\"portfolio_type\\\",\\\"description\\\":\\\"The type of portfolio, for example: stocks, bonds or mutual_funds.\\\",\\\"allowed_values\\\":['stocks', 'bonds', 'mutual_funds']}]},{\\\"name\\\":\\\"setup_recurrent_payment\\\",\\\"description\\\":\\\"set up a recurring payment, which can either be a direct debit or a standing order\\\",\\\"slots\\\":[{\\\"name\\\":\\\"recurrent_payment_type\\\",\\\"description\\\":\\\"the type of payment\\\",\\\"allowed_values\\\":['direct debit', 'standing order']},{\\\"name\\\":\\\"recurrent_payment_recipient\\\",\\\"description\\\":\\\"the name of a person\\\"},{\\\"name\\\":\\\"recurrent_payment_amount_of_money\\\",\\\"description\\\":\\\"the amount of money without any currency designation\\\"},{\\\"name\\\":\\\"recurrent_payment_frequency\\\",\\\"description\\\":\\\"the frequency of the payment\\\",\\\"allowed_values\\\":['monthly', 'yearly']}]}]}\\n```\\n\\n---\\n\\n## Available Actions:\\n* `start flow flow_name`: Starting a flow. For example, `start flow transfer_money` or `start flow list_contacts`.\\n* `set slot slot_name slot_value`: Slot setting. For example, `set slot transfer_money_recipient Freddy`. Can be used to correct and change previously set values.\\n* `cancel flow`: Cancelling the current flow.\\n* `disambiguate flows flow_name1 flow_name2 ... flow_name_n`: Disambiguate which flow should be started when user input is ambiguous by listing the potential flows as options. For example, `disambiguate flows list_contacts add_contact remove_contact ...` if the user just wrote \\\"contacts\\\".\\n* `provide info`: Responding to the user's questions by supplying relevant information, such as answering FAQs or explaining services.\\n* `offtopic reply`: Responding to casual or social user messages that are unrelated to any flows, engaging in friendly conversation and addressing off-topic remarks.\\n* `hand over`: Handing over to a human, in case the user seems frustrated or explicitly asks to speak to one.\\n* `repeat message`: Repeating the last bot message.\\n\\n---\\n\\n## General Tips\\n* Do not fill slots with abstract values or placeholders.\\n* For categorical slots try to match the user message with allowed slot values. Use \\\"other\\\" if you cannot match it.\\n* Set the boolean slots based on the user response. Map positive responses to `True`, and negative to `False`.\\n* Extract text slot values exactly as provided by the user. Avoid assumptions, format changes, or partial extractions.\\n* Only use information provided by the user.\\n* Use clarification in ambiguous cases.\\n* Multiple flows can be started. If a user wants to digress into a second flow, you do not need to cancel the current flow.\\n* Do not cancel the flow unless the user explicitly requests it.\\n* Strictly adhere to the provided action format.\\n* Focus on the last message and take it one step at a time.\\n* Use the previous conversation steps only to aid understanding.\\n\\n---\\n\\n## Current State\\n\\nYou are currently not inside any flow.\\n\\n---\\n\\n## Conversation History\\nUSER: I would like to order a diavola pizza.\\nAI: How many pizzas would you like to order?\\nUSER: 2 please\\nAI: What is the delivery address?\\nUSER: 40 Elm Street\\n\\n---\\n\\n## Task\\nCreate an action list with one action per line in response to the user's last message: \\\"\\\"\\\"40 Elm Street\\\"\\\"\\\".\\n\\nYour action list:\"}\n        ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v1/chat/completions",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"chat",
+								"completions"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Fri, 17 Jan 2025 11:55:56 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "access-control-expose-headers",
+							"value": "X-Request-ID"
+						},
+						{
+							"key": "openai-organization",
+							"value": "rasa"
+						},
+						{
+							"key": "openai-processing-ms",
+							"value": "978"
+						},
+						{
+							"key": "openai-version",
+							"value": "2020-10-01"
+						},
+						{
+							"key": "x-ratelimit-limit-requests",
+							"value": "10000"
+						},
+						{
+							"key": "x-ratelimit-limit-tokens",
+							"value": "1000000"
+						},
+						{
+							"key": "x-ratelimit-remaining-requests",
+							"value": "9999"
+						},
+						{
+							"key": "x-ratelimit-remaining-tokens",
+							"value": "998613"
+						},
+						{
+							"key": "x-ratelimit-reset-requests",
+							"value": "6ms"
+						},
+						{
+							"key": "x-ratelimit-reset-tokens",
+							"value": "83ms"
+						},
+						{
+							"key": "x-request-id",
+							"value": "req_4b5139cd8ee9025b5505ca428beae3d0"
+						},
+						{
+							"key": "strict-transport-security",
+							"value": "max-age=31536000; includeSubDomains; preload"
+						},
+						{
+							"key": "CF-Cache-Status",
+							"value": "DYNAMIC"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Server",
+							"value": "cloudflare"
+						},
+						{
+							"key": "CF-RAY",
+							"value": "903628b83c923af2-BOM"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "br"
+						},
+						{
+							"key": "alt-svc",
+							"value": "h3=\":443\"; ma=86400"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"chatcmpl-AqfF51bD27Br1ZrtfO4XKQvAXmznI\",\n    \"object\": \"chat.completion\",\n    \"created\": 1737114955,\n    \"model\": \"gpt-4-0613\",\n    \"choices\": [\n        {\n            \"index\": 0,\n            \"message\": {\n                \"role\": \"assistant\",\n                \"content\": \"set slot address '40 Elm Street'\",\n                \"refusal\": null\n            },\n            \"logprobs\": null,\n            \"finish_reason\": \"stop\"\n        }\n    ],\n    \"usage\": {\n        \"prompt_tokens\": 1229,\n        \"completion_tokens\": 6,\n        \"total_tokens\": 1235,\n        \"prompt_tokens_details\": {\n            \"cached_tokens\": 0,\n            \"audio_tokens\": 0\n        },\n        \"completion_tokens_details\": {\n            \"reasoning_tokens\": 0,\n            \"audio_tokens\": 0,\n            \"accepted_prediction_tokens\": 0,\n            \"rejected_prediction_tokens\": 0\n        }\n    },\n    \"service_tier\": \"default\",\n    \"system_fingerprint\": null\n}"
 				}
 			]
 		},

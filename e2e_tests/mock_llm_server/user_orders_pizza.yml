@@ -66,41 +66,41 @@ test_cases:
             - slot_was_not_set:
                 - name: confirmation_order
 
-  # - test_case: user_orders_pizza_stating_which_type_and_pays_with_points
-  #   steps:
-  #     - user: I would like to order a diavola pizza.
-  #       assertions:
-  #         - slot_was_set:
-  #             - name: pizza
-  #               value: diavola
-  #         - bot_uttered:
-  #             utter_name: utter_ask_num_pizza
-  #     - user: 1 please
-  #       assertions:
-  #           - slot_was_set:
-  #               - name: num_pizza
-  #                 value: 1
-  #           - bot_uttered:
-  #               utter_name: utter_ask_address
-  #     - user: 40 Elm Street
-  #       assertions:
-  #           - slot_was_set:
-  #               - name: address
-  #                 value: 40 Elm Street
-  #           - bot_uttered:
-  #               utter_name: utter_confirm
-  #               buttons:
-  #                 - title: Yes
-  #                   payload: /SetSlots(confirmation_order=True)
-  #                 - title: No
-  #                   payload: /SetSlots(confirmation_order=False)
-  #     - user: /SetSlots(confirmation_order=True)
-  #       assertions:
-  #           - slot_was_set:
-  #               - name: confirmation_order
-  #                 value: True
-  #           - bot_uttered:
-  #               utter_name: utter_ask_payment_option
+  - test_case: user_orders_pizza_stating_which_type_and_pays_with_points
+    steps:
+      - user: I would like to order a diavola pizza.
+        assertions:
+          - slot_was_set:
+              - name: pizza
+                value: diavola
+          - bot_uttered:
+              utter_name: utter_ask_num_pizza
+      - user: 1 please
+        assertions:
+            - slot_was_set:
+                - name: num_pizza
+                  value: 1
+            - bot_uttered:
+                utter_name: utter_ask_address
+      - user: 40 Elm Street
+        assertions:
+            - slot_was_set:
+                - name: address
+                  value: 40 Elm Street
+            - bot_uttered:
+                utter_name: utter_confirm
+                buttons:
+                  - title: Yes
+                    payload: /SetSlots(confirmation_order=True)
+                  - title: No
+                    payload: /SetSlots(confirmation_order=False)
+      - user: /SetSlots(confirmation_order=True)
+        assertions:
+            - slot_was_set:
+                - name: confirmation_order
+                  value: True
+            - bot_uttered:
+                utter_name: utter_ask_payment_option
   #     - user: loyalty points
   #       assertions:
   #           - slot_was_set:
