@@ -24,7 +24,7 @@ flows:
   pattern_chitchat:
     description: Handle chitchat using intentless policy
     steps:
-      - action: action_trigger_chitchat
+      - action: utter_free_chitchat_response
 
   pattern_search:
     description: handle knowledge-based requests using enterprise search

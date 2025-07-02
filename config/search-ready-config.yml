@@ -38,6 +38,5 @@ policies:
 - name: FlowPolicy
 - name: EnterpriseSearchPolicy
   check_relevancy: True
-- name: IntentlessPolicy
 
 assistant_id: 20240418-073244-narrow-archive

@@ -37,6 +37,5 @@ policies:
   constrain_similarities: true
 - name: FlowPolicy
 - name: EnterpriseSearchPolicy
-- name: IntentlessPolicy
 
 assistant_id: 20240418-073244-narrow-archive
