@@ -22,7 +22,7 @@ flows:
                       next: END
 
   pattern_chitchat:
-    description: Handle chitchat using intentless policy
+    description: Handle chitchat with a free-form answer generation
     steps:
       - action: utter_free_chitchat_response
 
