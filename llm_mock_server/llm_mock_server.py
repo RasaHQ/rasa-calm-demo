@@ -78,7 +78,7 @@ def extract_conversation_history_from_input_body(input_body: str) -> Optional[st
 
     if match:
         # Extract the conversation content from the first capture group
-        conversation_history = match.group(1)
+        conversation_history = match.group(0)
 
         # Cache the result for future use
         user_input_cache[input_message_hash] = conversation_history
@@ -151,9 +151,6 @@ async def generic_endpoint(request: Request):
             status_code=404, detail="Conversation history not found in input."
         )
 
-    logger.info(f"Conversation history: {conversation_history}")
-    logger.info(f"Caches_response keys: {cache_response.keys()}")
-
     # Check if we have a cached response for this search string
     if conversation_history in cache_response:
         return cache_response[conversation_history]
@@ -170,10 +167,9 @@ async def generic_endpoint(request: Request):
 
     # Search through all request-response pairs for this endpoint
     for request_response_pair in communication_item.request_response:
-        logger.info(f"request_response_pair.request: {request_response_pair.request}")
 
         # Check if the search string matches any stored request
-        if conversation_history in request_response_pair.request:
+        if conversation_history.replace("\n", "") in request_response_pair.request.replace("\\n", ""):
             # Cache the response for future requests
             cache_response[conversation_history] = request_response_pair.response
             return request_response_pair.response
@@ -182,8 +178,6 @@ async def generic_endpoint(request: Request):
     logger.info(
         f"No matching request-response pair found for search string: {conversation_history}"
     )
-    logger.info(f"caches_response keys: {communication.get(request.url.path, None)}")
-    logger.info(f"body: {body}")
     raise HTTPException(
         status_code=404,
         detail="No matching request-response pair found for the provided input.",
