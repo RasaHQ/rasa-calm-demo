@@ -78,7 +78,7 @@ test-one: .EXPORT_ALL_VARIABLES
 	poetry run rasa test e2e $(target) --debug
 
 test-flows-with-mock-llm-server: .EXPORT_ALL_VARIABLES
-	poetry run rasa test e2e e2e_tests/mock_llm_server --e2e-results --endpoints mock-llm-server-endpoints.yml --debug
+	poetry run rasa test e2e e2e_tests/mock_llm_server --e2e-results --endpoints mock-llm-server-endpoints.yml --debug --coverage-report
 
 stop-duckling:
 	docker stop duckling_container
