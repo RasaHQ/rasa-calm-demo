@@ -47,6 +47,9 @@ run-duckling:
 run-mock-llm-server:
 	docker compose -f llm_mock_server/docker-compose.yml up --wait
 
+build-and-run-mock-llm-server-in-watch-mode-for-local-development:
+	docker compose -f llm_mock_server/docker-compose.yml up --build --watch
+
 train: .EXPORT_ALL_VARIABLES
 	poetry run rasa train -c config/config.yml -d domain --data data
 
