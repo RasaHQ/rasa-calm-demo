@@ -69,15 +69,16 @@ def extract_conversation_history_from_input_body(input_body: str) -> Optional[st
         logger.info(f"Return cached output: {user_input_cache[input_message_hash]}")
         return user_input_cache[input_message_hash]
 
-    # Regular expression pattern to match conversation history
-    # Looks for text between "Conversation History" and latest user message ("USER:"), up to "\n\n---\n\n"
-    pattern = r"Conversation History.*USER: (.*?)\n\n---\n\n"
+    # Regular expression pattern to match full conversation history
+    # Looks for text starting with "Conversation History", and including 
+    # latest user message ("USER:"), up to "\n\n---\n\n"
+    pattern = r"Conversation History.*USER: .*\n\n---\n\n"
 
     # Search for the pattern in the input body with multiline and dotall flags
     match = re.search(pattern, input_body, re.MULTILINE | re.DOTALL)
 
     if match:
-        # Extract the conversation content from the first capture group
+        # Retrieve the entire conversation history by extracting the full regex string match
         conversation_history = match.group(0)
 
         # Cache the result for future use
@@ -168,7 +169,7 @@ async def generic_endpoint(request: Request):
     # Search through all request-response pairs for this endpoint
     for request_response_pair in communication_item.request_response:
 
-        # Check if the search string matches any stored request
+        # Check if the search string matches any stored request (ignoring newlines)
         if conversation_history.replace("\n", "") in request_response_pair.request.replace("\\n", ""):
             # Cache the response for future requests
             cache_response[conversation_history] = request_response_pair.response
