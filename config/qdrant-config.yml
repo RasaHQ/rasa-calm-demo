@@ -43,6 +43,5 @@ policies:
     type: "addons.qdrant.Qdrant_Store"
   embeddings:
     model_group: openai-embeddings
-- name: IntentlessPolicy
 
 assistant_id: 20240418-073244-narrow-archive

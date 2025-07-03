@@ -22,9 +22,9 @@ flows:
                       next: END
 
   pattern_chitchat:
-    description: Handle chitchat using intentless policy
+    description: Handle chitchat with a free-form answer generation
     steps:
-      - action: action_trigger_chitchat
+      - action: utter_free_chitchat_response
 
   pattern_search:
     description: handle knowledge-based requests using enterprise search
