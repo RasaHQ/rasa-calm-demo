@@ -10,6 +10,10 @@ test_cases:
           - flow_started: pattern_search
           - flow_started: pattern_cannot_handle
           - flow_started: pattern_chitchat
+          - bot_uttered:
+              utter_name: utter_free_chitchat_response
+          - bot_uttered:
+              utter_name: utter_ask_transfer_money_amount_of_money
       - user: lovely, transfer 50$
         assertions:
           - bot_uttered:
