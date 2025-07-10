@@ -4,6 +4,7 @@ __pycache__/
 *$py.class
 .idea/
 .DS_Store
+.vscode/
 # emacs
 *~
 
@@ -146,3 +147,6 @@ qdrant_storage/
 # mlflow
 mlruns/
 certs/
+
+# coverage-report
+e2e_coverage_results

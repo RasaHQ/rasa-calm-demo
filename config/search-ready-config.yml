@@ -3,9 +3,9 @@ language: en
 pipeline:
 - name: LLMBasedRouter
   calm_entry:
-    sticky: "handles everything else, including finance and pizza orders"
+    sticky: "handles everything else, including finance, doctor appointments and pizza orders"
   nlu_entry:
-    sticky: "handles everything around health advice and hotel or restaurant bookings"
+    sticky: "handles only health advice, hotel reservations and restaurant bookings"
     non_sticky: "handles chitchat"
 - name: WhitespaceTokenizer
 - name: CountVectorsFeaturizer
@@ -37,11 +37,6 @@ policies:
   constrain_similarities: true
 - name: FlowPolicy
 - name: EnterpriseSearchPolicy
-  #use_generative_llm: false
-  #prompt: rag.jinja2
-  vector_store:
-    type: "addons.qdrant.Qdrant_Store"
-  embeddings:
-    model_group: openai-embeddings
+  check_relevancy: True
 
 assistant_id: 20240418-073244-narrow-archive

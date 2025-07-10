@@ -4,6 +4,14 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    develop:
+      watch:
+        - action: sync+restart
+          path: ../llm_mock_server
+          target: /app
+          ignore:
+            - docs_images
+            - README.md
     ports:
       - "8080:8080"
     healthcheck:

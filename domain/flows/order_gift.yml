@@ -11,7 +11,7 @@ slots:
     - type: from_llm
     validation:
       rejections:
-        - if: slots.gift_recipient == "me"
+        - if: slots.gift_recipient == "me" or slots.gift_recipient == "myself"
           utter: utter_gift_recipient_invalid
   gift_name:
     type: text
