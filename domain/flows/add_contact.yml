@@ -5,6 +5,7 @@ intents:
 
 actions:
   - add_contact
+  - schedule_doctor_appointment
 
 slots:
   add_contact_confirmation:
@@ -12,11 +13,24 @@ slots:
     mappings:
     - type: from_llm
   add_contact_name:
+#    influence_conversation: True
     type: text
     mappings:
     - type: from_llm
   add_contact_handle:
     type: text
+    mappings:
+      - type: from_llm
+  schedule_doctor_date:
+    type: text
+    mappings:
+      - type: from_llm
+  schedule_doctor_time:
+    type: text
+    mappings:
+      - type: from_llm
+  schedule_doctor_confirmation:
+    type: bool
     mappings:
       - type: from_llm
 
@@ -32,6 +46,17 @@ responses:
     - text: What's the handle of the user you want to add?
   utter_ask_add_contact_name:
     - text: What's the name of the user you want to add?
+  utter_ask_schedule_doctor_date:
+    - text: When would you like to schedule the appointment? Please provide a date.
+  utter_ask_schedule_doctor_time:
+    - text: What time would you like to schedule the appointment?
+  utter_ask_schedule_doctor_confirmation:
+    - text: Do you want to schedule an appointment with the doctor on {schedule_doctor_date} at {schedule_doctor_time}?
+      buttons:
+        - payload: yes
+          title: "Yes"
+        - payload: no
+          title: "No, cancel"
   utter_add_contact_error:
     - text: Something went wrong, please try again.
   utter_add_contact_cancelled:
@@ -40,3 +65,9 @@ responses:
     - text: There's already a contact with that handle in your list.
   utter_contact_added:
     - text: Contact added successfully.
+  utter_appointment_scheduled:
+    - text: Your appointment has been scheduled successfully.
+  utter_schedule_doctor_error:
+    - text: Something went wrong while scheduling your appointment, please try again.
+  utter_schedule_doctor_cancelled:
+    - text: Okay, I am cancelling this scheduling of a doctor appointment.

@@ -11,6 +11,9 @@ flows:
         description: a user handle starting with @
       - collect: add_contact_name
         description: a name of a person
+      - action: utter_add_contact_cancelled
+      - call: schedule_doctor
+        description: schedule a doctor appointment
       - collect: add_contact_confirmation
         ask_before_filling: true
         next:
@@ -32,4 +35,34 @@ flows:
                 next: END
           - else:
               - action: utter_add_contact_error
+                next: END
+
+  schedule_doctor:
+    description: schedule a doctor appointment
+    name: schedule doctor appointment
+    persisted_slots:
+      - schedule_doctor_date
+      - schedule_doctor_time
+    steps:
+      - collect: schedule_doctor_date
+        description: date for the appointment
+      - collect: schedule_doctor_time
+        description: time for the appointment
+      - collect: schedule_doctor_confirmation
+        ask_before_filling: true
+        next:
+          - if: not slots.schedule_doctor_confirmation
+            then:
+              - action: utter_schedule_doctor_cancelled
+                next: END
+          - else: schedule_doctor
+      - id: schedule_doctor
+        action: schedule_doctor_appointment
+        next:
+          - if: "slots.return_value = 'success'"
+            then:
+              - action: utter_appointment_scheduled
+                next: END
+          - else:
+              - action: utter_schedule_doctor_error
                 next: END
