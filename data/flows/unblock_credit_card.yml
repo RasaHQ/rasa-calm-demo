@@ -1,0 +1,30 @@
+flows:
+    unblock_credit_card:
+        description: Unblock last blocked credit card
+        steps:
+            - action: check_blocked_cards
+              next:
+                - if: slots.blocked_card is not null
+                  then:
+                    - action: utter_no_blocked_card
+                      next: END
+                - else: confirm_unblock_card
+            - id: confirm_unblock_card
+              collect: confirm_unblock_card
+              ask_before_filling: true
+              next:
+                - if: not slots.confirm_unblock_card
+                  then:
+                    - action: utter_unblock_card_cancelled
+                      next: END
+                - else: unblock_card
+            - id: unblock_card
+              action: unblock_card
+              next:
+                - if: "slots.unblock_card_result == 'success'"
+                  then:
+                    - action: utter_card_unblocked
+                      next: END
+                - else:
+                    - action: utter_unblock_card_failed
+                      next: END

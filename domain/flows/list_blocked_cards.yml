@@ -1,0 +1,6 @@
+actions:
+    - check_blocked_cards
+
+responses:
+    utter_no_blocked_cards:
+        - text: You don't have any blocked cards.

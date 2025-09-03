@@ -1,0 +1,12 @@
+flows:
+    list_blocked_cards:
+        name: list blocked cards
+        description: Lists blocked credit cards
+        steps:
+        - action: check_blocked_cards
+          next:
+          - if: slots.blocked_card is not null
+            then:
+            - action: utter_no_blocked_cards
+              next: END
+          - else: END
