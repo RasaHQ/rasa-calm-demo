@@ -58,4 +58,14 @@ flows:
     nlu_trigger:
       - intent: session_start
     steps:
-      - action: utter_greet
+      - action: action_check_for_started_flows
+#      - action: "{{slots.active_flow_name}}"
+#      - link: "{{slots.active_flow_name}}"
+        next:
+          - if: "slots.active_flow_name != ''"
+            then:
+               - action: "{{slots.active_flow_name}}"
+                 next: END
+          - else:
+              - action: utter_greet
+                next: END

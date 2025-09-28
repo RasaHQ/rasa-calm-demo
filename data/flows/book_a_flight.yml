@@ -1,0 +1,35 @@
+flows:
+    book_a_flight:
+        description: Book a flight for the user
+        steps:
+            - collect: location
+            - collect: travel_date
+            - collect: return_date
+              next:
+                - if: "slots.return_date < slots.travel_date"
+                  then:
+                    - action: utter_invalid_return_date
+                    - collect: return_date
+                      ask_before_filling: true
+                      next: confirm_booking
+                - else: confirm_booking
+            - id: confirm_booking
+              collect: confirm_booking
+              ask_before_filling: true
+              next:
+                - if: not slots.confirm_booking
+                  then:
+                    - action: utter_booking_cancelled
+                      next: END
+                - else: book_flight
+            - id: book_flight
+              noop: true
+              next:
+                - if: "slots.card_for_payment = ''"
+                  then:
+                    - collect: card_for_payment
+                      next: trigger_booking
+                - else: trigger_booking
+            - id: trigger_booking
+              action: action_book_flight_completed
+            - action: utter_flight_booked

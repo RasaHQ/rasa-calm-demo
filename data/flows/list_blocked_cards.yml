@@ -5,7 +5,7 @@ flows:
         steps:
         - action: check_blocked_cards
           next:
-          - if: slots.blocked_card is not null
+          - if: slots.blocked_card is None
             then:
             - action: utter_no_blocked_cards
               next: END

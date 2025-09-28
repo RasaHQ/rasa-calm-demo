@@ -1,0 +1,45 @@
+slots:
+    location:
+       type: text
+       mappings:
+           -   type: from_llm
+    travel_date:
+        type: text
+        mappings:
+            -   type: from_llm
+    return_date:
+        type: text
+        mappings:
+            -   type: from_llm
+    confirm_booking:
+        type: bool
+        mappings:
+            -   type: from_llm
+    active_flow_name:
+        type: text
+        mappings:
+            -   type: from_llm
+
+actions:
+      - action_book_flight_completed
+
+responses:
+    utter_ask_location:
+        - text: "Where would you like to fly to?"
+    utter_ask_travel_date:
+        - text: "When do you want to travel?"
+    utter_ask_return_date:
+        - text: "When is your return date?"
+    utter_invalid_return_date:
+      - text: "The return date cannot be before the travel date. Please provide a valid return date."
+    utter_flight_booked:
+      - text: "Your flight has been successfully booked!"
+    utter_booking_cancelled:
+      - text: "Your flight booking has been cancelled."
+    utter_ask_confirm_booking:
+        - text: "Do you want to confirm your flight booking?"
+          buttons:
+              -   payload: yes
+                  title: "Yes"
+              -   payload: no
+                  title: "No, cancel"

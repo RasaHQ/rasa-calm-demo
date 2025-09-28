@@ -1,0 +1,8 @@
+flows:
+    fetch_last_unblocked_card:
+        description: User states that they want to use last unblocked card
+#        persisted_slots:
+#            - last_unblocked_card
+#            - card_for_payment
+        steps:
+            - action: fetch_last_unblocked_card

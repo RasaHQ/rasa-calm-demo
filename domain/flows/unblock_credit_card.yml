@@ -8,6 +8,13 @@ slots:
         type: text
         mappings:
             - type: custom
+    confirm_unblock_card:
+        type: bool
+        mappings:
+            - type: from_llm
+
+actions:
+    - unblock_card
 
 responses:
     utter_ask_confirm_unblock_card:

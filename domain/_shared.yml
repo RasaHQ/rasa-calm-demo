@@ -5,6 +5,7 @@ intents:
 
 actions:
   - action_session_start
+  - action_check_for_started_flows
 
 slots:
   return_value:
@@ -15,6 +16,9 @@ slots:
     type: any
   bot_phone:
     type: any
+  is_continued_flow:
+    type: bool
+    initial_value: false
 
 responses:
   utter_goodbye:

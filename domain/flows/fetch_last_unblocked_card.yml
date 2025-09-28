@@ -1,0 +1,23 @@
+slots:
+    last_unblocked_card:
+        type: text
+        mappings:
+            - type: custom
+        initial_value: ""
+
+    card_for_payment:
+        type: text
+        mappings:
+            - type: custom
+        initial_value: ""
+
+responses:
+    utter_ask_use_last_unblocked_card:
+        - text: You last unblocked the card ending in {last_unblocked_card}. Do you want to use this card for payment?
+          buttons:
+            - payload: yes
+              title: "Yes"
+            - payload: no
+              title: "No, I want to use a different card"
+    utter_ask_card_for_payment:
+        - text: Please provide the card number you want to use for payment.
