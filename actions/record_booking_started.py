@@ -3,8 +3,10 @@ from typing import Any, Dict
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 
+from actions.common import user_id
 from actions.shared_context import (
     QueryInput,
+    RecentEventsInput,
     SharedContext,
     SingleQueryInput,
     find_unfinished_travel_booking,
@@ -19,22 +21,29 @@ class RecordBookingStarted(Action):
     def run(
         self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[str, Any]
     ):
-        user_id = tracker.sender_id
-        user_id = "user123"  # TODO: remove hardcoding
+        # user_id = tracker.sender_id
 
-        events = SharedContext.get(
-            QueryInput(
-                queries=[
-                    SingleQueryInput(
-                        additional_filters={
-                            "user_id": user_id,
-                            "type": {
-                                "$in": ["travel_booking_started", "travel_booked"]
-                            },
-                        }
-                    )
-                ],
+        # events = SharedContext.get(
+        #     QueryInput(
+        #         queries=[
+        #             SingleQueryInput(
+        #                 additional_filters={
+        #                     "user_id": user_id,
+        #                     "type": {
+        #                         "$in": ["travel_booking_started", "travel_booked"]
+        #                     },
+        #                 }
+        #             )
+        #         ],
+        #         count=10,
+        #     )
+        # )
+
+        events = SharedContext.get_recent_events(
+            RecentEventsInput(
                 count=10,
+                types=["travel_booking_started", "travel_booked"],
+                user_id=user_id,
             )
         )
 

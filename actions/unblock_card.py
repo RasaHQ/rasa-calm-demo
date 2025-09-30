@@ -6,6 +6,7 @@ from rasa_sdk import Action, Tracker
 from rasa_sdk.events import SlotSet
 from rasa_sdk.executor import CollectingDispatcher
 
+from actions.common import user_id
 from actions.shared_context import (
     QueryInput,
     SharedContext,
@@ -31,11 +32,13 @@ class UnblockCard(Action):
     ):
         blocked_card_number = tracker.get_slot("blocked_card")
 
+        # user_id = tracker.sender_id
+
         query = QueryInput(
             queries=[
                 SingleQueryInput(
                     additional_filters={
-                        "user_id": "user123",
+                        "user_id": user_id,
                         "type": "credit_card_blocked",
                         "card.card_number": blocked_card_number,
                     }

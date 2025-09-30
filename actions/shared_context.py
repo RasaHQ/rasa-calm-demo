@@ -38,6 +38,18 @@ class QueryInput(BaseModel):
     count: int = Field(default=3, description="Maximum number of results to return")
 
 
+class RecentEventsInput(BaseModel):
+    count: int = Field(
+        default=3, description="Maximum number of recent events to return"
+    )
+    types: Optional[list[str]] = Field(
+        default=None, description="If provided, only events of these types are returned"
+    )
+    user_id: Optional[str] = Field(
+        default=None, description="If provided, only events for this user are returned"
+    )
+
+
 class SharedContext:
     @staticmethod
     def get(query_input: QueryInput) -> EventsList:
@@ -53,7 +65,7 @@ class SharedContext:
 
         response = requests.post(
             "http://localhost:9080/query/",
-            json=query_input.model_dump(),
+            json=query_input.model_dump(mode="json"),
         )
 
         if response.status_code == 200:
@@ -69,6 +81,35 @@ class SharedContext:
             return []
 
         raise Exception("Failed to retrieve context")
+
+    @staticmethod
+    def get_recent_events(recent_events_input: RecentEventsInput) -> EventsList:
+        """Retrieve recent events based on the provided input.
+
+        Args:
+            recent_events_input (RecentEventsInput): The input parameters for recent events.
+
+        Returns:
+            EventsList: The list of recent events.
+        """
+        response = requests.get(
+            "http://localhost:9080/events/recent",
+            params=recent_events_input.model_dump(),
+        )
+
+        if response.status_code == 200:
+            data: List[Any] = response.json()
+            return deserialise_events(data)
+
+        if response.status_code == 422:
+            logger.info(
+                "shred_context.unprocessable_recent_events_query_submitted",
+                message="Unprocessable recent events query submitted to shared context service",
+                query=recent_events_input.model_dump_json(),
+            )  # type: ignore
+            return []
+
+        raise Exception("Failed to retrieve recent events")
 
     @staticmethod
     def store(event: Event) -> None:
@@ -129,7 +170,9 @@ def find_blocked_card(events: EventsList) -> Optional[CreditCardBlocked]:
     return None  # No TravelBookingStarted event found
 
 
-def find_unfinished_travel_booking(events: EventsList) -> Optional[TravelBookingStarted]:
+def find_unfinished_travel_booking(
+    events: EventsList,
+) -> Optional[TravelBookingStarted]:
     # Start from the end of the list and look for the first TravelBookingStarted event
     # Events are assumed to be in descending order by timestamp
     for event in events:

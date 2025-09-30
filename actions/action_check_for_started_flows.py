@@ -3,8 +3,10 @@ from rasa_sdk import Action, Tracker
 from rasa_sdk.events import SlotSet
 from rasa_sdk.executor import CollectingDispatcher
 
+from actions.common import user_id
 from actions.shared_context import (
     QueryInput,
+    RecentEventsInput,
     SharedContext,
     SingleQueryInput,
     find_unfinished_travel_booking,
@@ -24,22 +26,29 @@ class ActionCheckForStartedFlows(Action):
             "action_check_for_started_flows.started",
             message="Checking for unfinished flows in shared context",
         )
-        user_id = tracker.sender_id
-        user_id = "user123"  # TODO: remove hardcoding
+        # user_id = tracker.sender_id
 
-        events = SharedContext.get(
-            QueryInput(
-                queries=[
-                    SingleQueryInput(
-                        additional_filters={
-                            "user_id": user_id,
-                            "type": {
-                                "$in": ["travel_booking_started", "travel_booked"]
-                            },
-                        }
-                    )
-                ],
+        # events = SharedContext.get(
+        #     QueryInput(
+        #         queries=[
+        #             SingleQueryInput(
+        #                 additional_filters={
+        #                     "user_id": user_id,
+        #                     "type": {
+        #                         "$in": ["travel_booking_started", "travel_booked"]
+        #                     },
+        #                 }
+        #             )
+        #         ],
+        #         count=10,
+        #     )
+        # )
+
+        events = SharedContext.get_recent_events(
+            RecentEventsInput(
                 count=10,
+                types=["travel_booking_started", "travel_booked"],
+                user_id=user_id,
             )
         )
 

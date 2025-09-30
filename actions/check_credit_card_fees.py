@@ -3,7 +3,13 @@ from typing import List
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 
-from actions.shared_context import QueryInput, SharedContext, SingleQueryInput
+from actions.common import user_id
+from actions.shared_context import (
+    QueryInput,
+    RecentEventsInput,
+    SharedContext,
+    SingleQueryInput,
+)
 from actions.shared_context_events import TravelBooked
 
 
@@ -14,17 +20,27 @@ class CheckCreditCardFees(Action):
     def run(
         self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: dict
     ) -> List:
-        events: List[TravelBooked] = SharedContext.get(
-            QueryInput(
-                queries=[
-                    SingleQueryInput(
-                        additional_filters={
-                            "user_id": "user123",
-                            "type": {"$in": ["travel_booked"]},
-                        }
-                    )
-                ],
+        # user_id = tracker.sender_id
+
+        # events: List[TravelBooked] = SharedContext.get(
+        #     QueryInput(
+        #         queries=[
+        #             SingleQueryInput(
+        #                 additional_filters={
+        #                     "user_id": "user123",
+        #                     "type": {"$in": ["travel_booked"]},
+        #                 }
+        #             )
+        #         ],
+        #         count=10,
+        #     )
+        # )
+
+        events = SharedContext.get_recent_events(
+            RecentEventsInput(
                 count=10,
+                types=["travel_booked"],
+                user_id=user_id,
             )
         )
 

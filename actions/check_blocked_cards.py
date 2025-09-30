@@ -4,8 +4,10 @@ from rasa_sdk import Action, Tracker
 from rasa_sdk.events import SlotSet
 from rasa_sdk.executor import CollectingDispatcher
 
+from actions.common import user_id
 from actions.shared_context import (
     QueryInput,
+    RecentEventsInput,
     SharedContext,
     SingleQueryInput,
     find_blocked_card,
@@ -19,19 +21,29 @@ class CheckBlockedCards(Action):
     def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict):
         # Call localhost:8000/query with Query object
 
-        events = SharedContext.get(
-            QueryInput(
-                queries=[
-                    SingleQueryInput(
-                        additional_filters={
-                            "user_id": "user123",
-                            "type": {
-                                "$in": ["credit_card_blocked", "credit_card_unblocked"]
-                            },
-                        }
-                    )
-                ],
-                count=1,
+        # user_id = tracker.sender_id
+
+        # events = SharedContext.get(
+        #     QueryInput(
+        #         queries=[
+        #             SingleQueryInput(
+        #                 additional_filters={
+        #                     "user_id": "user123",
+        #                     "type": {
+        #                         "$in": ["credit_card_blocked", "credit_card_unblocked"]
+        #                     },
+        #                 }
+        #             )
+        #         ],
+        #         count=1,
+        #     )
+        # )
+
+        events = SharedContext.get_recent_events(
+            RecentEventsInput(
+                count=10,
+                types=["credit_card_blocked", "credit_card_unblocked"],
+                user_id=user_id,
             )
         )
 
