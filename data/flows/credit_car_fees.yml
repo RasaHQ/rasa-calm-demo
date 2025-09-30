@@ -1,0 +1,5 @@
+flows:
+    credit_car_fees:
+        description: User asks about credit card fees
+        steps:
+            - action: check_credit_card_fees
