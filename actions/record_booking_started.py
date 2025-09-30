@@ -44,7 +44,7 @@ class RecordBookingStarted(Action):
             SharedContext.store(
                 TravelBookingStarted(
                     user_id=user_id,
-                    destination=tracker.get_slot("destination"),
+                    destination="Berlin",  # TODO: get from slot
                     start_date="2026-12-20T10:00:00Z",  # TODO: get from slot
                     end_date="2026-12-30T10:00:00Z",  # TODO: get from slot
                     source="Rasa",
