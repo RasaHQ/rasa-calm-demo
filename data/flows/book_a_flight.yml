@@ -2,6 +2,7 @@ flows:
     book_a_flight:
         description: Book a flight for the user
         steps:
+            - action: record_booking_started
             - collect: location
             - collect: travel_date
             - collect: return_date

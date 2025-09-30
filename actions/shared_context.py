@@ -8,6 +8,7 @@ from actions.shared_context_events import (
     CreditCardBlocked,
     Event,
     EventsList,
+    TravelBookingStarted,
     deserialise_events,
 )
 
@@ -125,4 +126,19 @@ def find_blocked_card(events: EventsList) -> Optional[CreditCardBlocked]:
                     return None  # Found a matching TravelBooked event, so no unfinished flow
             # If we reach here, it means there's no matching TravelBooked event
             return cast(CreditCardBlocked, started_event)
+    return None  # No TravelBookingStarted event found
+
+
+def find_unfinished_travel_booking(events: EventsList) -> Optional[TravelBookingStarted]:
+    # Start from the end of the list and look for the first TravelBookingStarted event
+    # Events are assumed to be in descending order by timestamp
+    for event in events:
+        if event.type == "travel_booking_started":
+            # Check if there's a corresponding TravelBooked event after this
+            started_event = event
+            for subsequent_event in events[: events.index(started_event)]:
+                if subsequent_event.type == "travel_booked":
+                    return None  # Found a matching TravelBooked event, so no unfinished flow
+            # If we reach here, it means there's no matching TravelBooked event
+            return cast(TravelBookingStarted, started_event)
     return None  # No TravelBookingStarted event found

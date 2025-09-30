@@ -5,9 +5,8 @@ from rasa_sdk import Action, Tracker
 from rasa_sdk.events import SlotSet
 from rasa_sdk.executor import CollectingDispatcher
 
-from actions.shared_context import QueryInput, SingleQueryInput
+from actions.shared_context import QueryInput, SharedContext, SingleQueryInput
 from actions.shared_context_events import CreditCardUnblocked, EventsList
-from rasa.core.shared_context.shared_context import SharedContext
 
 logger = structlog.get_logger(__name__)
 

@@ -1,12 +1,14 @@
-from typing import List, Optional
-
 import structlog
 from rasa_sdk import Action, Tracker
-from rasa_sdk.events import SlotSet, StartedFlowFound
+from rasa_sdk.events import SlotSet
 from rasa_sdk.executor import CollectingDispatcher
 
-from actions.shared_context import QueryInput, SharedContext, SingleQueryInput
-from actions.shared_context_events import Event, EventsList
+from actions.shared_context import (
+    QueryInput,
+    SharedContext,
+    SingleQueryInput,
+    find_unfinished_travel_booking,
+)
 
 logger = structlog.getLogger(__name__)
 
@@ -41,16 +43,16 @@ class ActionCheckForStartedFlows(Action):
             )
         )
 
-        unfinished_flow_event = self.find_unfinished_flow(events)
-        if unfinished_flow_event:
+        unfinished_travel_booking = find_unfinished_travel_booking(events)
+        if unfinished_travel_booking:
             logger.info(
                 "action_check_for_started_flows.unfinished_flow_found",
                 message="Unfinished flow found in shared context",
-                event_info=unfinished_flow_event.model_dump_json(),
+                event_info=unfinished_travel_booking.model_dump_json(),
             )
             dispatcher.utter_message(
                 f"Heya, we noticed you started booking a flight "
-                f"earlier to {unfinished_flow_event.destination} "
+                f"earlier to {unfinished_travel_booking.destination} "
                 "Let's continue where we left off!"
             )
             return [
@@ -68,18 +70,3 @@ class ActionCheckForStartedFlows(Action):
             SlotSet("active_flow_name", ""),
             SlotSet("is_continued_flow", False),
         ]
-
-    @staticmethod
-    def find_unfinished_flow(events: EventsList) -> Optional[Event]:
-        # Start from the end of the list and look for the first TravelBookingStarted event
-        # Events are assumed to be in descending order by timestamp
-        for event in events:
-            if event.type == "travel_booking_started":
-                # Check if there's a corresponding TravelBooked event after this
-                started_event = event
-                for subsequent_event in events[: events.index(started_event)]:
-                    if subsequent_event.type == "travel_booked":
-                        return None  # Found a matching TravelBooked event, so no unfinished flow
-                # If we reach here, it means there's no matching TravelBooked event
-                return started_event
-        return None  # No TravelBookingStarted event found

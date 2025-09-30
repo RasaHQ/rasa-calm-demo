@@ -1,19 +1,15 @@
-from typing import Dict, Optional, Text, cast
+from typing import Dict, Text
 
-import requests
-from pydantic import BaseModel
 from rasa_sdk import Action, Tracker
 from rasa_sdk.events import SlotSet
 from rasa_sdk.executor import CollectingDispatcher
 
-from actions.common import user_id
 from actions.shared_context import (
     QueryInput,
     SharedContext,
     SingleQueryInput,
     find_blocked_card,
 )
-from actions.shared_context_events import CreditCardBlocked, EventsList
 
 
 class CheckBlockedCards(Action):

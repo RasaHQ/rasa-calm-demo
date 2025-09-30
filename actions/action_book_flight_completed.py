@@ -2,11 +2,10 @@ from typing import List
 
 import structlog
 from rasa_sdk import Action, Tracker
-from rasa_sdk.events import SlotSet, StartedFlowFound
 from rasa_sdk.executor import CollectingDispatcher
 
-from rasa.core.shared_context.events import CreditCardPayment, Currency, TravelBooked
-from rasa.core.shared_context.shared_context import SharedContext
+from actions.shared_context import SharedContext
+from actions.shared_context_events import CreditCardPayment, Currency, TravelBooked
 
 logger = structlog.getLogger(__name__)
 
