@@ -87,7 +87,7 @@ After you cloned the repository, follow these installation steps:
 3. Install the dependencies with `pip`
    ```
    pip install uv
-   uv pip install rasa-pro --extra-index-url=https://europe-west3-python.pkg.dev/rasa-releases/rasa-pro-python/simple/
+   uv pip install "rasa-pro[nlu]" --extra-index-url=https://europe-west3-python.pkg.dev/rasa-releases/rasa-pro-python/simple/
    ```
 4. Create an environment file `.env` in the root of the project with the following 
    content:
