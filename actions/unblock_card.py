@@ -13,7 +13,7 @@ from actions.shared_context import (
     SingleQueryInput,
     find_blocked_card,
 )
-from actions.shared_context_events import CreditCardUnblocked
+from actions.shared_context_events import CreditCardUnblocked, common_event_field_values
 
 logger = structlog.get_logger(__name__)
 
@@ -51,7 +51,7 @@ class UnblockCard(Action):
 
         blocked_cards = SharedContext.get(query)
 
-        blocked_card_event = find_blocked_card(blocked_cards)
+        blocked_card_event, _ = find_blocked_card(blocked_cards)
 
         logger.debug(
             "unblock_card.blocked_card_event",
@@ -69,11 +69,9 @@ class UnblockCard(Action):
         try:
             SharedContext.store(
                 CreditCardUnblocked(
-                    user_id="user123",
                     card=blocked_card_event.card,
-                    timestamp="2024-10-01T10:00:00+00:00",
-                    source="Rasa",
                     reason="Credit card unblocked because it was a mistake",
+                    **common_event_field_values(),
                 )
             )
         except Exception as e:

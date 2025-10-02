@@ -23,22 +23,6 @@ class CheckBlockedCards(Action):
 
         # user_id = tracker.sender_id
 
-        # events = SharedContext.get(
-        #     QueryInput(
-        #         queries=[
-        #             SingleQueryInput(
-        #                 additional_filters={
-        #                     "user_id": "user123",
-        #                     "type": {
-        #                         "$in": ["credit_card_blocked", "credit_card_unblocked"]
-        #                     },
-        #                 }
-        #             )
-        #         ],
-        #         count=1,
-        #     )
-        # )
-
         events = SharedContext.get_recent_events(
             RecentEventsInput(
                 count=10,
@@ -47,7 +31,7 @@ class CheckBlockedCards(Action):
             )
         )
 
-        blocked_card_event = find_blocked_card(events)
+        blocked_card_event, _ = find_blocked_card(events)
 
         if blocked_card_event:
             message = f"Your latest blocked card is {blocked_card_event.card.card_number} due to {blocked_card_event.reason}."

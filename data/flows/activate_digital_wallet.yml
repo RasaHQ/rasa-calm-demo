@@ -1,0 +1,40 @@
+flows:
+    activate_digital_wallet:
+        description: Activate digital wallet for credit card
+        steps:
+            - noop: true
+              next:
+                - if: slots.is_continued_flow
+                  then:
+                    - action: utter_welcome_back_activate_digital_wallet
+                      next: check_upcoming_trips
+                - else: start_activate_digital_wallet
+            - id: start_activate_digital_wallet
+              action: check_digital_wallet_eligibility
+              next:
+                - if: "slots.digital_wallet_eligibility == 'ineligible'"
+                  then:
+                    - action: utter_digital_wallet_ineligible
+                      next: END
+                - else: confirm_activate_digital_wallet
+            - id: confirm_activate_digital_wallet
+              action: utter_digital_wallet_activated
+            - id: check_upcoming_trips
+              action: check_upcoming_trips
+              next:
+                - if: "slots.upcoming_trips == ''"
+                  then: END
+                - else: load_euros
+            - id: load_euros
+              collect: load_euros
+              ask_before_filling: true
+              next:
+                - if: "slots.load_euros == 'yes'"
+                  then:
+                    - action: utter_euros_loaded
+                      next: flow_completed
+                - else:
+                    - action: utter_no_euros_loaded
+                      next: flow_completed
+            - id: flow_completed
+              action: activate_digital_wallet_flow_completed

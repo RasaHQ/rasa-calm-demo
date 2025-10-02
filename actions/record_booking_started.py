@@ -5,13 +5,14 @@ from rasa_sdk.executor import CollectingDispatcher
 
 from actions.common import user_id
 from actions.shared_context import (
-    QueryInput,
     RecentEventsInput,
     SharedContext,
-    SingleQueryInput,
     find_unfinished_travel_booking,
 )
-from actions.shared_context_events import TravelBookingStarted
+from actions.shared_context_events import (
+    TravelBookingStarted,
+    common_event_field_values,
+)
 
 
 class RecordBookingStarted(Action):
@@ -22,22 +23,6 @@ class RecordBookingStarted(Action):
         self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[str, Any]
     ):
         # user_id = tracker.sender_id
-
-        # events = SharedContext.get(
-        #     QueryInput(
-        #         queries=[
-        #             SingleQueryInput(
-        #                 additional_filters={
-        #                     "user_id": user_id,
-        #                     "type": {
-        #                         "$in": ["travel_booking_started", "travel_booked"]
-        #                     },
-        #                 }
-        #             )
-        #         ],
-        #         count=10,
-        #     )
-        # )
 
         events = SharedContext.get_recent_events(
             RecentEventsInput(
@@ -52,14 +37,10 @@ class RecordBookingStarted(Action):
         if not unfinished_travel_booking:
             SharedContext.store(
                 TravelBookingStarted(
-                    user_id=user_id,
                     destination="Berlin",  # TODO: get from slot
                     start_date="2026-12-20T10:00:00Z",  # TODO: get from slot
                     end_date="2026-12-30T10:00:00Z",  # TODO: get from slot
-                    source="Rasa",
-                    schema_version="1.0",
-                    timestamp="2025-09-01T12:00:00Z",  # TODO: use current time
+                    **common_event_field_values(),
                 )
             )
-            dispatcher.utter_message(text="Recorded the start of your travel booking.")
         return []

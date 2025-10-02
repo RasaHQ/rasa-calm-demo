@@ -22,20 +22,6 @@ class CheckCreditCardFees(Action):
     ) -> List:
         # user_id = tracker.sender_id
 
-        # events: List[TravelBooked] = SharedContext.get(
-        #     QueryInput(
-        #         queries=[
-        #             SingleQueryInput(
-        #                 additional_filters={
-        #                     "user_id": "user123",
-        #                     "type": {"$in": ["travel_booked"]},
-        #                 }
-        #             )
-        #         ],
-        #         count=10,
-        #     )
-        # )
-
         events = SharedContext.get_recent_events(
             RecentEventsInput(
                 count=10,

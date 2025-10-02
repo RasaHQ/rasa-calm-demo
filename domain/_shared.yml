@@ -5,7 +5,8 @@ intents:
 
 actions:
   - action_session_start
-  - action_check_for_started_flows
+  - check_for_started_flows
+  - action_current_status
 
 slots:
   return_value:
@@ -19,6 +20,16 @@ slots:
   is_continued_flow:
     type: bool
     initial_value: false
+  custom_greet_message:
+    type: text
+    initial_value: ""
+    mappings:
+      - type: custom
+  user_wants_to_continue_active_flow:
+    type: bool
+    initial_value: false
+    mappings:
+        - type: from_llm
 
 responses:
   utter_goodbye:
@@ -69,6 +80,17 @@ responses:
     - text: I can't wait to see how this unfolds.
   utter_conversation_highlight:
     - text: Our conversation was a highlight of my virtual day!
+  utter_ask_user_wants_to_continue_active_flow:
+    - text: "{flow_continuation_message}"
+      buttons:
+        - title: "Yes"
+          payload: "true"
+        - title: "No"
+          payload: "false"
+  utter_custom_greet_message:
+    - text: "{custom_greet_message}"
+  utter_agent_will_be_with_you:
+    - text: One of our human agents will be with you shortly.
 
 session_config:
   session_expiration_time: 60

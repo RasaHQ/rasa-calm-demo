@@ -1,0 +1,42 @@
+slots:
+    load_euros:
+        type: text
+        mappings:
+            - type: custom
+
+    flow_continuation_message:
+        type: text
+        mappings:
+            - type: custom
+
+    found_credit_cards:
+        type: text
+        mappings:
+            - type: custom
+
+    confirm_blocking_cards:
+        type: bool
+        mappings:
+            - type: from_llm
+
+actions:
+    - start_wallet_lock
+    - wallet_lock_find_credit_cards
+    - block_cards_and_lock_wallet
+
+responses:
+    utter_found_credit_cards:
+        - text: "We found a credit card ending with {found_credit_cards} that can be locked."
+    utter_wallet_locking_started:
+        - text: "I have initiated the process to lock your wallet."
+    utter_welcome_back_lost_wallet:
+        - text: "{flow_continuation_message}"
+    utter_ask_confirm_blocking_cards:
+        - text: "Would you like me to block your credit cards as well?"
+          buttons:
+            - title: "Yes"
+              payload: "yes"
+            - title: "No"
+              payload: "no"
+    utter_blocking_cards_confirmed:
+        - text: "Your credit cards have been blocked and your wallet is locked."

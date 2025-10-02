@@ -52,20 +52,45 @@ flows:
     steps:
       - action: utter_can_do_something_else
 
+  pattern_human_handoff:
+    description: User states that they want to talk to a human agent
+    name: pattern human handoff
+    steps:
+      - action: utter_agent_will_be_with_you
+      - action: action_handoff_to_human
+      - action: action_listen
+
+
   pattern_session_start:
     description: Flow for starting the conversation
     name: pattern session start
     nlu_trigger:
       - intent: session_start
     steps:
-      - action: action_check_for_started_flows
+      - action: action_current_status
 #      - action: "{{slots.active_flow_name}}"
 #      - link: "{{slots.active_flow_name}}"
         next:
-          - if: "slots.active_flow_name != ''"
+          - if: slots.active_flow_name != ''
             then:
-               - action: "{{slots.active_flow_name}}"
-                 next: END
+              - collect: user_wants_to_continue_active_flow
+                ask_before_filling: true
+                next:
+                  - if: slots.user_wants_to_continue_active_flow
+                    then:
+                      - action: "{{slots.active_flow_name}}"
+                        next: END
+                  - else:
+                    - action: utter_greet
+                      next: END
           - else:
-              - action: utter_greet
-                next: END
+            - noop: true
+              next:
+                - if: slots.custom_greet_message != ''
+                  then:
+                  - action: utter_custom_greet_message
+                    next: END
+                - else:
+                   - action: utter_greet
+                     next: END
+

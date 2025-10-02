@@ -1,0 +1,38 @@
+actions:
+    - check_digital_wallet_eligibility
+    - complete_digital_wallet_activation
+    - start_digital_wallet_activation
+    - check_upcoming_trips
+
+slots:
+    digital_wallet_eligibility:
+        type: text
+        mappings:
+            - type: custom
+    upcoming_trips:
+        type: text
+        mappings:
+            - type: custom
+    load_euros:
+        type: text
+        mappings:
+            - type: from_llm
+
+responses:
+    utter_digital_wallet_ineligible:
+        - text: "I'm sorry, but your credit card is not eligible for digital wallet activation at this time."
+    utter_digital_wallet_activated:
+        - text: "Your digital wallet has been successfully activated for your credit card."
+    utter_ask_load_euros:
+        - text: "{upcoming_trips}"
+          buttons:
+          -   payload: yes
+              title: "Load"
+          -   payload: no
+              title: "Skip"
+    utter_no_euros_loaded:
+        - text: "No euros have been loaded to your digital wallet."
+    utter_euros_loaded:
+        - text: "Euros have been successfully loaded to your digital wallet."
+    utter_welcome_back_activate_digital_wallet:
+        - text: "{flow_continuation_message}"

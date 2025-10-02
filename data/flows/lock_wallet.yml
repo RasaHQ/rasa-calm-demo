@@ -1,0 +1,29 @@
+flows:
+    lock_wallet:
+        description: "User has lost their wallet and needs assistance."
+        steps:
+            - noop: true
+              next:
+              - if: slots.is_continued_flow
+                then:
+                - noop: true
+                  next: proceed_blocking_cards
+              - else: start_lost_wallet_step
+            - id: start_lost_wallet_step
+              action: start_wallet_lock
+            - action: utter_wallet_locking_started
+            - action: wallet_lock_find_credit_cards
+            - action: utter_found_credit_cards
+            - id: confirm_lost_wallet
+              collect: confirm_blocking_cards
+              ask_before_filling: true
+              next:
+                - if: slots.confirm_blocking_cards = 'no'
+                  then:
+                    - action: utter_blocking_cards_cancelled
+                      next: END
+                - else: proceed_blocking_cards
+            - id: proceed_blocking_cards
+              action: block_cards_and_lock_wallet
+            - action: utter_blocking_cards_confirmed
+
