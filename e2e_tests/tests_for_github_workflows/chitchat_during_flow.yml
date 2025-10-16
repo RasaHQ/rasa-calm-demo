@@ -1,8 +1,9 @@
 test_cases:
   - test_case: user asks a knowledge question during flow
     steps:
-      - user: I want to send some money to Tre
+      - user: I want to transfer money to Tre
         assertions:
+          - flow_started: transfer_money
           - bot_uttered:
               utter_name: utter_ask_transfer_money_amount_of_money
       - user: btw, is the weather also that nice in Berlin?
