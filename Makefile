@@ -40,6 +40,7 @@ rasa-test-one: .EXPORT_ALL_VARIABLES
 install:
 	poetry run python3 -m pip install -U pip
 	poetry install
+	poetry run python3 -m pip install 'rasa-pro[nlu]'
 
 run-duckling:
 	docker run --rm --name duckling_container -d -p 8000:8000 rasa/duckling
