@@ -65,10 +65,6 @@ test_cases:
             utter_name: utter_ask_gift_recipient
       - user: Bart
         assertions:
-        - bot_uttered:
-            utter_name: utter_ask_confirm_slot_correction
-      - user: /SetSlots(confirm_slot_correction=true)
-        assertions:
         - slot_was_set:
             - name: gift_recipient
               value: Bart
@@ -144,10 +140,6 @@ test_cases:
         - bot_uttered:
             utter_name: utter_ask_gift_price
       - user: "500"
-        assertions:
-        - bot_uttered:
-            utter_name: utter_ask_confirm_slot_correction
-      - user: /SetSlots(confirm_slot_correction=true)
         assertions:
         - slot_was_set:
             - name: gift_price
@@ -271,10 +263,6 @@ test_cases:
         - bot_uttered:
             utter_name: utter_ask_gift_price
       - user: "500"
-        assertions:
-        - bot_uttered:
-            utter_name: utter_ask_confirm_slot_correction
-      - user: /SetSlots(confirm_slot_correction=true)
         assertions:
           - slot_was_set:
               - name: gift_price
@@ -463,8 +451,6 @@ test_cases:
         - slot_was_set:
             - name: gift_recipient
               value: Tom
-        - bot_uttered:
-            utter_name: utter_corrected_previous_input
         - bot_uttered:
             utter_name: utter_ask_order_gift_confirmation
       - user: /SetSlots(order_gift_confirmation=True)
