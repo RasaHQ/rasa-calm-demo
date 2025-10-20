@@ -91,7 +91,7 @@ After you cloned the repository, follow these installation steps:
    pip install uv
    uv pip install "rasa-pro[nlu]" --extra-index-url=https://europe-west3-python.pkg.dev/rasa-releases/rasa-pro-python/simple/
    ```
-   The above command installs the rasa pro package, including the `nlu` extra that includes the optional dependencies for NLU components (TODO: add doc link once release).
+   The above command installs the rasa pro package, including the `nlu` extra that includes the optional dependencies for NLU components.
 4. Create an environment file `.env` in the root of the project with the following 
    content:
    ```bash
