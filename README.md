@@ -13,7 +13,7 @@ The bot is used during the QA process of Rasa to test the CALM features and capa
 > `rasa-calm-demo` is not intended to show best practices for building a production-ready bot.
 
 > [!NOTE]
-> This demo bot is currently compatible with `3.13.0`.
+> This demo bot is currently compatible with `3.14.0`.
 
 ## Terms of Use
 
@@ -67,7 +67,7 @@ and run end-to-end tests.
 
 Prerequisites:
 - Rasa Pro license
-- Python (3.10.12), e.g. using [pyenv](https://github.com/pyenv/pyenv): `pyenv install 3.10.12`
+- Python - supported Python versions: `>=3.10.0,<3.14`. For Python 3.10.12 for example, you can use [pyenv](https://github.com/pyenv/pyenv): `pyenv install 3.10.12`
 - Set up and run [Duckling](https://github.com/facebook/duckling) server.
   The easiest option is to spin up a docker container using `docker run -p 8000:8000 rasa/duckling`.
   Alternatively, you can use the `make run-duckling` command locally.
@@ -82,13 +82,16 @@ After you cloned the repository, follow these installation steps:
 2. Set the python environment with `pyenv` or any other tool that gets you the right 
    python version
    ```
-   pyenv local 3.10.12
+   pyenv virtualenv 3.10.12 rasa-calm-demo-python-3.10.12  # create a virtual env
+   pyenv activate rasa-calm-demo-python-3.10.12  # activate your virtual env
+   pyenv local rasa-calm-demo-python-3.10.12  # set auto-activation
    ```
 3. Install the dependencies with `pip`
    ```
    pip install uv
    uv pip install "rasa-pro[nlu]" --extra-index-url=https://europe-west3-python.pkg.dev/rasa-releases/rasa-pro-python/simple/
    ```
+   The above command installs the rasa pro package, including the `nlu` extra that includes the optional dependencies for NLU components.
 4. Create an environment file `.env` in the root of the project with the following 
    content:
    ```bash
@@ -114,6 +117,9 @@ which is a shortcut for:
 ```commandline
 rasa train -c config/config.yml -d domain --data data
 ```
+
+Please note: The `tensorflow-metal` (`"^1.2.0"`) GPU acceleration plugin is automatically included for Apple Silicon Mac users with Python 3.9-3.11 when installing with the `nlu` or `full` extras.
+Due to compatibility issues with TensorFlow 2.19+, you may need to uninstall this package if you encounter import errors when training the bot on your particular hardware.
 
 The trained model is stored in `models` directory located in the project root.
 
