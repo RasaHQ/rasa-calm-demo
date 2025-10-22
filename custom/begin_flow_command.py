@@ -76,6 +76,7 @@ class BeginFlowCommand(StartFlowCommand):
         mapper = {
             CommandSyntaxVersion.v1: r"BeginFlow\(['\"]?([a-zA-Z0-9_-]+)['\"]?\)",
             CommandSyntaxVersion.v2: r"^[^\w]*begin_flow ['\"]?([a-zA-Z0-9_-]+)['\"]?",
+            CommandSyntaxVersion.v3: (r"""^[\s\W\d]*begin_flow ['"`]?([a-zA-Z0-9_-]+)['"`]*""")
         }
         return mapper.get(
             CommandSyntaxManager.get_syntax_version(),
