@@ -7,4 +7,16 @@ flows:
           name: add_card
           confidence_threshold: 0.9
     steps:
-      - action: utter_card_added
+      - collect: confirm_choose_new_card
+        ask_before_filling: true
+        next:
+          - if: "slots.confirm_choose_new_card = 'visa'"
+            then:
+              - noop: true
+                next: get_name_and_email_step
+          - else:
+              - action: utter_relevant_card_not_linked
+                next: END
+      - id: get_name_and_email_step
+        call: get_name_and_email
+      - link: transfer_money

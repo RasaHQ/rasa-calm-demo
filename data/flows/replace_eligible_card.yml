@@ -22,5 +22,8 @@ flows:
             - action: utter_unknown_replacement_reason_handover
               next: END
       - id: start_replacement
-        action: utter_will_cancel_and_send_new
+        call: get_name_and_email
+#        next:
+#          - action: utter_will_cancel_and_send_new
+      - action: utter_will_cancel_and_send_new
       - action: utter_new_card_has_been_ordered

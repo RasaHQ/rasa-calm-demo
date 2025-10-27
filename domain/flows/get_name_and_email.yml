@@ -1,0 +1,12 @@
+slots:
+  user_name:
+    type: text
+    influence_conversation: false
+  user_email:
+    type: text
+    influence_conversation: false
+
+
+responses:
+  utter_ask_user_email:
+    - text: "May I have your email address?"

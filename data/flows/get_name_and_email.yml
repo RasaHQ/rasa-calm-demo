@@ -1,0 +1,9 @@
+flows:
+  get_name_and_email:
+    if: False
+    description: "asks user to provide name and email"
+    steps:
+      - collect: user_name
+        ask_before_filling: true
+      - collect: user_email
+        ask_before_filling: true

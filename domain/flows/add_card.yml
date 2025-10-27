@@ -3,6 +3,23 @@ version: "3.1"
 intents:
   - add_card
 
+slots:
+  confirm_choose_new_card:
+    type: categorical
+    values:
+      - visa
+      - mastercard
+    mappings:
+      - type: from_llm
+
 responses:
   utter_card_added:
     - text: Okay, added another card.
+
+  utter_ask_confirm_choose_new_card:
+    - text: What card do you want? Visa or Mastercard ending in 1234?
+      buttons:
+        - title: "Visa"
+          payload: "visa"
+        - title: "Mastercard"
+          payload: "mastercard"
