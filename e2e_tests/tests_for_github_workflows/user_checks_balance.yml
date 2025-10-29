@@ -6,7 +6,7 @@ test_cases:
           - bot_uttered:
               utter_name: utter_current_balance
           - bot_uttered:
-              utter_name: utter_can_do_something_else
+              utter_name: utter_ask_continue_conversation
           - slot_was_set:
                 - name: route_session_to_calm
                   value: True

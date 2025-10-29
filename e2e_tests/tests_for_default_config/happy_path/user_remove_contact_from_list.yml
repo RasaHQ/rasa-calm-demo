@@ -6,7 +6,7 @@ test_cases:
             - bot_uttered:
                 utter_name: utter_list_contacts
             - bot_uttered:
-                utter_name: utter_can_do_something_else
+                utter_name: utter_ask_continue_conversation
       # The NLUCommandAdapter predicts the StartFlow(remove_contact) and the SingleStepLLMCommandGenerator should
       # set detect the value for the slot "add_contact_name"
       - user: Remove contact @MaryLu
