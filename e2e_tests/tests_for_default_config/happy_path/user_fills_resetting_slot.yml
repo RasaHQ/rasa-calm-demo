@@ -30,4 +30,4 @@ test_cases:
           - slot_was_not_set:
               - name: based_in_california
           - bot_uttered:
-              utter_name: utter_can_do_something_else
+              utter_name: utter_ask_continue_conversation

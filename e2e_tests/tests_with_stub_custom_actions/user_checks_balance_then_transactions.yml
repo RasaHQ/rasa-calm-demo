@@ -20,7 +20,7 @@ test_cases:
             - bot_uttered:
                 text_matches: You still have 1300 in your account.
             - bot_uttered:
-                utter_name: utter_can_do_something_else
+                utter_name: utter_ask_continue_conversation
       - user: Show my transactions please
         assertions:
             - bot_uttered:

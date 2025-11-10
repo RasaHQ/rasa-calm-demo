@@ -93,7 +93,7 @@ test_cases:
             - name: based_in_california
             - name: based_in_the_us
           - bot_uttered:
-              utter_name: utter_can_do_something_else
+              utter_name: utter_ask_continue_conversation
 
   - test_case: Verify account for California resident with sufficient income
     steps:
@@ -149,4 +149,4 @@ test_cases:
             - name: based_in_california
             - name: based_in_the_us
           - bot_uttered:
-              utter_name: utter_can_do_something_else
+              utter_name: utter_ask_continue_conversation

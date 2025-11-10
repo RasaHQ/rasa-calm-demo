@@ -34,10 +34,10 @@ test_cases:
         - bot_uttered:
             utter_name: utter_verify_account_success
         - bot_uttered:
-            utter_name: utter_can_do_something_else
+            utter_name: utter_ask_continue_conversation
     - user: I would like to register to vote in california.
       assertions:
         - bot_uttered:
             utter_name: utter_register_to_vote_in_california
         - bot_uttered:
-            utter_name: utter_can_do_something_else
+            utter_name: utter_ask_continue_conversation

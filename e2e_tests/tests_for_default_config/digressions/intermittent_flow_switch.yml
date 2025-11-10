@@ -23,4 +23,4 @@ test_cases:
         - bot_uttered:
             utter_name: utter_transfer_complete
         - bot_uttered:
-            utter_name: utter_can_do_something_else
+            utter_name: utter_ask_continue_conversation
