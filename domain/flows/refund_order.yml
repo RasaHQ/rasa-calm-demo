@@ -11,7 +11,7 @@ actions:
 
 responses:
   utter_ask_order_id:
-    - text: "Can you please share the Order ID for which you would like the refund?"
+    - text: "Can you please share the concerned Order ID followed by a '#' key on your keypad?"
   utter_invalid_order_id:
     - text: "That doesn't look like a valid Order ID! Order ID would be number with 4 to 6 digits at the top right section of the invoice."
   utter_refund_confirmation:

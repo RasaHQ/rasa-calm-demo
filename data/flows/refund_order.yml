@@ -6,7 +6,7 @@ flows:
         description: A valid order ID is 4-6 digits
         silence_timeout: 30
         dtmf:
-          allow_audio_input: False
+          allow_audio_input: True
           finish_on_key: "#"
         rejections:
           - if: 'not (slots.order_id matches "^\d{4,6}$")'
