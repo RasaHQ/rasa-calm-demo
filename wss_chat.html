@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Rasa WebSocket Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .chat-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .chat-header {
+            background: #007bff;
+            color: white;
+            padding: 15px;
+            border-radius: 10px 10px 0 0;
+            text-align: center;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .message {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            max-width: 80%;
+        }
+        
+        .user-message {
+            background: #007bff;
+            color: white;
+            margin-left: auto;
+            text-align: right;
+        }
+        
+        .bot-message {
+            background: #e9ecef;
+            color: #333;
+            margin-right: auto;
+        }
+        
+        .streaming-message {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            font-style: italic;
+        }
+        
+        .input-container {
+            display: flex;
+            padding: 15px;
+            gap: 10px;
+        }
+        
+        .message-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        
+        .send-button {
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .send-button:hover {
+            background: #0056b3;
+        }
+        
+        .send-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .status {
+            text-align: center;
+            padding: 10px;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .connected {
+            color: green;
+        }
+        
+        .disconnected {
+            color: red;
+        }
+        
+        .buttons-container {
+            margin-top: 10px;
+        }
+        
+        .quick-reply {
+            display: inline-block;
+            margin: 2px;
+            padding: 5px 10px;
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        
+        .quick-reply:hover {
+            background: #e9ecef;
+        }
+    </style>
+</head>
+<body>
+    <h1>Rasa WebSocket Channel Test Client</h1>
+    <p>This client demonstrates real-time communication with Rasa including streaming generative responses. Try asking it something like "What can you do?" to see the streaming in action.</p>
+    
+    <div class="chat-container">
+        <div class="chat-header">
+            <h3>Chat with Rasa Assistant</h3>
+            <div class="status" id="status">Connecting...</div>
+        </div>
+        
+        <div class="chat-messages" id="messages">
+            <!-- Messages will appear here -->
+        </div>
+        
+        <div class="input-container">
+            <input 
+                type="text" 
+                class="message-input" 
+                id="messageInput" 
+                placeholder="Type your message here..."
+                autocomplete="off"
+            >
+            <button class="send-button" id="sendButton">Send</button>
+        </div>
+    </div>
+    
+    <script>
+        class SimpleWebSocketClient {
+            constructor(serverUrl = 'ws://localhost:5005/webhooks/websocket/ws') {
+                this.serverUrl = serverUrl;
+                this.socket = null;
+                this.currentStreamingMessage = null;
+                this.isConnected = false;
+                
+                this.messagesContainer = document.getElementById('messages');
+                this.messageInput = document.getElementById('messageInput');
+                this.sendButton = document.getElementById('sendButton');
+                this.statusElement = document.getElementById('status');
+                
+                this.setupEventListeners();
+                this.connect();
+            }
+            
+            connect() {
+                console.log('Connecting to WebSocket...');
+                this.updateStatus('Connecting...', false);
+                
+                this.socket = new WebSocket(this.serverUrl);
+                
+                this.socket.onopen = () => {
+                    console.log('Connected to WebSocket');
+                    this.isConnected = true;
+                    this.updateStatus('Connected', true);
+                    this.sendButton.disabled = false;
+                };
+                
+                this.socket.onclose = () => {
+                    console.log('WebSocket disconnected');
+                    this.isConnected = false;
+                    this.updateStatus('Disconnected', false);
+                    this.sendButton.disabled = true;
+                };
+                
+                this.socket.onerror = (error) => {
+                    console.error('WebSocket error:', error);
+                    this.updateStatus('Connection Error', false);
+                };
+                
+                this.socket.onmessage = (event) => {
+                    try {
+                        const message = JSON.parse(event.data);
+                        console.log('Received:', message);
+                        
+                        if (message.type === 'text') {
+                            this.addBotMessage(message.text);
+                        } else if (message.type === 'stream_start') {
+                            this.startStreamingMessage();
+                        } else if (message.type === 'stream_chunk') {
+                            this.addStreamChunk(message.chunk);
+                        } else if (message.type === 'stream_end') {
+                            this.endStreamingMessage();
+                        }
+                    } catch (e) {
+                        console.error('Error parsing message:', e);
+                    }
+                };
+            }
+            
+            setupEventListeners() {
+                this.sendButton.addEventListener('click', () => this.sendMessage());
+                
+                this.messageInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        this.sendMessage();
+                    }
+                });
+            }
+            
+            sendMessage() {
+                const text = this.messageInput.value.trim();
+                if (!text || !this.isConnected) {
+                    return;
+                }
+                
+                // Add user message to chat
+                this.addUserMessage(text);
+                
+                // Send to Rasa via WebSocket
+                this.socket.send(JSON.stringify({
+                    message: text,
+                    sender: 'user_' + Date.now(),
+                    metadata: {}
+                }));
+                
+                // Clear input
+                this.messageInput.value = '';
+            }
+            
+            addUserMessage(text) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message user-message';
+                messageDiv.textContent = text;
+                this.messagesContainer.appendChild(messageDiv);
+                this.scrollToBottom();
+            }
+            
+            addBotMessage(text) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message bot-message';
+                messageDiv.textContent = text;
+                this.messagesContainer.appendChild(messageDiv);
+                this.scrollToBottom();
+            }
+            
+            startStreamingMessage() {
+                this.currentStreamingMessage = document.createElement('div');
+                this.currentStreamingMessage.className = 'message streaming-message';
+                this.currentStreamingMessage.textContent = ''; // Start empty
+                this.messagesContainer.appendChild(this.currentStreamingMessage);
+                this.scrollToBottom();
+            }
+            
+            addStreamChunk(chunk) {
+                if (this.currentStreamingMessage) {
+                    this.currentStreamingMessage.textContent += chunk;
+                    this.scrollToBottom();
+                }
+            }
+            
+            endStreamingMessage() {
+                if (this.currentStreamingMessage) {
+                    // Convert streaming message to regular bot message
+                    this.currentStreamingMessage.className = 'message bot-message';
+                    this.currentStreamingMessage = null;
+                }
+            }
+            
+            addSystemMessage(text) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message bot-message';
+                messageDiv.style.fontStyle = 'italic';
+                messageDiv.style.color = '#666';
+                messageDiv.textContent = text;
+                this.messagesContainer.appendChild(messageDiv);
+                this.scrollToBottom();
+            }
+            
+            updateStatus(status, isConnected) {
+                this.statusElement.textContent = status;
+                this.statusElement.className = `status ${isConnected ? 'connected' : 'disconnected'}`;
+            }
+            
+            scrollToBottom() {
+                this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
+            }
+        }
+        
+        // Initialize the client when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new SimpleWebSocketClient();
+        });
+    </script>
+</body>
+</html>
