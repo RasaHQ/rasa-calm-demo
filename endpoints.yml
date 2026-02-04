@@ -65,3 +65,6 @@ vector_store:
   port: 6334
   content_payload_key: page_content
   metadata_payload_key: metadata
+
+interaction_handling:
+  global_silence_timeout: 30
