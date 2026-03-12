@@ -5,6 +5,7 @@ intents:
 
 actions:
   - add_contact
+  - long_running_action
 
 slots:
   add_contact_confirmation:
@@ -28,8 +29,12 @@ responses:
           title: "Yes"
         - payload: no
           title: "No, cancel"
+#  utter_ask_add_contact_handle:
+#    - text: What' the name of the handle?
   utter_ask_add_contact_handle:
-    - text: What's the handle of the user you want to add?
+#    - text: <p>What's the name of the handle?</p>
+#    - text: What's the name of the handle?
+    - text: Your bill could be higher than usual for several reasons, such as annual fees being charged, use of additional services or subscriptions, roaming charges, or if you recently changed your tariff which can cause overlapping charges. If you want to file an objection, you can check the detailed reasons in your online account or contact A1 customer service for assistance. You can also review your bill and manage objections via the Mein A1 website or app.
   utter_ask_add_contact_name:
     - text: What's the name of the user you want to add?
   utter_add_contact_error:

@@ -9,8 +9,10 @@ flows:
     steps:
       - collect: add_contact_handle
         description: a user handle starting with @
+        ask_before_filling: true
       - collect: add_contact_name
         description: a name of a person
+        ask_before_filling: true
       - collect: add_contact_confirmation
         ask_before_filling: true
         next:
