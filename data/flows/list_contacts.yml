@@ -2,6 +2,9 @@ flows:
   list_contacts:
     name: list your contacts
     description: show your contact list
+    translation:
+      sr-RS:
+        name: izlistaj svoje kontakte
     steps:
       - action: list_contacts
         next:

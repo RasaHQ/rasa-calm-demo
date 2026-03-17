@@ -9,11 +9,21 @@ slots:
 responses:
   utter_ask_confirm_slot_correction:
     - text: "Do you want to update the {{ context.corrected_slots.keys()|join(', ') }}?"
+      translation:
+        sr-RS: "Da li želite da ažurirate {{ context.corrected_slots.keys()|join(', ') }}?"
       buttons:
         - payload: /SetSlots(confirm_slot_correction=true)
           title: "Yes"
+          translation:
+            sr-RS:
+             payload: /SetSlots(confirm_slot_correction=true)
+             title: "Da"
         - payload: /SetSlots(confirm_slot_correction=false)
           title: "No, please keep the previous information"
+          translation:
+            sr-RS:
+              payload: /SetSlots(confirm_slot_correction=false)
+              title: "Ne, molim vas zadržite prethodne informacije"
       metadata:
         rephrase: True
         template: jinja
@@ -21,3 +31,5 @@ responses:
     - text: Ok, I did not correct the previous input.
       metadata:
         rephrase: True
+      translation:
+        sr-RS: "U redu, nisam ispravio prethodni unos."

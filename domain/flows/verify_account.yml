@@ -25,44 +25,92 @@ slots:
 responses:
   utter_ask_verify_account_email:
     - text: What's your email address?
+      translation:
+        sr-RS: "Koja je vaša email adresa?"
   utter_verify_account_success:
     - text: Your account was successfully verified
+      translation:
+        sr-RS: "Vaš nalog je uspešno verifikovan."
   utter_verify_account_cancelled:
     - text: Cancelling account verification...
+      translation:
+        sr-RS: "Otkazivanje verifikacije naloga..."
   utter_ask_based_in_california:
     - text: Are you based in California?
+      translation:
+        sr-RS: "Da li se nalazite u Kaliforniji?"
       buttons:
         - payload: "yes"
           title: Yes
+          translation:
+            sr-RS:
+              payload: "yes"
+              title: "Da"
         - payload: "no"
           title: No
+          translation:
+            sr-RS:
+              payload: "no"
+              title: "Ne"
   utter_ask_verify_account_sufficient_california_income:
     - text: Does your yearly income exceed 100,000 USD?
+      translation:
+        sr-RS: "Da li vaš godišnji prihod prelazi 100,000 USD?"
       buttons:
         - payload: "yes"
           title: Yes
+          translation:
+            sr-RS:
+              payload: "yes"
+              title: "Da"
         - payload: "no"
           title: No
+          translation:
+            sr-RS:
+              payload: "no"
+              title: "Ne"
   utter_ca_income_insufficient:
     - text: Unfortunately, we cannot increase your transfer limits under these circumstances.
+      translation:
+        sr-RS: "Nažalost, ne možemo povećati vaše limite za prenos u ovim okolnostima."
   utter_ask_verify_account_confirmation:
     - condition:
         - type: slot
           name: based_in_california
           value: true
       text: Your email address is {verify_account_email} and you are based in California with a yearly income exceeding 100,000$, correct?
+      translation:
+        sr-RS: "Vaša email adresa je {verify_account_email} i nalazite se u Kaliforniji sa godišnjim prihodom većim od 100,000$, je li tačno?"
       buttons:
         - payload: "yes"
           title: "Yes"
+          translation:
+            sr-RS:
+              payload: "yes"
+              title: "Da"
         - payload: "no"
           title: "No, cancel"
+          translation:
+            sr-RS:
+              payload: "no"
+              title: "Ne, otkaži"
     - condition:
         - type: slot
           name: based_in_california
           value: false
       text: Your email address is {verify_account_email} and you are not based in California, correct?
+      translation:
+        sr-RS: "Vaša email adresa je {verify_account_email} i ne nalazite se u Kaliforniji, je li tačno?"
       buttons:
         - payload: "yes"
           title: "Yes"
+          translation:
+            sr-RS:
+              payload: "yes"
+              title: "Da"
         - payload: "no"
           title: "No, cancel"
+          translation:
+            sr-RS:
+              payload: "no"
+              title: "Ne, otkaži"

@@ -24,17 +24,34 @@ slots:
 responses:
   utter_contact_not_in_list:
     - text: That contact is not in your list.
+      translation:
+        sr-RS: "Taj kontakt nije na vašoj listi."
   utter_remove_contact_error:
     - text: Something went wrong, please try again.
+      translation:
+        sr-RS: "Nešto je pošlo po zlu, molimo pokušajte ponovo."
   utter_remove_contact_success:
-     - text: Removed {remove_contact_handle}({remove_contact_name}) from your contacts.
+    - text: Removed {remove_contact_handle}({remove_contact_name}) from your contacts.
+      translation:
+        sr-RS: "Uklonjen {remove_contact_handle}({remove_contact_name}) iz vaših kontakata."
   utter_ask_remove_contact_confirmation:
     - buttons:
         - payload: "yes"
           title: "Yes"
+          translation:
+            sr-RS:
+              payload: "yes"
+              title: "Da"
         - payload: "false"
           title: "No, cancel the removal"
+          translation:
+            sr-RS:
+              payload: "false"
+              title: "Ne, otkaži uklanjanje"
       text: Should I remove {remove_contact_handle} from your contact list?
+      translation:
+        sr-RS: "Da li da uklonim {remove_contact_handle} sa vaše liste kontakata?"
   utter_remove_contact_cancelled:
     - text: Okay, I am cancelling this removal of a contact.
-
+      translation:
+        sr-RS: "U redu, otkazujem ovo uklanjanje kontakta."

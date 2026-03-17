@@ -2,6 +2,9 @@ flows:
   transaction_search:
     name: search transactions
     description: lists the last transactions of the user account
+    translation:
+      sr-RS:
+        name: pretraži transakcije
     steps:
       - action: transaction_search
       - action: utter_transactions

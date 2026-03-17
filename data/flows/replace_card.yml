@@ -2,6 +2,9 @@ flows:
   replace_card:
     description: the user needs to replace their card
     name: replace_card
+    translation:
+      sr-RS:
+        name: zameni karticu
     nlu_trigger:
       - intent:
           name: replace_card

@@ -3,6 +3,9 @@ flows:
     description: the user needs to replace their eligible card
     if: False
     name: replace eligible card
+    translation:
+      sr-RS:
+        name: zameni vazeću karticu
     steps:
       - collect: replacement_reason
         next:

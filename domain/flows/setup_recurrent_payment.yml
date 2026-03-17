@@ -44,53 +44,110 @@ slots:
 responses:
   utter_ask_recurrent_payment_type:
     - text: What type of payment would you like to set up?
+      translation:
+        sr-RS: "Koju vrstu plaćanja želite da postavite?"
       buttons:
       - title: "Direct Debit"
         payload: "direct debit"
+        translation:
+          sr-RS:
+            title: "Direktno zaduženje"
+            payload: "direct debit"
       - title: "Standing Order"
         payload: "standing order"
+        translation:
+          sr-RS:
+            title: "Stalni nalog"
+            payload: "standing order"
   utter_invalid_recurrent_payment_type:
     - text: Sorry, you requested a payment type that is not valid. Please select one of the available options.
+      translation:
+        sr-RS: "Izvinite, tražili ste vrstu plaćanja koja nije validna. Molimo vas da izaberete jednu od dostupnih opcija."
   utter_ask_recurrent_payment_recipient:
     - text: Who should receive the payment?
+      translation:
+        sr-RS: "Ko treba da primi uplatu?"
   utter_ask_recipient:
     - text: What is the name of the recipient?
+      translation:
+        sr-RS: "Kako se zove primalac?"
   utter_ask_recurrent_payment_amount_of_money:
     - text: How much money should be transferred?
+      translation:
+        sr-RS: "Koliko novca treba da se prenese?"
   utter_ask_recurrent_payment_frequency:
     - text: How often should the payment be made?
+      translation:
+        sr-RS: "Koliko često treba da se vrši uplata?"
       buttons:
       - title: "Monthly"
         payload: "monthly"
+        translation:
+          sr-RS:
+            title: "Mesečno"
+            payload: "monthly"
       - title: "Yearly"
         payload: "yearly"
+        translation:
+          sr-RS:
+            title: "Godišnje"
+            payload: "yearly"
   utter_invalid_recurrent_payment_frequency:
     - text: Sorry, you requested a payment frequency that is not valid. Please select one of the available options.
+      translation:
+        sr-RS: "Izvinite, tražili ste učestalost plaćanja koja nije validna. Molimo vas da izaberete jednu od dostupnih opcija."
   utter_ask_recurrent_payment_start_date:
     - text: When should the payment start?
+      translation:
+        sr-RS: "Kada treba da počne uplata?"
   utter_ask_recurrent_payment_end_date:
     - text: When should the payment end?
+      translation:
+        sr-RS: "Kada treba da se završi uplata?"
   utter_invalid_recurrent_payment_end_date:
     - text: Sorry, you requested an end date that is before the start date.
+      translation:
+        sr-RS: "Izvinite, tražili ste datum završetka koji je pre datuma početka."
   utter_ask_recurrent_payment_confirmation:
     - text: Please confirm that you want to set up this payment.
+      translation:
+        sr-RS: "Molimo vas da potvrdite da želite da postavite ovu uplatu."
       buttons:
       - title: "Yes"
         payload: "True"
+        translation:
+          sr-RS:
+            title: "Da"
+            payload: "True"
       - title: "No"
         payload: "False"
+        translation:
+          sr-RS:
+            title: "Ne"
+            payload: "False"
   utter_payment_complete:
     - text: Your payment has been set up.
+      translation:
+        sr-RS: "Vaša uplata je postavljena."
   utter_payment_failed:
     - text: Sorry, your payment could not be set up.
+      translation:
+        sr-RS: "Izvinite, vaša uplata nije mogla biti postavljena."
   utter_payment_cancelled:
     - text: Your payment has been cancelled.
+      translation:
+        sr-RS: "Vaša uplata je otkazana."
   utter_failed_payment_handover:
     - text: Let me connect you to an agent, to get the details of what happened to your payment.
+      translation:
+        sr-RS: "Dozvolite mi da vas povežem sa agentom kako bismo saznali šta se dogodilo sa vašom uplatom."
   utter_invalid_date:
     - text: Sorry, the date that you provided could not be validated.
+      translation:
+        sr-RS: "Izvinite, datum koji ste naveli nije mogao biti validiran."
 
 actions:
     - action_execute_recurrent_payment
     - validate_recurrent_payment_start_date
     - validate_recurrent_payment_end_date
+

@@ -2,6 +2,9 @@ flows:
   verify_account:
     name: verify account
     description: Verify an account for higher transfer limits
+    translation:
+      sr-RS:
+        name: verifikuj nalog
     nlu_trigger:
       - intent:
           name: verify_account

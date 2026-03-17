@@ -2,6 +2,9 @@ flows:
   whoami:
     name: who am I
     description: user wants to know about themselves
+    translation:
+      sr-RS:
+        name: ko si ti
     steps:
       - action: utter_whoami
       - action: utter_goodbye

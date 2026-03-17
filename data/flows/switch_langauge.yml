@@ -1,0 +1,28 @@
+#flows:
+#  switch_langauge:
+#    description: Switch a language of conversation when user requests it
+#    name: switch langauge
+#    translation:
+#      sr-RS:
+#        name: "Promeni jezik"
+#    nlu_trigger:
+#      - intent:
+#          name: switch_langauge
+#          confidence_threshold: 0.9
+#    steps:
+#      - collect: language
+#        utter: utter_ask_language
+#        ask_before_filling: true
+flows:
+  switch_language:
+    name: switch language
+    description: Switch the language of the conversation only when the user explicitly requests it
+    translation:
+      sr-RS:
+        name: "Promeni jezik"
+    steps:
+      - collect: switch_language
+        description: the language the user wants to switch to
+      - action: action_switch_language
+      - action: utter_language_switched
+        next: END

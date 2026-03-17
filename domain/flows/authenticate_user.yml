@@ -17,12 +17,20 @@ slots:
 responses:
   utter_authentication_failed:
     - text: Authentication failed. Please try again.
+      translation:
+        sr-RS: "Autentifikacija nije uspela. Molimo pokušajte ponovo."
   utter_authentication_successful:
     - text: You have successfully logged in.
+      translation:
+        sr-RS: "Uspešno ste se prijavili."
   utter_ask_user_name:
     - text: Please enter your user name.
+      translation:
+        sr-RS: "Molimo unesite vaše korisničko ime."
   utter_ask_user_password:
     - text: Please enter your password.
+      translation:
+        sr-RS: "Molimo unesite vašu lozinku."
 
 actions:
   - action_authenticate_user

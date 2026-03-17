@@ -1,6 +1,9 @@
 flows:
   check_portfolio:
     description: "Check the user's investment portfolio, including stocks, bonds, and mutual funds."
+    translation:
+      sr-RS:
+        name: proveri portfolio
     steps:
       - call: authenticate_user
       - collect: portfolio_type

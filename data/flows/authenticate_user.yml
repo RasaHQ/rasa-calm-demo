@@ -1,6 +1,9 @@
 flows:
   authenticate_user:
     description: "Authenticate the user if they are not already logged in."
+    translation:
+      sr-RS:
+        name: autentifikuj korisnika
     if: False
     steps:
       - noop: true

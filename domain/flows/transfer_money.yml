@@ -29,22 +29,47 @@ slots:
 responses:
   utter_transfer_money_insufficient_funds:
     - text: You don't have so much money on your account!
+      translation:
+        sr-RS: "Nemate toliko novca na svom računu!"
   utter_transfer_failed:
     - text: something went wrong transferring the money.
+      translation:
+        sr-RS: "Nešto je pošlo po zlu prilikom prenosa novca."
   utter_out_of_scope:
     - text: Sorry, I'm not sure how to respond to that. Type "help" for assistance.
+      translation:
+        sr-RS: "Izvinite, nisam siguran kako da odgovorim na to. Ukucajte \"help\" za pomoć."
   utter_ask_transfer_money_amount_of_money:
     - text: How much money do you want to transfer?
+      translation:
+        sr-RS: "Koliko novca želite da prenesete?"
   utter_ask_transfer_money_recipient:
     - text: Who do you want to transfer money to?
+      translation:
+        sr-RS: "Kome želite da prenesete novac?"
   utter_transfer_complete:
     - text: Successfully transferred {transfer_money_amount_of_money} to {transfer_money_recipient}.
+      translation:
+        sr-RS: "Uspešno preneto {transfer_money_amount_of_money} na {transfer_money_recipient}."
   utter_transfer_cancelled:
     - text: Transfer cancelled.
+      translation:
+        sr-RS: "Prenos otkazan."
   utter_ask_transfer_money_final_confirmation:
     - buttons:
         - payload: yes
           title: "Yes"
+          translation:
+            sr-RS:
+              payload: yes
+              title: "Da"
         - payload: no
           title: "No, cancel the transaction"
+          translation:
+            sr-RS:
+              payload: no
+              title: "Ne, otkaži transakciju"
       text: Would you like to transfer {transfer_money_amount_of_money} to {transfer_money_recipient}?
+      translation:
+        sr-RS: "Da li želite da prenesete {transfer_money_amount_of_money} na {transfer_money_recipient}?"
+

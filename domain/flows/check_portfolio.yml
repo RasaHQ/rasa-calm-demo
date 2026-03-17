@@ -22,19 +22,39 @@ slots:
 responses:
   utter_portfolio_not_found:
     - text: I couldn't find your portfolio. Please ensure you have a valid account.
+      translation:
+        sr-RS: "Nisam mogao da pronađem vaš portfelj. Molimo vas da se uverite da imate validan nalog."
   utter_ask_portfolio_type:
     - text: Please select your portfolio type.
       buttons:
         - payload: stocks
           title: stocks
+          translation:
+            sr-RS:
+              payload: stocks
+              title: akcije
         - payload: bonds
           title: bonds
+          translation:
+            sr-RS:
+              payload: bonds
+              title: obveznice
         - payload: mutual_funds
           title: mutual funds
+          translation:
+            sr-RS:
+              payload: mutual_funds
+              title: deljeni fond
+      translation:
+        sr-RS: "Molimo vas da izaberete tip vašeg portfelja."
   utter_portfolio_options_found:
     - text: "Your {portfolio_type} portfolio: {portfolio_options}"
+      translation:
+        sr-RS: "Vaš {portfolio_type} portfelj: {portfolio_options}"
   utter_portfolio_options_not_found:
     - text: You don't have any {portfolio_type} investments.
+      translation:
+        sr-RS: "Nemate nikakva {portfolio_type} ulaganja."
 
 actions:
   - action_check_portfolio_exists

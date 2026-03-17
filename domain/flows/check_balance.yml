@@ -12,3 +12,5 @@ actions:
 responses:
   utter_current_balance:
     - text: You still have {current_balance} in your account.
+      translation:
+        sr-RS: "Na vašem računu imate još {current_balance}."

@@ -1,6 +1,10 @@
 flows:
   transfer_money:
     description: send money to friends and family
+    translation:
+      sr-RS:
+        name: "pošalji novac"
+#        description: "Posalji novac prijateljima i porodici"
     name: transfer money
     always_include_in_prompt: True
     steps:

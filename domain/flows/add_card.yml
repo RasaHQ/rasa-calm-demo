@@ -6,3 +6,5 @@ intents:
 responses:
   utter_card_added:
     - text: Okay, added another card.
+      translation:
+        sr-RS: "U redu, dodata je još jedna kartica."

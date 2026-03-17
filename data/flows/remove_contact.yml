@@ -2,6 +2,9 @@ flows:
   remove_contact:
     name: remove a contact
     description: remove a contact from your contact list
+    translation:
+      sr-RS:
+        name: obriši kontakt
     nlu_trigger:
       - intent:
           name: remove_contact

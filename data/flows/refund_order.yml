@@ -1,6 +1,9 @@
 flows:
   request_refund:
     description: Help user request a refund for their order
+    translation:
+      sr-RS:
+        name: zatrazi povrat novca
     steps:
       - collect: order_id 
         description: A valid order ID is 4-6 digits

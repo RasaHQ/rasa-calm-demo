@@ -2,6 +2,9 @@ flows:
   setup_recurrent_payment:
     name: setup recurrent payment
     description: set up a recurring payment, which can either be a direct debit or a standing order
+    translation:
+      sr-RS:
+        name: zaustavi periodično plaćanje
     steps:
       - collect: recurrent_payment_type
         description: the type of payment

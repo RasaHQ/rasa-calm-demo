@@ -2,5 +2,8 @@ flows:
   welcome:
     name: say hello
     description: say hello to the user
+    translation:
+      sr-RS:
+        name: pozdravi se
     steps:
       - action: utter_greet

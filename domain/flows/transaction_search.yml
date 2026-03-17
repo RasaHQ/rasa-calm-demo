@@ -13,3 +13,5 @@ slots:
 responses:
   utter_transactions:
     - text: "Your current transactions are:\n {transactions_list}"
+      translation:
+        sr-RS: "Vaše trenutne transakcije su:\n {transactions_list}"

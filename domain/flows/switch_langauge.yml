@@ -1,0 +1,41 @@
+intents:
+  - switch_langauge
+
+actions:
+  - action_switch_language
+
+slots:
+  switch_language:
+    type: categorical
+    values:
+      - "en-US"
+      - "sr-RS"
+    mappings:
+      - type: from_llm
+
+responses:
+  utter_ask_language:
+    - buttons:
+        - payload: /SetSlots(language="en")
+          title: "English"
+          translation:
+            sr-RS:
+              payload: /SetSlots(language="en")
+              title: "Engleski"
+        - payload: /SetSlots(language="sr-RS")
+          title: "Serbian"
+          translation:
+            sr-RS:
+              payload: /SetSlots(language="sr-RS")
+              title: "Srpski"
+      text: Choose language
+      translation:
+        sr-RS: "Izberite jezik"
+  utter_ask_switch_language:
+    - text: "Which language would you like to switch to?"
+      translation:
+        sr-RS: "Koji jezik zelite?"
+  utter_language_switched:
+    - text: "I have switched to english."
+      translation:
+        sr-RS: "Prebacio sam na srpski"

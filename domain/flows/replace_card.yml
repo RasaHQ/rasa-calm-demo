@@ -23,24 +23,48 @@ slots:
 responses:
   utter_ask_confirm_correct_card:
     - text: I've found the card with number ****3452 on file. Is this the card you want to replace?
+      translation:
+        sr-RS: "Pronašao sam karticu sa brojem ****3452 u evidenciji. Da li je to kartica koju želite da zamenite?"
   utter_relevant_card_not_linked:
     - text: Seems like I don't have the card you're asking about on file.
+      translation:
+        sr-RS: "Izgleda da nemam karticu o kojoj pitate u evidenciji."
   utter_ask_replacement_reason:
     - text: Why do you need to replace your card?
+      translation:
+        sr-RS: "Zašto želite da zamenite svoju karticu?"
       buttons:
       - title: "Lost"
         payload: "lost"
+        translation:
+          sr-RS:
+            title: "Izgubljena"
       - title: "Damaged"
         payload: "damaged"
+        translation:
+          sr-RS:
+            title: "Oštećena"
   utter_ask_was_card_used_fraudulently:
     - text: Is it possible that someone else has managed to use your card?
+      translation:
+        sr-RS: "Da li je moguće da je neko drugi koristio vašu karticu?"
   utter_will_cancel_and_send_new:
     - text: Alright, I'll cancel your card and send you a new one.
+      translation:
+        sr-RS: "U redu, otkažem vašu karticu i poslaću vam novu."
   utter_new_card_has_been_ordered:
     - text: Your new card should arrive in 3 to 5 business days in a white envelope.
+      translation:
+        sr-RS: "Vaša nova kartica bi trebalo da stigne za 3 do 5 radnih dana u beloj koverti."
   utter_report_fraud:
     - text: I am sorry to hear that. Unfortunately, I can't directly handle fraudulently used cards. Please go to FinX.com/disputes, to report the fraud on your account.
+      translation:
+        sr-RS: "Žao mi je što to čujem. Nažalost, ne mogu direktno da rešim slučajeve zloupotrebe kartica. Molimo vas da posetite FinX.com/disputes kako biste prijavili zloupotrebu na vašem računu."
   utter_unknown_replacement_reason_handover:
     - text: Let me connect you to an agent, to get the details of what happened to your card.
+      translation:
+        sr-RS: "Dozvolite mi da vas povežem sa agentom kako bismo dobili detalje o tome šta se dogodilo sa vašom karticom."
   utter_failed_handoff:
     - text: I am sorry, I was not able to connect you to an agent. I have created a support ticket for you. Someone will reach out to you shortly.
+      translation:
+        sr-RS: "Žao mi je, nisam uspeo da vas povežem sa agentom. Kreirao sam tiket za podršku za vas. Neko će vas uskoro kontaktirati."

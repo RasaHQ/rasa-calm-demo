@@ -1,6 +1,9 @@
 flows:
   register_to_vote_in_california:
-    description: To enable a california resident to register to vote.
+    description: To enable a California resident to register to vote.
+    translation:
+      sr-RS:
+        name: registruj se za glasanje u Kaliforniji
     if: slots.based_in_california
     steps:
       - action: utter_register_to_vote_in_california

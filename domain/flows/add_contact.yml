@@ -23,20 +23,42 @@ slots:
 responses:
   utter_ask_add_contact_confirmation:
     - text: Do you want to add {add_contact_name}({add_contact_handle}) to your contacts?
+      translation:
+        sr-RS: "Da li želite da dodate {add_contact_name}({add_contact_handle}) u vaše kontakte?"
       buttons:
         - payload: yes
           title: "Yes"
+          translation:
+            sr-RS:
+              payload: yes
+              title: "Da"
         - payload: no
           title: "No, cancel"
+          translation:
+            sr-RS:
+              payload: no
+              title: "Ne, otkaži"
   utter_ask_add_contact_handle:
     - text: What's the handle of the user you want to add?
+      translation:
+        sr-RS: "Koji je nalog korisnika kojeg želite da dodate?"
   utter_ask_add_contact_name:
     - text: What's the name of the user you want to add?
+      translation:
+        sr-RS: "Kako se zove korisnik kojeg želite da dodate?"
   utter_add_contact_error:
     - text: Something went wrong, please try again.
+      translation:
+        sr-RS: "Nešto je pošlo po zlu, molimo pokušajte ponovo."
   utter_add_contact_cancelled:
     - text: Okay, I am cancelling this adding of a contact.
+      translation:
+        sr-RS: "U redu, otkazujem dodavanje kontakta."
   utter_contact_already_exists:
     - text: There's already a contact with that handle in your list.
+      translation:
+        sr-RS: "Već postoji kontakt sa tim nalogom na vašoj listi."
   utter_contact_added:
     - text: Contact added successfully.
+      translation:
+        sr-RS: "Kontakt je uspešno dodat."

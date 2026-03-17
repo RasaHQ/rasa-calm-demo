@@ -3,9 +3,6 @@ version: "3.1"
 intents:
   - ask_help
 
-actions:
-  - action_session_start
-
 slots:
   return_value:
     type: any
@@ -19,52 +16,100 @@ slots:
 responses:
   utter_goodbye:
     - text: Bye
+      translation:
+        sr-RS: Ćao
   utter_noworries:
     - text: You're welcome :)
+      translation:
+        sr-RS: Nema na čemu!
   utter_ask_rephrase:
     - text: I didn't quite understand that. Can you rephrase?
+      translation:
+        sr-RS: Ne razumem. Aj ponovi?
   utter_default:
     - text: I didn't quite understand that. Could you rephrase?
+      translation:
+        sr-RS: Ne razumem. Aj ponovi?
   utter_greet:
     - text: Hi! I'm your Financial Assistant! How can I help you?
+      translation:
+        sr-RS: Ćao, ja sam tvoj asistent. Kako mogu da ti pomognem?
   utter_whoami:
     - text: Your phone number is {user_phone} and you have called {bot_phone}
+      translation:
+        sr-RS: Vaš broj telefona je user?phone i pozvali ste bot?phone
   utter_bot:
     - text: I'm a virtual assistant made with Rasa.
+      translation:
+        sr-RS: Ja sam virtuelni asistent napravljen pomoću Rasa frejmvorka.
   utter_help:
     - text: "I can help you with your financial accounts. \nYou can ask me things like: \n- What's my account balance? \n- Pay off my credit card \n- What did I spend at Target last month? \n- I need to transfer money"
+      translation:
+        sr-RS: "Mogu da ti pomognem sa finansijskim računima. \nMožeš da me pitaš: \n- Koliko imam para na računu? \n Otplati moju kreditnu karticu \n- Na sta trošim pare u Maksiju? \n- Hoću da prebacim pare"
   utter_take_your_time:
     - text: sure, take your time
+      translation:
+        sr-RS: "Samo polako i oslobodjeno"
   utter_glad_you_are_happy:
     - text: I am glad you are happy about that!
+      translation:
+        sr-RS: Drago mi je zbog tebe!
   utter_good_one:
     - text: Haha, that's a good one! 😄
+      translation:
+        sr-RS: Haha, dobra fora!
   utter_curious:
     - text: Now I'm curious
+      translation:
+        sr-RS: E sad me zanima
   utter_intriguing:
     - text: That's quite intriguing! Can you elaborate?
+      translation:
+        sr-RS: Zanimljivo! Možeš malo da objasniš?
   utter_understand_private:
     - text: I understand if you'd rather not share that. Let's move on.
+      translation:
+        sr-RS: Razumem da ti se ne deli. Hajde da nastavimo.
   utter_cannot_answer:
     - text: Sorry, I cannot answer that.
+      translation:
+        sr-RS: Žao mi je ali ne mogu da odgovorim na to.
   utter_struggle_understand:
     - text: I struggle to understand, can you be more specific or rephrase that?
+      translation:
+        sr-RS: Ne mogu da razumem, možes malo specifičnije?
   utter_empathetic_listen:
     - text: It sounds like you've had quite an experience. I'm here to listen.
+      translation:
+        sr-RS: Zvuči kao da je bila dobra zabava. Slušam.
   utter_creative:
     - text: oh, that's really creative!
+      translation:
+        sr-RS: To je baš kreativno!
   utter_good_idea:
     - text: that sounds like a good idea!
+      translation:
+        sr-RS: Zvuči kao dobra ideja!
   utter_surprise:
     - text: Whoa, that's quite unexpected!
+      translation:
+        sr-RS: Vau, to je bilo neočekivano!
   utter_sorry_to_hear:
     - text: I'm sorry to hear that.
+      translation:
+        sr-RS: Žao mi je.
   utter_cheer_on:
     - text: You've got this – one step at a time, you're making progress.
+      translation:
+        sr-RS: Sve je u redu, korak po korak. Napredujemo.
   utter_anticipation:
     - text: I can't wait to see how this unfolds.
+      translation:
+        sr-RS: Jedva čekam da vidim kako će se ovo odvijati.
   utter_conversation_highlight:
     - text: Our conversation was a highlight of my virtual day!
+      translation:
+        sr-RS: Naš razgovor mi je ulepšao dan!
 
 session_config:
   session_expiration_time: 60

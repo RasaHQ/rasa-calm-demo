@@ -12,5 +12,9 @@ slots:
 responses:
   utter_no_contacts:
     - text: You have no contacts in your list.
+      translation:
+        sr-RS: "Nemate nijedan kontakt na vašoj listi."
   utter_list_contacts:
     - text: "You currently have the following contacts:\n {contacts_list}"
+      translation:
+        sr-RS: "Trenutno imate sledeće kontakte:\n {contacts_list}"
