@@ -16,7 +16,7 @@
 # https://rasa.com/docs/rasa/custom-actions
 
 action_endpoint:
-  url: "http://localhost:5055/webhook"
+    actions_module: "actions"
 
 # comment out this whole section to speed up the bot and disable rephrasing
 # all together
@@ -55,43 +55,28 @@ action_endpoint:
 #  password: password
 #  queue: queue
 #
-nlg:
-  type: rephrase
-  llm:
-    model_group: openai-direct-gpt-4o
+# nlg:
+#   type: rephrase
 
-# Run OTEL collector (via `otel-docker-compose.yml`), and uncomment this section, to send traces to it.
-# tracing:
-#  type: otlp
-#  endpoint: localhost:4317
-#  host: localhost
-#  service_name: rasa
-
-# Run OTEL collector (via `otel-docker-compose.yml`), and uncomment this section, to send metrics to it.
-# metrics:
-#  type: otlp
-#  endpoint: localhost:4317
-#  host: localhost
-#  service_name: rasa
-
-vector_store:
-  type: qdrant
-  collection: squad
-  host: 0.0.0.0
-  port: 6334
-  content_payload_key: page_content
-  metadata_payload_key: metadata
+#vector_store:
+#  type: qdrant
+#  collection: squad
+#  host: 0.0.0.0
+#  port: 6334
+#  content_payload_key: page_content
+#  metadata_payload_key: metadata
+#
+#interaction_handling:
+#  global_silence_timeout: 30
 
 model_groups:
-  - id: openai-direct-gpt-4o
-    models:
+    - id: openai-gpt-4o
+      models:
       - provider: openai
         model: gpt-4o-2024-11-20
-  - id: openai-direct-gpt-41-mini
-    models:
-      - provider: openai
-        model: gpt-4.1-mini-2025-04-14
-  - id: openai-embeddings
-    models:
-      - provider: openai
-        model: text-embedding-3-large
+        request_timeout: 7
+        max_tokens: 256
+
+
+nlg:
+  type: rephrase

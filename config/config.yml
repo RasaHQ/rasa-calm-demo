@@ -13,29 +13,34 @@ pipeline:
   analyzer: char_wb
   min_ngram: 1
   max_ngram: 4
-- name: LogisticRegressionClassifier
-  max_iter: 100
-  solver: lbfgs
-  tol: 0.0001
-  random_state: 42
-  ranking_length: 10
-- name: CRFEntityExtractor
-- name: DucklingEntityExtractor
-  url: "http://localhost:8000"
-  dimensions: [ "time", "number" ]
-  timezone: "Europe/Berlin"
-  timeout: 3
+#- name: LogisticRegressionClassifier
+#  max_iter: 100
+#  solver: lbfgs
+#  tol: 0.0001
+#  random_state: 42
+#  ranking_length: 10
+#- name: CRFEntityExtractor
+#- name: DucklingEntityExtractor
+#  url: "http://localhost:8000"
+#  dimensions: [ "time", "number" ]
+#  timezone: "Europe/Berlin"
+#  timeout: 3
 - name: NLUCommandAdapter
-- name: CompactLLMCommandGenerator
+- name: SingleStepLLMCommandGenerator
   minimize_num_calls: False
   llm:
-    model_group: openai-direct-gpt-4o
+    model_group: openai-gpt-4o
+#  llm:
+#    provider: rasa
+#    model: rasa/cmd_gen_codellama_13b_calm_demo
+#    api_base: "https://tutorial-llm.rasa.ai"
+#  flow_retrieval:
+#    active: false
 
 policies:
 - name: RulePolicy
-- name: TEDPolicy
-  constrain_similarities: true
 - name: FlowPolicy
-- name: EnterpriseSearchPolicy
+#- name: EnterpriseSearchPolicy
+#- name: IntentlessPolicy
 
 assistant_id: 20240418-073244-narrow-archive
