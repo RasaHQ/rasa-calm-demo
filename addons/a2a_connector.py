@@ -142,7 +142,7 @@ def get_agent_card(public_host: str, port: int) -> AgentCard:
 
     agent_card = AgentCard(
         name="Rasa test A2A Agent",
-        description="A Rasa agent bridged to A2A",
+        description="A Rasa conversational AI agent. Handles contact management tasks: listing contacts, showing contact details, and related queries.",
         url=f"http://{public_host}:{port!s}/",
         version="1.0.0",
         default_input_modes=["text"],
