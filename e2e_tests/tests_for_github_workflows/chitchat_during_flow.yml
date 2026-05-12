@@ -12,9 +12,11 @@ test_cases:
           - flow_started: pattern_chitchat
           - bot_uttered:
               utter_name: utter_free_chitchat_response
+          - flow_started: pattern_continue_interrupted
+          - flow_started: pattern_collect_information
           - bot_uttered:
-              utter_name: utter_ask_transfer_money_amount_of_money
-      - user: lovely, transfer 50$
+              utter_name: utter_ask_continue_interrupted_flow_confirmation
+      - user: yes, transfer 50$
         assertions:
           - bot_uttered:
               utter_name: utter_ask_transfer_money_final_confirmation
