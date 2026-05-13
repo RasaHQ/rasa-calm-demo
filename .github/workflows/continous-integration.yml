@@ -64,6 +64,7 @@ jobs:
           RASA_PRO_BETA_INTENTLESS: true
           RASA_PRO_BETA_PREDICATES_IN_RESPONSE_CONDITIONS: true
           RASA_DUCKLING_HTTP_URL: ${{secrets.DUCKLING_URL}}
+          LLM_API_HEALTH_CHECK: true
         run: |
           make train
 
@@ -147,5 +148,6 @@ jobs:
         RASA_DUCKLING_HTTP_URL: ${{secrets.DUCKLING_URL}}
         RASA_PRO_BETA_INTENTLESS: true
         RASA_PRO_BETA_PREDICATES_IN_RESPONSE_CONDITIONS: true
+        LLM_API_HEALTH_CHECK: true
       run: |
         make test
