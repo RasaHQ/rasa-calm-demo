@@ -8,6 +8,6 @@ test_cases:
       - user: Are transfers on free with this service?
         assertions:
           - flow_started: pattern_search
-      - user: How about international ones?
+      - user: Not yet. Are international ones also free?
         assertions:
           - flow_started: pattern_search
