@@ -15,6 +15,9 @@ test_cases:
       - user: Why do you need to know this?
         assertions:
           - flow_started: pattern_search
+          - flow_started: pattern_continue_interrupted
+      - user: yes
+        assertions:
           - bot_uttered:
               utter_name: utter_ask_based_in_california
       - user: "No"
