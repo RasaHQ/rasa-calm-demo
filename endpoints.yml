@@ -23,8 +23,8 @@ action_endpoint:
 # IMPORTANT: this endpoints yaml is ignored by the deployed bot. it ships its
 #   own endpoints yaml which is configured in the helm values here:
 #   https://github.com/RasaHQ/financial-demo-flows-llms/blob/helm-values/helm/values.yml
-# nlg:
-#  type: rephrase
+nlg:
+  type: rephrase
 #  rephrase_all: True
 
 # Tracker store which is used to store the conversations.
